@@ -1,0 +1,51 @@
+# Optimizer Policy
+# Shared token budget, ratchet, and anti-goal configuration.
+# Read by repo-optimizer orchestrator at pre-flight.
+
+# Token budgets per component
+budgets:
+  auditor_per_run: 30000       # 6 subagents × ~5K (deep mode); 0 (standard mode)
+  advisor_per_run: 50000       # 5 phases, multi-session for large repos
+  optimizer_per_run: 45000     # 4 subagents + critic + patches
+  full_cycle: 155000           # audit + advise + optimize + re-audit
+  agent_prompt_max_lines: 100  # L66 — keep agent prompts concise
+
+# Ratchet policy (from portfolio_advisor)
+# After consecutive passes, tighten budgets to prevent waste
+ratchet:
+  consecutive_passes: 2        # Passes before ratchet triggers
+  decrease_pct: 0.02           # Budget decrease per ratchet step
+  max_decrease_pct: 0.05       # Ceiling on cumulative decrease
+
+# Scope limits
+limits:
+  max_files_scanned: 200       # Per agent run
+  max_files_per_subagent: 30   # Per domain subagent
+  max_recommendations: 10      # Advisor output cap
+  max_patches: 5               # Optimizer output cap
+  max_files_per_patch: 6       # Complexity guard
+  max_net_lines_per_patch: 160 # Diff size guard
+  max_findings_per_subagent: 30 # Prevent finding sprawl
+  timeout_seconds: 900         # Per agent invocation
+
+# Anti-goals (optimizer critic enforces)
+anti_goals:
+  - metric_chasing: "Improves number without improving capability"
+  - delta_hack: "Stub docs, renames without function change"
+  - premature_deletion: "Deleting without replacement"
+  - false_precision: "Inventing measurements that don't exist"
+  - dependency_changes: "Adding/removing package dependencies"
+
+# Safety constraints
+safety:
+  report_only_default: true    # --patch flag required for modifications
+  git_status_check: true       # git status --porcelain after every phase
+  no_verify_banned: true       # --no-verify is NEVER permitted (L102)
+  default_to_block: true       # All gates exit non-zero on failure (L105)
+  immutable_history: true      # Finalized bundles never retro-edited
+
+# Allowed dirty patterns (per agent)
+allowed_dirty:
+  auditor: "audit_output/"
+  advisor: "advisor_output/"
+  optimizer: "optimizer_output/"

@@ -1,0 +1,66 @@
+{
+  "dimensions": {
+    "D1_governance": {
+      "score": 12,
+      "max": 20,
+      "tier": "T1",
+      "components": {
+        "agents_md": { "score": 4, "max": 4, "detail": "AGENTS.md present with agent registry" },
+        "makefile": { "score": 3, "max": 4, "detail": "Makefile present, missing review target" },
+        "hooks": { "score": 2, "max": 4, "detail": "Pre-commit only, no pre-push" },
+        "readme": { "score": 3, "max": 4, "detail": "README present but minimal" },
+        "gitignore": { "score": 0, "max": 4, "detail": "No .gitignore" }
+      }
+    },
+    "D2_surface_health": {
+      "score": 8,
+      "max": 20,
+      "tier": "T2",
+      "components": {
+        "agent_files": { "score": 3, "max": 5, "detail": "2 agent files found" },
+        "skill_files": { "score": 2, "max": 5, "detail": "1 skill registered" },
+        "scripts": { "score": 2, "max": 5, "detail": "3 scripts in scripts/" },
+        "docs": { "score": 1, "max": 5, "detail": "Minimal documentation" }
+      }
+    },
+    "D3_skill_maturity": {
+      "score": 6,
+      "max": 20,
+      "tier": "T2",
+      "components": {}
+    },
+    "D4_measurement": {
+      "score": 4,
+      "max": 20,
+      "tier": "T3",
+      "components": {}
+    },
+    "D5_self_improvement": {
+      "score": 2,
+      "max": 20,
+      "tier": "T3",
+      "components": {}
+    }
+  },
+  "composite": 32,
+  "max_composite": 100,
+  "tier1_checks": {
+    "total": 8,
+    "passed": 6,
+    "failed": 2,
+    "failures": ["T1-GITIGNORE: No .gitignore found", "T1-HOOKS: Pre-push hook missing"]
+  },
+  "tier2_warnings": {
+    "total": 5,
+    "triggered": 2,
+    "warnings": ["T2-STALE: README not updated in 90+ days", "T2-ORPHAN: 2 unregistered scripts"]
+  },
+  "meta": {
+    "phase": "Phase 2",
+    "maturity_score": 32,
+    "agents": 2,
+    "skills": 1,
+    "timestamp": "2026-02-15T12:00:00Z",
+    "auditor_version": "1.0.0"
+  }
+}
