@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-04-15T15:50:00Z",
+  "schema_version": "1.0.0",
+  "measurement_status": "pass",
+  "source_pack": {
+    "path": "/tmp/token-efficiency/source-pack.json",
+    "fixture_name": "token-efficiency-measurement-pilot"
+  },
+  "instrumentation_gaps": [],
+  "packets": [
+    {
+      "hotspot_id": "prompt_family:native_code_review",
+      "scope": {
+        "dimension": "prompt_family",
+        "key": "native_code_review"
+      },
+      "current_state": {
+        "classification": "optimize",
+        "user_facing_outcome": "agentic_root_cause_analysis_required"
+      },
+      "linkage_state": {
+        "gate_pass": false,
+        "failed_reasons": [
+          "labeled_sample_size"
+        ]
+      },
+      "retained_evidence": {
+        "artifact_refs": [
+          "allocation-hotspots.json"
+        ],
+        "session_refs": [
+          {
+            "session_id": "abc",
+            "join_confidence": "direct"
+          }
+        ]
+      },
+      "classification_confidence": "high",
+      "classification_confidence_score": 0.81,
+      "actionability_status": "exploratory_only",
+      "actionability_summary": "Grounded brief is ready for exploratory analysis.",
+      "instrumentation_gap": false,
+      "instrumentation_gap_reasons": [],
+      "measurement_status": "replay_ready"
+    }
+  ]
+}

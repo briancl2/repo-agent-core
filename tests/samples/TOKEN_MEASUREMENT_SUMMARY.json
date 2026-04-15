@@ -1,0 +1,36 @@
+{
+  "generated_at": "2026-04-15T15:50:00Z",
+  "schema_version": "1.0.0",
+  "artifact": "TOKEN_MEASUREMENT_SUMMARY",
+  "measurement_mode": "token_efficiency_pilot",
+  "source_pack": {
+    "path": "/tmp/token-efficiency/source-pack.json",
+    "fixture_name": "token-efficiency-measurement-pilot"
+  },
+  "measurement_status": "pass",
+  "decision_readiness": "partially_calibrated",
+  "proxy_rows": 12,
+  "proxy_share_pct": 3.96,
+  "unlinked_rows": 103,
+  "unlinked_share_pct": 33.99,
+  "benchmark_reliability": "pass",
+  "hotspots": [
+    {
+      "hotspot_id": "prompt_family:native_code_review",
+      "impact_rank": 1,
+      "classification_confidence": "high",
+      "classification_confidence_score": 0.81,
+      "actionability_status": "exploratory_only",
+      "actionability_summary": "Grounded brief is ready for exploratory analysis.",
+      "blocked_hotspot": true,
+      "provisional_candidate": false,
+      "deterministic_evidence_ready": true,
+      "labeled_session_count": 3
+    }
+  ],
+  "instrumentation_gaps": [],
+  "exact_attribution_policy": "fail_closed",
+  "non_claims": [
+    "This additive pilot does not reinterpret SCORECARD.json as token-efficiency evidence."
+  ]
+}

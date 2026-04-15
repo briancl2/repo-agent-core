@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TOKEN_MEASUREMENT_SUMMARY",
+  "description": "Additive token-efficiency replay summary emitted by repo-auditor measurement mode.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "measurement_mode",
+    "source_pack",
+    "measurement_status",
+    "decision_readiness",
+    "proxy_rows",
+    "proxy_share_pct",
+    "unlinked_rows",
+    "unlinked_share_pct",
+    "hotspots",
+    "instrumentation_gaps",
+    "exact_attribution_policy"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "TOKEN_MEASUREMENT_SUMMARY"
+    },
+    "measurement_mode": {
+      "type": "string"
+    },
+    "source_pack": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "fixture_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "measurement_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "measurement_blocked"
+      ]
+    },
+    "decision_readiness": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "proxy_rows": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "proxy_share_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "unlinked_rows": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "unlinked_share_pct": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "benchmark_reliability": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hotspots": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "hotspot_id",
+          "impact_rank",
+          "classification_confidence",
+          "actionability_status"
+        ],
+        "properties": {
+          "hotspot_id": {
+            "type": "string"
+          },
+          "impact_rank": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "classification_confidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "classification_confidence_score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "actionability_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actionability_summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "blocked_hotspot": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "provisional_candidate": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "deterministic_evidence_ready": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "labeled_session_count": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "instrumentation_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "detail"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "hotspot_id": {
+            "type": "string"
+          },
+          "path": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "exact_attribution_policy": {
+      "type": "string"
+    },
+    "non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

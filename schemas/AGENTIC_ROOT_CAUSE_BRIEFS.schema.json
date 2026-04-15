@@ -1,0 +1,114 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AGENTIC_ROOT_CAUSE_BRIEFS",
+  "description": "Additive bounded advisory handoff briefs emitted by repo-auditor measurement mode.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "consumer_response_schema",
+    "measurement_status",
+    "briefs"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "brief_record_schema": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consumer_response_schema": {
+      "type": "string"
+    },
+    "measurement_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "measurement_blocked"
+      ]
+    },
+    "instrumentation_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "detail"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "briefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "hotspot_id",
+          "brief_type",
+          "user_facing_outcome",
+          "consumer_response_contract"
+        ],
+        "properties": {
+          "hotspot_id": {
+            "type": "string"
+          },
+          "brief_type": {
+            "type": "string"
+          },
+          "user_facing_outcome": {
+            "type": "string"
+          },
+          "consumer_response_contract": {
+            "type": "object",
+            "required": [
+              "allowed_verdicts",
+              "required_fields",
+              "forbidden_fields"
+            ],
+            "properties": {
+              "allowed_verdicts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "required_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forbidden_fields": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": true
+          },
+          "measurement_context": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

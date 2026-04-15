@@ -1,0 +1,39 @@
+{
+  "generated_at": "2026-04-15T15:50:00Z",
+  "schema_version": "1.0.0",
+  "brief_record_schema": "agentic_root_cause_brief_v1",
+  "consumer_response_schema": "bounded_advisory_decision_v1",
+  "measurement_status": "pass",
+  "instrumentation_gaps": [],
+  "briefs": [
+    {
+      "hotspot_id": "prompt_family:native_code_review",
+      "brief_type": "root_cause_hypothesis_check",
+      "user_facing_outcome": "agentic_root_cause_analysis_required",
+      "consumer_response_contract": {
+        "allowed_verdicts": [
+          "protect",
+          "re-bucket",
+          "candidate_remediation",
+          "insufficient_evidence"
+        ],
+        "required_fields": [
+          "verdict",
+          "rationale"
+        ],
+        "forbidden_fields": [
+          "tier",
+          "evidence_refs",
+          "class",
+          "surfaces",
+          "fix_summary"
+        ]
+      },
+      "measurement_context": {
+        "impact_rank": 1,
+        "classification_confidence": "high",
+        "actionability_status": "exploratory_only"
+      }
+    }
+  ]
+}

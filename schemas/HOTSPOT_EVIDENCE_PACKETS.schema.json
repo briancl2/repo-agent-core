@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HOTSPOT_EVIDENCE_PACKETS",
+  "description": "Additive token-efficiency hotspot evidence packets emitted by repo-auditor measurement mode.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "measurement_status",
+    "source_pack",
+    "instrumentation_gaps",
+    "packets"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "measurement_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "measurement_blocked"
+      ]
+    },
+    "source_pack": {
+      "type": "object",
+      "required": [
+        "path"
+      ],
+      "properties": {
+        "path": {
+          "type": "string"
+        },
+        "fixture_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "instrumentation_gaps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "code",
+          "detail"
+        ],
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "detail": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "packets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "hotspot_id",
+          "scope",
+          "current_state",
+          "linkage_state",
+          "retained_evidence",
+          "classification_confidence",
+          "actionability_status",
+          "instrumentation_gap",
+          "instrumentation_gap_reasons",
+          "measurement_status"
+        ],
+        "properties": {
+          "hotspot_id": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "object"
+          },
+          "current_state": {
+            "type": "object"
+          },
+          "linkage_state": {
+            "type": "object"
+          },
+          "retained_evidence": {
+            "type": "object"
+          },
+          "classification_confidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "classification_confidence_score": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "actionability_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "actionability_summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "instrumentation_gap": {
+            "type": "boolean"
+          },
+          "instrumentation_gap_reasons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "measurement_status": {
+            "type": "string",
+            "enum": [
+              "replay_ready",
+              "measurement_blocked"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": false
+}

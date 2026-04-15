@@ -5,7 +5,9 @@
 #   artifact-path: Path to the JSON artifact to validate
 #   schema-name:   Schema to validate against (auto-detected if omitted)
 #
-# Supported artifacts: SCORECARD.json, OPPORTUNITIES.json, OPTIMIZATION_SCORECARD.json
+# Supported artifacts: SCORECARD.json, OPPORTUNITIES.json,
+# OPTIMIZATION_SCORECARD.json, TOKEN_MEASUREMENT_SUMMARY.json,
+# HOTSPOT_EVIDENCE_PACKETS.json, AGENTIC_ROOT_CAUSE_BRIEFS.json
 # Requires: python3 with jsonschema (pip install jsonschema)
 
 set -euo pipefail
@@ -37,10 +39,13 @@ if [ -z "$SCHEMA_NAME" ]; then
     SCORECARD) SCHEMA_NAME="SCORECARD" ;;
     OPPORTUNITIES) SCHEMA_NAME="OPPORTUNITIES" ;;
     OPTIMIZATION_SCORECARD) SCHEMA_NAME="OPTIMIZATION_SCORECARD" ;;
+    TOKEN_MEASUREMENT_SUMMARY) SCHEMA_NAME="TOKEN_MEASUREMENT_SUMMARY" ;;
+    HOTSPOT_EVIDENCE_PACKETS) SCHEMA_NAME="HOTSPOT_EVIDENCE_PACKETS" ;;
+    AGENTIC_ROOT_CAUSE_BRIEFS) SCHEMA_NAME="AGENTIC_ROOT_CAUSE_BRIEFS" ;;
     FINDINGS|findings) SCHEMA_NAME="FINDINGS" ;;
     *)
       echo "ERROR: Cannot auto-detect schema for '$BASENAME'. Specify schema name."
-      echo "Available: SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD, FINDINGS"
+      echo "Available: SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD, FINDINGS, TOKEN_MEASUREMENT_SUMMARY, HOTSPOT_EVIDENCE_PACKETS, AGENTIC_ROOT_CAUSE_BRIEFS"
       exit 1
       ;;
   esac
