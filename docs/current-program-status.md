@@ -20,26 +20,28 @@ prove publication readiness or downstream readiness.
 
 ## Upstream Dependency
 
-The completion ladder and the active blocker ordering are owned in BMA. This
-repo follows the shared publication path staged there rather than carrying its
-own roadmap or handoff system.
+The completion ladder and the active blocker ordering are owned in BMA. Only
+the bounded pre-Gate-1 manifest is actually admitted now. The blocker order
+behind that manifest stays provisional until BMA records the blocker-order
+decision artifact, so this repo follows the shared publication path staged
+there rather than carrying its own roadmap or handoff system.
 
 ## Current Blocker
 
-The shared publication path is still unresolved. On current evidence:
+The shared publication path is still unresolved. The next admitted move is the
+bounded pre-Gate-1 manifest, which will decide whether critique
+representativeness stays first or whether the line reroutes to transfer-contract
+completeness or later downstream admission work.
 
-- critique representativeness is not yet cleared
-- minimal shared transfer-contract completeness is not yet cleared
-- no remote publication has landed
-
-So this repo stays local-only and fail-closed.
+Until that manifest lands, this repo stays local-only and fail-closed.
 
 ## Next Admitted Move
 
 No new shared-core feature expansion is admitted from this pointer batch.
 
 The next admitted move for `repo-agent-core` is whichever shared-surface step
-the BMA publication ladder selects after the bounded pre-Gate-1 manifest:
+the BMA publication ladder selects after the bounded pre-Gate-1 manifest and
+its blocker-order decision artifact:
 
 - if critique remains the lead blocker, this repo stays steady while Gate 1
   runs elsewhere
