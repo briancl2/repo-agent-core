@@ -2,7 +2,7 @@
 
 > Date: 2026-04-19
 > Repo role: shared-core pointer for the repo-star completion program
-> Canonical cross-repo authority (local sibling-repo path): [repo-star-high-coverage-completion-program-2026-04-19.md](../../build-meta-analysis/research/reports/repo-star-high-coverage-completion-program-2026-04-19.md) and [HANDOFF-SESSION-v469.md](../../build-meta-analysis/docs/handoffs/HANDOFF-SESSION-v469.md)
+> Canonical cross-repo authority (local sibling-repo path): [repo-star-pre-gate1-publication-manifest-2026-04-19.md](../../build-meta-analysis/research/reports/repo-star-pre-gate1-publication-manifest-2026-04-19.md)
 > Local-path note: these links assume the shared `~/repos` workspace layout.
 
 ## Current Local State
@@ -21,34 +21,28 @@ prove publication readiness or downstream readiness.
 ## Upstream Dependency
 
 The completion ladder and the active blocker ordering are owned in BMA. The
-bounded pre-Gate-1 manifest is the current candidate continuation, not an
-admitted follow-on yet. The blocker order behind that manifest stays
-provisional until BMA records the blocker-order decision artifact, so this repo
-follows the shared publication path staged there rather than carrying its own
-roadmap or handoff system.
+pre-Gate-1 manifest has now landed and kept Gate 1 critique
+representativeness as the next admitted shared gate on current evidence,
+pending fresh recalibration. This repo still follows the shared publication
+path staged there rather than carrying its own roadmap or handoff system.
 
 ## Current Blocker
 
-The shared publication path is still unresolved. The current candidate
-continuation is the bounded pre-Gate-1 manifest. If authorized, it will decide
-whether critique representativeness stays first or whether the line reroutes to
-transfer-contract completeness or later downstream admission work.
+The shared publication path is still unresolved, but the first seam is no
+longer provisional at the manifest level. The current blocker is the not-yet-run
+Gate 1 critique-representativeness and freshness batch on the widened
+current-code case set.
 
-Until that manifest lands, this repo stays local-only and fail-closed.
+Until Gate 1 lands, this repo stays local-only and fail-closed.
 
 ## Next Candidate Move
 
-No new shared-core feature expansion is admitted from this pointer batch.
+No new shared-core feature expansion is admitted from this pointer update.
 
-The next candidate move for `repo-agent-core` is the bounded pre-Gate-1
-manifest, pending explicit operator authorization. If authorized and landed,
-the later shared-surface move is whichever step the BMA publication ladder
-selects after the manifest and its blocker-order decision artifact:
-
-- if critique remains the lead blocker, this repo stays steady while Gate 1
-  runs elsewhere
-- if the manifest reroutes to contract completeness, this repo becomes the
-  likely owner surface for that Gate 2 batch
+The next candidate move for `repo-agent-core` is to hold steady while the
+shared Gate 1 critique-representativeness batch is either authorized and run or
+explicitly declined. If Gate 1 later passes, this repo becomes the likely owner
+surface for Gate 2 transfer-contract completeness.
 
 ## Validation Expectations
 
