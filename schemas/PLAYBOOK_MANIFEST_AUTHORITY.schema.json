@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PLAYBOOK_MANIFEST_AUTHORITY",
+  "description": "Shared authority declaration for playbook-to-manifest precedence and scope.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "playbook",
+    "manifest",
+    "authority_status",
+    "authority_basis",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "PLAYBOOK_MANIFEST_AUTHORITY"
+    },
+    "playbook": {
+      "type": "object",
+      "required": [
+        "name",
+        "path"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "manifest": {
+      "type": "object",
+      "required": [
+        "name",
+        "path"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "authority_status": {
+      "type": "string",
+      "enum": [
+        "authoritative",
+        "advisory",
+        "blocked"
+      ]
+    },
+    "authority_basis": {
+      "type": "string"
+    },
+    "scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "consumer_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

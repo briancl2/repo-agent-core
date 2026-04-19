@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-04-19T15:00:00Z",
+  "schema_version": "1.0.0",
+  "artifact": "PLAYBOOK_MANIFEST_AUTHORITY",
+  "playbook": {
+    "name": "shared foundation playbook",
+    "path": "templates/transfer-readiness.md",
+    "version": "1.0.0"
+  },
+  "manifest": {
+    "name": "shared foundation manifest",
+    "path": "templates/playbook-manifest-authority.md",
+    "version": "1.0.0"
+  },
+  "authority_status": "authoritative",
+  "authority_basis": "The playbook defines the operating shape while the manifest records the authoritative shared surface.",
+  "scope": "repo-agent-core only",
+  "consumer_surfaces": [
+    "repo-auditor",
+    "repo-upgrade-advisor",
+    "repo-optimizer"
+  ],
+  "bounded_non_claims": [
+    "This sample does not override any consumer repo's own local instructions."
+  ]
+}

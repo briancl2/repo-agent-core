@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-04-19T15:00:00Z",
+  "schema_version": "1.0.0",
+  "artifact": "ADAPTER_AUDIT_SUMMARY",
+  "adapter": {
+    "name": "shared foundation adapter",
+    "version": "1.0.0",
+    "source_surface": "TRANSFER_ORACLE_RECEIPT",
+    "target_surface": "CRITIQUE_RESULT"
+  },
+  "audit_status": "pass",
+  "coverage": {
+    "checked": [
+      "schema auto-detection",
+      "sample validation",
+      "README surface mention"
+    ],
+    "gaps": [],
+    "notes": "The adapter audit stays descriptive and avoids claiming broader rollout."
+  },
+  "findings": [
+    {
+      "severity": "Info",
+      "message": "The shared foundation surfaces validate cleanly."
+    }
+  ],
+  "bounded_non_claims": [
+    "This summary does not assert downstream repo migrations or consumer runtime support."
+  ]
+}

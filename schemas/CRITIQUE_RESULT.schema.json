@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CRITIQUE_RESULT",
+  "description": "Shared critique output for bounded review results and repair guidance.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "subject",
+    "verdict",
+    "findings",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "CRITIQUE_RESULT"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "review_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "partial"
+      ]
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "severity",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "Critical",
+              "High",
+              "Medium",
+              "Low",
+              "Info"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "recommendation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "repair_guidance": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

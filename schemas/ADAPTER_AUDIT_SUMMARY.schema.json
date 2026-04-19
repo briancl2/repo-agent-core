@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ADAPTER_AUDIT_SUMMARY",
+  "description": "Shared audit summary for adapter coverage, gaps, and bounded next steps.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "adapter",
+    "audit_status",
+    "coverage",
+    "findings",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "ADAPTER_AUDIT_SUMMARY"
+    },
+    "adapter": {
+      "type": "object",
+      "required": [
+        "name",
+        "source_surface",
+        "target_surface"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_surface": {
+          "type": "string"
+        },
+        "target_surface": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "audit_status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "blocked"
+      ]
+    },
+    "coverage": {
+      "type": "object",
+      "properties": {
+        "checked": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "severity",
+          "message"
+        ],
+        "properties": {
+          "severity": {
+            "type": "string",
+            "enum": [
+              "Critical",
+              "High",
+              "Medium",
+              "Low",
+              "Info"
+            ]
+          },
+          "message": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "recommendation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

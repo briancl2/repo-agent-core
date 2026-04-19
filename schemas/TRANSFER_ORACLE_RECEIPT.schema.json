@@ -1,0 +1,121 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TRANSFER_ORACLE_RECEIPT",
+  "description": "Shared transfer-readiness receipt for bounded owner-surface admissions.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "receipt_id",
+    "transfer_state",
+    "verdict",
+    "source_surface",
+    "target_surface",
+    "receipt_summary",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "TRANSFER_ORACLE_RECEIPT"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "transfer_state": {
+      "type": "string",
+      "enum": [
+        "ready",
+        "partial",
+        "blocked"
+      ]
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail"
+      ]
+    },
+    "source_surface": {
+      "type": "object",
+      "required": [
+        "name",
+        "artifact"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "target_surface": {
+      "type": "object",
+      "required": [
+        "name",
+        "artifact"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "artifact": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "blocker_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "receipt_summary": {
+      "type": "string"
+    },
+    "next_constraint": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supporting_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

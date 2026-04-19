@@ -22,10 +22,18 @@ schemas/                    # Machine-readable inter-agent contracts
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
+  TRANSFER_ORACLE_RECEIPT.schema.json # Shared transfer-readiness receipt
+  CRITIQUE_RESULT.schema.json # Shared critique result
+  PLAYBOOK_MANIFEST_AUTHORITY.schema.json # Shared playbook/manifest authority
+  ADAPTER_AUDIT_SUMMARY.schema.json # Shared adapter audit summary
 templates/                  # Shared templates
   v3.1-markdown-handoff.md  # Subagent handoff template
   optimizer_policy.yaml     # Token budget ratchet policy
-  findings.schema.md        # Findings table format
+  findings-table.md         # Findings table format (renamed from findings.schema.md in the historical BMA planning corpus)
+  transfer-readiness.md     # Transfer oracle receipt template
+  playbook-manifest-authority.md # Authority declaration template
+  adapter-audit-summary.md  # Adapter audit summary template
+  bounded-non-claims.md     # Bounded non-claims template
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
