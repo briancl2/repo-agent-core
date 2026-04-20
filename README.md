@@ -22,8 +22,8 @@ schemas/                    # Machine-readable inter-agent contracts
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
-  TRANSFER_ORACLE_RECEIPT.schema.json # Shared transfer-readiness receipt
-  CRITIQUE_RESULT.schema.json # Shared critique result
+  TRANSFER_ORACLE_RECEIPT.schema.json # Shared transfer-readiness receipt + calibration metadata
+  CRITIQUE_RESULT.schema.json # Shared critique result + calibration metadata
   PLAYBOOK_MANIFEST_AUTHORITY.schema.json # Shared playbook/manifest authority
   ADAPTER_AUDIT_SUMMARY.schema.json # Shared adapter audit summary
 templates/                  # Shared templates

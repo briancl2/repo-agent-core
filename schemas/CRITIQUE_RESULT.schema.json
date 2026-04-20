@@ -33,6 +33,51 @@
         "null"
       ]
     },
+    "capability_state": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "helper_only",
+        "bounded_calibrated",
+        "reusable",
+        null
+      ]
+    },
+    "provider_scope": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "calibration_basis": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence_provenance": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "downstream_admission": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "blocked",
+        "bounded",
+        "ready",
+        null
+      ]
+    },
     "verdict": {
       "type": "string",
       "enum": [

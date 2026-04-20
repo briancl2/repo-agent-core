@@ -16,6 +16,13 @@
     "version": "1.0.0"
   },
   "blocker_class": null,
+  "capability_state": "reusable",
+  "provider_scope": "repo-optimizer:transfer_oracle_consumer",
+  "calibration_basis": "bounded_transfer_v1",
+  "evidence_provenance": [
+    "README.md#structure"
+  ],
+  "downstream_admission": "ready",
   "receipt_summary": "The transfer-ready surface is represented natively without inventing additional owner semantics.",
   "next_constraint": "Keep downstream claims bounded to what the receipt explicitly records.",
   "supporting_evidence": [

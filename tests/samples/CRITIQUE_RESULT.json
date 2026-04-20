@@ -4,6 +4,13 @@
   "artifact": "CRITIQUE_RESULT",
   "subject": "shared foundation validation bundle",
   "review_scope": "schemas, samples, validators, templates, README",
+  "capability_state": "bounded_calibrated",
+  "provider_scope": "repo-upgrade-advisor:bounded_advisory_decision",
+  "calibration_basis": "external_critique_mixed_gate_v1",
+  "evidence_provenance": [
+    "docs/current-program-status.md#shared-batch-truth"
+  ],
+  "downstream_admission": "bounded",
   "verdict": "pass",
   "findings": [
     {
