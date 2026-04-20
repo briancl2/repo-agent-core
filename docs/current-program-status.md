@@ -2,8 +2,8 @@
 
 > Date: 2026-04-20
 > Repo role: shared-core pointer for the repo-star completion program
-> Canonical cross-repo authority (local sibling-repo path): [repo-star-gate1-critique-representativeness-and-freshness-2026-04-19.md](../../build-meta-analysis/research/reports/repo-star-gate1-critique-representativeness-and-freshness-2026-04-19.md)
-> Local-path note: these links assume the shared `~/repos` workspace layout, and the linked report keeps its original 2026-04-19 batch-open date.
+> Canonical cross-repo authority (local sibling-repo path): [repo-star-gate2-success-recovery-and-sync-2026-04-20.md](../../build-meta-analysis/research/reports/repo-star-gate2-success-recovery-and-sync-2026-04-20.md)
+> Local-path note: these links assume the shared `~/repos` workspace layout, and the linked report keeps its original 2026-04-20 recovery date.
 
 ## Current Local State
 
@@ -20,29 +20,32 @@ prove publication readiness or downstream readiness.
 
 ## Upstream Dependency
 
-The shared publication path is still owned in BMA. The Gate 1 execution
-attempt has now run on the widened current publication-facing surface. It
-refreshed the current fingerprint and current-code runtime evidence, but it did
-not establish a decision-usable shared advance. The shared publication path is
-therefore stopped fail-closed on current evidence rather than promoted to Gate
-2.
+The shared publication path is still owned in BMA. The 2026-04-20 recovery
+program directly resolved the old Gate 1 / Gate 2 seam, admitted Gate 2 on the
+current fingerprint, and ran Gate 2 to completion. The resulting shared state
+is now:
+
+- Gate 2 passed
+- the shared publication path remains local-only and pre-publication
+- the next exact shared batch is `Gate 3: publish-or-stop`
 
 ## Current Blocker
 
-The blocker is not local shared-core health. The shared publication path has no
-admitted next advance because the Gate 1 attempt did not prove omitted-family
-independence or a live-valid retained Gate 1 criteria set on the current
-fingerprint.
+The blocker is not local shared-core health. The remaining unresolved shared
+question is not contract completeness anymore; it is the later Gate 3
+publication decision.
 
-This repo stays local-only and fail-closed.
+This repo still stays local-only and pre-publication.
 
 ## Next Candidate Move
 
-No new shared-core feature expansion is admitted from this pointer update.
+No new shared-core feature expansion is required by the Gate 2 result. The
+existing shared contract family was sufficient for the minimum shared transfer
+contract on the current fingerprint.
 
-The next candidate move for `repo-agent-core` is to hold steady under the BMA
-fail-closed stop contract. No Gate 2 work, publication claim, or
-downstream-readiness claim is admitted from this repo alone.
+The next candidate move for `repo-agent-core` is to hold steady while BMA runs
+`Gate 3: publish-or-stop`. This repo alone still does not admit publication or
+downstream readiness.
 
 ## Validation Expectations
 
