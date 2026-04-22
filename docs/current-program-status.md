@@ -1,55 +1,67 @@
 # Current Program Status
 
-> Date: 2026-04-20
-> Repo role: shared-core contract host for the external-critique calibration tranche
-> Canonical cross-repo authority (local sibling-repo path): [exact-shape-hunt-wheel-spinning-and-external-critique-calibration-2026-04-20.md](../../build-meta-analysis/research/reports/exact-shape-hunt-wheel-spinning-and-external-critique-calibration-2026-04-20.md)
+> Date: 2026-04-22
+> Repo role: shared-core contract host for the shared external-critique path
+> Canonical landed cross-repo authority (local sibling-repo path): [shared-external-critique-owner-surface-critique-refresh-2026-04-20.md](../../build-meta-analysis/research/reports/shared-external-critique-owner-surface-critique-refresh-2026-04-20.md)
 > Local-path note: these links assume the shared `~/repos` workspace layout.
 
 ## Current Local State
 
-`repo-agent-core` is the shared primitive layer for the current fleet tranche.
-Local `main` now documents the shared calibration fields carried on the shared
-receipt-plus-critique pair:
+`repo-agent-core` remains the shared primitive layer for the bounded shared
+external-critique path. Local `main` still documents the shared calibration
+fields carried on the receipt-plus-critique pair:
 
 - [`TRANSFER_ORACLE_RECEIPT`](../schemas/TRANSFER_ORACLE_RECEIPT.schema.json)
 - [`CRITIQUE_RESULT`](../schemas/CRITIQUE_RESULT.schema.json)
 
-The other shared schemas remain unchanged in this batch. This tranche only
-needed the calibration fields on the transfer and critique surfaces that cross
-between advisor, optimizer, and the newsletter proving ground.
-
-In plain language: the shared fleet now has one documented way to say whether a
-capability is helper-only, bounded-calibrated, or reusable, and whether
-downstream admission is blocked, bounded, or ready.
+The other shared schemas remain unchanged. No new shared-core mutation is
+active here in the current truth-restore pass.
 
 ## Shared Batch Truth
 
-The live decomposition batch is no longer the publication-authority search
-lane. The current shared result is:
+The truthful current shared state is anchored by the shared refresh report
+[`shared-external-critique-owner-surface-critique-refresh-2026-04-20.md`](../../build-meta-analysis/research/reports/shared-external-critique-owner-surface-critique-refresh-2026-04-20.md)
+and the active BMA truth-restore batch at
+[`work/20260422T173345Z/WORK.md`](../../build-meta-analysis/work/20260422T173345Z/WORK.md).
 
-- the speculative exact-shape hunt is memorialized and guarded on BMA
-- external-critique calibration metadata now lands through advisor and
-  optimizer surfaces
-- the newsletter repo now has one bounded downstream proving-ground test for
-  the mixed helper-only plus bounded non-helper gate
-- helper-only critique evidence still stays blocked
-- bounded non-helper critique evidence stays bounded and non-remediating
+What those artifacts say right now is:
+
+- one separate owner-surface critique receipt already exists for the shared
+  external-critique path on the retained 2026-04-20 heads
+- helper-only critique evidence remains blocked
+- bounded non-helper critique evidence remains bounded and non-remediating
+- broader reuse beyond the newsletter proving ground remains unadmitted
+- the current build-meta-analysis (BMA) follow-on is ecosystem truth
+  restoration of canonical
+  handoff/report/proof-pack/roadmap surfaces plus sibling status pointers, not
+  another same-family contract or calibration tranche
+
+In plain language: the shared contract shape is already landed. The current
+truth-restore work is about making the active repo-family readouts agree with
+that already-landed bounded state. Helper-only cases still stay blocked,
+bounded non-helper cases are still calibrated but non-remediating, and broader
+reuse remains unadmitted until later independent or adversarial calibration
+exists.
 
 ## Current Blocker
 
 There is no shared-core blocker on the contract shape itself. The remaining
-limit is semantic, not structural: the current calibration path is still
-fail-closed and does not admit remediation or publication from shared-core
+limit is semantic, not structural: the current shared path is still fail-closed
+and does not admit remediation, broader reuse, or publication from shared-core
 state alone.
 
 ## Next Candidate Move
 
-Hold this shared contract steady unless a later batch needs to widen the same
-mixed calibration gate to another downstream consumer. Do not reopen the
-publication-authority search from this repo alone.
+Hold the shared contract steady while build-meta-analysis (BMA) completes the
+ecosystem truth-restore pass. Reopen this repo only for a later owner-surface
+batch on fresher heads or for a new broader-reuse question with fresh
+evidence. Do not reopen another same-family publication or calibration search
+from this repo alone.
 
 ## Validation Expectations
 
 - `make review` before commit
 - `make test` for schema or template changes
-- no publication-ready or remediation-ready claims from this repo alone
+- no broader-reuse, publication-ready, or remediation-ready claim from this repo alone
+- no claim that sibling handoff/report/proof-pack/roadmap pointer updates equal
+  repo-local authority or new owner-surface delivery
