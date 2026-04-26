@@ -1,0 +1,54 @@
+{
+  "generated_at": "2026-04-26T21:31:00Z",
+  "schema_version": "1.0.0",
+  "artifact": "COMMAND_OUTPUT_ROI_RECEIPT",
+  "receipt_id": "command-output-roi-fail-001",
+  "source_benchmark": {
+    "tactic_id": "command_output_roi",
+    "promotion_scope": "fleet-portable",
+    "evidence_ref": "BMA retained report: research/reports/provider-neutral-tier3-live-paired-benchmark-2026-04-26.md"
+  },
+  "owner_surface": {
+    "repo": "repo-optimizer",
+    "runtime_surface": "scripts/score-operation.sh",
+    "mode": "report-only"
+  },
+  "governed_artifacts": [
+    {
+      "path": "OPTIMIZATION_PLAN.md",
+      "artifact_class": "runtime_plan",
+      "scanned": true
+    }
+  ],
+  "allowed_raw_receipt_artifacts": [
+    "optimizer-stdout.txt",
+    "*.jsonl",
+    "RUNTIME_RECEIPTS.json"
+  ],
+  "verdict": "fail",
+  "raw_transcript_detected": true,
+  "violations": [
+    {
+      "artifact": "OPTIMIZATION_PLAN.md",
+      "location": "fenced block",
+      "reason": "governed artifact copied raw command transcript lines instead of summarizing command evidence",
+      "raw_line_count": 42,
+      "longest_raw_run": 18
+    }
+  ],
+  "policy": {
+    "summary_required": true,
+    "raw_logs_allowed_in": [
+      "receipt artifacts",
+      "stdout/stderr logs",
+      "raw jsonl transcripts"
+    ],
+    "direct_metric_claim": false,
+    "cache_claim": false
+  },
+  "bounded_non_claims": [
+    "A failing receipt is a runtime artifact-quality rejection, not a benchmark disposition change.",
+    "This receipt does not prove cache savings.",
+    "This receipt does not authorize target-repo mutation."
+  ]
+}

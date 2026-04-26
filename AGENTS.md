@@ -7,7 +7,7 @@
 ## Purpose
 
 `repo-agent-core` is the foundation layer. It contains:
-- **Schemas** — Machine-readable formats (SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD)
+- **Schemas** — Machine-readable formats (SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD, COMMAND_OUTPUT_ROI_RECEIPT)
 - **Templates** — Handoff templates, policy YAML, findings table format
 - **Hooks** — Pre-commit and pre-push review enforcement scripts
 - **Skills** — Shared skills (reviewing-code-locally)

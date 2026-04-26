@@ -55,6 +55,71 @@ if [ -d "$SAMPLES_DIR" ]; then
 fi
 
 echo ""
+echo "=== Command Output ROI Receipt Semantics ==="
+if python3 - "$SAMPLES_DIR/COMMAND_OUTPUT_ROI_RECEIPT.json" "$SAMPLES_DIR/COMMAND_OUTPUT_ROI_RECEIPT_REJECTED.json" <<'PY'
+import copy
+import json
+import sys
+
+passing = json.load(open(sys.argv[1], encoding="utf-8"))
+failing = json.load(open(sys.argv[2], encoding="utf-8"))
+
+
+def receipt_semantics_are_valid(payload):
+    if payload["verdict"] == "fail":
+        return payload["raw_transcript_detected"] is True and len(payload["violations"]) >= 1
+    if payload["verdict"] == "pass":
+        return payload["raw_transcript_detected"] is False and payload["violations"] == []
+    return False
+
+
+assert passing["verdict"] == "pass"
+assert passing["raw_transcript_detected"] is False
+assert passing["violations"] == []
+assert failing["verdict"] == "fail"
+assert failing["raw_transcript_detected"] is True
+assert len(failing["violations"]) >= 1
+assert receipt_semantics_are_valid(passing)
+assert receipt_semantics_are_valid(failing)
+
+bad = copy.deepcopy(failing)
+bad["violations"] = []
+assert not receipt_semantics_are_valid(bad)
+PY
+then
+  echo "  ✓ COMMAND_OUTPUT_ROI_RECEIPT pass/fail samples preserve verdict semantics"
+  PASS=$((PASS + 1))
+else
+  echo "  ✗ COMMAND_OUTPUT_ROI_RECEIPT pass/fail samples violate verdict semantics"
+  FAIL=$((FAIL + 1))
+fi
+
+BAD_RECEIPT="$(mktemp "${TMPDIR:-/tmp}/command-output-roi-bad.XXXXXX.json")"
+python3 - "$SAMPLES_DIR/COMMAND_OUTPUT_ROI_RECEIPT_REJECTED.json" "$BAD_RECEIPT" <<'PY'
+import copy
+import json
+import sys
+
+payload = json.load(open(sys.argv[1], encoding="utf-8"))
+bad = copy.deepcopy(payload)
+bad["violations"] = []
+with open(sys.argv[2], "w", encoding="utf-8") as handle:
+    json.dump(bad, handle)
+PY
+set +e
+bash "$CORE_DIR/scripts/validate-artifacts.sh" "$BAD_RECEIPT" COMMAND_OUTPUT_ROI_RECEIPT >/dev/null 2>&1
+BAD_RC=$?
+set -e
+rm -f "$BAD_RECEIPT"
+if [ "$BAD_RC" -ne 0 ]; then
+  echo "  ✓ COMMAND_OUTPUT_ROI_RECEIPT validator rejects fail-without-violations"
+  PASS=$((PASS + 1))
+else
+  echo "  ✗ COMMAND_OUTPUT_ROI_RECEIPT validator accepted fail-without-violations"
+  FAIL=$((FAIL + 1))
+fi
+
+echo ""
 echo "=== Results ==="
 echo "  PASS: $PASS  FAIL: $FAIL"
 
