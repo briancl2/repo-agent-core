@@ -19,6 +19,7 @@ schemas/                    # Machine-readable inter-agent contracts
   SCORECARD.schema.json     # Audit health scorecard (5 dimensions, 0-100)
   OPPORTUNITIES.schema.json # Advisor recommendation format
   OPTIMIZATION_SCORECARD.schema.json # Optimization result format
+  COMMAND_OUTPUT_ROI_RECEIPT.schema.json # Command-output summarization receipt
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff

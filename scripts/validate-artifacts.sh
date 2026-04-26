@@ -6,7 +6,8 @@
 #   schema-name:   Schema to validate against (auto-detected if omitted)
 #
 # Supported artifacts: SCORECARD.json, OPPORTUNITIES.json,
-# OPTIMIZATION_SCORECARD.json, TOKEN_MEASUREMENT_SUMMARY.json,
+# OPTIMIZATION_SCORECARD.json, COMMAND_OUTPUT_ROI_RECEIPT.json,
+# TOKEN_MEASUREMENT_SUMMARY.json,
 # HOTSPOT_EVIDENCE_PACKETS.json, AGENTIC_ROOT_CAUSE_BRIEFS.json,
 # TRANSFER_ORACLE_RECEIPT.json, CRITIQUE_RESULT.json,
 # PLAYBOOK_MANIFEST_AUTHORITY.json, ADAPTER_AUDIT_SUMMARY.json
@@ -41,6 +42,7 @@ if [ -z "$SCHEMA_NAME" ]; then
     SCORECARD) SCHEMA_NAME="SCORECARD" ;;
     OPPORTUNITIES) SCHEMA_NAME="OPPORTUNITIES" ;;
     OPTIMIZATION_SCORECARD) SCHEMA_NAME="OPTIMIZATION_SCORECARD" ;;
+    COMMAND_OUTPUT_ROI_RECEIPT|COMMAND_OUTPUT_ROI_RECEIPT_*) SCHEMA_NAME="COMMAND_OUTPUT_ROI_RECEIPT" ;;
     TOKEN_MEASUREMENT_SUMMARY) SCHEMA_NAME="TOKEN_MEASUREMENT_SUMMARY" ;;
     HOTSPOT_EVIDENCE_PACKETS) SCHEMA_NAME="HOTSPOT_EVIDENCE_PACKETS" ;;
     AGENTIC_ROOT_CAUSE_BRIEFS) SCHEMA_NAME="AGENTIC_ROOT_CAUSE_BRIEFS" ;;
@@ -51,7 +53,7 @@ if [ -z "$SCHEMA_NAME" ]; then
     FINDINGS|findings) SCHEMA_NAME="FINDINGS" ;;
     *)
       echo "ERROR: Cannot auto-detect schema for '$BASENAME'. Specify schema name."
-      echo "Available: SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD, FINDINGS, TOKEN_MEASUREMENT_SUMMARY, HOTSPOT_EVIDENCE_PACKETS, AGENTIC_ROOT_CAUSE_BRIEFS, TRANSFER_ORACLE_RECEIPT, CRITIQUE_RESULT, PLAYBOOK_MANIFEST_AUTHORITY, ADAPTER_AUDIT_SUMMARY"
+      echo "Available: SCORECARD, OPPORTUNITIES, OPTIMIZATION_SCORECARD, COMMAND_OUTPUT_ROI_RECEIPT, FINDINGS, TOKEN_MEASUREMENT_SUMMARY, HOTSPOT_EVIDENCE_PACKETS, AGENTIC_ROOT_CAUSE_BRIEFS, TRANSFER_ORACLE_RECEIPT, CRITIQUE_RESULT, PLAYBOOK_MANIFEST_AUTHORITY, ADAPTER_AUDIT_SUMMARY"
       exit 1
       ;;
   esac
@@ -116,6 +118,19 @@ missing = [k for k in required if k not in data]
 if missing:
     print(f'FAIL: Missing required keys: {missing}')
     sys.exit(1)
+if '$SCHEMA_NAME' == 'COMMAND_OUTPUT_ROI_RECEIPT':
+    verdict = data.get('verdict')
+    raw_detected = data.get('raw_transcript_detected')
+    violations = data.get('violations')
+    if verdict == 'pass' and (raw_detected is not False or violations != []):
+        print('FAIL: pass receipt must have raw_transcript_detected=false and no violations')
+        sys.exit(1)
+    if verdict == 'fail' and (raw_detected is not True or not isinstance(violations, list) or len(violations) < 1):
+        print('FAIL: fail receipt must have raw_transcript_detected=true and at least one violation')
+        sys.exit(1)
+    if verdict == 'not-measured' and (raw_detected is not False or not isinstance(violations, list) or len(violations) < 1):
+        print('FAIL: not-measured receipt must have raw_transcript_detected=false and at least one measurement violation')
+        sys.exit(1)
 print(f'PASS: $ARTIFACT_PATH has all required keys for $SCHEMA_NAME (install jsonschema for full validation)')
 "
 fi

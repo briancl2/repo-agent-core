@@ -1,0 +1,270 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "COMMAND_OUTPUT_ROI_RECEIPT",
+  "description": "Shared receipt for command-output ROI enforcement across repo-agent fleet runtime artifacts.",
+  "type": "object",
+  "required": [
+    "generated_at",
+    "schema_version",
+    "artifact",
+    "receipt_id",
+    "owner_surface",
+    "governed_artifacts",
+    "allowed_raw_receipt_artifacts",
+    "verdict",
+    "raw_transcript_detected",
+    "violations",
+    "policy",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "schema_version": {
+      "type": "string"
+    },
+    "artifact": {
+      "type": "string",
+      "const": "COMMAND_OUTPUT_ROI_RECEIPT"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "source_benchmark": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "tactic_id": {
+          "type": "string",
+          "const": "command_output_roi"
+        },
+        "promotion_scope": {
+          "type": "string",
+          "enum": [
+            "fleet-portable",
+            "provider-scoped",
+            "none"
+          ]
+        },
+        "evidence_ref": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "owner_surface": {
+      "type": "object",
+      "required": [
+        "repo",
+        "runtime_surface"
+      ],
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "runtime_surface": {
+          "type": "string"
+        },
+        "mode": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "governed_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "artifact_class",
+          "scanned"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "artifact_class": {
+            "type": "string",
+            "enum": [
+              "human_report",
+              "machine_summary",
+              "runtime_plan",
+              "critic_output",
+              "synthesis_output",
+              "other_governed"
+            ]
+          },
+          "scanned": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "allowed_raw_receipt_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "not-measured"
+      ]
+    },
+    "raw_transcript_detected": {
+      "type": "boolean"
+    },
+    "violations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact",
+          "reason"
+        ],
+        "properties": {
+          "artifact": {
+            "type": "string"
+          },
+          "location": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "raw_line_count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "longest_raw_run": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "policy": {
+      "type": "object",
+      "required": [
+        "summary_required",
+        "raw_logs_allowed_in"
+      ],
+      "properties": {
+        "summary_required": {
+          "type": "boolean",
+          "const": true
+        },
+        "raw_logs_allowed_in": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "direct_metric_claim": {
+          "type": "boolean"
+        },
+        "cache_claim": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "fail"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "raw_transcript_detected": {
+            "const": true
+          },
+          "violations": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "not-measured"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "raw_transcript_detected": {
+            "const": false
+          },
+          "violations": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "pass"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "raw_transcript_detected": {
+            "const": false
+          },
+          "violations": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": true
+}
