@@ -15,7 +15,12 @@ review:
 	@bash .agents/skills/reviewing-code-locally/scripts/local_review.sh
 
 test:
-	@bash tests/test-schemas.sh
+	@echo "=== Running core test suite ==="
+	@for t in tests/test-*.sh; do \
+		echo "--- $$t ---"; bash "$$t" || exit 1; \
+	done
+	@echo ""
+	@echo "=== All tests passed ==="
 
 validate-schemas:
 	@echo "=== Validating JSON Schemas ==="
