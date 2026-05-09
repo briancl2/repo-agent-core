@@ -38,6 +38,7 @@ templates/                  # Shared templates
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
+  check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
 detection-signatures/       # DS-1 through DS-21
