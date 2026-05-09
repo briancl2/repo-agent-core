@@ -155,6 +155,48 @@ run_expect_failure "missing-before" "$MISSING" "$PASS_AFTER"
 MISSING_ERR="$TEST_ROOT/missing-before.err"
 assert_contains "$MISSING_ERR" "ERROR: $MISSING not found" "missing input path is reported"
 
+run_conformance() {
+  local name="$1"
+  local expected_rc="$2"
+  local consumer_root="$3"
+  local out="$TEST_ROOT/$name.out"
+  local err="$TEST_ROOT/$name.err"
+  local rc
+
+  set +e
+  bash scripts/check-compare-scorecards-conformance.sh "$consumer_root" > "$out" 2> "$err"
+  rc=$?
+  set -e
+
+  if [ "$rc" -eq "$expected_rc" ]; then
+    pass "$name exits $expected_rc"
+  else
+    fail "$name exits $expected_rc"
+    cat "$out"
+    cat "$err"
+  fi
+  LAST_OUT="$out"
+}
+
+CONFORMING="$TEST_ROOT/conforming-consumer"
+HASH_DRIFT="$TEST_ROOT/hash-drift-consumer"
+BEHAVIOR_DRIFT="$TEST_ROOT/behavior-drift-consumer"
+mkdir -p "$CONFORMING/scripts" "$HASH_DRIFT/scripts" "$BEHAVIOR_DRIFT/scripts"
+cp scripts/compare-scorecards.sh "$CONFORMING/scripts/compare-scorecards.sh"
+cp scripts/compare-scorecards.sh "$HASH_DRIFT/scripts/compare-scorecards.sh"
+cp scripts/compare-scorecards.sh "$BEHAVIOR_DRIFT/scripts/compare-scorecards.sh"
+
+run_conformance "conforming-consumer" 0 "$CONFORMING"
+assert_contains "$LAST_OUT" "VERDICT: PASS" "conforming consumer passes conformance gate"
+
+printf '\n# comment-only drift\n' >> "$HASH_DRIFT/scripts/compare-scorecards.sh"
+run_conformance "hash-drift-consumer" 1 "$HASH_DRIFT"
+assert_contains "$LAST_OUT" "hash drift" "comment-only consumer drift is detected"
+
+printf '\nprintf "DRIFT\\n"\n' >> "$BEHAVIOR_DRIFT/scripts/compare-scorecards.sh"
+run_conformance "behavior-drift-consumer" 1 "$BEHAVIOR_DRIFT"
+assert_contains "$LAST_OUT" "stdout drift" "behavior consumer drift is detected"
+
 echo ""
 echo "  PASS: $PASS  FAIL: $FAIL"
 if [ "$FAIL" -gt 0 ]; then
