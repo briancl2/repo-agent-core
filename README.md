@@ -10,6 +10,9 @@ make review
 
 # Validate schemas
 make test
+
+# Validate compare-scorecards copy-sync drift gate
+make validate-compare-scorecards CONSUMERS="../repo-auditor ../repo-optimizer"
 ```
 
 ## Structure
@@ -38,7 +41,10 @@ templates/                  # Shared templates
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
+  compare-scorecards.sh     # Shared scorecard comparison primitive
   check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
+docs/
+  compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
 detection-signatures/       # DS-1 through DS-21
@@ -53,7 +59,7 @@ detection-signatures/       # DS-1 through DS-21
        repo-auditor  repo-upgrade-advisor  repo-optimizer
 ```
 
-Each agent depends only on `repo-agent-core`. Agents copy primitives (not symlink) — each is independently runnable.
+Each agent depends only on `repo-agent-core`. Agents copy primitives (not symlink) — each is independently runnable. The supported `compare-scorecards` distribution model is [copy-sync with a drift gate](docs/compare-scorecards-distribution.md).
 
 ## License
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# check-compare-scorecards-conformance.sh — detect consumer drift from core.
+# check-compare-scorecards-conformance.sh — validate copy-sync consumer drift from core.
 set -euo pipefail
 
 CORE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
@@ -8,6 +8,9 @@ TEST_ROOT="$CORE_DIR/work/compare-scorecards-conformance-$$"
 FAIL=0
 trap 'rm -rf "$TEST_ROOT"' EXIT
 mkdir -p "$TEST_ROOT"
+
+echo "Distribution model: copy-sync with drift gate"
+
 write_scorecard() {
   local path="$1" composite="$2" d1="$3" d2="$4" d3="$5" d4="$6" d5="$7" t1_pass="$8" t1_fail="$9" phase="${10}"
   {

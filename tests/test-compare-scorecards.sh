@@ -119,6 +119,10 @@ run_expect_failure() {
 
 echo "=== Compare Scorecards Validation ==="
 
+assert_contains docs/compare-scorecards-distribution.md "Supported model: copy-sync with drift gate" "distribution model is documented"
+assert_contains docs/compare-scorecards-distribution.md "Runtime wrapper is not supported" "runtime wrapper remains unsupported"
+assert_contains docs/compare-scorecards-distribution.md "Generated consumer copies are not supported yet" "generated copies remain unsupported"
+
 BEFORE="$TEST_ROOT/before.json"
 STABLE_AFTER="$TEST_ROOT/stable-after.json"
 PASS_AFTER="$TEST_ROOT/pass-after.json"
@@ -187,6 +191,7 @@ cp scripts/compare-scorecards.sh "$HASH_DRIFT/scripts/compare-scorecards.sh"
 cp scripts/compare-scorecards.sh "$BEHAVIOR_DRIFT/scripts/compare-scorecards.sh"
 
 run_conformance "conforming-consumer" 0 "$CONFORMING"
+assert_contains "$LAST_OUT" "Distribution model: copy-sync with drift gate" "conformance gate declares copy-sync model"
 assert_contains "$LAST_OUT" "VERDICT: PASS" "conforming consumer passes conformance gate"
 
 printf '\n# comment-only drift\n' >> "$HASH_DRIFT/scripts/compare-scorecards.sh"
