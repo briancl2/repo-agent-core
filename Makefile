@@ -1,4 +1,4 @@
-.PHONY: review test validate-schemas install-hooks help
+.PHONY: review test validate-schemas validate-compare-scorecards install-hooks help
 
 # Default target
 help:
@@ -8,6 +8,9 @@ help:
 	@echo "  make review           Run code review on staged changes"
 	@echo "  make test             Run all tests (schemas + samples)"
 	@echo "  make validate-schemas Validate all JSON schemas"
+	@echo "  make validate-compare-scorecards"
+	@echo "                        Validate compare-scorecards copy-sync drift gate"
+	@echo "                        Usage: make validate-compare-scorecards CONSUMERS=\"../repo-auditor ../repo-optimizer\""
 	@echo "  make install-hooks    Install git hooks into a target repo"
 	@echo "                        Usage: make install-hooks TARGET=~/repos/my-repo"
 
@@ -27,6 +30,15 @@ validate-schemas:
 	@for s in schemas/*.schema.json; do \
 		python3 -c "import json; json.load(open('$$s'))" && echo "  ✓ $$(basename $$s)" || echo "  ✗ $$(basename $$s)"; \
 	done
+
+validate-compare-scorecards:
+	@echo "=== Validating compare-scorecards distribution model ==="
+	@bash tests/test-compare-scorecards.sh
+	@if [ -n "$(CONSUMERS)" ]; then \
+		bash scripts/check-compare-scorecards-conformance.sh $(CONSUMERS); \
+	else \
+		echo "No CONSUMERS provided; synthetic copy-sync drift-gate tests only."; \
+	fi
 
 install-hooks:
 	@bash scripts/install-hooks.sh $(TARGET)
