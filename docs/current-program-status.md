@@ -1,6 +1,6 @@
 # Current Program Status
 
-> Date: 2026-04-22
+> Date: 2026-05-25
 > Repo role: shared-core contract host for the shared external-critique path
 > Current live cross-repo authority (local sibling-repo path): [HANDOFF-SESSION-v483.md](../../build-meta-analysis/docs/handoffs/HANDOFF-SESSION-v483.md)
 > Canonical landed owner-surface anchor (local sibling-repo path): [shared-external-critique-owner-surface-critique-refresh-2026-04-20.md](../../build-meta-analysis/research/reports/shared-external-critique-owner-surface-critique-refresh-2026-04-20.md)
@@ -50,6 +50,26 @@ There is no shared-core blocker on the contract shape itself. The remaining
 limit is semantic, not structural: the current shared path is still fail-closed
 and does not admit remediation, broader reuse, or publication from shared-core
 state alone.
+
+## Compare-Scorecards Drift-Gate Status
+
+Issue #2 is being closed as a point-in-time status correction, not as a claim
+that future consumer drift cannot happen. The current repo already carries the
+shared copy-sync drift gate via
+[`scripts/check-compare-scorecards-conformance.sh`](../scripts/check-compare-scorecards-conformance.sh),
+[`make validate-compare-scorecards`](../Makefile), and the documented
+copy-sync distribution contract in
+[`docs/compare-scorecards-distribution.md`](./compare-scorecards-distribution.md).
+
+Consumer conformance proof is also available as a point-in-time provenance check
+against sibling copies in `repo-auditor` and `repo-optimizer` by running:
+
+```bash
+make validate-compare-scorecards CONSUMERS="../repo-auditor ../repo-optimizer"
+```
+
+A passing result proves the checked consumer copies matched the current core
+primitive and fixture behavior at validation time only.
 
 ## Next Candidate Move
 
