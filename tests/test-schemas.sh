@@ -120,6 +120,64 @@ else
 fi
 
 echo ""
+echo "=== Source Insight Packet Semantics ==="
+if python3 - "$SCHEMAS_DIR/SOURCE_INSIGHT_PACKET.schema.json" "$SAMPLES_DIR/SOURCE_INSIGHT_PACKET.json" <<'PY'
+import copy
+import json
+import sys
+
+schema = json.load(open(sys.argv[1], encoding="utf-8"))
+sample = json.load(open(sys.argv[2], encoding="utf-8"))
+
+try:
+    import jsonschema  # type: ignore
+except ImportError:
+    jsonschema = None
+
+
+def validate(payload):
+    if jsonschema is not None:
+        jsonschema.validate(payload, schema)
+        return
+    for field in schema["required"]:
+        assert field in payload
+    assert payload["artifact"] == "SOURCE_INSIGHT_PACKET"
+
+
+validate(sample)
+source_ids = {source["source_id"] for source in sample["sources"]}
+assert all(source["insight_disposition"] in {"insight", "no_insight", "contradiction", "inaccessible"} for source in sample["sources"])
+for claim in sample["claims"]:
+    assert set(claim["source_ids"]).issubset(source_ids)
+for finding in sample["high_signal_findings"]:
+    assert set(finding["source_ids"]).issubset(source_ids)
+    assert finding["disposition"] in {
+        "owner_surface_candidate",
+        "github_issue_candidate",
+        "roadmap_disposition",
+        "explicit_no_action",
+        "rejected_or_inaccessible",
+    }
+
+bad = copy.deepcopy(sample)
+del bad["sources"][0]["insight_disposition"]
+failed = False
+try:
+    validate(bad)
+except Exception:
+    failed = True
+if jsonschema is not None:
+    assert failed
+PY
+then
+  echo "  ✓ SOURCE_INSIGHT_PACKET sample preserves source-to-claim and owner-routing semantics"
+  PASS=$((PASS + 1))
+else
+  echo "  ✗ SOURCE_INSIGHT_PACKET sample violates source-intelligence semantics"
+  FAIL=$((FAIL + 1))
+fi
+
+echo ""
 echo "=== Results ==="
 echo "  PASS: $PASS  FAIL: $FAIL"
 

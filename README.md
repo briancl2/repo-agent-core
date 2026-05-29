@@ -30,6 +30,7 @@ schemas/                    # Machine-readable inter-agent contracts
   CRITIQUE_RESULT.schema.json # Shared critique result + calibration metadata
   PLAYBOOK_MANIFEST_AUTHORITY.schema.json # Shared playbook/manifest authority
   ADAPTER_AUDIT_SUMMARY.schema.json # Shared adapter audit summary
+  SOURCE_INSIGHT_PACKET.schema.json # Shared source-intelligence intake packet
 templates/                  # Shared templates
   v3.1-markdown-handoff.md  # Subagent handoff template
   optimizer_policy.yaml     # Token budget ratchet policy
@@ -60,6 +61,21 @@ detection-signatures/       # DS-1 through DS-21
 ```
 
 Each agent depends only on `repo-agent-core`. Agents copy primitives (not symlink) — each is independently runnable. The supported `compare-scorecards` distribution model is [copy-sync with a drift gate](docs/compare-scorecards-distribution.md).
+
+## Source Insight Contract
+
+`SOURCE_INSIGHT_PACKET` is the shared primitive for source-intelligence work.
+It gives operator-provided links, field reports, official docs, local artifacts,
+session logs, and historical commits equal first-pass insight treatment before
+claims are ranked by proof strength. It is intentionally a foreground artifact
+contract, not a crawler, scheduler, queue, memory daemon, or controller.
+
+The first consumers are:
+
+- `repo-auditor`: detect source bundles that omit insight/no-insight coverage
+  or owner/no-action routing.
+- `repo-upgrade-advisor`: render source-driven recommendations while preserving
+  source IDs, claim IDs, evidence tiers, and bounded non-claims.
 
 ## License
 
