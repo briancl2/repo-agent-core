@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-29T12:30:00Z",
+  "schema_version": "1.0.0",
+  "artifact": "SOURCE_INSIGHT_PACKET",
+  "source_bundle": {
+    "bundle_id": "issue164-source-intelligence-slice2-fixture",
+    "campaign_ref": "briancl2/build-meta-analysis#164",
+    "operator_intent": "Turn source-heavy research into owner-surface delivery without demoting non-first-party material before insight extraction.",
+    "source_surface": "research/evidence/issue164-source-intelligence-campaign-kickoff-2026-05-29"
+  },
+  "sources": [
+    {
+      "source_id": "operator-source-dump",
+      "source_kind": "operator_supplied_link",
+      "url_or_ref": "operator session turn requesting source intelligence",
+      "access_state": "read",
+      "insight_disposition": "insight",
+      "insight_summary": "Operator-provided sources need equal first-pass insight treatment before proof-tier ranking.",
+      "no_action_reason": null
+    },
+    {
+      "source_id": "repo-upgrade-advisor-master-plan",
+      "source_kind": "local_artifact",
+      "url_or_ref": "repo-upgrade-advisor/ai-upgrade-advisor-master-plan_2026-02-06.md",
+      "access_state": "read",
+      "insight_disposition": "insight",
+      "insight_summary": "The earliest advisor plan already framed heterogeneous source ingestion as a repo-upgrade mechanism.",
+      "no_action_reason": null
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim-equal-insight",
+      "claim": "Source type should affect verification strength, not whether an idea receives first-pass analysis.",
+      "source_ids": [
+        "operator-source-dump"
+      ],
+      "evidence_tier": "local_proof",
+      "effect_on_decision": "promote"
+    },
+    {
+      "claim_id": "claim-advisor-origin",
+      "claim": "repo-upgrade-advisor was originally designed around heterogeneous AI source ingestion.",
+      "source_ids": [
+        "repo-upgrade-advisor-master-plan"
+      ],
+      "evidence_tier": "local_proof",
+      "effect_on_decision": "promote"
+    }
+  ],
+  "high_signal_findings": [
+    {
+      "finding_id": "finding-portable-contract",
+      "summary": "A portable source insight packet lets repo-auditor detect intake gaps and repo-upgrade-advisor render source-driven recommendations.",
+      "source_ids": [
+        "operator-source-dump",
+        "repo-upgrade-advisor-master-plan"
+      ],
+      "disposition": "owner_surface_candidate",
+      "owner_surface": "repo-agent-core",
+      "action_summary": "Publish SOURCE_INSIGHT_PACKET as the shared primitive for downstream consumers.",
+      "no_action_reason": null
+    }
+  ],
+  "consumer_targets": [
+    "repo-auditor",
+    "repo-upgrade-advisor"
+  ],
+  "bounded_non_claims": [
+    "This fixture does not prove background source ingestion, GBrain authority, or fleet adoption."
+  ]
+}
