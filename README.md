@@ -45,6 +45,7 @@ scripts/                    # Hook scripts
   compare-scorecards.sh     # Shared scorecard comparison primitive
   check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
 docs/
+  core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -61,6 +62,15 @@ detection-signatures/       # DS-1 through DS-21
 ```
 
 Each agent depends only on `repo-agent-core`. Agents copy primitives (not symlink) — each is independently runnable. The supported `compare-scorecards` distribution model is [copy-sync with a drift gate](docs/compare-scorecards-distribution.md).
+
+## Core-Five Owner-Surface Contract
+
+Issue #164 core-five decomposition is governed by the
+[core-five owner-surface contract](docs/core-five-owner-surface-contract.md).
+It defines the reciprocal read-only proving-ground rule and the capability-home
+table for build-meta-analysis, repo-agent-core, repo-auditor,
+repo-upgrade-advisor, and repo-optimizer. It is shared guidance for copy-sync
+distribution, not a runtime dependency or controller.
 
 ## Source Insight Contract
 
