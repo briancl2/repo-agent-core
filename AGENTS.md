@@ -19,6 +19,9 @@
 - `--no-verify` is NEVER permitted (L102)
 - Pre-commit hook blocks by default — SKIP_REVIEW=1 only for emergency (L105)
 - Schemas are the inter-agent contract. Changing a schema is a breaking change.
+- The Issue #164 core-five owner-surface model lives in
+  `docs/core-five-owner-surface-contract.md`; consume it by copy-sync or citation,
+  not by runtime dependency, scheduler, queue, controller, or background sync.
 
 ## Skills
 
