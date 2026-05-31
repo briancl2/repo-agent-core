@@ -40,6 +40,7 @@ templates/                  # Shared templates
   adapter-audit-summary.md  # Adapter audit summary template
   bounded-non-claims.md     # Bounded non-claims template
   goal-episode-evaluation.md # Goal-mode episode evaluation template
+  default-capability-reconciliation.md # Upstream/default capability decision template
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -48,6 +49,7 @@ scripts/                    # Hook scripts
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
+  default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -81,6 +83,15 @@ defines the shared runtime-health and self-healing evaluation language for
 multi-PR Goal-mode episodes. Consumers may copy the
 [template](templates/goal-episode-evaluation.md) or cite the contract, but must
 not turn it into a controller, scheduler, queue, or background sync mechanism.
+
+## Default Capability Reconciliation Contract
+
+The [default capability reconciliation contract](docs/default-capability-reconciliation-contract.md)
+defines the shared record shape for adopting, substituting, quarantining, or
+parking upstream/default tool capabilities after bounded local proof. Consumers
+may copy the [template](templates/default-capability-reconciliation.md) or cite
+the contract, but must not turn it into a controller, scheduler, queue, watcher,
+hidden registry, or background sync mechanism.
 
 ## Source Insight Contract
 
