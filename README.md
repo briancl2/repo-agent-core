@@ -39,6 +39,7 @@ templates/                  # Shared templates
   playbook-manifest-authority.md # Authority declaration template
   adapter-audit-summary.md  # Adapter audit summary template
   bounded-non-claims.md     # Bounded non-claims template
+  goal-episode-evaluation.md # Goal-mode episode evaluation template
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -46,6 +47,7 @@ scripts/                    # Hook scripts
   check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
+  goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -71,6 +73,14 @@ It defines the reciprocal read-only proving-ground rule and the capability-home
 table for build-meta-analysis, repo-agent-core, repo-auditor,
 repo-upgrade-advisor, and repo-optimizer. It is shared guidance for copy-sync
 distribution, not a runtime dependency or controller.
+
+## Goal Episode Evaluation Contract
+
+The [Goal episode evaluation contract](docs/goal-episode-evaluation-contract.md)
+defines the shared runtime-health and self-healing evaluation language for
+multi-PR Goal-mode episodes. Consumers may copy the
+[template](templates/goal-episode-evaluation.md) or cite the contract, but must
+not turn it into a controller, scheduler, queue, or background sync mechanism.
 
 ## Source Insight Contract
 

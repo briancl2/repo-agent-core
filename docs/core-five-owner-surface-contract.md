@@ -27,7 +27,7 @@ surface and the work lands through its own issue, branch, PR, checks, and merge.
 | Capability family | Owner surface | First deliverable shape |
 |---|---|---|
 | Outer-loop campaign console | build-meta-analysis | Issue #164 child issue and GitHub-native PR |
-| Shared repo-agent contracts | repo-agent-core | Copy-synced contract, schema, template, or hook with repo-native tests |
+| Shared repo-agent contracts | repo-agent-core | Copy-synced contract, schema, template, evaluation language, or hook with repo-native tests |
 | Audit and signature detection | repo-auditor | Detector signature, fixture, registration, and repo-native test |
 | Recommendation packaging | repo-upgrade-advisor | Recommendation template, scorer rule, prompt/schema update, and packaging fixture |
 | Patch-pack materialization | repo-optimizer | Deterministic patch materializer plus `git apply --check` fixture |

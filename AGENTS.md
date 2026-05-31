@@ -22,6 +22,10 @@
 - The Issue #164 core-five owner-surface model lives in
   `docs/core-five-owner-surface-contract.md`; consume it by copy-sync or citation,
   not by runtime dependency, scheduler, queue, controller, or background sync.
+- Goal-mode runtime/self-healing evaluation language lives in
+  `docs/goal-episode-evaluation-contract.md` and
+  `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
+  not by runtime dependency, scheduler, queue, controller, or background sync.
 
 ## Skills
 
