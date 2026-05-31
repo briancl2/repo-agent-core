@@ -20,12 +20,14 @@ controller, background job, watcher, hidden registry, or mandatory dependency.
 | Field | Required meaning |
 |---|---|
 | Capability source | Upstream product, repo, commit, release, issue, PR, or local version that changed the decision. |
+| Upstream-main proof | Upstream-main commit, release, or issue/PR closure that proves the capability has landed on the default source of truth. |
 | Local proof | Exact bounded command, check, smoke test, fixture, or receipt proving the capability in the current environment. |
+| Local same-version proof | Local proof from the same version or commit that would become the production default. |
 | Default/substitute decision | Adopt, keep existing default, substitute existing custom path, quarantine, or park. |
 | Owner surface | Repository or upstream project that owns the next action. |
 | First deliverable | Exact issue, PR, doc, detector, recommendation, or patch-pack shape. |
-| Fallback if blocked | Concrete issue-truth or owner-surface repair if proof fails, CI fails, or a permission boundary appears. |
-| Validation scope | Repo-native checks and any read-only proving-ground sweep needed to trust the decision. |
+| Fallback if blocked | Concrete fallback path, issue-truth, or owner-surface repair if proof fails, CI fails, or a permission boundary appears. |
+| Validation scope | Repo-native checks, validation receipt, and any read-only proving-ground sweep needed to trust the decision. |
 | Regrowth boundary | Explicit statement that no controller, scheduler, queue, watcher, daemon, hidden registry, or local closeout stack was added. |
 
 ## Decision States
@@ -42,6 +44,8 @@ controller, background job, watcher, hidden registry, or mandatory dependency.
 
 Capability reconciliation requires current local proof when the decision changes
 active guidance. A cited upstream commit or release is not enough by itself.
+Production default adoption requires upstream-main proof and local same-version
+proof for the capability being adopted.
 
 The proof must be foreground and bounded. It may use read-only target repos as
 fixtures, but generated patches, recommendations, or detector findings do not
