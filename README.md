@@ -92,6 +92,9 @@ parking upstream/default tool capabilities after bounded local proof. Consumers
 may copy the [template](templates/default-capability-reconciliation.md) or cite
 the contract, but must not turn it into a controller, scheduler, queue, watcher,
 hidden registry, or background sync mechanism.
+Production default adoption requires upstream-main proof, local same-version
+proof, owner surface, fallback path, and validation receipt before a capability
+changes the default path.
 
 ## Source Insight Contract
 
