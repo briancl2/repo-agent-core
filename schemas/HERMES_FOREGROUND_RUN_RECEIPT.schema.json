@@ -1,0 +1,170 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HERMES_FOREGROUND_RUN_RECEIPT",
+  "description": "Shared receipt for one bounded foreground Hermes chat launcher attempt.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "schema_version",
+    "generated_at",
+    "status",
+    "reason",
+    "command",
+    "prompt",
+    "stdout_path",
+    "stderr_path",
+    "return_code",
+    "validation",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "const": "HERMES_FOREGROUND_RUN_RECEIPT"
+    },
+    "schema_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "success",
+        "failed",
+        "timeout",
+        "not_run"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command": {
+      "type": "object",
+      "required": [
+        "argv",
+        "cwd",
+        "provider",
+        "model",
+        "max_turns",
+        "timeout_seconds"
+      ],
+      "properties": {
+        "argv": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "cwd": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_turns": {
+          "type": [
+            "integer",
+            "string"
+          ]
+        },
+        "timeout_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "prompt": {
+      "type": "object",
+      "required": [
+        "source",
+        "sha256",
+        "retained_path"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "inline",
+            "file",
+            "redacted",
+            "unknown"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{64}$"
+        },
+        "retained_path": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "stdout_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stderr_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "return_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "validation": {
+      "type": "object",
+      "required": [
+        "passed",
+        "final_response_lines",
+        "error"
+      ],
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "final_response_lines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}

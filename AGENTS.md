@@ -26,6 +26,14 @@
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
   not by runtime dependency, scheduler, queue, controller, or background sync.
+- The Issue #164 Hermes foreground launcher receipt lives in
+  `docs/hermes-foreground-launcher-contract.md` and
+  `schemas/HERMES_FOREGROUND_RUN_RECEIPT.schema.json` plus
+  `templates/hermes-foreground-run-receipt.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, daemon, scheduler, queue, retry loop,
+  controller, MCP server, autopilot, hidden registry, automatic GitHub issue
+  creation, or background sync. It does not authorize mutating downstream repos
+  or Hermes internals.
 
 ## Skills
 
