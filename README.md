@@ -42,6 +42,7 @@ templates/                  # Shared templates
   bounded-non-claims.md     # Bounded non-claims template
   goal-episode-evaluation.md # Goal-mode episode evaluation template
   interruption-recovery-and-batch-reconstitution.md # Blocker recovery template
+  foreground-learning-and-recovery-block.md # Foreground learning/recovery block
   default-capability-reconciliation.md # Upstream/default capability decision template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
 scripts/                    # Hook scripts
@@ -53,6 +54,7 @@ docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
   interruption-recovery-and-batch-reconstitution-contract.md # Goal blocker recovery contract
+  foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
@@ -110,6 +112,16 @@ original route. Consumers may copy the
 [template](templates/interruption-recovery-and-batch-reconstitution.md) or cite
 the contract, but must not turn it into a controller, scheduler, queue, retry
 loop, daemon, registry, or background sync mechanism.
+
+## Foreground Learning And Recovery Contract
+
+The [foreground learning and recovery contract](docs/foreground-learning-and-recovery-contract.md)
+defines the compact record shape for self-learning and self-healing claims that
+change a decision during foreground work. Consumers may copy the
+[template](templates/foreground-learning-and-recovery-block.md) or cite the
+contract, but must not turn it into a memory daemon, controller, scheduler,
+queue, registry, or background sync mechanism. Routine no-op learning should
+record an explicit no-capture reason rather than inventing a GBrain note.
 
 ## Hermes Foreground Launcher Contract
 
