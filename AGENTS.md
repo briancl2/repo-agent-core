@@ -26,6 +26,11 @@
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
   not by runtime dependency, scheduler, queue, controller, or background sync.
+- Interruption recovery and batch reconstitution guidance lives in
+  `docs/interruption-recovery-and-batch-reconstitution-contract.md` and
+  `templates/interruption-recovery-and-batch-reconstitution.md`; consume it by
+  copy-sync or citation, not by runtime dependency, scheduler, queue,
+  controller, retry loop, or background sync.
 - The Issue #164 Hermes foreground launcher receipt lives in
   `docs/hermes-foreground-launcher-contract.md` and
   `schemas/HERMES_FOREGROUND_RUN_RECEIPT.schema.json` plus

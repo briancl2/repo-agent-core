@@ -41,6 +41,7 @@ templates/                  # Shared templates
   adapter-audit-summary.md  # Adapter audit summary template
   bounded-non-claims.md     # Bounded non-claims template
   goal-episode-evaluation.md # Goal-mode episode evaluation template
+  interruption-recovery-and-batch-reconstitution.md # Blocker recovery template
   default-capability-reconciliation.md # Upstream/default capability decision template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
 scripts/                    # Hook scripts
@@ -51,6 +52,7 @@ scripts/                    # Hook scripts
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
+  interruption-recovery-and-batch-reconstitution-contract.md # Goal blocker recovery contract
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
@@ -98,6 +100,16 @@ hidden registry, or background sync mechanism.
 Production default adoption requires upstream-main proof, local same-version
 proof, owner surface, fallback path, and validation receipt before a capability
 changes the default path.
+
+## Interruption Recovery Contract
+
+The [interruption recovery and batch reconstitution contract](docs/interruption-recovery-and-batch-reconstitution-contract.md)
+defines the shared record shape for preserving a Goal-mode or multi-PR episode
+when an upstream, tool, CI, permission, or owner-surface blocker interrupts the
+original route. Consumers may copy the
+[template](templates/interruption-recovery-and-batch-reconstitution.md) or cite
+the contract, but must not turn it into a controller, scheduler, queue, retry
+loop, daemon, registry, or background sync mechanism.
 
 ## Hermes Foreground Launcher Contract
 
