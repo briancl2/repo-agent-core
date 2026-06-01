@@ -23,6 +23,7 @@ schemas/                    # Machine-readable inter-agent contracts
   OPPORTUNITIES.schema.json # Advisor recommendation format
   OPTIMIZATION_SCORECARD.schema.json # Optimization result format
   COMMAND_OUTPUT_ROI_RECEIPT.schema.json # Command-output summarization receipt
+  HERMES_FOREGROUND_RUN_RECEIPT.schema.json # One-shot Hermes foreground launcher receipt
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
@@ -41,6 +42,7 @@ templates/                  # Shared templates
   bounded-non-claims.md     # Bounded non-claims template
   goal-episode-evaluation.md # Goal-mode episode evaluation template
   default-capability-reconciliation.md # Upstream/default capability decision template
+  hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -50,6 +52,7 @@ docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
+  hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -95,6 +98,18 @@ hidden registry, or background sync mechanism.
 Production default adoption requires upstream-main proof, local same-version
 proof, owner surface, fallback path, and validation receipt before a capability
 changes the default path.
+
+## Hermes Foreground Launcher Contract
+
+The [Hermes foreground launcher contract](docs/hermes-foreground-launcher-contract.md)
+defines the compact JSON receipt shape for bounded one-shot `hermes chat -q -Q`
+attempts during Issue #164 core-five propagation. Consumers may copy the
+[schema](schemas/HERMES_FOREGROUND_RUN_RECEIPT.schema.json), copy the
+[receipt template](templates/hermes-foreground-run-receipt.md), or cite the
+contract, but must not turn it into a runtime dependency, daemon, scheduler,
+queue, retry loop, controller, MCP server, autopilot, hidden registry, automatic
+GitHub issue creation, or background sync mechanism. It does not authorize
+mutating downstream repos or Hermes internals.
 
 ## Source Insight Contract
 
