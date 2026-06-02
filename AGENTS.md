@@ -44,6 +44,14 @@
   controller, MCP server, autopilot, hidden registry, automatic GitHub issue
   creation, or background sync. It does not authorize mutating downstream repos
   or Hermes internals.
+- The Issue #164 foreground recovery runtime composition lives in
+  `docs/foreground-recovery-runtime-contract.md` and
+  `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` plus
+  `templates/hermes-foreground-failure-guidance.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, daemon, scheduler, queue, retry loop,
+  controller, MCP server, background sync, automatic GitHub issue creation, or
+  downstream mutation. Guidance is advisory and does not invoke gh; an operator
+  must explicitly run any suggested conversion command.
 
 ## Skills
 

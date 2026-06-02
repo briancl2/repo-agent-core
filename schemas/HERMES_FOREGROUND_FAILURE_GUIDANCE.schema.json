@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HERMES_FOREGROUND_FAILURE_GUIDANCE",
+  "description": "Advisory guidance produced by a failed bounded Hermes foreground launcher attempt.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "schema_version",
+    "campaign_issue_url",
+    "repo",
+    "command_family",
+    "failure_code",
+    "primary_object",
+    "status",
+    "attempted_command",
+    "evidence_file",
+    "recommended_owner",
+    "impact",
+    "source_receipt_path",
+    "suggested_failure_to_issue_argv",
+    "suggested_failure_to_issue_command",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "const": "HERMES_FOREGROUND_FAILURE_GUIDANCE"
+    },
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "campaign_issue_url": {
+      "type": "string",
+      "pattern": "^https://github\\.com/[^/]+/[^/]+/issues/[0-9]+(?:#.*)?$"
+    },
+    "repo": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "command_family": {
+      "type": "string",
+      "const": "hermes-foreground"
+    },
+    "failure_code": {
+      "type": "string",
+      "pattern": "^[a-z0-9_.-]+$",
+      "minLength": 1
+    },
+    "primary_object": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempted_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommended_owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "impact": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_receipt_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "suggested_failure_to_issue_argv": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "enum": [
+          "--dry-run",
+          "--live"
+        ]
+      }
+    },
+    "suggested_failure_to_issue_command": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}
