@@ -24,6 +24,7 @@ schemas/                    # Machine-readable inter-agent contracts
   OPTIMIZATION_SCORECARD.schema.json # Optimization result format
   COMMAND_OUTPUT_ROI_RECEIPT.schema.json # Command-output summarization receipt
   HERMES_FOREGROUND_RUN_RECEIPT.schema.json # One-shot Hermes foreground launcher receipt
+  HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json # Advisory Hermes foreground failure guidance
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
@@ -45,6 +46,7 @@ templates/                  # Shared templates
   foreground-learning-and-recovery-block.md # Foreground learning/recovery block
   default-capability-reconciliation.md # Upstream/default capability decision template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
+  hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -57,6 +59,7 @@ docs/
   foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
+  foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -134,6 +137,18 @@ contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, autopilot, hidden registry, automatic
 GitHub issue creation, or background sync mechanism. It does not authorize
 mutating downstream repos or Hermes internals.
+
+## Foreground Recovery Runtime Contract
+
+The [foreground recovery runtime contract](docs/foreground-recovery-runtime-contract.md)
+composes the Hermes launcher, interruption recovery, and foreground learning
+contracts for Issue #164 core-five propagation. It defines the advisory
+[HERMES_FOREGROUND_FAILURE_GUIDANCE schema](schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json)
+and [failure guidance template](templates/hermes-foreground-failure-guidance.md)
+for a failed BMA Hermes launcher path. Consumers may copy-sync or cite these
+artifacts, but must not turn them into a runtime dependency, daemon, scheduler,
+queue, retry loop, controller, MCP server, background sync, automatic GitHub
+issue creation, or downstream mutation path.
 
 ## Source Insight Contract
 

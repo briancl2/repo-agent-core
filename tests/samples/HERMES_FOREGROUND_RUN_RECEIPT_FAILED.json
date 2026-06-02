@@ -1,0 +1,47 @@
+{
+  "artifact": "HERMES_FOREGROUND_RUN_RECEIPT",
+  "schema_version": 1,
+  "generated_at": "2026-06-01T12:00:00Z",
+  "status": "timeout",
+  "reason": "timeout",
+  "command": {
+    "argv": [
+      "/Users/briancl/repos/hermes-agent/.venv-bma-sidecar/bin/hermes",
+      "chat",
+      "--provider",
+      "copilot",
+      "-m",
+      "gpt-5.5",
+      "-q",
+      "Implement the scoped Issue #164 propagation prompt.",
+      "--max-turns",
+      "40",
+      "-Q"
+    ],
+    "cwd": "/Users/briancl/repos/repo-agent-core",
+    "provider": "copilot",
+    "model": "gpt-5.5",
+    "max_turns": 40,
+    "timeout_seconds": 900
+  },
+  "prompt": {
+    "source": "file",
+    "sha256": "04a3813b0366096ad36df54230f50ed20073cf87e42425e79ec6f2bb735b260d",
+    "retained_path": "/private/tmp/issue164-hermes-timeout/hermes-prompt.txt"
+  },
+  "stdout_path": "/private/tmp/issue164-hermes-timeout/hermes-stdout.txt",
+  "stderr_path": "/private/tmp/issue164-hermes-timeout/hermes-stderr.txt",
+  "return_code": 124,
+  "validation": {
+    "passed": false,
+    "final_response_lines": 0,
+    "error": "timeout"
+  },
+  "bounded_non_claims": [
+    "does not retry or loop",
+    "does not create or update GitHub issues automatically",
+    "does not schedule background work",
+    "does not mutate Hermes internals",
+    "does not transfer campaign ownership to Hermes"
+  ]
+}
