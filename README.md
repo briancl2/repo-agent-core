@@ -60,6 +60,7 @@ docs/
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
+  downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -149,6 +150,19 @@ for a failed BMA Hermes launcher path. Consumers may copy-sync or cite these
 artifacts, but must not turn them into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, background sync, automatic GitHub
 issue creation, or downstream mutation path.
+
+## Downstream Read-Only Recovery Runtime Pilot Contract
+
+The [downstream read-only recovery-runtime pilot contract](docs/downstream-read-only-recovery-runtime-pilot-contract.md)
+defines a compact receipt shape for downstream read-only pilots that preserve
+target repo identity, target path/name, before/after git head and dirty counts,
+auditor/advisor/optimizer replay artifacts, generated patch pack metadata,
+blocker evidence, apply-check output, and no-downstream-mutation bounded
+non-claims. Consumers may copy-sync or cite the contract, but must not turn it
+into a runtime dependency, daemon, scheduler, queue, controller, retry loop,
+hidden registry, background sync, MCP server, automatic GitHub issue creation,
+or downstream PR/issue path. Pilot artifacts can be written only outside the
+target repo, usually `/tmp`; the pilot never applies patches.
 
 ## Source Insight Contract
 
