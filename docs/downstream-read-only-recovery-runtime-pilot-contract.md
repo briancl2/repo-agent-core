@@ -1,5 +1,13 @@
 # Downstream Read-Only Recovery Runtime Pilot Contract
 
+## Foreground Failure Guidance / Recovery
+
+- Failure signal: name the failed foreground command, exit status, and user-visible symptom.
+- Recovery owner: link the owner issue, PR, or operator surface responsible for follow-up.
+- Recovery action: state the next bounded foreground command or manual owner step; keep it one-shot and explicit.
+- Evidence receipt: cite the stdout/stderr receipt path, CI run, or command transcript used to justify recovery.
+- Bounded non-claims: This block does not authorize controllers, schedulers, queues, daemons, retry loops, retained reports, downstream mutation, or target mutation.
+
 > Version: 1.0
 > Date: 2026-06-02
 > Owner: repo-agent-core
