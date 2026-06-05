@@ -54,6 +54,7 @@ scripts/                    # Hook scripts
   check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
+  live-capability-inventory.md # Live tool/agent tracking surface for calibrated drift checks
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
   interruption-recovery-and-batch-reconstitution-contract.md # Goal blocker recovery contract
   foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
@@ -86,6 +87,14 @@ It defines the reciprocal read-only proving-ground rule and the capability-home
 table for build-meta-analysis, repo-agent-core, repo-auditor,
 repo-upgrade-advisor, and repo-optimizer. It is shared guidance for copy-sync
 distribution, not a runtime dependency or controller.
+
+## Live Capability Inventory
+
+The [live capability inventory](docs/live-capability-inventory.md) tracks the
+repo-agent-core tools, hooks, skills, Speckit helpers, and scripts that are
+intentionally present on disk. It is a documentation tracking surface for
+calibrated repo-auditor capability-drift checks, not a runtime registry or
+generated control plane.
 
 ## Goal Episode Evaluation Contract
 
