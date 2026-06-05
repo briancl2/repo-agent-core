@@ -1,4 +1,4 @@
-.PHONY: review test validate-schemas validate-compare-scorecards install-hooks help
+.PHONY: review test closure-identity validate-schemas validate-compare-scorecards install-hooks help
 
 # Default target
 help:
@@ -7,6 +7,7 @@ help:
 	@echo "Targets:"
 	@echo "  make review           Run code review on staged changes"
 	@echo "  make test             Run all tests (schemas + samples)"
+	@echo "  make closure-identity Emit closure-run identity for the current gate"
 	@echo "  make validate-schemas Validate all JSON schemas"
 	@echo "  make validate-compare-scorecards"
 	@echo "                        Validate compare-scorecards copy-sync drift gate"
@@ -19,6 +20,7 @@ review:
 
 test:
 	@echo "=== Running core test suite ==="
+	@CLOSURE_PHASE=test PARENT_COMMAND="make test" bash scripts/record-closure-identity.sh test
 	@for t in tests/test-*.sh; do \
 		echo "--- $$t ---"; bash "$$t" || exit 1; \
 	done
@@ -42,3 +44,6 @@ validate-compare-scorecards:
 
 install-hooks:
 	@bash scripts/install-hooks.sh $(TARGET)
+
+closure-identity:
+	@bash scripts/record-closure-identity.sh $(CLOSURE_PHASE)
