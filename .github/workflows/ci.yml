@@ -20,4 +20,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run tests
+        env:
+          CLOSURE_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
+          CLOSURE_TRIGGER: ${{ github.event_name }}
+          GITHUB_RUN_ID: ${{ github.run_id }}
+          GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
+          PARENT_COMMAND: make test
         run: make test
