@@ -1,0 +1,160 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "REPO_STAR_GENERICITY_PROOF_RECEIPT",
+  "description": "Shared receipt for proving repo-star capabilities against a non-BMA target without target mutation.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "schema_version",
+    "generated_at",
+    "proof_root",
+    "target_repo_identity",
+    "target_path_or_name",
+    "target_is_non_bma",
+    "target_git_head_before",
+    "target_git_head_after",
+    "target_dirty_count_before",
+    "target_dirty_count_after",
+    "evidence_written_outside_target",
+    "target_mutation_performed",
+    "auditor_artifact_path",
+    "advisor_artifact_path",
+    "optimizer_artifact_path",
+    "apply_check_result_path",
+    "blocker_path",
+    "owner_routing",
+    "genericity_verdict",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "const": "REPO_STAR_GENERICITY_PROOF_RECEIPT"
+    },
+    "schema_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "proof_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_repo_identity": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_path_or_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_is_non_bma": {
+      "type": "boolean",
+      "const": true
+    },
+    "target_git_head_before": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_git_head_after": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_dirty_count_before": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "target_dirty_count_after": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "evidence_written_outside_target": {
+      "type": "boolean",
+      "const": true
+    },
+    "target_mutation_performed": {
+      "type": "boolean",
+      "const": false
+    },
+    "auditor_artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "advisor_artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "optimizer_artifact_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "apply_check_result_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "blocker_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "owner_routing": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "blocker_family",
+          "owner_surface",
+          "next_owner_action"
+        ],
+        "properties": {
+          "blocker_family": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner_surface": {
+            "type": "string",
+            "enum": [
+              "repo-agent-core",
+              "repo-auditor",
+              "repo-upgrade-advisor",
+              "repo-optimizer"
+            ]
+          },
+          "next_owner_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "genericity_verdict": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "fail",
+        "blocked",
+        "not_run"
+      ]
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}
+

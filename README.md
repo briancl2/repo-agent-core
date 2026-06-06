@@ -33,6 +33,7 @@ schemas/                    # Machine-readable inter-agent contracts
   PLAYBOOK_MANIFEST_AUTHORITY.schema.json # Shared playbook/manifest authority
   ADAPTER_AUDIT_SUMMARY.schema.json # Shared adapter audit summary
   SOURCE_INSIGHT_PACKET.schema.json # Shared source-intelligence intake packet
+  REPO_STAR_GENERICITY_PROOF_RECEIPT.schema.json # Shared non-BMA repo-star genericity proof receipt
 templates/                  # Shared templates
   v3.1-markdown-handoff.md  # Subagent handoff template
   optimizer_policy.yaml     # Token budget ratchet policy
@@ -48,6 +49,7 @@ templates/                  # Shared templates
   upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
+  repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -64,6 +66,7 @@ docs/
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
+  repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -186,6 +189,19 @@ into a runtime dependency, daemon, scheduler, queue, controller, retry loop,
 hidden registry, background sync, MCP server, automatic GitHub issue creation,
 or downstream PR/issue path. Pilot artifacts can be written only outside the
 target repo, usually `/tmp`; the pilot never applies patches.
+
+## Repo-Star Genericity Proof Contract
+
+The [repo-star genericity proof contract](docs/repo-star-genericity-proof-contract.md)
+defines the shared `REPO_STAR_GENERICITY_PROOF_RECEIPT` shape for proving that
+repo-star capabilities work against a controlled non-BMA target without target
+mutation. It records target identity, before/after git state, auditor/advisor/
+optimizer artifact paths, owner routing, and bounded non-claims. Consumers may
+copy-sync or cite the contract, schema, or
+[template](templates/repo-star-genericity-proof-receipt.md), but must not turn
+them into a runtime dependency, controller, scheduler, queue, daemon, hidden
+registry, automatic GitHub issue creation, downstream mutation path, or
+background sync.
 
 ## Source Insight Contract
 

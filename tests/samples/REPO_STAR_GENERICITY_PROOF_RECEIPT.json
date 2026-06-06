@@ -1,0 +1,51 @@
+{
+  "artifact": "REPO_STAR_GENERICITY_PROOF_RECEIPT",
+  "schema_version": 1,
+  "generated_at": "2026-06-06T17:35:00Z",
+  "proof_root": "/tmp/repo-star-genericity-20260606T173500Z",
+  "target_repo_identity": "local/non-bma-sample-repo",
+  "target_path_or_name": "/tmp/repo-star-genericity-20260606T173500Z/target/non-bma-sample-repo",
+  "target_is_non_bma": true,
+  "target_git_head_before": "abc1234",
+  "target_git_head_after": "abc1234",
+  "target_dirty_count_before": 0,
+  "target_dirty_count_after": 0,
+  "evidence_written_outside_target": true,
+  "target_mutation_performed": false,
+  "auditor_artifact_path": "/tmp/repo-star-genericity-20260606T173500Z/auditor/audit.json",
+  "advisor_artifact_path": "/tmp/repo-star-genericity-20260606T173500Z/advisor/recommendation.json",
+  "optimizer_artifact_path": "/tmp/repo-star-genericity-20260606T173500Z/optimizer/receipt.json",
+  "apply_check_result_path": "/tmp/repo-star-genericity-20260606T173500Z/optimizer/apply-check.txt",
+  "blocker_path": null,
+  "owner_routing": [
+    {
+      "blocker_family": "detector output",
+      "owner_surface": "repo-auditor",
+      "next_owner_action": "repair the detector or fixture that produced incomplete evidence"
+    },
+    {
+      "blocker_family": "recommendation packaging",
+      "owner_surface": "repo-upgrade-advisor",
+      "next_owner_action": "repair owner-surface recommendation fields"
+    },
+    {
+      "blocker_family": "patch-pack materialization",
+      "owner_surface": "repo-optimizer",
+      "next_owner_action": "repair patch-pack or apply-check receipt generation"
+    },
+    {
+      "blocker_family": "shared receipt contract",
+      "owner_surface": "repo-agent-core",
+      "next_owner_action": "repair the shared schema, template, or contract"
+    }
+  ],
+  "genericity_verdict": "pass",
+  "bounded_non_claims": [
+    "does not mutate the target repo",
+    "does not apply patches",
+    "does not open downstream PRs or issues",
+    "does not install hooks or change target repo configuration",
+    "does not start a daemon, scheduler, queue, controller, retry loop, hidden registry, background sync, MCP server, watcher, cron job, service, or autopilot"
+  ]
+}
+
