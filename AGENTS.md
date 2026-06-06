@@ -22,6 +22,12 @@
 - The Issue #164 core-five owner-surface model lives in
   `docs/core-five-owner-surface-contract.md`; consume it by copy-sync or citation,
   not by runtime dependency, scheduler, queue, controller, or background sync.
+- The upstream capability intake contract lives in
+  `docs/upstream-capability-intake-contract.md` and
+  `templates/upstream-capability-intake.md`; consume it by copy-sync or
+  citation, not by runtime dependency, schema mandate, generated inventory,
+  scheduler, queue, controller, watcher, daemon, automatic updater, or
+  background sync.
 - Goal-mode runtime/self-healing evaluation language lives in
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,

@@ -45,6 +45,7 @@ templates/                  # Shared templates
   interruption-recovery-and-batch-reconstitution.md # Blocker recovery template
   foreground-learning-and-recovery-block.md # Foreground learning/recovery block
   default-capability-reconciliation.md # Upstream/default capability decision template
+  upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
 scripts/                    # Hook scripts
@@ -59,6 +60,7 @@ docs/
   interruption-recovery-and-batch-reconstitution-contract.md # Goal blocker recovery contract
   foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
+  upstream-capability-intake-contract.md # Compact upstream capability intake contract
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
@@ -115,6 +117,18 @@ hidden registry, or background sync mechanism.
 Production default adoption requires upstream-main proof, local same-version
 proof, owner surface, fallback path, and validation receipt before a capability
 changes the default path.
+
+## Upstream Capability Intake Contract
+
+The [upstream capability intake contract](docs/upstream-capability-intake-contract.md)
+defines the compact record shape for deciding whether a local component,
+tooling surface, model, package, or platform path is behind, duplicated, stale,
+covered by native upstream capability, or ready for owner-route/deletion
+continuity. Consumers may copy the
+[template](templates/upstream-capability-intake.md) or cite the contract, but
+must not turn it into a runtime dependency, schema mandate, generated
+inventory, scheduler, queue, controller, watcher, daemon, automatic updater, or
+background sync mechanism.
 
 ## Interruption Recovery Contract
 
