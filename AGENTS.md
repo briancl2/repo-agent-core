@@ -65,6 +65,15 @@
   automatic GitHub issue creation, downstream PR/issue creation, or patch
   application. Pilot artifacts can be written only outside the target repo,
   usually `/tmp`, and do not authorize downstream mutation.
+- The Issue #164 repo-star genericity proof receipt lives in
+  `docs/repo-star-genericity-proof-contract.md` and
+  `schemas/REPO_STAR_GENERICITY_PROOF_RECEIPT.schema.json` plus
+  `templates/repo-star-genericity-proof-receipt.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, daemon, scheduler, queue,
+  controller, retry loop, hidden registry, background sync, MCP server,
+  automatic GitHub issue creation, downstream PR/issue creation, or patch
+  application. Proof artifacts must use a non-BMA target and preserve target git
+  head/status before and after.
 
 ## Skills
 
