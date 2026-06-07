@@ -51,6 +51,7 @@ templates/                  # Shared templates
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
+  gbrain-repo-local-instruction-distribution.md # Advisory GBrain repo-local instruction distribution receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -69,6 +70,7 @@ docs/
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
+  gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -204,6 +206,19 @@ copy-sync or cite the contract, schema, or
 them into a runtime dependency, controller, scheduler, queue, daemon, hidden
 registry, automatic GitHub issue creation, downstream mutation path, or
 background sync.
+
+## GBrain Repo-Local Instruction Distribution Contract
+
+The [GBrain repo-local instruction distribution contract](docs/gbrain-repo-local-instruction-distribution-contract.md)
+defines the copy-sync/citation-only shape for adding advisory GBrain retrieval
+guidance to repo-local instruction surfaces such as `AGENTS.md` and existing
+GitHub instruction or template files. Consumers may copy the
+[receipt template](templates/gbrain-repo-local-instruction-distribution.md) or
+cite the contract, but must not turn it into a runtime dependency, generated
+registry, import framework, controller, scheduler, queue, daemon, watcher,
+automatic updater, background sync, MCP server, or canonical-memory claim.
+GBrain distribution records remain advisory and do not override operator
+intent, GitHub issue/PR/check/merge truth, repo files, or repo-native tests.
 
 ## Source Insight Contract
 
