@@ -74,6 +74,14 @@
   automatic GitHub issue creation, downstream PR/issue creation, or patch
   application. Proof artifacts must use a non-BMA target and preserve target git
   head/status before and after.
+- The Issue #164 GBrain retrieval/citation lifecycle proof lives in
+  `docs/gbrain-retrieval-citation-lifecycle-contract.md` and
+  `templates/gbrain-retrieval-citation-lifecycle.md`; consume it by copy-sync
+  or citation only, not by runtime dependency, import framework, daemon,
+  scheduler, queue, controller, hidden registry, background sync, MCP server,
+  autopilot, dream, jobs worker, or canonical-memory claim. GBrain remains
+  advisory until retrieval, citation, typed-link, timeline, write-parity,
+  distribution, and human-acceptance gates are proven.
 
 ## Skills
 

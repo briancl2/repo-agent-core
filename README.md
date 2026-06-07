@@ -50,6 +50,7 @@ templates/                  # Shared templates
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
+  gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -67,6 +68,7 @@ docs/
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
+  gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
