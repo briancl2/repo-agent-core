@@ -52,6 +52,7 @@ templates/                  # Shared templates
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
+  hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -71,6 +72,7 @@ docs/
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
+  hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -168,6 +170,20 @@ contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, autopilot, hidden registry, automatic
 GitHub issue creation, or background sync mechanism. It does not authorize
 mutating downstream repos or Hermes internals.
+
+## Hermes Doer With GBrain-Distributed Instructions Contract
+
+The [Hermes doer with GBrain-distributed instructions contract](docs/hermes-doer-gbrain-distributed-instructions-contract.md)
+composes the Hermes foreground launcher, foreground recovery runtime, and
+GBrain repo-local instruction distribution contracts. It defines how consumers
+may use Hermes as a bounded foreground first-attempt doer while pointing it at
+repo-local instruction surfaces that cite advisory GBrain distribution guidance.
+Consumers may copy the
+[receipt template](templates/hermes-doer-gbrain-distributed-instructions.md) or
+cite the contract, but must not turn it into a runtime dependency, daemon,
+scheduler, queue, retry loop, controller, MCP server, hidden registry,
+background sync, `hermes -z` adoption path, autonomous campaign operator, or
+canonical GBrain memory claim.
 
 ## Foreground Recovery Runtime Contract
 
