@@ -90,6 +90,15 @@
   server, autopilot, dream, jobs worker, or canonical-memory claim. GBrain
   remains advisory and cannot override operator intent, GitHub truth, repo
   evidence, or repo-local instructions.
+- The Issue #164 Hermes doer with GBrain-distributed repo-local instructions
+  contract lives in
+  `docs/hermes-doer-gbrain-distributed-instructions-contract.md` and
+  `templates/hermes-doer-gbrain-distributed-instructions.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, background sync, MCP server,
+  autonomous campaign operation, `hermes -z` adoption, GBrain background
+  behavior, or canonical-memory claim. Hermes remains a bounded foreground
+  first-attempt doer, and GBrain remains advisory.
 
 ## Skills
 
