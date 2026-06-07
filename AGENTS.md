@@ -82,6 +82,14 @@
   autopilot, dream, jobs worker, or canonical-memory claim. GBrain remains
   advisory until retrieval, citation, typed-link, timeline, write-parity,
   distribution, and human-acceptance gates are proven.
+- The Issue #164 GBrain repo-local instruction distribution contract lives in
+  `docs/gbrain-repo-local-instruction-distribution-contract.md` and
+  `templates/gbrain-repo-local-instruction-distribution.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, import framework,
+  daemon, scheduler, queue, controller, hidden registry, background sync, MCP
+  server, autopilot, dream, jobs worker, or canonical-memory claim. GBrain
+  remains advisory and cannot override operator intent, GitHub truth, repo
+  evidence, or repo-local instructions.
 
 ## Skills
 

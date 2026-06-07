@@ -51,6 +51,7 @@ templates/                  # Shared templates
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
+  gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -69,6 +70,7 @@ docs/
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
+  gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -219,6 +221,19 @@ The first consumers are:
   or owner/no-action routing.
 - `repo-upgrade-advisor`: render source-driven recommendations while preserving
   source IDs, claim IDs, evidence tiers, and bounded non-claims.
+
+## GBrain Repo-Local Instruction Distribution Contract
+
+The [GBrain repo-local instruction distribution contract](docs/gbrain-repo-local-instruction-distribution-contract.md)
+defines how advisory GBrain records may be copied or cited into repo-local
+instruction surfaces such as `AGENTS.md`, repository agent instructions, pull
+request templates, and issue templates. Consumers may copy the
+[template](templates/gbrain-repo-local-instruction-distribution.md) or cite the
+contract, but must not turn it into a runtime dependency, scheduler, queue,
+controller, daemon, MCP server, hidden registry, background sync, canonical
+memory claim, or automatic updater. GBrain remains advisory and cannot override
+operator intent, GitHub issue/PR/check/merge truth, repo evidence, or
+repo-local instructions.
 
 ## License
 
