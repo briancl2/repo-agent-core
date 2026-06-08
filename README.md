@@ -25,6 +25,7 @@ schemas/                    # Machine-readable inter-agent contracts
   COMMAND_OUTPUT_ROI_RECEIPT.schema.json # Command-output summarization receipt
   HERMES_FOREGROUND_RUN_RECEIPT.schema.json # One-shot Hermes foreground launcher receipt
   HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json # Advisory Hermes foreground failure guidance
+  HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json # Bounded Hermes repo-star pilot reliability receipt
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
@@ -50,6 +51,7 @@ templates/                  # Shared templates
   upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
+  hermes-foreground-repo-star-pilot-reliability.md # Bounded Hermes repo-star pilot reliability receipt
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   repo-star-downstream-genericity-proof-receipt.md # Two-target downstream genericity proof receipt
@@ -70,6 +72,7 @@ docs/
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   upstream-capability-intake-contract.md # Compact upstream capability intake contract
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
+  hermes-foreground-repo-star-pilot-reliability-contract.md # Bounded Hermes repo-star pilot reliability contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
@@ -174,6 +177,19 @@ contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, autopilot, hidden registry, automatic
 GitHub issue creation, or background sync mechanism. It does not authorize
 mutating downstream repos or Hermes internals.
+
+## Hermes Foreground Repo-Star Pilot Reliability Contract
+
+The [Hermes foreground repo-star pilot reliability contract](docs/hermes-foreground-repo-star-pilot-reliability-contract.md)
+defines the shared `HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT`
+shape for measuring bounded foreground Hermes attempts against repo-star
+downstream read-only pilot prompts. Consumers may copy-sync or cite the
+contract, schema, or
+[template](templates/hermes-foreground-repo-star-pilot-reliability.md), but
+must not turn them into a runtime dependency, daemon, scheduler, queue, retry
+loop, controller, hidden registry, `hermes -z` adoption path, autonomous Hermes
+operator, automatic GitHub issue creation, downstream mutation path, or
+background sync mechanism.
 
 ## Hermes Doer With GBrain-Distributed Instructions Contract
 

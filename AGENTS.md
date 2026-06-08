@@ -50,6 +50,18 @@
   controller, MCP server, autopilot, hidden registry, automatic GitHub issue
   creation, or background sync. It does not authorize mutating downstream repos
   or Hermes internals.
+- The Issue #164 Hermes foreground repo-star pilot reliability receipt lives in
+  `docs/hermes-foreground-repo-star-pilot-reliability-contract.md` and
+  `schemas/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json`
+  plus `templates/hermes-foreground-repo-star-pilot-reliability.md`; consume it
+  by copy-sync or citation only, not by runtime dependency, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, background sync, MCP server,
+  automatic GitHub issue creation, downstream PR/issue creation, downstream
+  mutation, `hermes -z` adoption, Hermes primary campaign ownership, or patch
+  application. Reliability artifacts must preserve downstream target git
+  head/status before and after, write prompts/receipts/failure guidance outside
+  targets, classify foreground Hermes runtime outcomes, and route failures to
+  the owning surface.
 - The Issue #164 foreground recovery runtime composition lives in
   `docs/foreground-recovery-runtime-contract.md` and
   `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` plus

@@ -1,0 +1,395 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT",
+  "description": "Bounded foreground Hermes reliability measurement receipt for repo-star downstream read-only pilots.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "schema_version",
+    "generated_at",
+    "source_issue_or_pr",
+    "measurement_root",
+    "hermes_launcher",
+    "target_identities",
+    "target_git_state_matrix",
+    "reliability_trial_matrix",
+    "reliability_summary",
+    "repo_star_inputs",
+    "output_roots",
+    "failure_conversion",
+    "owner_routing",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "const": "HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT"
+    },
+    "schema_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_issue_or_pr": {
+      "type": "string",
+      "minLength": 1
+    },
+    "measurement_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "hermes_launcher": {
+      "type": "object",
+      "required": [
+        "launcher_path",
+        "provider",
+        "model",
+        "hermes_z_used",
+        "output_root"
+      ],
+      "properties": {
+        "launcher_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "provider": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_turns": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "timeout_seconds": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "hermes_z_used": {
+          "type": "boolean",
+          "const": false
+        },
+        "output_root": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "target_identities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "target_key",
+          "target_repo_identity",
+          "target_path_or_name",
+          "target_is_non_bma",
+          "privacy_redaction_note"
+        ],
+        "properties": {
+          "target_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_repo_identity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_path_or_name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_remote_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target_is_non_bma": {
+            "type": "boolean",
+            "const": true
+          },
+          "privacy_redaction_note": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "target_git_state_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "target_key",
+          "git_head_before",
+          "git_head_after",
+          "git_status_before",
+          "git_status_after",
+          "read_only_state_preserved"
+        ],
+        "properties": {
+          "target_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "git_head_before": {
+            "type": "string",
+            "minLength": 1
+          },
+          "git_head_after": {
+            "type": "string",
+            "minLength": 1
+          },
+          "git_status_before": {
+            "type": "string"
+          },
+          "git_status_after": {
+            "type": "string"
+          },
+          "read_only_state_preserved": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "reliability_trial_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "trial_id",
+          "target_key",
+          "prompt_path",
+          "outcome",
+          "target_mutation_observed"
+        ],
+        "properties": {
+          "trial_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prompt_path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "exit_status": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "duration_seconds": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "receipt_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "failure_guidance_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "outcome": {
+            "type": "string",
+            "enum": [
+              "clean_receipt",
+              "empty_stdout",
+              "missing_receipt",
+              "timeout",
+              "warning_only",
+              "session_only",
+              "useful_analysis_with_failure",
+              "target_mutation_attempt",
+              "broad_rewrite_risk",
+              "launcher_failure",
+              "validation_failure",
+              "not_run"
+            ]
+          },
+          "target_mutation_observed": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "reliability_summary": {
+      "type": "object",
+      "required": [
+        "trial_count",
+        "clean_receipt_count",
+        "failure_count",
+        "read_only_targets_preserved",
+        "reliability_verdict"
+      ],
+      "properties": {
+        "trial_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "clean_receipt_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failure_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "read_only_targets_preserved": {
+          "type": "boolean"
+        },
+        "reliability_verdict": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "partial",
+            "fail",
+            "blocked",
+            "not_run"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "repo_star_inputs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "input_family",
+          "source_path_or_url",
+          "influence"
+        ],
+        "properties": {
+          "input_family": {
+            "type": "string",
+            "enum": [
+              "repo-auditor",
+              "repo-upgrade-advisor",
+              "repo-optimizer",
+              "genericity-proof",
+              "contract",
+              "other"
+            ]
+          },
+          "source_path_or_url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "influence": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "output_roots": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "failure_conversion": {
+      "type": "object",
+      "required": [
+        "route_changing_failure_found",
+        "github_surface",
+        "conversion_summary"
+      ],
+      "properties": {
+        "route_changing_failure_found": {
+          "type": "boolean"
+        },
+        "github_surface": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "conversion_summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "owner_routing": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "blocker_family",
+          "owner_surface",
+          "next_owner_action"
+        ],
+        "properties": {
+          "blocker_family": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner_surface": {
+            "type": "string",
+            "enum": [
+              "build-meta-analysis",
+              "repo-agent-core",
+              "repo-auditor",
+              "repo-upgrade-advisor",
+              "repo-optimizer"
+            ]
+          },
+          "next_owner_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}
