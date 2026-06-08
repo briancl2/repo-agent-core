@@ -141,7 +141,9 @@
   queue, controller, retry loop, hidden registry, retained closure package, or
   background sync. Prompt A is assumption-gap first; Prompt B may claim
   reconciliation only after the actual Prompt A response exists unless the
-  prompt is explicitly marked as a hypothetical draft.
+  prompt is explicitly marked as a hypothetical draft. Each sidecar turn should
+  be one complete paste artifact; repo-side tooling/coordinator owns evidence
+  assembly, not the human operator.
 
 ## Skills
 
