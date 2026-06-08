@@ -26,6 +26,7 @@ schemas/                    # Machine-readable inter-agent contracts
   HERMES_FOREGROUND_RUN_RECEIPT.schema.json # One-shot Hermes foreground launcher receipt
   HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json # Advisory Hermes foreground failure guidance
   HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json # Bounded Hermes repo-star pilot reliability receipt
+  GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.schema.json # Advisory GBrain pilot outcome learning-loop receipt
   TOKEN_MEASUREMENT_SUMMARY.schema.json # Additive token-efficiency summary
   HOTSPOT_EVIDENCE_PACKETS.schema.json  # Additive hotspot evidence packets
   AGENTIC_ROOT_CAUSE_BRIEFS.schema.json # Additive bounded brief handoff
@@ -52,6 +53,7 @@ templates/                  # Shared templates
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   hermes-foreground-repo-star-pilot-reliability.md # Bounded Hermes repo-star pilot reliability receipt
+  gbrain-advisory-pilot-outcome-learning-loop.md # Advisory GBrain pilot outcome learning-loop receipt
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   repo-star-downstream-genericity-proof-receipt.md # Two-target downstream genericity proof receipt
@@ -73,6 +75,7 @@ docs/
   upstream-capability-intake-contract.md # Compact upstream capability intake contract
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   hermes-foreground-repo-star-pilot-reliability-contract.md # Bounded Hermes repo-star pilot reliability contract
+  gbrain-advisory-pilot-outcome-learning-loop-contract.md # Advisory GBrain pilot outcome learning-loop contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
@@ -190,6 +193,21 @@ must not turn them into a runtime dependency, daemon, scheduler, queue, retry
 loop, controller, hidden registry, `hermes -z` adoption path, autonomous Hermes
 operator, automatic GitHub issue creation, downstream mutation path, or
 background sync mechanism.
+
+## GBrain Advisory Pilot Outcome Learning Loop Contract
+
+The [GBrain advisory pilot outcome learning-loop contract](docs/gbrain-advisory-pilot-outcome-learning-loop-contract.md)
+defines the shared
+`GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT` shape for replaying
+Issue #164 pilot outcomes, classifying decision-changing or no-capture learning,
+checking citation/source-ref quality, and routing owner repairs when advisory
+GBrain evidence is stale, missing, uncited, contradictory, or not
+decision-changing. Consumers may copy-sync or cite the contract, schema, or
+[template](templates/gbrain-advisory-pilot-outcome-learning-loop.md), but must
+not turn them into a runtime dependency, import framework, memory daemon,
+scheduler, queue, controller, hidden registry, background sync, MCP server,
+automatic GitHub issue creation, downstream mutation path, canonical-memory
+claim, or automatic updater.
 
 ## Hermes Doer With GBrain-Distributed Instructions Contract
 
