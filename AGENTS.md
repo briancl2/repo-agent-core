@@ -75,6 +75,18 @@
   automatic GitHub issue creation, downstream PR/issue creation, or patch
   application. Proof artifacts must use a non-BMA target and preserve target git
   head/status before and after.
+- The Issue #164 repo-star downstream genericity proof receipt lives in
+  `docs/repo-star-downstream-genericity-proof-contract.md` and
+  `schemas/REPO_STAR_DOWNSTREAM_GENERICITY_PROOF_RECEIPT.schema.json` plus
+  `templates/repo-star-downstream-genericity-proof-receipt.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, background sync, MCP server,
+  automatic GitHub issue creation, downstream PR/issue creation, `hermes -z`
+  adoption, background GBrain behavior, or patch application. Proof artifacts
+  must use real non-BMA downstream read-only targets, preserve each target git
+  head/status before and after, classify target-native gate evidence without
+  flattening ambiguity, keep evidence outside targets, and avoid exporting BMA
+  labels or Issue #164 closure semantics into target repos.
 - The Issue #164 GBrain retrieval/citation lifecycle proof lives in
   `docs/gbrain-retrieval-citation-lifecycle-contract.md` and
   `templates/gbrain-retrieval-citation-lifecycle.md`; consume it by copy-sync

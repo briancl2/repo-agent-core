@@ -34,6 +34,7 @@ schemas/                    # Machine-readable inter-agent contracts
   ADAPTER_AUDIT_SUMMARY.schema.json # Shared adapter audit summary
   SOURCE_INSIGHT_PACKET.schema.json # Shared source-intelligence intake packet
   REPO_STAR_GENERICITY_PROOF_RECEIPT.schema.json # Shared non-BMA repo-star genericity proof receipt
+  REPO_STAR_DOWNSTREAM_GENERICITY_PROOF_RECEIPT.schema.json # Two-target downstream genericity proof receipt
 templates/                  # Shared templates
   v3.1-markdown-handoff.md  # Subagent handoff template
   optimizer_policy.yaml     # Token budget ratchet policy
@@ -51,6 +52,7 @@ templates/                  # Shared templates
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
+  repo-star-downstream-genericity-proof-receipt.md # Two-target downstream genericity proof receipt
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
@@ -71,6 +73,7 @@ docs/
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
+  repo-star-downstream-genericity-proof-contract.md # Two-target downstream genericity proof contract
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
@@ -223,6 +226,20 @@ copy-sync or cite the contract, schema, or
 them into a runtime dependency, controller, scheduler, queue, daemon, hidden
 registry, automatic GitHub issue creation, downstream mutation path, or
 background sync.
+
+## Repo-Star Downstream Genericity Proof Contract
+
+The [repo-star downstream genericity proof contract](docs/repo-star-downstream-genericity-proof-contract.md)
+defines the shared `REPO_STAR_DOWNSTREAM_GENERICITY_PROOF_RECEIPT` shape for
+proving repo-star genericity across two real non-BMA downstream read-only
+targets. It records target identities, before/after git state, target-native
+gate matrix, repo-star command list, output roots, privacy redaction notes, BMA
+ceremony leakage checks, GitHub summary surface, owner routing, and bounded
+non-claims. Consumers may copy-sync or cite the contract, schema, or
+[template](templates/repo-star-downstream-genericity-proof-receipt.md), but
+must not turn them into a runtime dependency, controller, scheduler, queue,
+daemon, hidden registry, automatic GitHub issue creation, downstream mutation
+path, `hermes -z` adoption path, background GBrain behavior, or background sync.
 
 ## Source Insight Contract
 
