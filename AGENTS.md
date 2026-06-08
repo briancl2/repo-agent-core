@@ -134,6 +134,14 @@
   autonomous campaign operation, `hermes -z` adoption, GBrain background
   behavior, or canonical-memory claim. Hermes remains a bounded foreground
   first-attempt doer, and GBrain remains advisory.
+- The Issue #164 sidecar Prompt A/B response-shaped protocol lives in
+  `docs/sidecar-prompt-ab-response-shaped-contract.md` and
+  `templates/sidecar-prompt-ab-response-shaped.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, sidecar runner, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, retained closure package, or
+  background sync. Prompt A is assumption-gap first; Prompt B may claim
+  reconciliation only after the actual Prompt A response exists unless the
+  prompt is explicitly marked as a hypothetical draft.
 
 ## Skills
 

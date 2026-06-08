@@ -60,6 +60,7 @@ templates/                  # Shared templates
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
+  sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -83,6 +84,7 @@ docs/
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
+  sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -222,6 +224,17 @@ cite the contract, but must not turn it into a runtime dependency, daemon,
 scheduler, queue, retry loop, controller, MCP server, hidden registry,
 background sync, `hermes -z` adoption path, autonomous campaign operator, or
 canonical GBrain memory claim.
+
+## Sidecar Prompt A/B Response-Shaped Contract
+
+The [sidecar Prompt A/B response-shaped contract](docs/sidecar-prompt-ab-response-shaped-contract.md)
+defines the shared manual sidecar protocol for assumption-gap-first Prompt A and
+response-shaped Prompt B. Consumers may copy the
+[template](templates/sidecar-prompt-ab-response-shaped.md) or cite the contract,
+but must not turn them into a sidecar runner, controller, scheduler, queue,
+daemon, hidden registry, retained closure package, or background sync
+mechanism. Prompt B may claim reconciliation only after the actual Prompt A
+response exists; pre-response Prompt B text must be marked hypothetical.
 
 ## Foreground Recovery Runtime Contract
 
