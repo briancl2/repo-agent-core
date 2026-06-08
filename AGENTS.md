@@ -59,7 +59,8 @@
   downstream mutation. Guidance is advisory and does not invoke gh; an operator
   must explicitly run any suggested conversion command.
 - The Issue #164 downstream read-only recovery-runtime pilot receipt lives in
-  `docs/downstream-read-only-recovery-runtime-pilot-contract.md`; consume it by
+  `docs/downstream-read-only-recovery-runtime-pilot-contract.md` and
+  `templates/downstream-read-only-recovery-runtime-pilot.md`; consume it by
   copy-sync or citation only, not by runtime dependency, daemon, scheduler,
   queue, controller, retry loop, hidden registry, background sync, MCP server,
   automatic GitHub issue creation, downstream PR/issue creation, or patch

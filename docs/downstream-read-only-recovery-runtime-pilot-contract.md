@@ -26,6 +26,7 @@ Related contracts:
 - `docs/hermes-foreground-launcher-contract.md`
 - `docs/interruption-recovery-and-batch-reconstitution-contract.md`
 - `docs/foreground-learning-and-recovery-contract.md`
+- `docs/hermes-doer-gbrain-distributed-instructions-contract.md`
 
 Consumers use this contract by copy-sync or citation only.
 
@@ -53,12 +54,19 @@ identity, replay evidence, and no-mutation proof for a downstream pilot handoff:
 | artifact | Literal `DOWNSTREAM_READ_ONLY_RECOVERY_RUNTIME_PILOT_RECEIPT`. |
 | schema_version | Receipt shape version; currently `1`. |
 | generated_at | UTC timestamp for the receipt. |
+| source_issue_or_pr | GitHub surface that authorized or summarized the pilot. |
 | target_repo_identity | Stable target repo identity, preferably `owner/name` plus remote URL when available. |
 | target_path_or_name | Target checkout path or repo name inspected by the pilot. |
+| target_repo_commit | Exact target commit inspected by the pilot. |
 | target_git_head_before | Git HEAD of the target repo before pilot inspection. |
 | target_git_head_after | Git HEAD of the target repo after pilot inspection. Must match `target_git_head_before` for a read-only pilot. |
 | target_dirty_count_before | Count of dirty target repo entries before pilot inspection. |
 | target_dirty_count_after | Count of dirty target repo entries after pilot inspection. Must match `target_dirty_count_before` for a read-only pilot. |
+| pilot_purpose | One-sentence reason this target was selected for read-only proof. |
+| selected_repo_star_tools | Repo-star tools used or skipped, with participation rationale. |
+| hermes_foreground_receipt_path | Path or GitHub link to the bounded Hermes foreground receipt when Hermes participates. |
+| gbrain_advisory_inputs | Advisory GBrain slugs, repo-local instruction citations, or no-capture reason used by the pilot. |
+| commands_run | Commands run during the pilot, with status and receipt path. |
 | auditor_as_replay_artifact_path | Path to the retained repo-auditor-as replay artifact generated outside the target repo. |
 | advisor_artifact_path | Path to the retained repo-upgrade-advisor artifact generated outside the target repo. |
 | optimizer_replay_receipt_path | Path to the retained repo-optimizer replay receipt generated outside the target repo. |
@@ -66,6 +74,9 @@ identity, replay evidence, and no-mutation proof for a downstream pilot handoff:
 | patch_metadata_path | Path to patch metadata explaining source artifacts, target identity, and intended operator review context. |
 | blocker_path | Path to blocker evidence when the pilot cannot produce a complete patch pack or apply-check result. |
 | apply_check_result_path | Path to read-only apply-check output produced outside the target repo without applying patches to the checkout. |
+| github_summary_surface | Issue, PR, or comment where the compact pilot outcome is recorded. |
+| local_artifact_retention_policy | Statement that local artifacts are progress evidence only and not closure truth. |
+| bma_ceremony_leakage_checklist | Checklist proving BMA labels, Issue #164 closeout semantics, completion manifests, retained closeout packages, and BMA-only receipt paths were not exported into the target repo. |
 | bounded_non_claims | No-downstream-mutation claims that bound what the receipt does not prove or perform. |
 
 ## Validation Rules
@@ -84,7 +95,21 @@ A valid downstream read-only recovery-runtime pilot receipt:
 5. Records review artifacts outside the target repo:
    `generated_patch_pack_path`, `patch_metadata_path`, `blocker_path`, and
    `apply_check_result_path`.
-6. Includes `bounded_non_claims` that state the pilot does not mutate the target
+6. Records Hermes and GBrain participation boundaries through
+   `hermes_foreground_receipt_path` and `gbrain_advisory_inputs`; Hermes remains
+   bounded foreground and GBrain remains advisory, source/citation-backed, and
+   non-canonical.
+7. Records `selected_repo_star_tools` so repo-auditor, repo-upgrade-advisor, and
+   repo-optimizer participation is intentional rather than symmetrical. Do not
+   force repo-optimizer without a patch-ready materialization gap.
+8. Records `github_summary_surface` and `local_artifact_retention_policy` so
+   GitHub carries the compact outcome while local /tmp artifacts remain
+   execution evidence only.
+9. Records `bma_ceremony_leakage_checklist` proving the pilot did not export BMA
+   labels, Issue #164 task-closure semantics, retained report packages,
+   completion manifests, local closeout receipts, or campaign-sync machinery
+   into the downstream target.
+10. Includes `bounded_non_claims` that state the pilot does not mutate the target
    repo and does not automate downstream follow-up.
 
 ## Bounded Non-Claims
@@ -96,6 +121,13 @@ to these clauses:
 - This receipt does not open downstream PRs or issues.
 - This receipt does not mutate the target repo.
 - This receipt does not install hooks or change target repo configuration.
+- This receipt does not export BMA labels, Issue #164 task-closure semantics,
+  completion manifests, retained closeout packages, local closeout receipts, or
+  campaign-sync machinery into the downstream target.
+- This receipt does not make GBrain canonical or let GBrain override operator
+  intent, GitHub truth, repo evidence, or repo-local instructions.
+- This receipt does not make Hermes the campaign owner or prove Hermes
+  primary-doer autonomy.
 - This receipt does not start a daemon, scheduler, queue, controller, retry loop,
   hidden registry, background sync, MCP server, watcher, cron job, service, or
   autopilot.
