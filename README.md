@@ -234,7 +234,10 @@ response-shaped Prompt B. Consumers may copy the
 but must not turn them into a sidecar runner, controller, scheduler, queue,
 daemon, hidden registry, retained closure package, or background sync
 mechanism. Prompt B may claim reconciliation only after the actual Prompt A
-response exists; pre-response Prompt B text must be marked hypothetical.
+response exists; pre-response Prompt B text must be marked hypothetical. Each
+sidecar turn should be one complete paste artifact: the repo-side
+tooling/coordinator assembles evidence, and the human operator does not gather
+reports, ledgers, transcripts, excerpts, or evidence files for the prompt.
 
 ## Foreground Recovery Runtime Contract
 

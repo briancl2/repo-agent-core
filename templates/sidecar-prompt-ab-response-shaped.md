@@ -6,6 +6,7 @@
 | Field | Value |
 |---|---|
 | Sidecar surface |  |
+| Single-paste invariant | One complete paste artifact per sidecar turn; no additional files are required; repo-side tooling/coordinator owns evidence assembly. |
 | Prompt A objective | Assumption-gap first:  |
 | Prompt A response evidence |  |
 | Prompt A acceptance check |  |
@@ -18,6 +19,14 @@
 
 ## Prompt A
 
+Start the Prompt A artifact with:
+
+`Paste this entire file into ChatGPT Pro. No other files are required.`
+
+State that repo-side tooling/coordinator owns evidence assembly. If the sidecar
+needs more evidence, it should ask the repo-side tooling/coordinator to
+regenerate the bundle with exact missing evidence.
+
 Ask for:
 
 - assumption gaps;
@@ -28,11 +37,15 @@ Ask for:
 - source/provenance questions;
 - evidence needed before Prompt B can safely plan.
 
+Keep report, ledger, transcript, excerpt, and evidence-file assembly on the
+repo-side tooling/coordinator path.
+
 ## Prompt B
 
 Prompt B mode: `response-shaped`
 
-Use only after the actual Prompt A response exists. Reconcile:
+Use only after the actual Prompt A response exists and has been embedded into
+this paste-ready Prompt B artifact. Reconcile:
 
 - Prompt A accepted claims:
 - Prompt A rejected claims:
