@@ -1,0 +1,348 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT",
+  "description": "Advisory GBrain learning-loop replay and capture receipt for Issue #164 pilot outcomes.",
+  "type": "object",
+  "required": [
+    "artifact",
+    "schema_version",
+    "generated_at",
+    "source_issue_or_pr",
+    "proof_root",
+    "advisory_status",
+    "related_contracts",
+    "pilot_outcomes",
+    "gbrain_read_commands",
+    "gbrain_capture_candidates",
+    "capture_summary",
+    "citation_summary",
+    "learning_recovery_blocks",
+    "owner_routing",
+    "no_background_commands_used",
+    "bounded_non_claims"
+  ],
+  "properties": {
+    "artifact": {
+      "type": "string",
+      "const": "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT"
+    },
+    "schema_version": {
+      "type": [
+        "integer",
+        "string"
+      ]
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_issue_or_pr": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proof_root": {
+      "type": "string",
+      "minLength": 1
+    },
+    "advisory_status": {
+      "type": "string",
+      "pattern": "^[Gg]Brain remains advisory$"
+    },
+    "related_contracts": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "pilot_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "pilot_id",
+          "github_surface",
+          "raw_evidence",
+          "decision_changed",
+          "learning_class",
+          "owner_action"
+        ],
+        "properties": {
+          "pilot_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "github_surface": {
+            "type": "string",
+            "minLength": 1
+          },
+          "raw_evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_changed": {
+            "type": "string",
+            "minLength": 1
+          },
+          "learning_class": {
+            "type": "string",
+            "enum": [
+              "decision_changing",
+              "no_capture",
+              "stale",
+              "contradictory",
+              "failed_lookup",
+              "capture_candidate"
+            ]
+          },
+          "no_capture_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gbrain_slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "owner_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "gbrain_read_commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "command",
+          "status"
+        ],
+        "properties": {
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stdout_summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "receipt_path": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "gbrain_capture_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "slug",
+          "state",
+          "admission",
+          "source_refs",
+          "reason"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "shadow_canonical"
+            ]
+          },
+          "admission": {
+            "type": "string",
+            "enum": [
+              "admitted",
+              "written",
+              "rejected_no_capture",
+              "rejected_stale",
+              "rejected_missing_source_ref",
+              "blocked"
+            ]
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "capture_summary": {
+      "type": "object",
+      "required": [
+        "candidate_count",
+        "records_written_count",
+        "canonical_records_written",
+        "rejected_count",
+        "allowed_record_states"
+      ],
+      "properties": {
+        "candidate_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "records_written_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "canonical_records_written": {
+          "type": "integer",
+          "const": 0
+        },
+        "rejected_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "allowed_record_states": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "shadow_canonical"
+            ]
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "citation_summary": {
+      "type": "object",
+      "required": [
+        "missing_source_ref_count",
+        "citation_quality"
+      ],
+      "properties": {
+        "pilot_outcomes_with_github_surface": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "capture_candidates_with_source_refs": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "missing_source_ref_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "citation_quality": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "learning_recovery_blocks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "github_surface",
+          "decision_changed",
+          "owner_action"
+        ],
+        "properties": {
+          "github_surface": {
+            "type": "string",
+            "minLength": 1
+          },
+          "decision_changed": {
+            "type": "string",
+            "minLength": 1
+          },
+          "gbrain_slug": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "no_capture_reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "owner_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "owner_routing": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "blocker_family",
+          "owner_surface",
+          "next_owner_action"
+        ],
+        "properties": {
+          "blocker_family": {
+            "type": "string",
+            "minLength": 1
+          },
+          "owner_surface": {
+            "type": "string",
+            "minLength": 1
+          },
+          "next_owner_action": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "no_background_commands_used": {
+      "type": "boolean",
+      "const": true
+    },
+    "bounded_non_claims": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": true
+}

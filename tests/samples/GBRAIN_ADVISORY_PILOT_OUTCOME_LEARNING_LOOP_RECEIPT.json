@@ -1,0 +1,103 @@
+{
+  "artifact": "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT",
+  "schema_version": 1,
+  "generated_at": "2026-06-08T05:30:00Z",
+  "source_issue_or_pr": "https://github.com/briancl2/build-meta-analysis/issues/531",
+  "proof_root": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z",
+  "advisory_status": "GBrain remains advisory",
+  "related_contracts": [
+    "docs/foreground-learning-and-recovery-contract.md",
+    "docs/gbrain-retrieval-citation-lifecycle-contract.md",
+    "docs/downstream-read-only-recovery-runtime-pilot-contract.md",
+    "docs/hermes-foreground-repo-star-pilot-reliability-contract.md"
+  ],
+  "pilot_outcomes": [
+    {
+      "pilot_id": "issue-528-hermes-reliability",
+      "github_surface": "https://github.com/briancl2/build-meta-analysis/issues/528",
+      "raw_evidence": "/tmp/issue164-hermes-repo-star-reliability-20260608T043931Z/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.json",
+      "decision_changed": "no",
+      "learning_class": "no_capture",
+      "no_capture_reason": "clean reliability success was already captured on GitHub and did not change route through GBrain memory",
+      "gbrain_slug": null,
+      "owner_action": "continue with Issue #164 next active track"
+    }
+  ],
+  "gbrain_read_commands": [
+    {
+      "command": "timeout 10 gbrain search \"Issue 164 Hermes reliability GBrain learning\" --limit 5",
+      "status": "ok",
+      "stdout_summary": "No route-changing hit.",
+      "receipt_path": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z/gbrain/search-hermes-reliability.stdout"
+    }
+  ],
+  "gbrain_capture_candidates": [
+    {
+      "slug": "bma/issue164/pilot-learning/issue-528-hermes-reliability",
+      "state": "draft",
+      "admission": "rejected_no_capture",
+      "source_refs": [
+        "https://github.com/briancl2/build-meta-analysis/issues/528",
+        "https://github.com/briancl2/build-meta-analysis/pull/530"
+      ],
+      "reason": "No decision-changing GBrain capture was warranted."
+    }
+  ],
+  "capture_summary": {
+    "candidate_count": 1,
+    "records_written_count": 0,
+    "canonical_records_written": 0,
+    "rejected_count": 1,
+    "allowed_record_states": [
+      "draft",
+      "shadow_canonical"
+    ]
+  },
+  "citation_summary": {
+    "pilot_outcomes_with_github_surface": 1,
+    "capture_candidates_with_source_refs": 1,
+    "missing_source_ref_count": 0,
+    "citation_quality": "github-surface-backed"
+  },
+  "learning_recovery_blocks": [
+    {
+      "github_surface": "https://github.com/briancl2/build-meta-analysis/pull/530",
+      "decision_changed": "after runtime evidence, no speculative repo-auditor/repo-upgrade-advisor/repo-optimizer PRs were admitted",
+      "gbrain_slug": null,
+      "no_capture_reason": "the learning was already anchored in GitHub and did not require advisory memory capture",
+      "owner_action": "next track is GBrain advisory learning-loop hardening for pilot outcomes"
+    }
+  ],
+  "owner_routing": [
+    {
+      "blocker_family": "shared learning-loop contract",
+      "owner_surface": "repo-agent-core",
+      "next_owner_action": "update this contract, schema, or template"
+    },
+    {
+      "blocker_family": "unanchored self-learning detector",
+      "owner_surface": "repo-auditor",
+      "next_owner_action": "repair AS-32 or AS-36 only if replay evidence exposes a missed overclaim"
+    },
+    {
+      "blocker_family": "learning recommendation packaging",
+      "owner_surface": "repo-upgrade-advisor",
+      "next_owner_action": "repair AS-32 or GBrain learning packaging only if advisor evidence misses the contract"
+    },
+    {
+      "blocker_family": "learning recovery materializer",
+      "owner_surface": "repo-optimizer",
+      "next_owner_action": "repair LR-01 only if a patch-ready active-document row fails dry-run materialization"
+    }
+  ],
+  "no_background_commands_used": true,
+  "bounded_non_claims": [
+    "does not make GBrain canonical",
+    "does not write canonical records",
+    "does not bulk-import a corpus",
+    "does not start or require sync/watch, cron, autopilot, dream, jobs worker, MCP serving, minions, daemons, schedulers, queues, hidden registries, or background memory behavior",
+    "does not mutate downstream target repos",
+    "does not authorize automatic GitHub issue creation, automatic patch application, auto-merge, or downstream PRs/issues",
+    "does not prove long-term retention, broad downstream adoption, human acceptance, cost savings, or fleet-wide quality"
+  ]
+}

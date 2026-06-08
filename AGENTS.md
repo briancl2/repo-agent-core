@@ -62,6 +62,16 @@
   head/status before and after, write prompts/receipts/failure guidance outside
   targets, classify foreground Hermes runtime outcomes, and route failures to
   the owning surface.
+- The Issue #164 GBrain advisory pilot outcome learning-loop receipt lives in
+  `docs/gbrain-advisory-pilot-outcome-learning-loop-contract.md` and
+  `schemas/GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.schema.json`
+  plus `templates/gbrain-advisory-pilot-outcome-learning-loop.md`; consume it
+  by copy-sync or citation only, not by runtime dependency, import framework,
+  memory daemon, scheduler, queue, controller, hidden registry, background
+  sync, MCP server, automatic GitHub issue creation, downstream mutation, or
+  canonical-memory claim. GBrain remains advisory; capture only reusable
+  decision-changing learning with source/citation or GitHub surface references,
+  and use explicit no-capture reasons for routine, duplicate, or null results.
 - The Issue #164 foreground recovery runtime composition lives in
   `docs/foreground-recovery-runtime-contract.md` and
   `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` plus
