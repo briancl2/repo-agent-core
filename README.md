@@ -49,6 +49,7 @@ templates/                  # Shared templates
   upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
+  downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
