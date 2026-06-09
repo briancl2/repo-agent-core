@@ -57,6 +57,7 @@ templates/                  # Shared templates
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-receipt.md # Non-BMA repo-star genericity proof receipt
   repo-star-downstream-genericity-proof-receipt.md # Two-target downstream genericity proof receipt
+  repo-star-closure-runtime-distribution.md # Closure/runtime detector-advisor distribution record
   gbrain-retrieval-citation-lifecycle.md # Advisory GBrain retrieval/citation lifecycle receipt
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
@@ -81,6 +82,7 @@ docs/
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   repo-star-downstream-genericity-proof-contract.md # Two-target downstream genericity proof contract
+  repo-star-closure-runtime-distribution-contract.md # Closure/runtime detector-advisor distribution contract
   gbrain-retrieval-citation-lifecycle-contract.md # Advisory GBrain retrieval/citation proof contract
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
@@ -292,6 +294,16 @@ non-claims. Consumers may copy-sync or cite the contract, schema, or
 must not turn them into a runtime dependency, controller, scheduler, queue,
 daemon, hidden registry, automatic GitHub issue creation, downstream mutation
 path, `hermes -z` adoption path, background GBrain behavior, or background sync.
+
+## Repo-Star Closure Runtime Distribution Contract
+
+The [repo-star closure runtime distribution contract](docs/repo-star-closure-runtime-distribution-contract.md)
+defines the shared Issue #164 closure-ceremony and runtime-drift distribution
+shape for detector, advisor, and optimizer owner surfaces. Consumers may copy
+the [template](templates/repo-star-closure-runtime-distribution.md) or cite the
+contract, but must not turn it into a runtime dependency, daemon, scheduler,
+queue, controller, retry loop, hidden registry, retained report-package truth,
+background memory process, auto-merge path, or downstream mutation grant.
 
 ## Source Insight Contract
 
