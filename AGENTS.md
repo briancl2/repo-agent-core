@@ -111,6 +111,16 @@
   head/status before and after, classify target-native gate evidence without
   flattening ambiguity, keep evidence outside targets, and avoid exporting BMA
   labels or Issue #164 closure semantics into target repos.
+- The Issue #164 repo-star closure/runtime distribution contract lives in
+  `docs/repo-star-closure-runtime-distribution-contract.md` and
+  `templates/repo-star-closure-runtime-distribution.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, retained report-package
+  truth, background memory process, automatic updater, auto-merge path, or
+  downstream mutation. Distribution records must name closure ceremony regrowth
+  classes, runtime drift classes, exact owner-surface recommendation fields,
+  validation scope, fallback routing, foreground-only advisory GBrain policy,
+  and bounded non-claims.
 - The Issue #164 GBrain retrieval/citation lifecycle proof lives in
   `docs/gbrain-retrieval-citation-lifecycle-contract.md` and
   `templates/gbrain-retrieval-citation-lifecycle.md`; consume it by copy-sync
