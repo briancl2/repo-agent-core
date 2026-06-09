@@ -1,6 +1,6 @@
 {
   "artifact": "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT",
-  "schema_version": 1,
+  "schema_version": 2,
   "generated_at": "2026-06-08T05:30:00Z",
   "source_issue_or_pr": "https://github.com/briancl2/build-meta-analysis/issues/531",
   "proof_root": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z",
@@ -20,7 +20,41 @@
       "learning_class": "no_capture",
       "no_capture_reason": "clean reliability success was already captured on GitHub and did not change route through GBrain memory",
       "gbrain_slug": null,
+      "decision_impact": "no route change",
+      "fallback_without_memory": "continue from GitHub issue/PR/check/merge truth",
       "owner_action": "continue with Issue #164 next active track"
+    }
+  ],
+  "semantic_search_disposition": [
+    {
+      "query": "Issue 164 Hermes reliability GBrain learning",
+      "command": "timeout 10 gbrain search \"Issue 164 Hermes reliability GBrain learning\" --limit 5",
+      "status": "weak",
+      "matched_slugs": [],
+      "missed_expected_slugs": [
+        "bma/issue164/pilot-learning/issue-528-hermes-reliability"
+      ],
+      "disposition": "semantic search did not retrieve the exact advisory record; exact-handle replay is required before memory can influence the route",
+      "fallback_without_memory": "continue from GitHub issue/PR/check/merge truth"
+    }
+  ],
+  "exact_handle_replay": [
+    {
+      "slug": "bma/issue164/pilot-learning/issue-528-hermes-reliability",
+      "command": "timeout 10 gbrain get bma/issue164/pilot-learning/issue-528-hermes-reliability",
+      "get_status": "ok",
+      "advisory_state": "draft",
+      "source_refs_checked": [
+        "https://github.com/briancl2/build-meta-analysis/issues/528"
+      ],
+      "citation_refs_checked": [
+        "https://github.com/briancl2/build-meta-analysis/pull/530"
+      ],
+      "provenance_refs_checked": [
+        "/tmp/issue164-hermes-repo-star-reliability-20260608T043931Z/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.json"
+      ],
+      "decision_impact": "confirms no speculative owner repair should be admitted",
+      "fallback_without_memory": "continue from GitHub issue/PR/check/merge truth"
     }
   ],
   "gbrain_read_commands": [
@@ -29,6 +63,12 @@
       "status": "ok",
       "stdout_summary": "No route-changing hit.",
       "receipt_path": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z/gbrain/search-hermes-reliability.stdout"
+    },
+    {
+      "command": "timeout 10 gbrain get bma/issue164/pilot-learning/issue-528-hermes-reliability",
+      "status": "ok",
+      "stdout_summary": "Exact advisory draft record replayed with GitHub and receipt provenance.",
+      "receipt_path": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z/gbrain/get-issue-528-hermes-reliability.stdout"
     }
   ],
   "gbrain_capture_candidates": [
@@ -58,6 +98,35 @@
     "capture_candidates_with_source_refs": 1,
     "missing_source_ref_count": 0,
     "citation_quality": "github-surface-backed"
+  },
+  "canonicality_check": {
+    "advisory_states_seen": [
+      "draft"
+    ],
+    "canonical_records_written": 0,
+    "canonical_promotion_attempted": false,
+    "result": "all replayed records stayed advisory"
+  },
+  "forbidden_background_commands": {
+    "checked_tokens": [
+      "sync --watch",
+      "sync --install-cron",
+      "autopilot",
+      "dream",
+      "jobs work",
+      "MCP serving",
+      "minions",
+      "daemon",
+      "scheduler",
+      "queue",
+      "hidden registry",
+      "background memory behavior"
+    ],
+    "commands_used": [
+      "timeout 10 gbrain search \"Issue 164 Hermes reliability GBrain learning\" --limit 5",
+      "timeout 10 gbrain get bma/issue164/pilot-learning/issue-528-hermes-reliability"
+    ],
+    "forbidden_command_used": false
   },
   "learning_recovery_blocks": [
     {

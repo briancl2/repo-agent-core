@@ -12,10 +12,14 @@
     "advisory_status",
     "related_contracts",
     "pilot_outcomes",
+    "semantic_search_disposition",
+    "exact_handle_replay",
     "gbrain_read_commands",
     "gbrain_capture_candidates",
     "capture_summary",
     "citation_summary",
+    "canonicality_check",
+    "forbidden_background_commands",
     "learning_recovery_blocks",
     "owner_routing",
     "no_background_commands_used",
@@ -103,6 +107,18 @@
               "null"
             ]
           },
+          "decision_impact": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "fallback_without_memory": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "gbrain_slug": {
             "type": [
               "string",
@@ -114,6 +130,181 @@
             "minLength": 1
           }
         },
+        "additionalProperties": true
+      }
+    },
+    "semantic_search_disposition": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "query",
+          "command",
+          "status",
+          "matched_slugs",
+          "missed_expected_slugs",
+          "disposition",
+          "fallback_without_memory"
+        ],
+        "properties": {
+          "query": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "weak",
+              "miss",
+              "failed",
+              "skipped"
+            ]
+          },
+          "matched_slugs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "missed_expected_slugs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "disposition": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fallback_without_memory": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "exact_handle_replay": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "slug",
+          "command",
+          "get_status",
+          "decision_impact",
+          "fallback_without_memory"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string",
+            "minLength": 1
+          },
+          "command": {
+            "type": "string",
+            "minLength": 1
+          },
+          "get_status": {
+            "type": "string",
+            "enum": [
+              "ok",
+              "missing",
+              "failed",
+              "stale",
+              "uncited"
+            ]
+          },
+          "advisory_state": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "draft",
+              "shadow_canonical",
+              "unknown",
+              null
+            ]
+          },
+          "source_refs_checked": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "citation_refs_checked": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "provenance_refs_checked": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "decision_impact": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fallback_without_memory": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "get_status": {
+                  "const": "ok"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "advisory_state",
+                "source_refs_checked",
+                "citation_refs_checked",
+                "provenance_refs_checked"
+              ],
+              "properties": {
+                "advisory_state": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "shadow_canonical"
+                  ]
+                },
+                "source_refs_checked": {
+                  "type": "array",
+                  "minItems": 1
+                },
+                "citation_refs_checked": {
+                  "type": "array",
+                  "minItems": 1
+                },
+                "provenance_refs_checked": {
+                  "type": "array",
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ],
         "additionalProperties": true
       }
     },
@@ -261,6 +452,70 @@
         "citation_quality": {
           "type": "string",
           "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "canonicality_check": {
+      "type": "object",
+      "required": [
+        "advisory_states_seen",
+        "canonical_records_written",
+        "canonical_promotion_attempted",
+        "result"
+      ],
+      "properties": {
+        "advisory_states_seen": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "draft",
+              "shadow_canonical"
+            ]
+          }
+        },
+        "canonical_records_written": {
+          "type": "integer",
+          "const": 0
+        },
+        "canonical_promotion_attempted": {
+          "type": "boolean",
+          "const": false
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "forbidden_background_commands": {
+      "type": "object",
+      "required": [
+        "checked_tokens",
+        "commands_used",
+        "forbidden_command_used"
+      ],
+      "properties": {
+        "checked_tokens": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "commands_used": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "forbidden_command_used": {
+          "type": "boolean",
+          "const": false
         }
       },
       "additionalProperties": true

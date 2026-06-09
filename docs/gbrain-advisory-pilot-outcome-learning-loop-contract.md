@@ -1,6 +1,6 @@
 # GBrain Advisory Pilot Outcome Learning Loop Contract
 
-> Version: 1.0
+> Version: 2.0
 > Date: 2026-06-08
 > Owner: repo-agent-core
 
@@ -22,17 +22,24 @@ this contract, schema, or template.
 
 ## Learning Loop Shape
 
-A valid pilot-outcome learning loop has five foreground phases:
+A valid pilot-outcome learning loop has seven foreground phases:
 
 1. Identify the pilot outcomes being replayed, including GitHub issue/PR truth
    and any run-root receipts.
 2. Run bounded sequential advisory GBrain reads only when memory could change a
    route, recommendation, or capture decision.
-3. Classify each pilot outcome as decision-changing, no-capture, stale,
+3. Record semantic search/query disposition before relying on exact handles:
+   query text, status, matched or missed slugs, weakness reason, and whether the
+   fallback without memory would still choose the same owner action.
+4. Replay admitted exact handles one at a time with `gbrain get`, checking each
+   slug's advisory state, source/citation/provenance references, decision
+   impact, and fallback without memory.
+5. Classify each pilot outcome as decision-changing, no-capture, stale,
    contradictory, failed lookup, or capture-candidate evidence.
-4. If capture is approved by the work issue, write at most the bounded advisory
+6. If capture is approved by the work issue, write at most the bounded advisory
    records allowed by that issue using `draft` or `shadow_canonical` state only.
-5. Record citation/source-ref quality, owner routing, and bounded non-claims on
+7. Record citation/source-ref quality, owner routing, canonicality checks,
+   forbidden background command non-use, and bounded non-claims on
    the GitHub issue or PR surface that owns the work.
 
 Allowed native GBrain commands for read-only replay are foreground `gbrain stats`,
@@ -54,17 +61,21 @@ A pilot outcome learning-loop receipt should include:
 | Field | Required meaning |
 |---|---|
 | artifact | Literal `GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT`. |
-| schema_version | Receipt shape version; currently `1`. |
+| schema_version | Receipt shape version; currently `2` for exact-handle replay fields. |
 | generated_at | UTC timestamp for the receipt. |
 | source_issue_or_pr | GitHub issue, PR, or contract that authorized the replay. |
 | proof_root | Scratch receipt root, usually under `/tmp`. |
 | advisory_status | Must state that GBrain remains advisory. |
 | related_contracts | Contract files or URLs consumed by citation/copy-sync. |
 | pilot_outcomes | Issue/PR/run-root outcomes replayed, with raw evidence and decision impact. |
+| semantic_search_disposition | Search/query attempts, status, missed or weak retrieval, and no-memory fallback. |
+| exact_handle_replay | Exact `gbrain get` rows with slug, advisory state, source/citation/provenance checks, decision impact, and fallback without memory. |
 | gbrain_read_commands | Sequential foreground read commands and receipts. |
 | gbrain_capture_candidates | Candidate slugs with state, source refs, and admission decision. |
 | capture_summary | Counts for candidate, written, rejected, and canonical records. |
 | citation_summary | Citation/source-ref quality for replayed outcomes and capture candidates. |
+| canonicality_check | Explicit proof that records stayed advisory and `canonical_records_written` stayed `0`. |
+| forbidden_background_commands | Forbidden command tokens/classes checked and whether any were used. |
 | learning_recovery_blocks | GitHub-surface Learning / Recovery blocks or no-capture reasons. |
 | owner_routing | Next owner-surface action for stale memory, failed lookup, contract, detector, advisor, or materializer gaps. |
 | no_background_commands_used | Boolean proof boundary. |
@@ -79,14 +90,22 @@ A valid pilot-outcome learning-loop receipt:
    validation, null lookup, or duplicate learning uses an explicit no-capture reason.
 3. Runs GBrain lookup sequentially and records command status instead of
    parallelizing GBrain access.
-4. Writes no canonical records; `canonical_records_written` must be `0`.
-5. Allows only `draft` and `shadow_canonical` capture states.
-6. Requires source/citation/provenance or GitHub surface references for any
+4. Records semantic search/query weakness separately from exact-handle replay
+   success; exact handles may inform launch decisions only when fallback without
+   memory is stated.
+5. Requires each exact-handle replay row to include `slug`, `get_status`,
+   `decision_impact`, and `fallback_without_memory`; successful `get_status=ok`
+   rows must also include `advisory_state`, `source_refs_checked`,
+   `citation_refs_checked`, and `provenance_refs_checked`, while failed or
+   missing rows may truthfully report unknown state and empty refs.
+6. Writes no canonical records; `canonical_records_written` must be `0`.
+7. Allows only `draft` and `shadow_canonical` capture states.
+8. Requires source/citation/provenance or GitHub surface references for any
    capture candidate that can affect future repo-local guidance.
-7. Routes stale, contradictory, missing, uncited, or failed GBrain evidence to
+9. Routes stale, contradictory, missing, uncited, or failed GBrain evidence to
    the semantic owner surface instead of making GBrain authoritative.
-8. Keeps downstream targets read-only and writes run artifacts outside targets.
-9. Does not claim long-term retention, broad downstream adoption, human
+10. Keeps downstream targets read-only and writes run artifacts outside targets.
+11. Does not claim long-term retention, broad downstream adoption, human
    acceptance, savings, or fleet quality without separate proof.
 
 ## Owner Routing

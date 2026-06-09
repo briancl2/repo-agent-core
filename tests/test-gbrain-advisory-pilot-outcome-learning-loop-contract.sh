@@ -32,10 +32,14 @@ lower = text.lower()
 
 for field in [
     "pilot_outcomes",
+    "semantic_search_disposition",
+    "exact_handle_replay",
     "gbrain_read_commands",
     "gbrain_capture_candidates",
     "capture_summary",
     "citation_summary",
+    "canonicality_check",
+    "forbidden_background_commands",
     "learning_recovery_blocks",
     "owner_routing",
     "no_background_commands_used",
@@ -52,6 +56,9 @@ for phrase in [
     "draft",
     "shadow_canonical",
     "canonical_records_written` must be `0`",
+    "semantic search/query weakness",
+    "exact-handle replay",
+    "fallback without memory",
     "github surface and raw evidence",
     "explicit no-capture reason",
     "runs gbrain lookup sequentially",
@@ -94,9 +101,13 @@ else:
     payload = json.load(open(text_or_path, encoding="utf-8"))
 
 assert payload["artifact"] == "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT"
+assert payload["schema_version"] == 2
 assert payload["advisory_status"].lower() == "gbrain remains advisory"
 assert payload["no_background_commands_used"] is True
 assert payload["capture_summary"]["canonical_records_written"] == 0
+assert payload["canonicality_check"]["canonical_records_written"] == 0
+assert payload["canonicality_check"]["canonical_promotion_attempted"] is False
+assert payload["forbidden_background_commands"]["forbidden_command_used"] is False
 assert payload["capture_summary"]["records_written_count"] <= 3
 assert set(payload["capture_summary"]["allowed_record_states"]) == {"draft", "shadow_canonical"}
 assert payload["pilot_outcomes"], "pilot outcomes required"
@@ -105,6 +116,23 @@ for row in payload["pilot_outcomes"]:
     assert row["github_surface"].startswith("https://github.com/")
     assert row["raw_evidence"]
     assert row.get("gbrain_slug") or row.get("no_capture_reason")
+    assert row.get("decision_impact")
+    assert row.get("fallback_without_memory")
+for row in payload["semantic_search_disposition"]:
+    assert row["query"]
+    assert row["command"].startswith("timeout 10 gbrain ")
+    assert row["status"] in {"ok", "weak", "miss", "failed", "skipped"}
+    assert row["fallback_without_memory"]
+for row in payload["exact_handle_replay"]:
+    assert row["slug"]
+    assert row["command"].startswith("timeout 10 gbrain get ")
+    assert row["get_status"] in {"ok", "missing", "failed", "stale", "uncited"}
+    assert row["advisory_state"] in {"draft", "shadow_canonical"}
+    assert row["source_refs_checked"]
+    assert row["citation_refs_checked"]
+    assert row["provenance_refs_checked"]
+    assert row["decision_impact"]
+    assert row["fallback_without_memory"]
 for row in payload["gbrain_capture_candidates"]:
     assert row["state"] in {"draft", "shadow_canonical"}
     assert row["source_refs"], row
