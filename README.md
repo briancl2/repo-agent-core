@@ -204,7 +204,9 @@ defines the shared
 Issue #164 pilot outcomes, classifying decision-changing or no-capture learning,
 checking citation/source-ref quality, and routing owner repairs when advisory
 GBrain evidence is stale, missing, uncited, contradictory, or not
-decision-changing. Consumers may copy-sync or cite the contract, schema, or
+decision-changing. It also records semantic search/query disposition and
+exact-handle replay rows before route-changing advisory memory can influence an
+owner action. Consumers may copy-sync or cite the contract, schema, or
 [template](templates/gbrain-advisory-pilot-outcome-learning-loop.md), but must
 not turn them into a runtime dependency, import framework, memory daemon,
 scheduler, queue, controller, hidden registry, background sync, MCP server,

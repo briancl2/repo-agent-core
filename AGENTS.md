@@ -71,7 +71,9 @@
   sync, MCP server, automatic GitHub issue creation, downstream mutation, or
   canonical-memory claim. GBrain remains advisory; capture only reusable
   decision-changing learning with source/citation or GitHub surface references,
-  and use explicit no-capture reasons for routine, duplicate, or null results.
+  use explicit no-capture reasons for routine, duplicate, or null results, and
+  record semantic search/query weakness plus exact-handle replay before
+  route-changing memory influences an owner action.
 - The Issue #164 foreground recovery runtime composition lives in
   `docs/foreground-recovery-runtime-contract.md` and
   `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` plus
