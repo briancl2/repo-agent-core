@@ -93,6 +93,20 @@
       "shadow_canonical"
     ]
   },
+  "frontmatter_readback_check": {
+    "status": "preserved",
+    "protects_yaml_frontmatter_scalars": true,
+    "required_provenance_fields_checked": [
+      "source_issue_or_pr",
+      "pilot_outcomes.github_surface",
+      "pilot_outcomes.owner_action"
+    ],
+    "quoted_or_body_provenance_values": [
+      "owner_action: continue with Issue #164 next active track"
+    ],
+    "failure_mode_guarded": "unquoted YAML/frontmatter such as source_batch: Issue #164 ... can exact-read back as source_batch: Issue when # begins a comment",
+    "result": "required provenance fields exact-read back with GitHub issue references preserved"
+  },
   "citation_summary": {
     "pilot_outcomes_with_github_surface": 1,
     "capture_candidates_with_source_refs": 1,

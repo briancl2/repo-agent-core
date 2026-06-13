@@ -17,6 +17,7 @@
     "gbrain_read_commands",
     "gbrain_capture_candidates",
     "capture_summary",
+    "frontmatter_readback_check",
     "citation_summary",
     "canonicality_check",
     "forbidden_background_commands",
@@ -426,6 +427,53 @@
               "shadow_canonical"
             ]
           }
+        }
+      },
+      "additionalProperties": true
+    },
+    "frontmatter_readback_check": {
+      "type": "object",
+      "required": [
+        "status",
+        "protects_yaml_frontmatter_scalars",
+        "required_provenance_fields_checked",
+        "quoted_or_body_provenance_values",
+        "failure_mode_guarded",
+        "result"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "preserved",
+            "failed",
+            "not_applicable"
+          ]
+        },
+        "protects_yaml_frontmatter_scalars": {
+          "type": "boolean"
+        },
+        "required_provenance_fields_checked": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "quoted_or_body_provenance_values": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "failure_mode_guarded": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
         }
       },
       "additionalProperties": true
