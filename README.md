@@ -52,6 +52,7 @@ templates/                  # Shared templates
   upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
+  foreground-failure-to-issue-conversion.md # Foreground failure-to-issue conversion record
   hermes-foreground-repo-star-pilot-reliability.md # Bounded Hermes repo-star pilot reliability receipt
   gbrain-advisory-pilot-outcome-learning-loop.md # Advisory GBrain pilot outcome learning-loop receipt
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
@@ -79,6 +80,7 @@ docs/
   hermes-foreground-repo-star-pilot-reliability-contract.md # Bounded Hermes repo-star pilot reliability contract
   gbrain-advisory-pilot-outcome-learning-loop-contract.md # Advisory GBrain pilot outcome learning-loop contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
+  foreground-failure-to-issue-conversion-contract.md # Foreground failure-to-issue conversion contract
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   repo-star-downstream-genericity-proof-contract.md # Two-target downstream genericity proof contract
@@ -254,6 +256,19 @@ for a failed BMA Hermes launcher path. Consumers may copy-sync or cite these
 artifacts, but must not turn them into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, background sync, automatic GitHub
 issue creation, or downstream mutation path.
+
+## Foreground Failure-To-Issue Conversion Contract
+
+The [foreground failure-to-issue conversion contract](docs/foreground-failure-to-issue-conversion-contract.md)
+defines the compact owner-surface conversion record for turning foreground
+failure guidance, including `HERMES_FOREGROUND_FAILURE_GUIDANCE`, into GitHub
+issue or issue comment truth with exact-marker dedupe, evidence path, owner
+action, and bounded non-claims. Consumers may copy the
+[template](templates/foreground-failure-to-issue-conversion.md) or cite the
+contract, but must not turn it into a runtime dependency, daemon, scheduler,
+queue, retry loop, registry, controller, hidden registry, background GBrain
+behavior, automatic background issue creation, auto-merge, downstream mutation,
+Hermes/GBrain internals mutation, or runtime dependency behavior.
 
 ## Downstream Read-Only Recovery Runtime Pilot Contract
 

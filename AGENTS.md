@@ -82,6 +82,16 @@
   controller, MCP server, background sync, automatic GitHub issue creation, or
   downstream mutation. Guidance is advisory and does not invoke gh; an operator
   must explicitly run any suggested conversion command.
+- The Issue #164 foreground failure-to-issue conversion contract lives in
+  `docs/foreground-failure-to-issue-conversion-contract.md` and
+  `templates/foreground-failure-to-issue-conversion.md`; consume it by copy-sync
+  or citation only, not by runtime dependency, daemon, scheduler, queue, retry
+  loop, registry, controller, hidden registry, background GBrain behavior,
+  automatic background issue creation, auto-merge, downstream mutation,
+  Hermes/GBrain internals mutation, or runtime dependency behavior. Conversions
+  turn foreground failure guidance, including `HERMES_FOREGROUND_FAILURE_GUIDANCE`,
+  into explicit GitHub issue or issue comment truth with exact-marker dedupe,
+  evidence path, owner action, and no automatic retry/repair.
 - The Issue #164 downstream read-only recovery-runtime pilot receipt lives in
   `docs/downstream-read-only-recovery-runtime-pilot-contract.md` and
   `templates/downstream-read-only-recovery-runtime-pilot.md`; consume it by
