@@ -73,6 +73,7 @@ A pilot outcome learning-loop receipt should include:
 | gbrain_read_commands | Sequential foreground read commands and receipts. |
 | gbrain_capture_candidates | Candidate slugs with state, source refs, and admission decision. |
 | capture_summary | Counts for candidate, written, rejected, and canonical records. |
+| frontmatter_readback_check | Foreground capture exact-readback proof for YAML/frontmatter scalar preservation, especially required provenance fields containing GitHub issue references or `#` characters. |
 | citation_summary | Citation/source-ref quality for replayed outcomes and capture candidates. |
 | canonicality_check | Explicit proof that records stayed advisory and `canonical_records_written` stayed `0`. |
 | forbidden_background_commands | Forbidden command tokens/classes checked and whether any were used. |
@@ -102,10 +103,20 @@ A valid pilot-outcome learning-loop receipt:
 7. Allows only `draft` and `shadow_canonical` capture states.
 8. Requires source/citation/provenance or GitHub surface references for any
    capture candidate that can affect future repo-local guidance.
-9. Routes stale, contradictory, missing, uncited, or failed GBrain evidence to
-   the semantic owner surface instead of making GBrain authoritative.
-10. Keeps downstream targets read-only and writes run artifacts outside targets.
-11. Does not claim long-term retention, broad downstream adoption, human
+9. Requires foreground advisory capture to protect YAML/frontmatter scalar values
+   containing GitHub issue references or `#` characters: quote those values or
+   keep issue-heavy provenance in body/JSON fields. The guarded failure mode is
+   an unquoted value such as `source_batch: Issue #164 ...` exact-reading back
+   as `source_batch: Issue` because the `#` begins a YAML comment.
+10. Requires exact readback checks for required provenance fields before a
+    receipt or card claims capture preserved the data; the receipt should record
+    `frontmatter_readback_check.status=preserved` only after comparing the
+    captured card/readback against the intended values.
+11. Routes stale, contradictory, missing, uncited, failed GBrain evidence, or
+    failed frontmatter readback preservation to the semantic owner surface instead
+    of making GBrain authoritative.
+12. Keeps downstream targets read-only and writes run artifacts outside targets.
+13. Does not claim long-term retention, broad downstream adoption, human
    acceptance, savings, or fleet quality without separate proof.
 
 ## Owner Routing

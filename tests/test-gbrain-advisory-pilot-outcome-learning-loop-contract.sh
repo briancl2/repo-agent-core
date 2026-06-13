@@ -69,6 +69,12 @@ for phrase in [
     "repo-upgrade-advisor",
     "repo-optimizer",
     "copy-sync or cite",
+    "frontmatter_readback_check",
+    "yaml/frontmatter scalar values",
+    "github issue references or `#` characters",
+    "quote those values",
+    "source_batch: issue #164",
+    "exact readback checks for required provenance fields",
 ]:
     assert phrase in lower, phrase
 
@@ -108,6 +114,11 @@ assert payload["capture_summary"]["canonical_records_written"] == 0
 assert payload["canonicality_check"]["canonical_records_written"] == 0
 assert payload["canonicality_check"]["canonical_promotion_attempted"] is False
 assert payload["forbidden_background_commands"]["forbidden_command_used"] is False
+assert payload["frontmatter_readback_check"]["status"] == "preserved"
+assert payload["frontmatter_readback_check"]["protects_yaml_frontmatter_scalars"] is True
+assert payload["frontmatter_readback_check"]["required_provenance_fields_checked"]
+assert any("#" in value for value in payload["frontmatter_readback_check"]["quoted_or_body_provenance_values"])
+assert "source_batch: Issue" in payload["frontmatter_readback_check"]["failure_mode_guarded"]
 assert payload["capture_summary"]["records_written_count"] <= 3
 assert set(payload["capture_summary"]["allowed_record_states"]) == {"draft", "shadow_canonical"}
 assert payload["pilot_outcomes"], "pilot outcomes required"
