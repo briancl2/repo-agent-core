@@ -176,6 +176,16 @@
   `event=schedule` readback evidence only after the run exists; workflow
   comments and artifacts remain evidence only and never replace GitHub
   issue/PR/check/merge truth.
+- The Issue #164 GitHub parsed closure semantics contract lives in
+  `docs/github-parsed-closure-semantics-contract.md` and
+  `templates/github-parsed-closure-semantics.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, GitHub client, daemon, scheduler,
+  queue, controller, retry loop, hidden registry, background poller, automatic
+  GitHub issue/PR creation, issue-state repair mechanism, retained closeout
+  package, or task-closure authority. The parsed GitHub
+  `closingIssuesReferences` surface plus before/after issue state is the
+  authoritative evidence when PR body wording, including negated wording, could
+  affect a child issue unexpectedly.
 
 ## Skills
 

@@ -64,6 +64,7 @@ templates/                  # Shared templates
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
+  github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -91,6 +92,7 @@ docs/
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
+  github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -212,6 +214,19 @@ not turn it into a runner, scheduler, queue, daemon, controller, registry,
 automatic GitHub issue/PR creator, retained closeout package, background
 GBrain/Hermes behavior, or task-closure authority. Comments and artifacts are
 evidence only; GitHub issue/PR/check/merge truth remains closure truth.
+
+## GitHub Parsed Closure Semantics Contract
+
+The [GitHub parsed closure semantics contract](docs/github-parsed-closure-semantics-contract.md)
+defines the shared receipt shape for checking GitHub's parsed
+`closingIssuesReferences` surface before Issue #164 carrier PRs can affect
+child issue state. Consumers may copy-sync or cite the
+[template](templates/github-parsed-closure-semantics.md), but must not turn it
+into a GitHub client, runtime dependency, controller, scheduler, queue, daemon,
+registry, retained closeout package, automatic issue/PR creator, issue-state
+repair mechanism, or closure authority. It exists to catch cases where negated
+body wording still creates a parsed closing reference; GitHub issue/PR/check/
+merge truth remains closure truth.
 
 ## GBrain Advisory Pilot Outcome Learning Loop Contract
 
