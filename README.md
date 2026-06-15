@@ -63,6 +63,7 @@ templates/                  # Shared templates
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
+  scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -89,6 +90,7 @@ docs/
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
+  scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -199,6 +201,17 @@ must not turn them into a runtime dependency, daemon, scheduler, queue, retry
 loop, controller, hidden registry, `hermes -z` adoption path, autonomous Hermes
 operator, automatic GitHub issue creation, downstream mutation path, or
 background sync mechanism.
+
+## Scheduled Runtime Learning Shadow Readback Contract
+
+The [scheduled Runtime Learning Shadow readback contract](docs/scheduled-runtime-learning-shadow-readback-contract.md)
+defines the shared receipt shape for admitting an actual `event=schedule`
+Runtime Learning Shadow run after it exists. Consumers may copy-sync or cite the
+[template](templates/scheduled-runtime-learning-shadow-readback.md), but must
+not turn it into a runner, scheduler, queue, daemon, controller, registry,
+automatic GitHub issue/PR creator, retained closeout package, background
+GBrain/Hermes behavior, or task-closure authority. Comments and artifacts are
+evidence only; GitHub issue/PR/check/merge truth remains closure truth.
 
 ## GBrain Advisory Pilot Outcome Learning Loop Contract
 
