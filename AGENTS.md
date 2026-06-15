@@ -176,6 +176,15 @@
   `event=schedule` readback evidence only after the run exists; workflow
   comments and artifacts remain evidence only and never replace GitHub
   issue/PR/check/merge truth.
+- The GitHub parsed closing-reference contract lives in
+  `docs/github-parsed-closing-reference-contract.md` and
+  `templates/github-parsed-closing-reference.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, parser package, GitHub app, daemon,
+  scheduler, queue, controller, retry loop, hidden registry, automatic
+  issue/PR creation, background sync, or task-closure authority. It requires
+  non-final carrier PRs to use GitHub parsed closing-reference truth before
+  merge and treats negated closure-keyword wording as a hazard until parsed
+  truth proves otherwise.
 
 ## Skills
 

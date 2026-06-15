@@ -64,6 +64,7 @@ templates/                  # Shared templates
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
+  github-parsed-closing-reference.md # GitHub parsed closing-reference review
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -91,6 +92,7 @@ docs/
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
+  github-parsed-closing-reference-contract.md # GitHub parsed closing-reference contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
