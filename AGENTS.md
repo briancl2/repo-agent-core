@@ -166,6 +166,16 @@
   prompt is explicitly marked as a hypothetical draft. Each sidecar turn should
   be one complete paste artifact; repo-side tooling/coordinator owns evidence
   assembly, not the human operator.
+- The scheduled Runtime Learning Shadow readback contract lives in
+  `docs/scheduled-runtime-learning-shadow-readback-contract.md` and
+  `templates/scheduled-runtime-learning-shadow-readback.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, workflow runner,
+  scheduler, queue, daemon, controller, retry loop, hidden registry, retained
+  closeout package, automatic GitHub issue/PR creation, background
+  GBrain/Hermes behavior, or task-closure authority. It admits actual
+  `event=schedule` readback evidence only after the run exists; workflow
+  comments and artifacts remain evidence only and never replace GitHub
+  issue/PR/check/merge truth.
 
 ## Skills
 
