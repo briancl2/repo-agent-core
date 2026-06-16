@@ -39,6 +39,7 @@ updater, or task-closure authority.
 | `active_child_issue_url` | The current active child issue that must remain active unless it is the final target. |
 | `pr_body_closure_keyword_scan` | Local body scan evidence for closure-keyword hazards, including negated wording. |
 | `closing_issues_references` | GitHub parsed `closingIssuesReferences` or equivalent readback. |
+| `campaign_sync_completed_track_readback` | For `final_for_own_child` Campaign Sync PRs, readback evidence that the PR `Completed track` value matches the live campaign issue `Completed latest track:` marker. |
 | `allowed_closing_issue_urls` | Exact issue URLs this PR may affect through closing semantics. |
 | `unexpected_closing_issue_urls` | Parsed closing references outside the allowed list. |
 | `issue_state_before` | Before-state map for target, active, and parsed referenced issues. |
@@ -60,14 +61,18 @@ A parsed-closure receipt is admissible only when:
    child issue. A local body scan is not enough when GitHub parsed references
    exist.
 3. Final Campaign Sync PRs may have parsed closing references only for their own target child issue; they must not affect unrelated active children.
-4. `unexpected_closing_issue_urls` is empty for `admit`.
-5. Before/after issue state is present for the target child, active child, and
+4. Final Campaign Sync PRs must include `campaign_sync_completed_track_readback`
+   with the PR `Completed track`, the campaign issue `Completed latest track:`
+   marker value, and `matched: true` before `admit`. A loose body substring
+   match is insufficient; the live campaign marker value must agree.
+5. `unexpected_closing_issue_urls` is empty for `admit`.
+6. Before/after issue state is present for the target child, active child, and
    any parsed referenced child when the receipt is used after publication or
    merge.
-6. `repair_action` is present when parsed references or before/after state
+7. `repair_action` is present when parsed references or before/after state
    evidence show unexpected child issue impact.
-7. `closure_truth` explicitly says the receipt is evidence only and does not replace GitHub issue/PR/check/merge truth.
-8. `bounded_non_claims` forbids local closeout packages, downstream mutation,
+8. `closure_truth` explicitly says the receipt is evidence only and does not replace GitHub issue/PR/check/merge truth.
+9. `bounded_non_claims` forbids local closeout packages, downstream mutation,
    background GitHub polling, schedulers, queues, daemons, controllers,
    registries, retry loops, auto-merge, and automatic issue/PR creation.
 
@@ -92,6 +97,9 @@ result) plus the before/after issue state.
   GitHub-visible note on the affected child issue.
 - Missing parsed-reference evidence routes to the repo implementing the
   preflight/readback helper.
+- Missing, stale, or loose completed-track readback evidence routes to the repo
+  implementing the Campaign Sync predicate before the final Campaign Sync PR is
+  admitted.
 - Detector or advisor propagation gaps route to repo-auditor or
   repo-upgrade-advisor through their owner issue/branch/PR/check/merge paths.
 
