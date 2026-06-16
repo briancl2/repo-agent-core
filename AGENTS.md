@@ -186,6 +186,17 @@
   `closingIssuesReferences` surface plus before/after issue state is the
   authoritative evidence when PR body wording, including negated wording, could
   affect a child issue unexpectedly.
+- The Issue #164 route-changing learning/failure contract lives in
+  `docs/route-changing-learning-failure-contract.md` and
+  `templates/route-changing-learning-failure.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, GitHub client, memory daemon,
+  scheduler, queue, controller, retry loop, hidden registry, background
+  GitHub/GBrain/Hermes process, automatic GitHub issue/PR creation, retained
+  closeout package, Hermes authority, GBrain authority, downstream mutation, or
+  closure surface. Route-changing records must preserve GitHub owner-surface
+  evidence, raw evidence, Hermes failure disposition when applicable, GBrain
+  exact-handle replay or no-capture reason, fallback without memory, owner
+  action, and literal-safe GitHub comment readback for code or shell evidence.
 
 ## Skills
 

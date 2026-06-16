@@ -65,6 +65,7 @@ templates/                  # Shared templates
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
+  route-changing-learning-failure.md # Route-changing learning/failure receipt
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -93,6 +94,7 @@ docs/
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
+  route-changing-learning-failure-contract.md # Route-changing learning/failure contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -227,6 +229,19 @@ registry, retained closeout package, automatic issue/PR creator, issue-state
 repair mechanism, or closure authority. It exists to catch cases where negated
 body wording still creates a parsed closing reference; GitHub issue/PR/check/
 merge truth remains closure truth.
+
+## Route-Changing Learning Failure Contract
+
+The [route-changing learning failure contract](docs/route-changing-learning-failure-contract.md)
+defines the shared receipt shape for owner-surface events where foreground
+Hermes failure routing, GitHub evidence, advisory GBrain exact-handle replay,
+fallback without memory, or literal-safe GitHub readback changes the route.
+Consumers may copy-sync or cite the
+[template](templates/route-changing-learning-failure.md), but must not turn it
+into a runtime dependency, GitHub client, memory daemon, controller, scheduler,
+queue, retry loop, hidden registry, automatic issue/PR creator, retained
+closeout package, background Hermes/GBrain behavior, Hermes authority, GBrain
+authority, downstream mutation path, or closure surface.
 
 ## GBrain Advisory Pilot Outcome Learning Loop Contract
 
