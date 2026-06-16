@@ -31,6 +31,15 @@
       "source": "github_graphql_closingIssuesReferences"
     }
   ],
+  "campaign_sync_completed_track_readback": {
+    "required_when": "campaign_sync_status == final_for_own_child",
+    "status": "not_applicable_non_final",
+    "pr_completed_track": null,
+    "campaign_completed_latest_track": null,
+    "campaign_marker": "Completed latest track:",
+    "matched": null,
+    "note": "Final Campaign Sync PRs must set matched true using the live marker value, not a loose body substring."
+  },
   "allowed_closing_issue_urls": [],
   "unexpected_closing_issue_urls": [
     "https://github.com/briancl2/build-meta-analysis/issues/798"

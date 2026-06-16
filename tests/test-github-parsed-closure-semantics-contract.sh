@@ -42,6 +42,7 @@ for field in [
     "active_child_issue_url",
     "pr_body_closure_keyword_scan",
     "closing_issues_references",
+    "campaign_sync_completed_track_readback",
     "allowed_closing_issue_urls",
     "unexpected_closing_issue_urls",
     "issue_state_before",
@@ -60,6 +61,9 @@ for phrase in [
     "closingissuesreferences",
     "non-final issue #164 carrier prs have no parsed closing references",
     "final campaign sync prs may have parsed closing references only for their own target child issue",
+    "completed latest track:",
+    "matched: true",
+    "loose body substring",
     "before/after issue state",
     "repair_action` is present",
     "evidence only and does not replace github issue/pr/check/merge truth",
@@ -103,6 +107,13 @@ hazard = payload["pr_body_closure_keyword_scan"]["hazards"][0]
 assert hazard["matched_text"] == "does not close #798"
 assert hazard["hazard"] == "negated_closure_keyword_near_issue_reference"
 assert payload["closing_issues_references"][0]["issue_url"].endswith("/798")
+completed_track = payload["campaign_sync_completed_track_readback"]
+assert completed_track["required_when"] == "campaign_sync_status == final_for_own_child"
+assert completed_track["status"] == "not_applicable_non_final"
+assert completed_track["campaign_marker"] == "Completed latest track:"
+assert completed_track["matched"] is None
+assert "matched true" in completed_track["note"].lower()
+assert "loose body substring" in completed_track["note"].lower()
 assert payload["allowed_closing_issue_urls"] == []
 assert payload["unexpected_closing_issue_urls"] == [
     "https://github.com/briancl2/build-meta-analysis/issues/798"
