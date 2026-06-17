@@ -54,6 +54,7 @@ templates/                  # Shared templates
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   foreground-failure-to-issue-conversion.md # Foreground failure-to-issue conversion record
+  hermes-foreground-reliability.md # Foreground Hermes doer/checker reliability record
   hermes-foreground-repo-star-pilot-reliability.md # Bounded Hermes repo-star pilot reliability receipt
   gbrain-advisory-pilot-outcome-learning-loop.md # Advisory GBrain pilot outcome learning-loop receipt
   downstream-read-only-recovery-runtime-pilot.md # Downstream read-only pilot receipt
@@ -82,6 +83,7 @@ docs/
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   upstream-capability-intake-contract.md # Compact upstream capability intake contract
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
+  hermes-foreground-reliability-contract.md # Foreground Hermes doer/checker reliability contract
   hermes-foreground-repo-star-pilot-reliability-contract.md # Bounded Hermes repo-star pilot reliability contract
   gbrain-advisory-pilot-outcome-learning-loop-contract.md # Advisory GBrain pilot outcome learning-loop contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
@@ -207,6 +209,18 @@ contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, retry loop, controller, MCP server, autopilot, hidden registry, automatic
 GitHub issue creation, or background sync mechanism. It does not authorize
 mutating downstream repos or Hermes internals.
+
+## Hermes Foreground Reliability Contract
+
+The [Hermes foreground reliability contract](docs/hermes-foreground-reliability-contract.md)
+defines the portable Issue #164 evidence shape for using Hermes as a bounded
+foreground doer or advisory checker. Consumers may copy the
+[template](templates/hermes-foreground-reliability.md) or cite the contract,
+but must not turn it into a runtime dependency, schema mandate, daemon,
+scheduler, queue, retry loop, controller, hidden registry, MCP server,
+background sync, automatic GitHub issue/PR creation, auto-merge, downstream
+mutation, Hermes repo mutation, background Hermes/GBrain behavior, `hermes -z`
+adoption path, or Hermes-primary campaign/control claim.
 
 ## Hermes Foreground Repo-Star Pilot Reliability Contract
 
