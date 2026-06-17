@@ -37,6 +37,7 @@
     }
   ],
   "gbrain_slug_or_no_capture_reason": "bma/issue164/learning/hermes-failure-visible-fallback-2026-06-14",
+  "gbrain_capture_posture": "natural-only foreground capture; exact-read any captured slug with gbrain get before relying on it; no forced launch card, canonical record, or background GBrain behavior",
   "fallback_without_memory": "Use GitHub issue/PR/check/merge truth plus detector receipts and record no_capture_reason when memory does not change the route.",
   "owner_action": "Open the owning repo PR for the route-changing detector or corrected GitHub readback before final Campaign Sync.",
   "literal_safe_github_readback": {
@@ -58,6 +59,7 @@
     "raw_evidence": "/tmp/issue164-hermes-github-reliability-20260615T231816Z/repo-auditor-readonly-bma/as40-bma-final-main-after-all-repairs.json",
     "optional_gbrain_slug": "bma/issue164/learning/hermes-failure-visible-fallback-2026-06-14",
     "no_capture_reason": "",
+    "fallback_without_memory": "Use GitHub issue/PR/check/merge truth plus detector receipts and record no_capture_reason when memory does not change the route.",
     "reusable_learning_text": "Literal-bearing GitHub status comments must be posted and read back through a literal-safe path before they become route-changing evidence.",
     "owner_action": "repair the producing comment or route the missing literal-readback check to the owner repo",
     "bounded_non_claims": "advisory only; no controller, scheduler, queue, daemon, retry loop, background GBrain, background Hermes, downstream mutation, or schedule-proof claim"

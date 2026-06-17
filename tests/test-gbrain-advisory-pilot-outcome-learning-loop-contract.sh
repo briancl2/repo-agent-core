@@ -32,6 +32,7 @@ lower = text.lower()
 
 for field in [
     "pilot_outcomes",
+    "capture_posture",
     "semantic_search_disposition",
     "exact_handle_replay",
     "gbrain_read_commands",
@@ -61,6 +62,7 @@ for phrase in [
     "fallback without memory",
     "github surface and raw evidence",
     "explicit no-capture reason",
+    "natural-only foreground capture",
     "runs gbrain lookup sequentially",
     "source/citation/provenance",
     "repo-agent-core",
@@ -109,6 +111,10 @@ else:
 assert payload["artifact"] == "GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT"
 assert payload["schema_version"] == 2
 assert payload["advisory_status"].lower() == "gbrain remains advisory"
+assert "natural-only foreground capture" in payload["capture_posture"]
+assert "no forced launch card" in payload["capture_posture"]
+assert "no background GBrain behavior" in payload["capture_posture"]
+assert "exact-read each written slug back" in payload["capture_posture"]
 assert payload["no_background_commands_used"] is True
 assert payload["capture_summary"]["canonical_records_written"] == 0
 assert payload["canonicality_check"]["canonical_records_written"] == 0

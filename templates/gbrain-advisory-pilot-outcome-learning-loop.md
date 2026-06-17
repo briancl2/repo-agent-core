@@ -8,6 +8,7 @@
   "source_issue_or_pr": "https://github.com/briancl2/build-meta-analysis/issues/531",
   "proof_root": "/tmp/issue164-gbrain-pilot-learning-loop-20260608T052542Z",
   "advisory_status": "GBrain remains advisory",
+  "capture_posture": "natural-only foreground capture; no forced launch card, no canonical record, no broad-search-as-absence claim, no background GBrain behavior; exact-read each written slug back with gbrain get before relying on it",
   "related_contracts": [
     "docs/foreground-learning-and-recovery-contract.md",
     "docs/gbrain-retrieval-citation-lifecycle-contract.md",

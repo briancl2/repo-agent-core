@@ -36,8 +36,10 @@ A valid pilot-outcome learning loop has seven foreground phases:
    impact, and fallback without memory.
 5. Classify each pilot outcome as decision-changing, no-capture, stale,
    contradictory, failed lookup, or capture-candidate evidence.
-6. If capture is approved by the work issue, write at most the bounded advisory
-   records allowed by that issue using `draft` or `shadow_canonical` state only.
+6. If capture is approved by the work issue, use natural-only foreground
+   capture: write at most the bounded advisory records allowed by that issue
+   using `draft` or `shadow_canonical` state only, then exact-read each written
+   slug back with `gbrain get` before relying on it.
 7. Record citation/source-ref quality, owner routing, canonicality checks,
    forbidden background command non-use, and bounded non-claims on
    the GitHub issue or PR surface that owns the work.
@@ -67,6 +69,7 @@ A pilot outcome learning-loop receipt should include:
 | proof_root | Scratch receipt root, usually under `/tmp`. |
 | advisory_status | Must state that GBrain remains advisory. |
 | related_contracts | Contract files or URLs consumed by citation/copy-sync. |
+| capture_posture | Natural-only foreground capture; no forced launch card, canonical record, broad-search-as-absence claim, or background GBrain behavior. |
 | pilot_outcomes | Issue/PR/run-root outcomes replayed, with raw evidence and decision impact. |
 | semantic_search_disposition | Search/query attempts, status, missed or weak retrieval, and no-memory fallback. |
 | exact_handle_replay | Exact `gbrain get` rows with slug, advisory state, source/citation/provenance checks, decision impact, and fallback without memory. |
@@ -99,24 +102,27 @@ A valid pilot-outcome learning-loop receipt:
    rows must also include `advisory_state`, `source_refs_checked`,
    `citation_refs_checked`, and `provenance_refs_checked`, while failed or
    missing rows may truthfully report unknown state and empty refs.
-6. Writes no canonical records; `canonical_records_written` must be `0`.
-7. Allows only `draft` and `shadow_canonical` capture states.
-8. Requires source/citation/provenance or GitHub surface references for any
+6. Requires natural-only foreground capture when capture is admitted; exact-read
+   each written slug back with `gbrain get` and record the readback before
+   relying on it.
+7. Writes no canonical records; `canonical_records_written` must be `0`.
+8. Allows only `draft` and `shadow_canonical` capture states.
+9. Requires source/citation/provenance or GitHub surface references for any
    capture candidate that can affect future repo-local guidance.
-9. Requires foreground advisory capture to protect YAML/frontmatter scalar values
+10. Requires foreground advisory capture to protect YAML/frontmatter scalar values
    containing GitHub issue references or `#` characters: quote those values or
    keep issue-heavy provenance in body/JSON fields. The guarded failure mode is
    an unquoted value such as `source_batch: Issue #164 ...` exact-reading back
    as `source_batch: Issue` because the `#` begins a YAML comment.
-10. Requires exact readback checks for required provenance fields before a
+11. Requires exact readback checks for required provenance fields before a
     receipt or card claims capture preserved the data; the receipt should record
     `frontmatter_readback_check.status=preserved` only after comparing the
     captured card/readback against the intended values.
-11. Routes stale, contradictory, missing, uncited, failed GBrain evidence, or
+12. Routes stale, contradictory, missing, uncited, failed GBrain evidence, or
     failed frontmatter readback preservation to the semantic owner surface instead
     of making GBrain authoritative.
-12. Keeps downstream targets read-only and writes run artifacts outside targets.
-13. Does not claim long-term retention, broad downstream adoption, human
+13. Keeps downstream targets read-only and writes run artifacts outside targets.
+14. Does not claim long-term retention, broad downstream adoption, human
    acceptance, savings, or fleet quality without separate proof.
 
 ## Owner Routing
