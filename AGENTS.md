@@ -32,6 +32,14 @@
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
   not by runtime dependency, scheduler, queue, controller, or background sync.
+- The Issue #164 capability placement contract lives in
+  `docs/capability-placement-contract.md` and
+  `templates/capability-placement.md`; consume it by copy-sync or citation only,
+  not by runtime dependency, dashboard, registry, scheduler, queue, daemon,
+  controller, central autonomy ledger, automatic issue/PR creation, auto-merge,
+  background Hermes/GBrain behavior, Codex cloud/background write authority,
+  downstream mutation, or replacement closure truth. Autonomy Preview remains
+  advisory-first and must route boilerplate back to deletion or demotion.
 - Interruption recovery and batch reconstitution guidance lives in
   `docs/interruption-recovery-and-batch-reconstitution-contract.md` and
   `templates/interruption-recovery-and-batch-reconstitution.md`; consume it by
