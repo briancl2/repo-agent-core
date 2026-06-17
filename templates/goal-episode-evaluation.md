@@ -6,6 +6,7 @@
 ## Episode
 
 - Goal objective:
+- Coordinator autonomy acceptance verdict: not_applicable
 - PRs merged:
 - Repos touched:
 - Owner PR count:
@@ -40,6 +41,18 @@
 | Ceremony resistance |  |  |
 | Architecture adoption |  |  |
 
+## Coordinator Autonomy Acceptance
+
+- Verdict: not_applicable
+- GitHub issue/PR/check/merge truth:
+- Raw runtime evidence:
+- Goal or Goal-null state:
+- Run root and `progress-ledger.jsonl`:
+- Heartbeat capture or disposition:
+- Bounded non-claims:
+- Demotion trigger:
+- Next exact owner-surface action:
+
 ## Blocker And Next Action
 
 - Known owner surface:
@@ -52,5 +65,7 @@
 - This record does not prove owner-surface delivery without linked GitHub issue,
   PR, check, and merge truth.
 - This record does not authorize target repo mutation.
-- This record is not a controller, scheduler, queue, registry, or background
-  synchronization mechanism.
+- This record does not authorize Hermes-primary ownership or canonical GBrain
+  memory.
+- This record is not a controller, scheduler, queue, registry, auto-merge path,
+  automatic issue/PR creator, daemon, or background synchronization mechanism.

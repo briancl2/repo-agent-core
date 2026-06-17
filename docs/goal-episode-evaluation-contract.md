@@ -12,14 +12,16 @@ issue comments, PR bodies, and fleet-local checks. It is not a runtime package,
 service, scheduler, queue, controller, background job, or mandatory dependency.
 
 Use it when a repo claims that Goal mode improved autonomy, delivery throughput,
-self-healing, or operator steering burden. The evaluation record must separate
-what actually landed from local/session-only evidence.
+self-healing, operator steering burden, or foreground coordinator autonomy
+acceptance. The evaluation record must separate what actually landed from
+local/session-only evidence.
 
 ## Required Record
 
 | Field | Required meaning |
 |---|---|
 | Goal objective | Exact objective passed to Goal mode or the closest retained issue text when the Goal text is unavailable. |
+| Coordinator autonomy acceptance verdict | One of `accepted`, `partial`, `rejected`, or `not_applicable`. |
 | PRs merged | Count and links for merged PRs in the episode. |
 | Repos touched | Repositories with owner-surface mutation, separated from read-only validation targets. |
 | Owner PR count | Count of non-BMA owner-surface PRs merged. |
@@ -57,6 +59,45 @@ Goal episode evaluation should grade at least these dimensions:
 | Runtime health | Raw runtime evidence supports claims about Goal continuity, hangs, recovery, or tool behavior. |
 | Ceremony resistance | No new controller, queue, scheduler, local closeout stack, or hidden registry was added. |
 | Architecture adoption | The batch increased use of GitHub truth, Codex Goal mode, Hermes foreground attempts when practical, and bounded GBrain memory only when decision-changing. |
+
+## Coordinator Autonomy Acceptance
+
+Coordinator autonomy acceptance is a foreground evidence verdict for a real
+episode. It does not promote the coordinator into a background controller or
+make any helper tool the primary operator.
+
+Verdict values:
+
+- `accepted`: the episode closed the intended owner-surface route through
+  GitHub issue/PR/check/merge truth, and the non-`not_applicable` evidence set
+  below is present.
+- `partial`: the episode produced useful foreground autonomy evidence, but one
+  or more intended owner-surface outcomes, recovery paths, or evidence fields
+  stayed incomplete.
+- `rejected`: the autonomy claim exceeded the evidence, crossed a forbidden
+  control-plane boundary, or lacked an owner action after a blocker.
+- `not_applicable`: no coordinator autonomy acceptance claim is being graded.
+
+Any `accepted`, `partial`, or `rejected` verdict must record:
+
+1. GitHub issue/PR/check/merge truth for the work surfaced as accepted,
+   partial, or rejected.
+2. Raw runtime evidence such as Goal metadata, session logs, command
+   transcripts, CI/check runs, replay logs, or the run-root progress ledger.
+3. Goal state or Goal-null fallback.
+4. `/tmp` run root plus `progress-ledger.jsonl` when the episode used the large
+   carrier/runtime harness.
+5. Heartbeat capture/disposition, or an explicit unavailable-state fallback
+   when heartbeat creation was not available.
+6. Bounded non-claims for no background controller, scheduler, queue, daemon,
+   registry, auto-merge, automatic issue/PR creation, downstream mutation,
+   Hermes-primary ownership, or canonical GBrain memory.
+7. Demotion trigger that would downgrade or reject the autonomy claim.
+8. Next exact owner-surface action.
+
+Hermes and GBrain evidence may support the verdict only as bounded foreground
+doer/advisory memory evidence. GitHub truth, operator intent, and repo evidence
+remain higher authority.
 
 ## Self-Healing Rule
 

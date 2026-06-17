@@ -37,6 +37,26 @@
       "negative_surface": "Recommendation names owner surface, first deliverable, validation, and fallback."
     }
   ],
+  "coordinator_autonomy_acceptance_classes": [
+    {
+      "class": "missing_or_invalid_acceptance_verdict",
+      "disposition": "detect_and_route_to_goal_episode_evaluation_repair",
+      "positive_surface": "Coordinator autonomy acceptance is claimed without one of accepted, partial, rejected, or not_applicable.",
+      "negative_surface": "No acceptance claim is made, or the verdict is explicitly not_applicable."
+    },
+    {
+      "class": "unsupported_foreground_acceptance_claim",
+      "disposition": "detect_missing_runtime_and_github_truth",
+      "positive_surface": "Accepted or partial verdict lacks GitHub issue/PR/check/merge truth, raw runtime evidence, Goal or Goal-null state, run root ledger, heartbeat disposition, demotion trigger, or next exact owner-surface action.",
+      "negative_surface": "Foreground episode cites the raw evidence fields and downgrades the verdict when evidence is incomplete."
+    },
+    {
+      "class": "background_or_tool_primary_autonomy_overclaim",
+      "disposition": "demote_or_reject_acceptance_claim",
+      "positive_surface": "Acceptance claim implies controller, scheduler, queue, daemon, registry, automatic issue/PR creation, auto-merge, downstream mutation, Hermes-primary ownership, canonical GBrain memory, or unapproved Codex Cloud/remote execution.",
+      "negative_surface": "Acceptance stays foreground-only and keeps Hermes/GBrain advisory or bounded by explicit evidence."
+    }
+  ],
   "owner_surface_recommendations": [
     {
       "exact_owner_surface": "repo-auditor",
