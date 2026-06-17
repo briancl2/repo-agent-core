@@ -42,6 +42,7 @@ for field in [
     "gbrain_search_disposition",
     "gbrain_exact_handle_replay",
     "gbrain_slug_or_no_capture_reason",
+    "gbrain_capture_posture",
     "fallback_without_memory",
     "owner_action",
     "literal_safe_github_readback",
@@ -59,6 +60,7 @@ for phrase in [
     "learning / recovery",
     "literal-safe github status-comment/readback",
     "broad gbrain search miss is not proof",
+    "natural-only foreground capture",
     "hERMES_FOREGROUND_RUN_RECEIPT".lower(),
     "hERMES_FOREGROUND_FAILURE_GUIDANCE".lower(),
     "before codex fallback",
@@ -106,6 +108,8 @@ replay = payload["gbrain_exact_handle_replay"][0]
 assert replay["slug"] == "bma/issue164/learning/hermes-failure-visible-fallback-2026-06-14"
 assert replay["advisory_status"] == "advisory"
 assert payload["gbrain_slug_or_no_capture_reason"] == replay["slug"]
+assert "natural-only foreground capture" in payload["gbrain_capture_posture"]
+assert "background GBrain behavior" in payload["gbrain_capture_posture"]
 assert "github issue/pr/check/merge truth" in payload["fallback_without_memory"].lower()
 literal = payload["literal_safe_github_readback"]
 assert literal["required"] is True
@@ -115,6 +119,7 @@ assert "fired=false" in literal["expected_literals"]
 block = payload["learning_recovery_block"]
 assert block["optional_gbrain_slug"] == replay["slug"]
 assert block["no_capture_reason"] == ""
+assert "github issue/pr/check/merge truth" in block["fallback_without_memory"].lower()
 assert "literal-bearing github status comments" in block["reusable_learning_text"].lower()
 assert payload["admission_disposition"] == "admit"
 claims = " ".join(payload["bounded_non_claims"]).lower()

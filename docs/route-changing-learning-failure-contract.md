@@ -44,6 +44,7 @@ GBrain process, automatic updater, or task-closure authority.
 | `gbrain_search_disposition` | Broad search/query command status and whether it found the route-changing record. |
 | `gbrain_exact_handle_replay` | Exact `gbrain get` readback rows for admitted slugs, or an explicit empty list. |
 | `gbrain_slug_or_no_capture_reason` | Decision-changing advisory slug, or a no-capture reason such as `routine`, `duplicate`, `local_only`, `not_reusable`, or `github_evidence_sufficient`. |
+| `gbrain_capture_posture` | Natural-only foreground capture; no forced launch card, canonical record, or background GBrain behavior. |
 | `fallback_without_memory` | The owner route that would have been chosen without GBrain memory; this is the fallback without memory. |
 | `owner_action` | Exact owner surface issue, PR, branch, or patch route created or changed by the event. |
 | `literal_safe_github_readback` | Evidence that GitHub status comments carrying code, backticks, shell snippets, issue numbers, or JSON were posted/read back literally. |
@@ -61,16 +62,18 @@ A route-changing learning/failure receipt is admissible only when:
    slug with exact-handle readback, or a no-capture reason. Broad GBrain search miss is not proof that memory was absent when exact handles are available.
 3. `fallback_without_memory` names the owner action that would have been chosen
    without advisory GBrain evidence.
-4. Foreground Hermes failures cite a `HERMES_FOREGROUND_RUN_RECEIPT`,
+4. Any foreground GBrain capture is natural-only and must be exact-read back
+   with `gbrain get` before the slug can influence admission.
+5. Foreground Hermes failures cite a `HERMES_FOREGROUND_RUN_RECEIPT`,
    `HERMES_FOREGROUND_FAILURE_GUIDANCE`, or an explicit `not_applicable`
    disposition; a route-changing failed foreground run must become GitHub issue
    or issue-comment truth before Codex fallback.
-5. Literal-bearing GitHub comments are posted through a literal-safe path and
+6. Literal-bearing GitHub comments are posted through a literal-safe path and
    read back before admission. Shell backticks, fenced code, JSON, and issue
    numbers must survive GitHub readback when they are part of the evidence.
-6. `admission_disposition` blocks when GitHub surface, raw evidence, memory
+7. `admission_disposition` blocks when GitHub surface, raw evidence, memory
    disposition, fallback, or literal readback evidence is missing.
-7. `bounded_non_claims` forbids canonical GBrain authority, background GBrain,
+8. `bounded_non_claims` forbids canonical GBrain authority, background GBrain,
    background Hermes, Hermes-primary campaign control, downstream mutation,
    schedulers, queues, daemons, controllers, retry loops, auto-merge, automatic
    issue/PR creation, and retained local closeout packages.
