@@ -48,6 +48,7 @@ templates/                  # Shared templates
   goal-episode-evaluation.md # Goal-mode episode evaluation template
   interruption-recovery-and-batch-reconstitution.md # Blocker recovery template
   foreground-learning-and-recovery-block.md # Foreground learning/recovery block
+  capability-placement.md # Advisory capability placement / Autonomy Preview
   default-capability-reconciliation.md # Upstream/default capability decision template
   upstream-capability-intake.md # Compact upstream capability intake template
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
@@ -74,6 +75,7 @@ scripts/                    # Hook scripts
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   live-capability-inventory.md # Live tool/agent tracking surface for calibrated drift checks
+  capability-placement-contract.md # Advisory capability placement / Autonomy Preview
   goal-episode-evaluation-contract.md # Shared Goal-mode runtime evaluation language
   interruption-recovery-and-batch-reconstitution-contract.md # Goal blocker recovery contract
   foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
@@ -128,6 +130,19 @@ repo-agent-core tools, hooks, skills, Speckit helpers, and scripts that are
 intentionally present on disk. It is a documentation tracking surface for
 calibrated repo-auditor capability-drift checks, not a runtime registry or
 generated control plane.
+
+## Capability Placement Contract
+
+The [capability placement contract](docs/capability-placement-contract.md)
+defines the portable Autonomy Preview shape for naming best current owner, best
+future owner, allowed reach, native signal, promotion gate, demotion/rejection
+trigger, kill switch, forbidden mode, and GBrain slug/no-capture reason before
+high-priority owner-surface work launches. Consumers may copy-sync or cite the
+[template](templates/capability-placement.md), but must not turn it into a
+dashboard, registry, central ledger, scheduler, queue, daemon, controller,
+runtime dependency, automatic issue/PR creator, auto-merge path, background
+Hermes/GBrain behavior, Codex cloud/background write authority, downstream
+mutation path, or replacement closure truth.
 
 ## Goal Episode Evaluation Contract
 
