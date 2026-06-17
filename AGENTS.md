@@ -58,6 +58,16 @@
   controller, MCP server, autopilot, hidden registry, automatic GitHub issue
   creation, or background sync. It does not authorize mutating downstream repos
   or Hermes internals.
+- The Issue #164 Hermes foreground reliability contract lives in
+  `docs/hermes-foreground-reliability-contract.md` and
+  `templates/hermes-foreground-reliability.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, schema mandate, daemon, scheduler,
+  queue, retry loop, controller, hidden registry, MCP server, background sync,
+  automatic GitHub issue/PR creation, auto-merge, downstream mutation, Hermes
+  repo mutation, background Hermes/GBrain behavior, `hermes -z` adoption, or
+  Hermes-primary campaign/control claims. It records doer/checker eligibility,
+  launcher receipt, failure guidance or clean-success reason, coordinator
+  review, validation owner, promotion/demotion evidence, and forbidden mode.
 - The Issue #164 Hermes foreground repo-star pilot reliability receipt lives in
   `docs/hermes-foreground-repo-star-pilot-reliability-contract.md` and
   `schemas/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json`
