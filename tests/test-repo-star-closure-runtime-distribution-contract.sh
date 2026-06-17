@@ -32,6 +32,7 @@ lower = text.lower()
 for field in [
     "closure_ceremony_regrowth_classes",
     "runtime_drift_classes",
+    "coordinator_autonomy_acceptance_classes",
     "owner_surface_recommendations",
     "validation_scope",
     "fallback_routes",
@@ -58,6 +59,11 @@ for phrase in [
     "heartbeat created before the child issue or run root exists",
     "ci polling and green-clean merge-or-blocker discipline",
     "category, such as \"do real delivery\"",
+    "acceptance verdict missing or outside",
+    "non-`not_applicable` verdict missing github issue/pr/check/merge truth",
+    "raw runtime evidence, goal or goal-null",
+    "demotion trigger or next exact owner-surface action",
+    "canonical gbrain memory",
     "exact_owner_surface",
     "first_deliverable",
     "github_issue_routing",
@@ -96,6 +102,13 @@ assert payload["schema_version"] == 1
 assert payload["gbrain_policy"]["canonical_records_written"] == 0
 assert len(payload["closure_ceremony_regrowth_classes"]) >= 2
 assert len(payload["runtime_drift_classes"]) >= 2
+acceptance_classes = payload["coordinator_autonomy_acceptance_classes"]
+assert len(acceptance_classes) >= 3
+assert {row["class"] for row in acceptance_classes} >= {
+    "missing_or_invalid_acceptance_verdict",
+    "unsupported_foreground_acceptance_claim",
+    "background_or_tool_primary_autonomy_overclaim",
+}
 recommendations = payload["owner_surface_recommendations"]
 assert {row["exact_owner_surface"] for row in recommendations} >= {"repo-auditor", "repo-upgrade-advisor"}
 for row in recommendations:

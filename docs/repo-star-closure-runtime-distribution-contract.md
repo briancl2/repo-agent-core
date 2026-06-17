@@ -38,6 +38,7 @@ A closure/runtime distribution record should include:
 | source_contract_refs | repo-agent-core contracts, BMA docs, or PRs used as source evidence. |
 | closure_ceremony_regrowth_classes | Closure duplication classes detected, recommended, or ruled out. |
 | runtime_drift_classes | Runtime launch, Goal, run-root, heartbeat, CI, and next-action drift classes detected, recommended, or ruled out. |
+| coordinator_autonomy_acceptance_classes | Foreground autonomy acceptance overclaim classes detected, recommended, or ruled out. |
 | owner_surface_recommendations | Exact owner-surface recommendation rows. |
 | validation_scope | Focused native checks required by each owner repo before publication. |
 | fallback_routes | GitHub issue/PR owner routes if a detector, recommendation, or materialization path blocks. |
@@ -90,6 +91,34 @@ Negative cases must allow same-thread continuation for active in-flight work,
 normal non-Issue-164 delivery, read-only downstream pilots with target state
 preserved, and GitHub-visible blockers that intentionally stop at an approval
 boundary.
+
+## Coordinator Autonomy Acceptance Classes
+
+Repo-star detectors and advisors should recognize these foreground autonomy
+acceptance overclaim classes in Goal episode reports, runtime digests,
+Autonomy Preview blocks, Learning / Recovery blocks, PR bodies, and campaign
+sync surfaces:
+
+1. Acceptance verdict missing or outside `accepted`, `partial`, `rejected`, or
+   `not_applicable`.
+2. Non-`not_applicable` verdict missing GitHub issue/PR/check/merge truth.
+3. Non-`not_applicable` verdict missing raw runtime evidence, Goal or Goal-null
+   state, `/tmp` run root plus `progress-ledger.jsonl`, or heartbeat
+   capture/disposition.
+4. Verdict lacks a demotion trigger or next exact owner-surface action.
+5. Promotion gate is vague, category-only, or detached from owner-surface
+   validation.
+6. Acceptance claim treats doctrine, retained reports, comments, or local
+   ledgers as closure truth without GitHub merge/check/closure evidence.
+7. Acceptance claim implies background autonomy, Codex Cloud/remote execution,
+   Hermes-primary ownership, canonical GBrain memory, automatic issue/PR
+   creation, auto-merge, downstream mutation, controller, scheduler, queue,
+   daemon, registry, retry loop, or hidden control plane without separate
+   approval and evidence.
+
+Negative cases must allow `not_applicable` verdicts, doctrine-only non-claims,
+null GBrain lookups with a concrete no-capture reason, and foreground
+coordinator episodes that stop at a GitHub-visible blocker.
 
 ## Owner-Surface Recommendation Fields
 
