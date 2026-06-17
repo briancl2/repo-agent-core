@@ -24,6 +24,10 @@
 - Attempt role: `doer` / `checker_shadow` / `checker_advisory` / `not_eligible`
 - Scoped leaf:
 - Expected output:
+- Local-diff maker role: `yes` / `no` / `not_applicable`
+- Maker publication scope: `none` / `approved_issue_comment` / `approved_pr_author` / `not_applicable`
+- PR-author mode approval source:
+- Checker-shadow prerequisite diff or PR:
 - Excluded authority:
 - Not-run reason, if not eligible:
 
@@ -33,7 +37,11 @@
 - Provider/model:
 - Receipt path or URL:
 - Final output validation:
-- Failure guidance path, URL, or not-needed reason:
+- Fix-cycle index: `0` / `1` / `2` / `not_applicable`
+- Fix-cycle feedback source:
+- Fix-cycle disposition: `not_needed` / `review_scoped_fix` / `ci_scoped_fix` / `stopped_demoted`
+- Failure guidance path, URL, conversion issue/comment, or not-needed reason:
+- Codex fallback disposition: `not_needed` / `after_github_visible_failure_guidance` / `blocked_missing_conversion`
 
 ## Coordinator Review
 
@@ -52,6 +60,8 @@
 ## Checker Shadow Disposition
 
 - Disposition: `route_changing` / `confirming` / `duplicative` / `noisy` / `invalid` / `not_run`
+- Checker-shadow no-edit disposition: `confirmed_no_edits` / `violated_demote` / `not_applicable`
+- Checker-shadow no-approval disposition: `confirmed_no_approval` / `violated_demote` / `not_applicable`
 - GitHub evidence for route-changing findings:
 - No-capture reason for routine findings:
 
@@ -59,13 +69,14 @@
 
 - Promotion evidence:
 - Demotion evidence:
+- Forbidden authority triggered: `none` / `self_approval` / `publication_overreach` / `broad_validation_ownership` / `retry_behavior` / `hermes_primary_claim` / `other`
 - Next owner action:
 
 ## Bounded Non-Claims
 
-- This record does not make Hermes the campaign owner, validation owner,
-  Campaign Sync owner, merge owner, recovery owner, or primary autonomous
-  operator.
+- This record does not make Hermes the campaign owner, reviewer, validation
+  owner, PR/CI/merge owner, Campaign Sync owner, recovery owner, or primary
+  autonomous operator.
 - This record does not adopt `hermes -z`.
 - This record does not mutate downstream repos or Hermes internals.
 - This record does not create or update GitHub issues or PRs automatically.

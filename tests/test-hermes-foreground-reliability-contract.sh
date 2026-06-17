@@ -28,6 +28,7 @@ import sys
 
 text = open(sys.argv[1], encoding="utf-8").read()
 lower = text.lower()
+normalized = " ".join(lower.split())
 
 for field in [
     "source_issue_or_pr",
@@ -75,8 +76,23 @@ for phrase in [
     "demote or reject hermes",
     "`hermes -z` adoption",
     "copy-sync or cite",
+    "maker/checker discipline",
+    "local-diff maker role",
+    "pr-author mode",
+    "publication scope `none`",
+    "checker-shadow role runs only after a diff or pr exists",
+    "no edits, no approval",
+    "codex/bma or owner coordinator remains the reviewer",
+    "campaign sync owner",
+    "failure guidance must be converted to github-visible truth before codex fallback",
+    "fix cycles are allowed only when real review or ci feedback scopes them",
+    "bounded cycle indexes",
+    "no autonomous retry loop",
+    "self-approval",
+    "publication overreach",
+    "hermes-primary claims",
 ]:
-    assert phrase in lower, phrase
+    assert phrase in normalized, phrase
 
 for forbidden in [
     "runtime dependency",
@@ -125,6 +141,7 @@ import sys
 
 text = open(sys.argv[1], encoding="utf-8").read()
 lower = text.lower()
+normalized = " ".join(lower.split())
 
 for heading in [
     "## Source",
@@ -141,8 +158,16 @@ for heading in [
 
 for phrase in [
     "Attempt role: `doer` / `checker_shadow` / `checker_advisory` / `not_eligible`",
+    "Maker publication scope: `none` / `approved_issue_comment` / `approved_pr_author` / `not_applicable`",
+    "PR-author mode approval source",
+    "Fix-cycle index",
+    "Fix-cycle disposition",
+    "Checker-shadow no-edit disposition",
+    "Checker-shadow no-approval disposition",
+    "Failure guidance path, URL, conversion issue/comment, or not-needed reason",
+    "Codex fallback disposition",
+    "Forbidden authority triggered",
     "Receipt path or URL",
-    "Failure guidance path, URL, or not-needed reason",
     "Validation owner",
     "Disposition: `route_changing` / `confirming` / `duplicative` / `noisy` / `invalid` / `not_run`",
     "does not make Hermes the campaign owner",
