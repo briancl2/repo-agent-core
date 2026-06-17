@@ -40,13 +40,18 @@ Each Hermes doer/checker reliability record should include these fields:
 | attempt_role | One of `doer`, `checker_shadow`, `checker_advisory`, or `not_eligible`. |
 | launcher_receipt | Path or URL to the `HERMES_FOREGROUND_RUN_RECEIPT`, or an explicit `not_run_reason`. |
 | final_output_validation | Validator, command, or review result proving the Hermes final output is non-empty, non-session-only, and useful, or the failure class if not useful. |
+| maker_publication_scope | For doer/local-diff maker attempts, record `none` unless the owner explicitly approved issue-comment or PR-author publication. |
+| pr_author_mode_approval | Explicit owner/coordinator approval for Hermes-authored publication, or `not_approved`; absent approval means local-diff only. |
+| fix_cycle | Cycle index, feedback source, and disposition for any bounded review/CI-scoped fix pass. |
 | failure_guidance | Path or URL to `HERMES_FOREGROUND_FAILURE_GUIDANCE`, conversion issue/comment, or `not_needed_reason` for clean success. |
+| codex_fallback | Whether Codex/BMA fallback was needed and whether failure guidance was first converted to GitHub-visible truth. |
 | coordinator_review | Codex/BMA, repo maintainer, or operator-visible review that accepted, edited, rejected, or demoted the Hermes output. |
 | validation_owner | Human/agent owner that ran local gates, CI, merge-readiness checks, and recovery; this must not be Hermes. |
 | github_work_truth | Issue/PR/check/merge/comment links proving what actually landed or blocked. |
 | promotion_gate | Evidence needed before repeating or broadening the same Hermes role. |
 | demotion_rejection_trigger | Conditions that demote Hermes to no-run, advisory-only, or Codex-only for this class. |
-| checker_shadow_disposition | If Hermes acted as checker, record whether the signal was used, ignored, noisy, duplicative, or blocker-converting. |
+| checker_shadow_disposition | If Hermes acted as checker, record whether the signal was used, ignored, noisy, duplicative, or blocker-converting; include no-edit and no-approval disposition. |
+| forbidden_authority | Any observed or avoided forbidden authority claim, including self-approval, publication overreach, validation ownership, retry behavior, or Hermes-primary claims. |
 | bounded_non_claims | Explicit non-claims preventing this record from becoming background authority or closure truth. |
 
 ## Eligibility Rules
@@ -66,6 +71,34 @@ A Hermes foreground attempt is eligible only when:
    recovery.
 6. Failure guidance exists for route-changing failures, or the clean-success
    record explains why failure conversion was not needed.
+
+## Maker/Checker Discipline
+
+Hermes may contribute only within a bounded maker/checker lane chosen by the
+owner surface.
+
+- Local-diff maker role: a doer run may prepare a local diff or artifact under
+  PR-author mode only when the owner or Codex/BMA coordinator explicitly scopes
+  that mode. The default publication scope `none` means Hermes leaves changes in
+  the working tree or final response for coordinator review, and does not create
+  issues, comments, PRs, commits, pushes, checks, or merge actions.
+- Checker-shadow role runs only after a diff or PR exists. It has no edits, no
+  approval, no merge-readiness signoff, and no broad validation ownership. Its
+  signal is advisory until Codex/BMA, the repo maintainer, or the owner
+  coordinator records GitHub-visible truth.
+- Codex/BMA or owner coordinator remains the reviewer, validation owner,
+  PR/CI/merge owner, Campaign Sync owner, and recovery owner for the surface.
+  Hermes output can inform those owners but cannot replace them.
+- Failure guidance must be converted to GitHub-visible truth before Codex
+  fallback when the Hermes output fails closed, is empty/session-only, is
+  warning-only, or is otherwise unusable for the scoped leaf.
+- Fix cycles are allowed only when real review or CI feedback scopes them. Each
+  cycle records bounded cycle indexes, the feedback source, the attempted fix,
+  and the disposition. A sequence of cycles is evidence review with no
+  autonomous retry loop.
+- Demotion triggers include failed or empty output, self-approval, publication
+  overreach, broad validation ownership claims, retry behavior, missing
+  failure-guidance conversion before fallback, or Hermes-primary claims.
 
 ## Doer Evidence
 
@@ -113,8 +146,10 @@ Promotion requires repeated clean owner-surface proofs with:
 
 Demote or reject Hermes for the class when the attempt times out, misses a
 receipt, emits empty/session-only/warning-only output, needs substantial
-coordinator salvage, attempts forbidden authority, increases operator burden,
-or produces useful output but fails the required failure-to-issue conversion.
+coordinator salvage, attempts forbidden authority, self-approves, publishes
+without approval, claims broad validation ownership, exhibits retry behavior,
+increases operator burden, makes Hermes-primary claims, or produces useful
+output but fails the required failure-to-issue conversion.
 
 ## Forbidden Authority
 
