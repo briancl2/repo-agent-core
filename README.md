@@ -67,6 +67,7 @@ templates/                  # Shared templates
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
   codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
+  deep-research-source-intelligence-native-corpus.md # Deep Research/source-intelligence native corpus template
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
 scripts/                    # Hook scripts
@@ -99,6 +100,7 @@ docs/
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
+  deep-research-source-intelligence-native-corpus-contract.md # Deep Research/source-intelligence native corpus contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
@@ -331,6 +333,22 @@ response exists; pre-response Prompt B text must be marked hypothetical. Each
 sidecar turn should be one complete paste artifact: the repo-side
 tooling/coordinator assembles evidence, and the human operator does not gather
 reports, ledgers, transcripts, excerpts, or evidence files for the prompt.
+
+## Deep Research Source-Intelligence Native Corpus Contract
+
+The [Deep Research source-intelligence native corpus contract](docs/deep-research-source-intelligence-native-corpus-contract.md)
+defines the shared Issue #164 Arc 4 corpus shape for operator-provided external
+source bundles, manual Deep Research sidecar prompts, and `SOURCE_INSIGHT_PACKET`
+mapping. Consumers may copy the
+[template](templates/deep-research-source-intelligence-native-corpus.md) or cite
+the contract, but must not turn it into a runtime dependency, schema mandate
+beyond `SOURCE_INSIGHT_PACKET`, crawler, source registry, watcher, scheduler,
+queue, daemon, controller, hidden registry, Deep Research API runner, automatic
+GitHub issue/PR creator, auto-merge path, retained closeout package, background
+sync, raw authenticated DOM/HTML/screenshot/account-context retention,
+downstream mutation path, live Codex Cloud execution, or live Codex remote
+execution. Official Deep Research and Web Search docs are capability context
+until raw run evidence proves a live API path.
 
 ## Foreground Recovery Runtime Contract
 

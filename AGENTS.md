@@ -184,6 +184,18 @@
   prompt is explicitly marked as a hypothetical draft. Each sidecar turn should
   be one complete paste artifact; repo-side tooling/coordinator owns evidence
   assembly, not the human operator.
+- The Issue #164 Deep Research/source-intelligence native corpus contract lives
+  in `docs/deep-research-source-intelligence-native-corpus-contract.md` and
+  `templates/deep-research-source-intelligence-native-corpus.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, schema mandate beyond
+  `SOURCE_INSIGHT_PACKET`, crawler, source registry, watcher, scheduler, queue,
+  daemon, controller, hidden registry, sidecar runner, Deep Research API runner,
+  automatic GitHub issue/PR creation, auto-merge, retained closeout package,
+  background sync, raw authenticated DOM/HTML/screenshot/account-context
+  retention, downstream mutation, live Codex Cloud execution, or live Codex
+  remote execution. Carrier 1 used manual sidecar prompt only and
+  `deep_research_api_disposition=rescoped_failed_not_authorized`; raw evidence
+  is required before any future live API/cloud/remote claim.
 - The scheduled Runtime Learning Shadow readback contract lives in
   `docs/scheduled-runtime-learning-shadow-readback-contract.md` and
   `templates/scheduled-runtime-learning-shadow-readback.md`; consume it by
