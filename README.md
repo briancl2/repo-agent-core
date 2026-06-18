@@ -66,6 +66,7 @@ templates/                  # Shared templates
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
+  codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
 scripts/                    # Hook scripts
@@ -97,6 +98,7 @@ docs/
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
+  codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
@@ -245,6 +247,19 @@ not turn it into a runner, scheduler, queue, daemon, controller, registry,
 automatic GitHub issue/PR creator, retained closeout package, background
 GBrain/Hermes behavior, or task-closure authority. Comments and artifacts are
 evidence only; GitHub issue/PR/check/merge truth remains closure truth.
+
+## Codex Native Runtime Readiness Contract
+
+The [Codex native runtime readiness contract](docs/codex-native-runtime-readiness-contract.md)
+defines the shared evidence shape for assessing Codex local, worktree, cloud,
+remote, automation, and subagent readiness before promoting a foreground owner
+lane to a different runtime placement. Consumers may copy-sync or cite the
+[template](templates/codex-native-runtime-readiness.md), but must not turn it
+into a runtime dependency, controller, scheduler, queue, daemon, registry,
+automatic issue/PR creator, auto-merge path, retained closeout package,
+downstream mutation grant, or live Codex Cloud/remote execution proof. Official
+Codex docs are capability context only unless raw task evidence proves the live
+run.
 
 ## GitHub Parsed Closure Semantics Contract
 
