@@ -322,19 +322,21 @@ scheduler, queue, retry loop, controller, MCP server, hidden registry,
 background sync, `hermes -z` adoption path, autonomous campaign operator, or
 canonical GBrain memory claim.
 
-## Sidecar Prompt A/B Response-Shaped Contract
+## Standalone External-Intelligence Sidecar Contract
 
-The [sidecar Prompt A/B response-shaped contract](docs/sidecar-prompt-ab-response-shaped-contract.md)
-defines the shared manual sidecar protocol for assumption-gap-first Prompt A and
-response-shaped Prompt B. Consumers may copy the
+The [standalone external-intelligence sidecar contract](docs/sidecar-prompt-ab-response-shaped-contract.md)
+defines the shared manual sidecar protocol for singleton, Prompt A, Prompt B,
+and Deep Research modes under `STANDALONE_EXTERNAL_INTELLIGENCE_SIDECAR`.
+Consumers may copy the
 [template](templates/sidecar-prompt-ab-response-shaped.md) or cite the contract,
 but must not turn them into a sidecar runner, controller, scheduler, queue,
 daemon, hidden registry, retained closure package, or background sync
-mechanism. Prompt B may claim reconciliation only after the actual Prompt A
-response exists; pre-response Prompt B text must be marked hypothetical. Each
-sidecar turn should be one complete paste artifact: the repo-side
-tooling/coordinator assembles evidence, and the human operator does not gather
-reports, ledgers, transcripts, excerpts, or evidence files for the prompt.
+mechanism. Each sidecar prompt must be a pure standalone prompt addressed to the
+external model, with no operator wrapper text, all required context embedded,
+public URLs optional and non-load-bearing, and all jargon/acronyms defined.
+Prompt A asks clarifying questions and context gaps. Prompt B embeds actual
+Prompt A output plus answered context before final analysis. Deep Research mode
+includes research targets, source rules, and a source-ledger response shape.
 
 ## Deep Research Source-Intelligence Native Corpus Contract
 

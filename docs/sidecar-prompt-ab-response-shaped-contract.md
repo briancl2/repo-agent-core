@@ -1,121 +1,125 @@
-# Sidecar Prompt A/B Response-Shaped Contract
+# Standalone External-Intelligence Sidecar Contract
 
-> Version: 1.0
-> Date: 2026-06-08
+> Version: 2.0
+> Date: 2026-06-18
 > Owner: repo-agent-core
+> Token: `STANDALONE_EXTERNAL_INTELLIGENCE_SIDECAR`
+> Supersedes: Sidecar Prompt A/B Response-Shaped Contract v1.0
 
 ## Purpose
 
-This contract defines the shared Prompt A/B shape for manual sidecar review
-with ChatGPT Pro, Deep Research, or comparable external advisor surfaces. Use it
-when one prompt gathers external or assumption-gap evidence and a later prompt
-asks for repo-specific planning, migration advice, or next-track guidance.
+This contract defines the shared sidecar prompt shape for manual ChatGPT Pro,
+manual Deep Research, Opus proxy, or comparable external-intelligence surfaces.
+It preserves Prompt A/B response-shaped behavior as a mode while replacing the
+old prompt-kit pattern with a strict standalone prompt invariant.
 
-The contract prevents a known failure mode: Prompt B is generated before Prompt
-A's answer exists, then later treated as if it reconciled actual Prompt A
-evidence. Prompt B must be response-shaped unless it is explicitly marked as a
-hypothetical draft.
+The protected frame is simple: the external model is powerful but outside the
+local context. It has no local filesystem access, no private repository access,
+no GitHub issue access, no previous chat access, and no workspace context unless
+the prompt embeds that context directly.
 
-It also prevents the companion operator-burden failure mode: a "prompt kit"
-becomes a human-assembled file checklist. Each sidecar turn
-should be one complete paste artifact. The repo-side coordinator or tooling owns
-evidence assembly, answers sidecar questions from repo/GitHub truth, and
-regenerates the next paste-ready bundle.
-
-This is a copy-sync/citation contract and template. It is not a runtime
-package, retained report requirement, scheduler, queue, controller, daemon,
-hidden registry, watcher, memory import framework, background sync, or
-automatic sidecar runner.
+This is a copy-sync/citation contract and template. It is not a runtime package,
+sidecar runner, scheduler, queue, controller, daemon, hidden registry, watcher,
+memory import framework, background sync, retry loop, automatic GitHub mutation
+path, or retained closure package.
 
 ## Required Protocol
 
 | Field | Required meaning |
 |---|---|
-| Sidecar surface | The external advisor surface, model/tool mode, and any source-access mode used. |
-| Single-paste invariant | One complete paste artifact per sidecar turn. The prompt must say no additional files are required, and the repo-side coordinator/tooling owns evidence assembly. |
-| Prompt A objective | The first prompt asks for assumption gaps, missing evidence, risks, stale claims, and questions the repo-side operator must answer before planning. |
-| Prompt A response evidence | The actual Prompt A answer or a durable reference to it. Required before Prompt B can claim reconciliation. |
-| Prompt A acceptance check | Why the Prompt A answer is specific enough to feed Prompt B, or why it is rejected and Prompt B is blocked. |
-| Prompt B mode | `response-shaped` or `hypothetical-draft`. |
-| Prompt B inputs | Exact Prompt A response sections, live GitHub/repo truth, boundaries, and operator corrections used to shape Prompt B. |
-| Prompt B reconciliation task | Prompt B must reconcile Prompt A's actual answer against current repo and GitHub truth before recommending owner action. |
-| Current-truth check | Prompt B must distinguish live GitHub/repo truth from sidecar advice and stale retained material. |
-| Output shape | Prompt B must return one exact owner-surface action, first deliverable/PR shape, validation scope, stop rules, and bounded non-claims. |
-| Regrowth boundary | Explicit statement that the protocol did not create automation, retained closure packages, controllers, queues, schedulers, registries, daemons, retry loops, or background memory behavior. |
+| Contract token | `STANDALONE_EXTERNAL_INTELLIGENCE_SIDECAR`. |
+| Sidecar surface | The external model surface and mode: singleton, Prompt A, Prompt B, Deep Research, or proxy validation. |
+| Pure prompt invariant | The pasteable artifact is addressed to the external model only. It contains no operator wrapper text such as "paste this", "copy this", "here is the prompt", or instructions about what the operator should paste. |
+| Standalone access boundary | The prompt says the external model has no local filesystem, private repository, GitHub issue, prior chat, or workspace access. |
+| Embedded context | All required context, architecture, terms, principles, integration points, challenges, goals, evidence summaries, and response shape are embedded directly. |
+| Public URL boundary | Public URLs may appear only as optional and non-load-bearing sources. The prompt must remain understandable without opening them. |
+| Definitions | Project jargon and acronyms are defined in plain language before use. |
+| Prompt-layer clarity | The external model is asked to execute the task, not to review, critique, or improve the prompt itself. |
+| Singleton mode | One-pass advisory review or problem-solving prompt with complete context and explicit response shape. |
+| Prompt A mode | First pass in a two-prompt flow. It asks clarifying questions, context gaps, assumptions, and evidence needed for Prompt B. It does not produce the final answer. |
+| Prompt B mode | Second pass in a two-prompt flow. It embeds actual Prompt A output and answered context before asking for the final answer. Prompt B without actual Prompt A output is invalid. |
+| Deep Research mode | Research-oriented sidecar prompt that embeds research targets, source rules, public-source boundary, and source-ledger response shape. |
+| Advisory boundary | Sidecar output is advisory. It does not close GitHub issues, approve pull requests, mutate repositories, replace operator judgment, or become task closure truth. |
+| Regrowth boundary | Explicitly forbids automation, retained closure packages, controllers, queues, schedulers, registries, daemons, retry loops, background memory behavior, automatic issue/PR creation, and auto-merge. |
 
-## Prompt A Rules
+## Mode Requirements
 
-Prompt A is assumption-gap first. It should ask the sidecar to find missing
-facts, stale assumptions, contradictions, risks, decision blockers, and source
-questions. It may ask for candidate directions, but it should not ask the
-sidecar to become campaign authority.
+### Singleton
 
-Prompt A should request:
+Use singleton mode when the sidecar should perform one broad architectural
+review, strategy review, or complex-problem analysis. The prompt must include
+the full dossier needed to reason from first principles and must return a
+clear response shape such as verdict, findings, risks, tradeoffs, recommended
+next step, and missing evidence.
 
-- claims that need current repo or GitHub verification;
-- assumptions the local coordinator appears to be making;
-- missing source or provenance questions;
-- where the operator's stated intent conflicts with proposed work;
-- what evidence would be needed before Prompt B can safely plan.
+### Prompt A
 
-Prompt A must be paste-ready for the current sidecar turn:
+Use Prompt A when context quality is uncertain. Prompt A asks the external model
+to improve the eventual Prompt B by naming:
 
-- it should tell the operator to paste the entire file into the sidecar;
-- it should state that no additional files are required;
-- it should state that repo-side tooling or the coordinator assembled the
-  evidence;
-- if the sidecar needs more evidence, it should ask the repo-side coordinator
-  or tooling to regenerate a better bundle;
-- it must keep report, ledger, transcript, excerpt, and evidence-file assembly
-  on the repo-side coordinator/tooling path.
+- clarifying questions;
+- context gaps;
+- assumptions to confirm;
+- evidence that should be embedded in Prompt B;
+- terms that need definitions;
+- boundaries that may be ambiguous.
 
-## Prompt B Rules
+Prompt A output is not final planning authority.
 
-Prompt B is response-shaped. It may be written only after Prompt A's actual
-answer is available unless the prompt is clearly labeled `hypothetical-draft`.
-When Prompt B is eventually used in response-shaped mode, the repo-side
-coordinator/tooling should embed the actual Prompt A response and any needed
-repo/GitHub evidence into one paste-ready Prompt B artifact.
+### Prompt B
 
-A response-shaped Prompt B must:
+Use Prompt B only after actual Prompt A output exists and the operator or
+coordinator has answered it. Prompt B must embed:
 
-1. Quote or summarize the actual Prompt A claims it is reconciling.
-2. Separate Prompt A advice from current GitHub/repo truth.
-3. Identify which Prompt A claims are accepted, rejected, stale, unsupported, or
-   blocked pending owner-surface proof.
-4. Choose one exact owner-surface action instead of a category handback.
-5. Name the first deliverable or PR shape.
-6. Include validation scope and stop rules.
-7. Include bounded non-claims.
+- actual Prompt A output;
+- answered context for Prompt B;
+- accepted, rejected, stale, unsupported, or blocked Prompt A claims when
+  relevant;
+- current embedded evidence summaries;
+- boundaries and non-claims.
 
-A hypothetical Prompt B draft must state that it cannot claim reconciliation,
-must not be used as campaign direction, and must be regenerated after the
-actual Prompt A response exists.
+Prompt B must not claim reconciliation from a placeholder, expected answer, or
+hypothetical Prompt A. If a hypothetical draft is unavoidable, it must be labeled
+as non-authoritative and regenerated before use.
+
+### Deep Research
+
+Use Deep Research mode when the sidecar should search public sources or reason
+over supplied public URLs. The prompt must include:
+
+- research targets;
+- source rules;
+- source quality preferences;
+- source-ledger response shape;
+- confidence and gap reporting;
+- an explicit statement that optional public URLs are not load-bearing context.
+
+Live Deep Research API execution is not implied by this contract. Manual Deep
+Research pasteback remains a first-class use case, but pasteback is not required
+for a contract or detector PR to merge unless the owner issue says so.
 
 ## Output Shape
 
-The sidecar response or repo-side reconciliation should preserve this shape:
+Every mode must include an explicit response shape. Common sections:
 
-- Executive verdict.
-- Prompt A claims accepted/rejected/stale/unsupported/blocked.
-- Current GitHub/repo truth used.
-- One exact owner-surface action.
-- First deliverable or PR shape.
-- Validation scope.
-- Stop rules.
-- Bounded non-claims.
+- Executive verdict or research verdict.
+- Important findings.
+- Risks and tradeoffs.
+- Recommended next step.
+- Missing evidence, context gaps, or assumptions.
+- Source ledger for Deep Research mode.
+- Prompt A reconciliation for Prompt B mode.
 
 ## Owner Routing
 
 - Shared protocol gap: repo-agent-core.
 - BMA campaign consumption gap: build-meta-analysis.
-- Detector gap for repeated sidecar overclaim or Prompt B-before-response
-  patterns: repo-auditor, only after the foreground protocol proves the pattern
-  is detectable.
-- Recommendation packaging gap: repo-upgrade-advisor, only when future advisor
-  output needs to recommend sidecar protocol repair.
-- Patch/materialization gap: repo-optimizer, only if sidecar protocol output
-  becomes patch-pack input.
+- Detector gap for local/private/GitHub dependency, prompt-layer confusion, or
+  sidecar-as-authority overclaims: repo-auditor.
+- Recommendation packaging gap:
+  `standalone_external_intelligence_sidecar_gap` in repo-upgrade-advisor.
+- Patch/materialization gap: repo-optimizer only if a later owner issue
+  explicitly asks for patch-pack generation.
 
 ## Copy-Sync Boundary
 
@@ -123,4 +127,5 @@ Consumers may copy this contract, copy the template, or cite either artifact in
 local prompt bundles, issue bodies, PR bodies, or docs. Copy drift is normal
 repo-quality debt handled through review. Do not add a runtime dependency,
 generated inventory, scheduler, queue, controller, watcher, daemon, hidden
-registry, sidecar runner, retry loop, or background sync to keep copies aligned.
+registry, sidecar runner, retry loop, automatic updater, or background sync to
+keep copies aligned.
