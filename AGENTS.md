@@ -194,6 +194,15 @@
   `event=schedule` readback evidence only after the run exists; workflow
   comments and artifacts remain evidence only and never replace GitHub
   issue/PR/check/merge truth.
+- The Issue #164 Codex native runtime readiness contract lives in
+  `docs/codex-native-runtime-readiness-contract.md` and
+  `templates/codex-native-runtime-readiness.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, daemon, scheduler, queue,
+  controller, retry loop, hidden registry, retained closeout package,
+  background sync, automatic GitHub issue/PR creation, auto-merge, downstream
+  mutation, or live Codex Cloud/remote execution proof. Official Codex local,
+  worktree, cloud, automation, remote, and subagent documentation is capability
+  context only until raw task evidence proves a live run.
 - The Issue #164 GitHub parsed closure semantics contract lives in
   `docs/github-parsed-closure-semantics-contract.md` and
   `templates/github-parsed-closure-semantics.md`; consume it by copy-sync or
