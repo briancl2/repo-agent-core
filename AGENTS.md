@@ -215,6 +215,16 @@
   mutation, or live Codex Cloud/remote execution proof. Official Codex local,
   worktree, cloud, automation, remote, and subagent documentation is capability
   context only until raw task evidence proves a live run.
+- The Issue #164 integrated native capability acceptance contract lives in
+  `docs/integrated-native-capability-acceptance-contract.md` and
+  `templates/integrated-native-capability-acceptance.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, controller, scheduler,
+  queue, daemon, retry loop, registry, sidecar runner, automatic issue/PR
+  creator, auto-merge path, retained closeout package, Codex remote proof
+  substitute, background Hermes/GBrain behavior, or downstream mutation. The
+  current accepted disposition is Cloud proof accepted from BMA task
+  `task_e_6a34120847c4832b94a1a08423530556`, remote deferred, and
+  external-intelligence sidecar prompting failed and outside Arc 5.
 - The Issue #164 GitHub parsed closure semantics contract lives in
   `docs/github-parsed-closure-semantics-contract.md` and
   `templates/github-parsed-closure-semantics.md`; consume it by copy-sync or
