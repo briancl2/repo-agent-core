@@ -174,16 +174,17 @@
   autonomous campaign operation, `hermes -z` adoption, GBrain background
   behavior, or canonical-memory claim. Hermes remains a bounded foreground
   first-attempt doer, and GBrain remains advisory.
-- The Issue #164 sidecar Prompt A/B response-shaped protocol lives in
+- The Issue #164 standalone external-intelligence sidecar contract lives in
   `docs/sidecar-prompt-ab-response-shaped-contract.md` and
   `templates/sidecar-prompt-ab-response-shaped.md`; consume it by copy-sync or
   citation only, not by runtime dependency, sidecar runner, daemon, scheduler,
   queue, controller, retry loop, hidden registry, retained closure package, or
-  background sync. Prompt A is assumption-gap first; Prompt B may claim
-  reconciliation only after the actual Prompt A response exists unless the
-  prompt is explicitly marked as a hypothetical draft. Each sidecar turn should
-  be one complete paste artifact; repo-side tooling/coordinator owns evidence
-  assembly, not the human operator.
+  background sync. It preserves Prompt A/B as modes under
+  `STANDALONE_EXTERNAL_INTELLIGENCE_SIDECAR`: pure prompt only, no operator
+  wrapper text, all required context embedded, public URLs optional and
+  non-load-bearing, Prompt B only after actual Prompt A output plus answered
+  context, and Deep Research only with research targets, source rules, and a
+  source-ledger response shape.
 - The Issue #164 Deep Research/source-intelligence native corpus contract lives
   in `docs/deep-research-source-intelligence-native-corpus-contract.md` and
   `templates/deep-research-source-intelligence-native-corpus.md`; consume it by
