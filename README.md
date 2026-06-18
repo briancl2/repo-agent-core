@@ -68,6 +68,7 @@ templates/                  # Shared templates
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
   codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
   deep-research-source-intelligence-native-corpus.md # Deep Research/source-intelligence native corpus template
+  integrated-native-capability-acceptance.md # Integrated native capability acceptance receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
 scripts/                    # Hook scripts
@@ -101,6 +102,7 @@ docs/
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
   deep-research-source-intelligence-native-corpus-contract.md # Deep Research/source-intelligence native corpus contract
+  integrated-native-capability-acceptance-contract.md # Integrated native capability acceptance contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
@@ -349,6 +351,20 @@ sync, raw authenticated DOM/HTML/screenshot/account-context retention,
 downstream mutation path, live Codex Cloud execution, or live Codex remote
 execution. Official Deep Research and Web Search docs are capability context
 until raw run evidence proves a live API path.
+
+## Integrated Native Capability Acceptance Contract
+
+The [integrated native capability acceptance contract](docs/integrated-native-capability-acceptance-contract.md)
+defines the shared `INTEGRATED_NATIVE_CAPABILITY_ACCEPTANCE` record for Issue
+#164 Arc 5 propagation after BMA accepted Codex Cloud proof while keeping
+Codex remote validation deferred and failed sidecar prompting outside Arc 5.
+Consumers may copy-sync or cite the
+[template](templates/integrated-native-capability-acceptance.md), but must not
+turn it into a runtime dependency, controller, scheduler, queue, daemon,
+registry, automatic issue/PR creator, auto-merge path, retained closeout
+package, sidecar runner, Codex remote proof substitute, or downstream mutation
+grant. Official docs, remote setup screenshots, and sidecar prompts are not
+live acceptance proof without raw task/session evidence and GitHub truth.
 
 ## Foreground Recovery Runtime Contract
 
