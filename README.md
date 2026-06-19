@@ -68,6 +68,7 @@ templates/                  # Shared templates
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
   codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
   deep-research-source-intelligence-native-corpus.md # Deep Research/source-intelligence native corpus template
+  deep-research-source-ledger-v2-adoption.md # Deep Research source-ledger v2 adoption template
   integrated-native-capability-acceptance.md # Integrated native capability acceptance receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
@@ -102,6 +103,7 @@ docs/
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
   deep-research-source-intelligence-native-corpus-contract.md # Deep Research/source-intelligence native corpus contract
+  deep-research-source-ledger-v2-adoption-contract.md # Deep Research source-ledger v2 adoption contract
   integrated-native-capability-acceptance-contract.md # Integrated native capability acceptance contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
@@ -353,6 +355,24 @@ sync, raw authenticated DOM/HTML/screenshot/account-context retention,
 downstream mutation path, live Codex Cloud execution, or live Codex remote
 execution. Official Deep Research and Web Search docs are capability context
 until raw run evidence proves a live API path.
+
+## Deep Research Source-Ledger V2 Adoption Contract
+
+The [Deep Research source-ledger v2 adoption contract](docs/deep-research-source-ledger-v2-adoption-contract.md)
+defines the shared `DEEP_RESEARCH_SOURCE_LEDGER_V2_ADOPTION` record for the
+bounded BMA #919/#921-shaped manual Deep Research workflow: public/no-auth
+architecture/source-intelligence advisory decisions, standalone prompts with
+embedded context, `3/4` default prompt tier, `1/2` bounded transport-fit
+fallback, `1/3` not accepted as default, and source-ledger v2 fields including
+consulted-on date, exclusion rationale, and recommendation effect. Consumers
+may copy the
+[template](templates/deep-research-source-ledger-v2-adoption.md) or cite the
+contract, but must not turn it into a Deep Research API runner, sidecar runner,
+crawler, source registry, watcher, scheduler, queue, daemon, controller, hidden
+registry, automatic GitHub issue/PR creator, auto-merge path, retained closeout
+package, authenticated capture grant, or downstream mutation path. Sidecar
+output remains advisory evidence only and never replaces GitHub
+issue/PR/check/merge truth.
 
 ## Integrated Native Capability Acceptance Contract
 

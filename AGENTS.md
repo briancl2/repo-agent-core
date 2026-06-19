@@ -197,6 +197,19 @@
   remote execution. Carrier 1 used manual sidecar prompt only and
   `deep_research_api_disposition=rescoped_failed_not_authorized`; raw evidence
   is required before any future live API/cloud/remote claim.
+- The Issue #164 Deep Research source-ledger v2 adoption contract lives in
+  `docs/deep-research-source-ledger-v2-adoption-contract.md` and
+  `templates/deep-research-source-ledger-v2-adoption.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, Deep Research API
+  runner, sidecar runner, crawler, source registry, watcher, scheduler, queue,
+  daemon, controller, retry loop, hidden registry, automatic GitHub issue/PR
+  creator, auto-merge path, retained closeout package, background sync,
+  authenticated browser capture grant, or downstream mutation. The accepted
+  scope is #919/#921-shaped public/no-auth manual Deep Research architecture/
+  source-intelligence advisory decisions only: `3/4` prompt tier default,
+  `1/2` bounded transport-fit fallback, `1/3` not default, source-ledger v2
+  fields including consulted-on date, exclusion rationale, and recommendation
+  effect, and sidecar output as advisory evidence only.
 - The scheduled Runtime Learning Shadow readback contract lives in
   `docs/scheduled-runtime-learning-shadow-readback-contract.md` and
   `templates/scheduled-runtime-learning-shadow-readback.md`; consume it by
