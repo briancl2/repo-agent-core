@@ -66,6 +66,7 @@ templates/                  # Shared templates
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
+  scheduled-readback-owner-proof.md # Scheduled readback owner proof receipt
   codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
   deep-research-source-intelligence-native-corpus.md # Deep Research/source-intelligence native corpus template
   deep-research-source-ledger-v2-adoption.md # Deep Research source-ledger v2 adoption template
@@ -101,6 +102,7 @@ docs/
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
+  scheduled-readback-owner-proof-contract.md # Scheduled readback owner proof contract
   codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
   deep-research-source-intelligence-native-corpus-contract.md # Deep Research/source-intelligence native corpus contract
   deep-research-source-ledger-v2-adoption-contract.md # Deep Research source-ledger v2 adoption contract
@@ -253,6 +255,18 @@ not turn it into a runner, scheduler, queue, daemon, controller, registry,
 automatic GitHub issue/PR creator, retained closeout package, background
 GBrain/Hermes behavior, or task-closure authority. Comments and artifacts are
 evidence only; GitHub issue/PR/check/merge truth remains closure truth.
+
+## Scheduled Readback Owner Proof Contract
+
+The [scheduled readback owner proof contract](docs/scheduled-readback-owner-proof-contract.md)
+defines the shared `SCHEDULED_READBACK_OWNER_PROOF` shape for deciding whether
+a read-only scheduled-readback candidate has owner-admissible schedule
+evidence. Consumers may copy-sync or cite the
+[template](templates/scheduled-readback-owner-proof.md), but must not turn it
+into a workflow runner, scheduler, queue, daemon, controller, registry,
+automatic GitHub issue/PR mutation path, auto-merge path, background
+GBrain/Hermes behavior, or closure authority. `workflow_dispatch` is context
+only and never scheduled proof.
 
 ## Codex Native Runtime Readiness Contract
 
