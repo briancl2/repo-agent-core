@@ -220,6 +220,16 @@
   `event=schedule` readback evidence only after the run exists; workflow
   comments and artifacts remain evidence only and never replace GitHub
   issue/PR/check/merge truth.
+- The Issue #164 scheduled readback owner proof contract lives in
+  `docs/scheduled-readback-owner-proof-contract.md` and
+  `templates/scheduled-readback-owner-proof.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, workflow runner, scheduler, queue,
+  daemon, controller, retry loop, hidden registry, retained closeout package,
+  automatic GitHub issue/PR mutation, auto-merge, background GBrain/Hermes
+  behavior, or task-closure authority. It keeps `workflow_dispatch` as context
+  only and requires actual `event=schedule` evidence, owner issue, candidate id,
+  cadence, event filter, blocker rule, promotion/demotion, kill switch, and
+  bounded non-claims.
 - The Issue #164 Codex native runtime readiness contract lives in
   `docs/codex-native-runtime-readiness-contract.md` and
   `templates/codex-native-runtime-readiness.md`; consume it by copy-sync or
