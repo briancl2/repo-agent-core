@@ -110,6 +110,16 @@
   turn foreground failure guidance, including `HERMES_FOREGROUND_FAILURE_GUIDANCE`,
   into explicit GitHub issue or issue comment truth with exact-marker dedupe,
   evidence path, owner action, and no automatic retry/repair.
+- The Issue #164 Hermes foreground failure disposition contract lives in
+  `docs/hermes-foreground-failure-disposition-contract.md` and
+  `templates/hermes-foreground-failure-disposition.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, schema mandate,
+  controller, scheduler, queue, daemon, registry, retry loop, auto-close,
+  auto-merge, automatic issue/PR creation, downstream mutation, upstream Hermes
+  mutation, or background Hermes/GBrain behavior. Close allowance requires
+  unambiguous GitHub truth: exactly one merged related repair PR that references
+  the failure issue itself or complete current provider-policy supersession;
+  otherwise explicit blocker evidence keeps the issue open.
 - The Issue #164 downstream read-only recovery-runtime pilot receipt lives in
   `docs/downstream-read-only-recovery-runtime-pilot-contract.md` and
   `templates/downstream-read-only-recovery-runtime-pilot.md`; consume it by

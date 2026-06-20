@@ -54,6 +54,7 @@ templates/                  # Shared templates
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   foreground-failure-to-issue-conversion.md # Foreground failure-to-issue conversion record
+  hermes-foreground-failure-disposition.md # Foreground Hermes failure disposition record
   hermes-foreground-reliability.md # Foreground Hermes doer/checker reliability record
   hermes-foreground-repo-star-pilot-reliability.md # Bounded Hermes repo-star pilot reliability receipt
   gbrain-advisory-pilot-outcome-learning-loop.md # Advisory GBrain pilot outcome learning-loop receipt
@@ -93,6 +94,7 @@ docs/
   gbrain-advisory-pilot-outcome-learning-loop-contract.md # Advisory GBrain pilot outcome learning-loop contract
   foreground-recovery-runtime-contract.md # Compact foreground recovery runtime composition
   foreground-failure-to-issue-conversion-contract.md # Foreground failure-to-issue conversion contract
+  hermes-foreground-failure-disposition-contract.md # Foreground Hermes failure disposition contract
   downstream-read-only-recovery-runtime-pilot-contract.md # Downstream read-only pilot receipt
   repo-star-genericity-proof-contract.md # Non-BMA repo-star genericity proof contract
   repo-star-downstream-genericity-proof-contract.md # Two-target downstream genericity proof contract
@@ -426,6 +428,21 @@ contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, retry loop, registry, controller, hidden registry, background GBrain
 behavior, automatic background issue creation, auto-merge, downstream mutation,
 Hermes/GBrain internals mutation, or runtime dependency behavior.
+
+## Hermes Foreground Failure Disposition Contract
+
+The [Hermes foreground failure disposition contract](docs/hermes-foreground-failure-disposition-contract.md)
+defines the portable `HERMES_FOREGROUND_FAILURE_DISPOSITION` record for deciding
+whether a converted foreground Hermes failure issue may close, must stay open,
+or needs a GitHub-visible blocker. Consumers may copy the
+[template](templates/hermes-foreground-failure-disposition.md) or cite the
+contract, but must not turn it into a runtime dependency, schema mandate,
+controller, scheduler, queue, daemon, registry, retry loop, auto-close,
+auto-merge, automatic issue/PR creation, downstream mutation, upstream Hermes
+mutation, or background Hermes/GBrain behavior. Close allowance requires
+unambiguous GitHub truth: exactly one merged related repair PR that references
+the failure issue itself or complete current provider-policy supersession;
+otherwise blocker evidence keeps the issue open.
 
 ## Downstream Read-Only Recovery Runtime Pilot Contract
 
