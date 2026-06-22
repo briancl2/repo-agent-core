@@ -66,6 +66,7 @@ templates/                  # Shared templates
   gbrain-repo-local-instruction-distribution.md # Advisory GBrain instruction distribution receipt
   hermes-doer-gbrain-distributed-instructions.md # Hermes doer + GBrain-distributed instruction receipt
   sidecar-prompt-ab-response-shaped.md # Response-shaped Prompt A/B sidecar protocol
+  external-critique-capability.md # Localizable external critique capability rule
   scheduled-runtime-learning-shadow-readback.md # Scheduled Runtime Learning Shadow readback receipt
   scheduled-readback-owner-proof.md # Scheduled readback owner proof receipt
   codex-native-runtime-readiness.md # Codex native local/worktree/cloud/remote readiness receipt
@@ -103,6 +104,7 @@ docs/
   gbrain-repo-local-instruction-distribution-contract.md # Advisory GBrain repo-local instruction distribution contract
   hermes-doer-gbrain-distributed-instructions-contract.md # Hermes doer + GBrain-distributed instruction contract
   sidecar-prompt-ab-response-shaped-contract.md # Response-shaped sidecar Prompt A/B contract
+  external-critique-capability-contract.md # Localizable external critique capability contract
   scheduled-runtime-learning-shadow-readback-contract.md # Scheduled Runtime Learning Shadow readback contract
   scheduled-readback-owner-proof-contract.md # Scheduled readback owner proof contract
   codex-native-runtime-readiness-contract.md # Codex native runtime readiness contract
@@ -355,6 +357,23 @@ public URLs optional and non-load-bearing, and all jargon/acronyms defined.
 Prompt A asks clarifying questions and context gaps. Prompt B embeds actual
 Prompt A output plus answered context before final analysis. Deep Research mode
 includes research targets, source rules, and a source-ledger response shape.
+
+## External Critique Capability Contract
+
+The [external critique capability contract](docs/external-critique-capability-contract.md)
+defines the localizable invocation and admission rule for bounded external
+critique under `EXTERNAL_CRITIQUE_CAPABILITY`. Consumers may copy the
+[template](templates/external-critique-capability.md) or cite the contract, but
+must not turn them into a controller, scheduler, queue, daemon, registry,
+dashboard, retry loop, background memory process, automatic issue/PR system,
+standing paired-probe program, central service, sidecar runner, runtime
+dependency, live-probe authorization, auto-merge path, downstream mutation
+grant, or background sync mechanism. The default path is one critic. A panel or
+latest-panel requires named high-stakes context. There is no forced finding
+quota. Findings must separate blocker from advisory, critique gets one initial
+pass plus one follow-up unless explicitly approved, and effectiveness requires
+independent owner evidence. Target repo principles outrank imported BMA
+phrasing; literal BMA wording is seed evidence only, not canonical target text.
 
 ## Deep Research Source-Intelligence Native Corpus Contract
 

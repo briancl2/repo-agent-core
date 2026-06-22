@@ -195,6 +195,18 @@
   non-load-bearing, Prompt B only after actual Prompt A output plus answered
   context, and Deep Research only with research targets, source rules, and a
   source-ledger response shape.
+- The Issue #164 external critique capability contract lives in
+  `docs/external-critique-capability-contract.md` and
+  `templates/external-critique-capability.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, controller, scheduler, queue,
+  daemon, registry, dashboard, retry loop, background memory process,
+  automatic issue/PR system, standing paired-probe program, central service,
+  sidecar runner, live-probe authorization, auto-merge, downstream mutation, or
+  background sync. External critique is a bounded risk sensor, not authority:
+  one critic is the default, panel/latest-panel requires named high-stakes
+  context, no finding quota is forced, blocker/advisory disposition and
+  independent owner evidence are required, and target repo principles outrank
+  literal BMA wording.
 - The Issue #164 Deep Research/source-intelligence native corpus contract lives
   in `docs/deep-research-source-intelligence-native-corpus-contract.md` and
   `templates/deep-research-source-intelligence-native-corpus.md`; consume it by
