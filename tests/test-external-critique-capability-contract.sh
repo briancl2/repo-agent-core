@@ -43,6 +43,13 @@ required_phrases = [
     "literal BMA wording is not canonical",
     "BMA prompt text may be seed evidence only",
     "CRITIQUE_RESULT",
+    "Prefer repo-local skill or capability surfaces over prompt files",
+    "prompt-only external critique is drift",
+    "prompts may be request artifacts, sidecar artifacts, or provenance",
+    "observed requested path/model",
+    "actual responding path/model when known",
+    "unavailable disposition",
+    "No model probe is required or authorized",
 ]
 for phrase in required_phrases:
     assert phrase.lower() in lower, phrase
@@ -55,6 +62,8 @@ for slot in [
     "privacy_redaction_boundaries",
     "receipt_runtime_expectations",
     "target_specific_anti_patterns",
+    "capability_surface_expectations",
+    "model_runtime_truth_fields",
 ]:
     assert slot in text, slot
 
@@ -103,6 +112,12 @@ for phrase in [
     "finding quota: none",
     "blocker/advisory rule",
     "non-authority statement",
+    "capability surface",
+    "repo-local skill or capability",
+    "prompt artifact role",
+    "requested path/model",
+    "actual responding path/model",
+    "unavailable disposition",
 ]:
     assert phrase.lower() in lower, phrase
 
@@ -149,6 +164,11 @@ for path in sys.argv[1:]:
         "critic output is authority",
         "panel by default",
         "standing paired-probe program is allowed",
+        "must add a model probe",
+        "must introduce a probe program",
+        "requires a model probe program",
+        "prompt file is the primary capability surface",
+        "prompts are the primary capability surface",
     ]:
         assert phrase not in lower, f"{path}: {phrase}"
 PY

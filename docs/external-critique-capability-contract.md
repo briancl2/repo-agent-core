@@ -1,6 +1,6 @@
 # External Critique Capability Contract
 
-> Version: 1.0
+> Version: 1.1
 > Date: 2026-06-22
 > Owner: repo-agent-core
 > Token: `EXTERNAL_CRITIQUE_CAPABILITY`
@@ -28,6 +28,12 @@ probe program, central service, sidecar runner, runtime dependency, or auto-
 merge path. It does not authorize new live external critique probes by itself.
 The forbidden expansion includes any standing paired-probe program.
 
+When a consumer repo has a skill system or repo-agent capability convention,
+reusable external-critique mechanisms belong on that local skill or capability
+surface first. Prompt files can still carry a one-off request, sidecar exchange,
+or provenance, but prompt-only packaging is drift for reusable repo-agent
+capabilities in those repos.
+
 ## Required Semantics
 
 | Field | Required meaning |
@@ -42,6 +48,9 @@ The forbidden expansion includes any standing paired-probe program.
 | Evidence gate | Effectiveness requires independent owner evidence after critique. Critic text alone is not proof. |
 | Local precedence | Target repo principles outrank imported BMA phrasing or external phrasing. |
 | BMA provenance | BMA prompt text may be seed evidence only; literal BMA wording is not canonical. |
+| Capability surface | Prefer repo-local skill or capability surfaces over prompt files for reusable repo-agent mechanisms when the target repo has a skill system or repo-agent capability convention. Prompt-only external critique is drift in those repos. |
+| Prompt artifact role | Prompts may be request artifacts, sidecar artifacts, or provenance, but they are not the primary capability surface for reusable repo-agent mechanisms in repos with a skill system or capability convention. |
+| Model runtime truth | Receipts or outputs record observed requested path/model, actual responding path/model when known, and unavailable disposition. This captures runtime truth without promising routing. No model probe is required or authorized. |
 
 ## Localizable Slots
 
@@ -56,6 +65,8 @@ Consumers must localize these slots before treating the contract as admitted:
 | `privacy_redaction_boundaries` | Which data, logs, credentials, account details, customer details, private URLs, or internal text must be omitted, summarized, or redacted? |
 | `receipt_runtime_expectations` | Which issue, PR, check, artifact, or local receipt records the critique request, response, follow-up, and owner disposition? |
 | `target_specific_anti_patterns` | Which imported labels, boilerplate, ceremony, control-plane ideas, or target-specific traps must be rejected? |
+| `capability_surface_expectations` | Which repo-local skill, capability, instruction, or other convention is the primary surface for reusable repo-agent mechanisms, and when are prompt files only request artifacts, sidecar artifacts, or provenance? |
+| `model_runtime_truth_fields` | Which receipt or output fields record observed requested path/model, actual responding path/model when known, and unavailable disposition without adding a probe program? |
 
 ## Invocation Rules
 
@@ -76,6 +87,12 @@ the critic to decide authority. Do not invoke critique merely to satisfy a
 finding count, create ceremony, or make a local owner decision look externally
 validated.
 
+For reusable repo-agent mechanisms, do not treat a prompt file as the primary
+capability surface when the target repo has a skill system or repo-agent
+capability convention. Localize the mechanism into the repo-local skill or
+capability surface first; keep prompts as request artifacts, sidecar artifacts,
+or provenance when useful.
+
 The normal budget is one initial pass plus one follow-up pass. Further passes
 require explicit owner approval with the reason, the new evidence needed, and
 the stopping condition.
@@ -90,7 +107,9 @@ A critique result is admissible only when the owner records:
 4. blocker findings, advisory findings, or explicit no-finding result;
 5. owner disposition for each blocker or advisory item;
 6. independent owner evidence used to accept, reject, or defer the critique;
-7. whether the one-follow-up budget was used or explicitly expanded.
+7. whether the one-follow-up budget was used or explicitly expanded;
+8. observed requested path/model, actual responding path/model when known, and
+   unavailable disposition for the external model path used.
 
 Blockers stop or change owner action only when tied to independent owner
 evidence. Advisory findings may inform implementation, tests, docs, or issue
@@ -126,10 +145,16 @@ controller, watcher, daemon, registry, dashboard, retry loop, standing paired-
 probe program, automatic updater, automatic issue/PR creator, auto-merge path,
 background memory behavior, or background sync to keep copies aligned.
 
+Copy-sync may cite local skill or capability surfaces and prompts as provenance,
+but it must not introduce a universal prompt-file policy. Repos with their own
+skill systems or capability conventions should copy-sync the reusable mechanism
+into that local capability surface.
+
 ## Bounded Non-Claims
 
 This contract does not run external critique, select work, create issues, create
 PRs, post comments, merge PRs, close issues, approve changes, replace local
 tests, replace GitHub issue/PR/check/merge truth, authorize live probes, start a
 standing review program, mutate downstream repos, make BMA phrasing canonical,
-or turn external output into authority.
+turn external output into authority, promise model routing, require a model
+probe, or introduce a probe program.
