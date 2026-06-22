@@ -206,7 +206,11 @@
   one critic is the default, panel/latest-panel requires named high-stakes
   context, no finding quota is forced, blocker/advisory disposition and
   independent owner evidence are required, and target repo principles outrank
-  literal BMA wording.
+  literal BMA wording. When a repo has a skill system or capability convention,
+  reusable repo-agent mechanisms localize there before prompt files; prompts
+  remain request, sidecar, or provenance artifacts. Model/path availability is
+  observed receipt or output evidence, not a static routing promise or probe
+  program.
 - The Issue #164 Deep Research/source-intelligence native corpus contract lives
   in `docs/deep-research-source-intelligence-native-corpus-contract.md` and
   `templates/deep-research-source-intelligence-native-corpus.md`; consume it by

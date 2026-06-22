@@ -374,6 +374,10 @@ quota. Findings must separate blocker from advisory, critique gets one initial
 pass plus one follow-up unless explicitly approved, and effectiveness requires
 independent owner evidence. Target repo principles outrank imported BMA
 phrasing; literal BMA wording is seed evidence only, not canonical target text.
+When a repo has a skill system or capability convention, reusable repo-agent
+mechanisms should localize there before prompt files; prompts remain request,
+sidecar, or provenance artifacts. Model/path availability belongs in observed
+receipt or output fields, not static routing promises or probe programs.
 
 ## Deep Research Source-Intelligence Native Corpus Contract
 
