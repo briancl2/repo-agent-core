@@ -296,6 +296,23 @@
   evidence, raw evidence, Hermes failure disposition when applicable, GBrain
   exact-handle replay or no-capture reason, fallback without memory, owner
   action, and literal-safe GitHub comment readback for code or shell evidence.
+- The repo-agent assimilation method (the recovered portfolio_advisor +
+  transcript_processor pre-flight process, n=2) is distributed as a copy-sync
+  contract family. The umbrella is `docs/repo-assimilation-method-contract.md`
+  with `templates/repo-assimilation-method.md`; it composes the
+  principle-alignment anchor (`docs/principle-alignment-anchor-contract.md`,
+  `templates/principle-alignment-anchor.md`), repo anthropology
+  (`docs/repo-anthropology-contract.md`, `templates/repo-anthropology.md`),
+  benchmark-before-repair (`docs/benchmark-before-repair-contract.md`,
+  `templates/benchmark-before-repair.md`), the repair decision-block
+  (`docs/repair-decision-block-contract.md`,
+  `templates/repair-decision-block.md`), and maturity-boundary claim separation
+  (`docs/maturity-boundary-claim-contract.md`,
+  `templates/maturity-boundary-claim.md`). Consume by copy-sync or citation only
+  — not as a runtime dependency, controller, scheduler, queue, daemon, registry,
+  auto issue/PR creator, auto-merge, or downstream mutation. The method is an
+  n=2 observation, not proven cross-repo doctrine, and proves operating-model
+  readiness rather than repo-agent domain capability.
 
 ## Skills
 
