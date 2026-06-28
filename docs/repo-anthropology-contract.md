@@ -61,6 +61,12 @@ operating-model readiness (knowing what the repo is) — it does **not** prove
 repo-agent capability (improved domain outputs). See
 `docs/maturity-boundary-claim-contract.md`.
 
+The n=2 observation is **detector-confirmed**: repo-auditor **AS-52** fired
+MEDIUM on transcript_processor `main` (`2e80638`) — repo-agent context present
+but no consolidated anthropology surface (purpose + use-cases/deliverables +
+defined-vs-revealed principles) — a verified true-gap, not a false positive. The
+gap class transfers; the detector is graduated to n=2.
+
 ## Owner Routing
 
 - A repo with no anthropology surface routes to the repo's own owner issue

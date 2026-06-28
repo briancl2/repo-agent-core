@@ -71,6 +71,14 @@ campaigns currently support classes 1-2 more strongly than classes 3-4. That is
 progress, but it is not autonomy. This contract is the guard that keeps that
 distinction honest.
 
+A precision note on the **detector** (repo-auditor AS-53): on the
+transcript_processor `main` sweep it correctly stayed **silent** (the repo's
+maturity claims are class-qualified or absent) — a true-negative with zero false
+positives. That hardens confidence the detector does not over-fire, but its
+positive **catch** remains **n=1** (the portfolio_advisor overreach, caught by
+hand). The detector is therefore **keep-candidate**, not graduated: it needs a
+future repo that genuinely overreaches to confirm the catch at n=2.
+
 ## Owner Routing
 
 - An overclaim routes back to the asserting issue/PR for correction.

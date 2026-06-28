@@ -76,6 +76,11 @@ observation, not proven cross-repo doctrine. The anchor proves operating-model
 repo-agent *capability* (improved domain outputs). See
 `docs/maturity-boundary-claim-contract.md`.
 
+The n=2 observation is **detector-confirmed**: repo-auditor **AS-51** fired HIGH
+on transcript_processor `main` (`2e80638`) — constitution + spec present, but no
+imported-canon + reconciliation/gap-matrix anchor artifact — a verified true-gap,
+not a false positive. The gap class transfers; the detector is graduated to n=2.
+
 ## Owner Routing
 
 - A repo with no operating-model constitution surface routes to its own
