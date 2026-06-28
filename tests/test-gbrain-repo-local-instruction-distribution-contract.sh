@@ -41,6 +41,7 @@ for field in [
     "canonical_override_allowed",
     "background_gbrain_behavior_used",
     "repo_native_validation",
+    "native_evidence_before_verdict",
     "owner_routing",
     "bounded_non_claims",
 ]:
@@ -53,6 +54,9 @@ for phrase in [
     "source, citation, provenance, or github surface references",
     "must be `false`",
     "validates through the consuming repo's native checks",
+    "docs readback is necessary but not sufficient",
+    "documented native attempt or concrete owner-surface blocker",
+    "native-evidence-before-verdict-contract.md",
     "operator intent",
     "github issue/pr/check/merge truth",
     "repo-agent-core",
@@ -96,6 +100,8 @@ assert payload["instruction_surfaces"]
 assert payload["gbrain_records_used"]
 assert payload["source_refs_checked"][0]["citation_ok"] is True
 assert payload["repo_native_validation"]
+assert payload["native_evidence_before_verdict"]["contract_ref"].endswith("native-evidence-before-verdict-contract.md")
+assert payload["native_evidence_before_verdict"]["advisory_gbrain_slug"] == "bma/issue164/native-evidence-before-verdict"
 
 owners = {row["owner_surface"] for row in payload["owner_routing"]}
 assert "repo-agent-core" in owners
@@ -107,6 +113,7 @@ for phrase in [
     "does not bulk-import",
     "does not mutate downstream target repos",
     "does not add a runtime dependency",
+    "does not let docs readback",
 ]:
     assert phrase in claims, phrase
 for forbidden in ["autopilot", "dream", "jobs worker", "mcp serving"]:

@@ -28,6 +28,16 @@
   citation, not by runtime dependency, schema mandate, generated inventory,
   scheduler, queue, controller, watcher, daemon, automatic updater, or
   background sync.
+- The native evidence before verdict contract lives in
+  `docs/native-evidence-before-verdict-contract.md` and
+  `templates/native-evidence-before-verdict.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, validator theater, controller,
+  scheduler, queue, daemon, registry, background memory process, automatic
+  issue/PR creator, auto-updater, or downstream mutation. For external-system,
+  upstream-tool, library, product, or native-capability verdicts, current
+  upstream docs/root instructions are necessary but not sufficient; require a
+  safe documented native attempt or concrete owner-surface blocker, and carry
+  real native output or blocker evidence on the verdict-bearing surface.
 - Goal-mode runtime/self-healing evaluation language lives in
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,

@@ -21,6 +21,8 @@ as the owner truth.
 
 Consumers use this contract by copy-sync or citation only.
 
+Related contract: `docs/native-evidence-before-verdict-contract.md`.
+
 ## Distribution Shape
 
 A valid distribution has six foreground phases:
@@ -63,6 +65,7 @@ A distribution receipt should include:
 | canonical_override_allowed | Must be `false`. |
 | background_gbrain_behavior_used | Must be `false`. |
 | repo_native_validation | Commands and check results from the consuming repo. |
+| native_evidence_before_verdict | How the consuming instruction surface preserves the rule that docs readback is necessary but not sufficient before adoption/readiness/fallback verdicts. |
 | owner_routing | Next owner-surface action for stale, missing, uncited, or overclaiming guidance. |
 | bounded_non_claims | Statements bounding what the distribution does not claim or automate. |
 
@@ -87,6 +90,12 @@ A valid distribution:
    or documented no-check reason.
 8. Routes failed or ambiguous guidance to the semantic owner surface instead of
    creating a local proof hunt or hidden control plane.
+9. Preserves native evidence before verdict guidance when the distributed
+   learning concerns an external system, upstream tool, library, product, or
+   native capability: current upstream docs/root instructions are necessary but
+   not sufficient; adoption/readiness/fallback verdicts require a safe
+   documented native attempt or concrete owner-surface blocker carried on the
+   verdict-bearing surface.
 
 ## Bounded Non-Claims
 
@@ -103,6 +112,8 @@ Every distribution should include clauses equivalent to:
 - This distribution does not mutate downstream target repos.
 - This distribution does not add a runtime dependency, scheduler, controller,
   queue, daemon, MCP server, generated registry, or background sync mechanism.
+- This distribution does not let docs readback, local doctor output, retained
+  reports, or model summaries substitute for native evidence before verdict.
 
 ## Owner Routing
 

@@ -15,6 +15,8 @@ It is guidance for issue bodies, PR bodies, docs, fixtures, and retained
 evaluation records. It is not a runtime package, service, scheduler, queue,
 controller, background job, watcher, hidden registry, or mandatory dependency.
 
+Related contract: `docs/native-evidence-before-verdict-contract.md`.
+
 ## Required Record
 
 | Field | Required meaning |
@@ -23,6 +25,7 @@ controller, background job, watcher, hidden registry, or mandatory dependency.
 | Upstream-main proof | Upstream-main commit, release, or issue/PR closure that proves the capability has landed on the default source of truth. |
 | Local proof | Exact bounded command, check, smoke test, fixture, or receipt proving the capability in the current environment. |
 | Local same-version proof | Local proof from the same version or commit that would become the production default. |
+| Native evidence before verdict | Current upstream docs/root instructions plus safe documented native attempt or concrete owner-surface blocker before adoption/default/substitution verdict. |
 | Default/substitute decision | Adopt, keep existing default, substitute existing custom path, quarantine, or park. |
 | Owner surface | Repository or upstream project that owns the next action. |
 | First deliverable | Exact issue, PR, doc, detector, recommendation, or patch-pack shape. |
@@ -46,6 +49,11 @@ Capability reconciliation requires current local proof when the decision changes
 active guidance. A cited upstream commit or release is not enough by itself.
 Production default adoption requires upstream-main proof and local same-version
 proof for the capability being adopted.
+
+For adoption, substitution, production-default, quarantine, or parking
+verdicts about an external or upstream capability, upstream docs/root
+instructions are necessary but not sufficient. The verdict-bearing surface
+must carry native command/workflow output or a concrete owner-surface blocker.
 
 The proof must be foreground and bounded. It may use read-only target repos as
 fixtures, but generated patches, recommendations, or detector findings do not

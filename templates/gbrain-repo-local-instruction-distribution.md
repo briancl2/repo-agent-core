@@ -40,6 +40,11 @@
       "receipt": "<local or CI receipt>"
     }
   ],
+  "native_evidence_before_verdict": {
+    "contract_ref": "repo-agent-core/docs/native-evidence-before-verdict-contract.md",
+    "applied_guidance": "Docs readback is necessary but not sufficient; adoption/readiness/fallback verdicts require a safe documented native attempt or concrete owner-surface blocker carried on the verdict-bearing surface.",
+    "advisory_gbrain_slug": "bma/issue164/native-evidence-before-verdict"
+  },
   "owner_routing": [
     {
       "blocker_family": "shared distribution contract",
@@ -54,7 +59,8 @@
     "does not bulk-import a corpus",
     "does not run sync --watch, cron, autopilot, dream, jobs worker, MCP serving, minions, daemons, schedulers, queues, hidden registries, or background memory behavior",
     "does not mutate downstream target repos",
-    "does not add a runtime dependency, scheduler, controller, queue, daemon, MCP server, generated registry, or background sync mechanism"
+    "does not add a runtime dependency, scheduler, controller, queue, daemon, MCP server, generated registry, or background sync mechanism",
+    "does not let docs readback, local doctor output, retained reports, or model summaries substitute for native evidence before verdict"
   ]
 }
 ```

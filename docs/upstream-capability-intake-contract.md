@@ -17,6 +17,8 @@ retained evaluation records. It is not a runtime package, schema mandate,
 generated inventory, scheduler, queue, controller, watcher, daemon, background
 sync, automatic updater, or mutation authority.
 
+Related contract: `docs/native-evidence-before-verdict-contract.md`.
+
 ## Required Record
 
 | Field | Required meaning |
@@ -26,6 +28,8 @@ sync, automatic updater, or mutation authority.
 | Upstream reference | Upstream repo, release, issue, PR, commit, docs page, or vendor/source artifact used as comparison truth. |
 | Behindness signal | Exact reason the local surface may be behind, divergent, duplicated, stale, unsafe, or already covered by a native capability. |
 | Source refs | Bounded references used for the decision, with enough detail for a later reviewer to distinguish official/source evidence from local inference. |
+| Current upstream docs/root instructions checked | README, root agent instructions, install/setup guidance, official docs, upstream issue/PR/release refs, or documented no-surface reason checked before a verdict. |
+| Native evidence before verdict | Safe documented native setup/use attempt, native command/workflow, or concrete owner-surface blocker required before adoption/readiness/fallback/production/GA/cutover/architecture judgment. |
 | Delta clusters | Grouped capability differences, not a raw exhaustive changelog. Each cluster should say why it matters to the owner repo. |
 | Capability decisions | Per-cluster decision: adopt, defer, quarantine, owner-route, delete/sunset, no-op, or needs proof. |
 | Update action | Exact next action: update, pin, leave unchanged, delete/sunset local surface, open owner issue, open PR, or record blocked. |
@@ -52,6 +56,14 @@ sync, automatic updater, or mutation authority.
 An intake record is not proof by itself. A decision that changes production
 guidance needs current local validation on the owner repo or an explicit
 owner-route that names where proof must happen.
+
+For external-system, upstream-tool, library, product, or native-capability
+verdicts, upstream docs/root instructions are necessary but not sufficient.
+Adoption, readiness, fallback, production, GA, cutover, architecture, repair,
+downgrade, or replacement verdicts require a safe documented native attempt or
+a concrete owner-surface blocker, and the verdict-bearing surface must carry
+real command output, native result evidence, or the blocker. Negative claims
+such as not-production-ready, not-GA, or fallback-required are verdicts too.
 
 Behindness may be discovered from search, source docs, upstream issues, local
 versions, or retained evidence, but the record must distinguish verified source

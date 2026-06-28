@@ -6,6 +6,7 @@
 | Upstream-main proof |  |
 | Local proof |  |
 | Local same-version proof |  |
+| Native evidence before verdict | Native attempt or concrete owner-surface blocker:  |
 | Default/substitute decision |  |
 | Owner surface |  |
 | First deliverable |  |

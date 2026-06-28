@@ -7,6 +7,8 @@
 | Upstream reference |  |
 | Behindness signal |  |
 | Source refs |  |
+| Current upstream docs/root instructions checked |  |
+| Native evidence before verdict | Native attempt or concrete owner-surface blocker:  |
 | Delta clusters |  |
 | Capability decisions |  |
 | Update action |  |
@@ -24,6 +26,7 @@ State: `adopt` / `defer` / `quarantine` / `owner-route` / `delete/sunset` / `no-
 
 - Source fact:
 - Local inference:
+- Native attempt or blocker:
 - Validation receipt:
 
 ## Learning / Recovery
