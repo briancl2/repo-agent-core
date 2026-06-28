@@ -166,6 +166,18 @@ progress and repo-agent readiness more strongly than repo-agent capability or
 stack-integrated capability. The method proves *how to assimilate*, not that any
 assimilated repo improved its domain outputs.
 
+The n=2 evidence is now **detector-confirmed**, not only by-hand: a report-only
+fleet sweep on transcript_processor `main` exercised the landed repo-auditor
+detectors. **AS-51 (anchor)** and **AS-52 (anthropology)** fired as verified
+true-gaps (graduate); **AS-53 (maturity-boundary)** correctly stayed silent — a
+true-negative whose positive *catch* therefore remains n=1 (keep-candidate, not
+graduated). The sweep also answered the optimizer question: governance-meta
+assimilation gaps are **not optimizer-patchable** (the optimizer has no
+deterministic materializer for governance families; such findings route to its
+`PATCHABILITY_BLOCKERS` as `unsupported_or_unpatchable_recommendation`). This
+confirms the detect+recommend placement and the "advisory fleet overreach" guard
+above — the optimizer correctly stays out of governance-narrative authoring.
+
 ## Owner Routing
 
 - A missing assimilation surface routes to the target repo's own owner issue.
