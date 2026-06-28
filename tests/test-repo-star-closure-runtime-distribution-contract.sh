@@ -33,6 +33,7 @@ for field in [
     "closure_ceremony_regrowth_classes",
     "runtime_drift_classes",
     "coordinator_autonomy_acceptance_classes",
+    "native_evidence_before_verdict_classes",
     "owner_surface_recommendations",
     "validation_scope",
     "fallback_routes",
@@ -64,6 +65,13 @@ for phrase in [
     "raw runtime evidence, goal or goal-null",
     "demotion trigger or next exact owner-surface action",
     "canonical gbrain memory",
+    "docs readback alone",
+    "local doctor output",
+    "keyword-stuffing",
+    "not-production-ready",
+    "fallback-required",
+    "verdict-bearing issue/pr/comment/readout",
+    "native-evidence-before-verdict-contract.md",
     "exact_owner_surface",
     "first_deliverable",
     "github_issue_routing",
@@ -109,8 +117,13 @@ assert {row["class"] for row in acceptance_classes} >= {
     "unsupported_foreground_acceptance_claim",
     "background_or_tool_primary_autonomy_overclaim",
 }
+native_classes = payload["native_evidence_before_verdict_classes"]
+assert {row["class"] for row in native_classes} >= {
+    "docs_readback_only_verdict",
+    "verdict_bearing_surface_missing_native_evidence",
+}
 recommendations = payload["owner_surface_recommendations"]
-assert {row["exact_owner_surface"] for row in recommendations} >= {"repo-auditor", "repo-upgrade-advisor"}
+assert {row["exact_owner_surface"] for row in recommendations} >= {"repo-auditor", "repo-upgrade-advisor", "repo-optimizer"}
 for row in recommendations:
     for field in [
         "exact_owner_surface",

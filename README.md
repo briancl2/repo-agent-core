@@ -51,6 +51,7 @@ templates/                  # Shared templates
   capability-placement.md # Advisory capability placement / Autonomy Preview
   default-capability-reconciliation.md # Upstream/default capability decision template
   upstream-capability-intake.md # Compact upstream capability intake template
+  native-evidence-before-verdict.md # Native evidence before adoption/readiness/fallback verdicts
   hermes-foreground-run-receipt.md # One-shot Hermes foreground launcher receipt
   hermes-foreground-failure-guidance.md # Advisory Hermes foreground failure guidance
   foreground-failure-to-issue-conversion.md # Foreground failure-to-issue conversion record
@@ -95,6 +96,7 @@ docs/
   foreground-learning-and-recovery-contract.md # Foreground learning/recovery contract
   default-capability-reconciliation-contract.md # Default-first capability reconciliation language
   upstream-capability-intake-contract.md # Compact upstream capability intake contract
+  native-evidence-before-verdict-contract.md # Native evidence before adoption/readiness/fallback verdicts
   hermes-foreground-launcher-contract.md # One-shot Hermes foreground launcher contract
   hermes-foreground-reliability-contract.md # Foreground Hermes doer/checker reliability contract
   hermes-foreground-repo-star-pilot-reliability-contract.md # Bounded Hermes repo-star pilot reliability contract
@@ -190,7 +192,11 @@ the contract, but must not turn it into a controller, scheduler, queue, watcher,
 hidden registry, or background sync mechanism.
 Production default adoption requires upstream-main proof, local same-version
 proof, owner surface, fallback path, and validation receipt before a capability
-changes the default path.
+changes the default path. Adoption or substitution verdicts also follow the
+[native evidence before verdict contract](docs/native-evidence-before-verdict-contract.md):
+upstream docs/root instructions are necessary but not sufficient, and the
+verdict-bearing surface needs native command/workflow output or a concrete
+owner-surface blocker.
 
 ## Upstream Capability Intake Contract
 
@@ -203,6 +209,21 @@ continuity. Consumers may copy the
 must not turn it into a runtime dependency, schema mandate, generated
 inventory, scheduler, queue, controller, watcher, daemon, automatic updater, or
 background sync mechanism.
+
+## Native Evidence Before Verdict Contract
+
+The [native evidence before verdict contract](docs/native-evidence-before-verdict-contract.md)
+defines the shared repo-agent rule for external-system, upstream-tool, library,
+product, and native-capability verdicts: upstream docs/root instructions are
+necessary but not sufficient, and adoption/readiness/fallback/production/GA/
+cutover/architecture judgments need a safe documented native attempt or a
+concrete owner-surface blocker carried on the verdict-bearing surface.
+Consumers may copy the [template](templates/native-evidence-before-verdict.md)
+or cite the contract, but must not turn it into a runtime dependency,
+validator theater, controller, scheduler, queue, daemon, registry, background
+memory process, automatic issue/PR creator, auto-updater, or downstream
+mutation grant. GBrain references stay advisory and cannot override operator
+intent, GitHub truth, repo evidence, or repo-local instructions.
 
 ## Interruption Recovery Contract
 
@@ -523,8 +544,11 @@ path, `hermes -z` adoption path, background GBrain behavior, or background sync.
 
 The [repo-star closure runtime distribution contract](docs/repo-star-closure-runtime-distribution-contract.md)
 defines the shared Issue #164 closure-ceremony and runtime-drift distribution
-shape for detector, advisor, and optimizer owner surfaces. Consumers may copy
-the [template](templates/repo-star-closure-runtime-distribution.md) or cite the
+shape for detector, advisor, and optimizer owner surfaces. It also carries
+native-evidence-before-verdict classes so repo-star work can detect docs-only
+adoption/readiness/fallback judgments and route them to native attempts or
+owner-surface blockers. Consumers may copy the
+[template](templates/repo-star-closure-runtime-distribution.md) or cite the
 contract, but must not turn it into a runtime dependency, daemon, scheduler,
 queue, controller, retry loop, hidden registry, retained report-package truth,
 background memory process, auto-merge path, or downstream mutation grant.

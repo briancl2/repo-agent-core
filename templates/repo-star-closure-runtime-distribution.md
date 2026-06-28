@@ -7,6 +7,7 @@
   "source_issue_or_pr": "https://github.com/briancl2/build-meta-analysis/issues/579",
   "source_contract_refs": [
     "repo-agent-core/docs/repo-star-closure-runtime-distribution-contract.md",
+    "repo-agent-core/docs/native-evidence-before-verdict-contract.md",
     "build-meta-analysis/docs/issue164-ecosystem-architecture.md"
   ],
   "closure_ceremony_regrowth_classes": [
@@ -57,6 +58,20 @@
       "negative_surface": "Acceptance stays foreground-only and keeps Hermes/GBrain advisory or bounded by explicit evidence."
     }
   ],
+  "native_evidence_before_verdict_classes": [
+    {
+      "class": "docs_readback_only_verdict",
+      "disposition": "detect_and_route_to_native_attempt_or_blocker",
+      "positive_surface": "Adoption, readiness, fallback, production, GA, cutover, architecture, repair, downgrade, or replacement verdict is made from docs readback, local doctor output, retained reports, prompt contracts, model summaries, or validation receipts without native result evidence.",
+      "negative_surface": "Docs-only orientation is allowed when no verdict is made, or the surface carries a concrete owner-surface blocker before judgment."
+    },
+    {
+      "class": "verdict_bearing_surface_missing_native_evidence",
+      "disposition": "require_real_output_or_blocker_on_issue_pr_comment_readout",
+      "positive_surface": "The issue, PR, comment, or readout carrying the verdict does not include real command output, native result evidence, or concrete blocker route.",
+      "negative_surface": "The verdict-bearing surface carries native output or the exact blocker with owner route."
+    }
+  ],
   "owner_surface_recommendations": [
     {
       "exact_owner_surface": "repo-auditor",
@@ -83,6 +98,19 @@
         "does not claim GBrain canonicality"
       ],
       "source_citation": "repo-agent-core/docs/repo-star-closure-runtime-distribution-contract.md"
+    },
+    {
+      "exact_owner_surface": "repo-optimizer",
+      "first_deliverable": "Materialize only concrete patch/context-reduction changes that replace docs-readback verdicts with native attempts or blocker routing.",
+      "validation_scope": "focused materialization checks or GitHub-visible skip evidence when no patchable owner surface exists",
+      "fallback": "Skip optimizer materialization with evidence if the finding is not patchable.",
+      "github_issue_routing": "https://github.com/briancl2/repo-agent-core/issues/94",
+      "bounded_non_claims": [
+        "does not apply patches to downstream targets",
+        "does not create a controller, scheduler, queue, daemon, or registry",
+        "does not treat GBrain as canonical"
+      ],
+      "source_citation": "repo-agent-core/docs/native-evidence-before-verdict-contract.md"
     }
   ],
   "validation_scope": [

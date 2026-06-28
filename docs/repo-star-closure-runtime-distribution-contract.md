@@ -23,6 +23,7 @@ Related contracts:
 - `docs/downstream-read-only-recovery-runtime-pilot-contract.md`
 - `docs/repo-star-downstream-genericity-proof-contract.md`
 - `docs/gbrain-repo-local-instruction-distribution-contract.md`
+- `docs/native-evidence-before-verdict-contract.md`
 
 Consumers use this contract by copy-sync or citation only.
 
@@ -39,6 +40,7 @@ A closure/runtime distribution record should include:
 | closure_ceremony_regrowth_classes | Closure duplication classes detected, recommended, or ruled out. |
 | runtime_drift_classes | Runtime launch, Goal, run-root, heartbeat, CI, and next-action drift classes detected, recommended, or ruled out. |
 | coordinator_autonomy_acceptance_classes | Foreground autonomy acceptance overclaim classes detected, recommended, or ruled out. |
+| native_evidence_before_verdict_classes | Upstream-docs/readiness/adoption/fallback verdict drift classes detected, recommended, or ruled out. |
 | owner_surface_recommendations | Exact owner-surface recommendation rows. |
 | validation_scope | Focused native checks required by each owner repo before publication. |
 | fallback_routes | GitHub issue/PR owner routes if a detector, recommendation, or materialization path blocks. |
@@ -119,6 +121,31 @@ sync surfaces:
 Negative cases must allow `not_applicable` verdicts, doctrine-only non-claims,
 null GBrain lookups with a concrete no-capture reason, and foreground
 coordinator episodes that stop at a GitHub-visible blocker.
+
+## Native Evidence Before Verdict Classes
+
+Repo-star detectors and advisors should recognize these native-evidence drift
+classes in external-system, upstream-tool, library, product, native capability,
+GBrain, Hermes, Codex, GitHub, and repo-agent adoption surfaces:
+
+1. Adoption/readiness/fallback/production/GA/cutover/architecture verdict
+   made from docs readback alone.
+2. Local doctor output, local tests, retained reports, prompt contracts, model
+   summaries, or validation receipts used as substitute proof for upstream
+   native setup/use evidence.
+3. Prompt or readout keyword-stuffing that mentions README, AGENTS, install
+   docs, or native commands while explicitly skipping or negating the native
+   attempt.
+4. Negative verdicts such as not-production-ready, not-GA, fallback-required,
+   hybrid fallback, or adoption blocked without native result evidence or a
+   concrete owner-surface blocker.
+5. Verdict-bearing issue/PR/comment/readout lacks real command output, native
+   result evidence, or the concrete blocker route.
+
+Negative cases must allow ordinary docs-only orientation when no verdict is
+made, source citations that support but do not decide a judgment, and explicit
+owner-surface blockers that stop before unsafe or unauthorized native
+execution.
 
 ## Owner-Surface Recommendation Fields
 
