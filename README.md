@@ -76,6 +76,9 @@ templates/                  # Shared templates
   integrated-native-capability-acceptance.md # Integrated native capability acceptance receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
+  closure-signal-integrity.md # Closure signal integrity candidate receipt
+  review-ergonomics-working-memory-lightness.md # Review working-memory lightness receipt
+  validation-integrity-format-tracking.md # Validation format drift tracking receipt
   repo-assimilation-method.md # Repo-agent assimilation method record (11-step skeleton)
   principle-alignment-anchor.md # Principle-alignment anchor record (assimilation step-0)
   repo-anthropology.md # Repo anthropology surface record (purpose/use-cases/principles)
@@ -121,6 +124,9 @@ docs/
   integrated-native-capability-acceptance-contract.md # Integrated native capability acceptance contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
+  closure-signal-integrity-contract.md # Closure signal integrity candidate contract
+  review-ergonomics-working-memory-lightness-contract.md # Review working-memory lightness contract
+  validation-integrity-format-tracking-contract.md # Validation format drift tracking contract
   repo-assimilation-method-contract.md # Repo-agent assimilation method umbrella contract (n=2)
   principle-alignment-anchor-contract.md # Principle-alignment anchor (assimilation step-0) contract
   repo-anthropology-contract.md # Repo anthropology surface contract

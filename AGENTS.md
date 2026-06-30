@@ -306,6 +306,29 @@
   evidence, raw evidence, Hermes failure disposition when applicable, GBrain
   exact-handle replay or no-capture reason, fallback without memory, owner
   action, and literal-safe GitHub comment readback for code or shell evidence.
+- The repo-star closure signal integrity contract lives in
+  `docs/closure-signal-integrity-contract.md` and
+  `templates/closure-signal-integrity.md`; consume it by copy-sync or citation
+  only, not by runtime dependency, controller, scheduler, queue, daemon,
+  registry, retry loop, automatic issue/PR creation, auto-merge, downstream
+  mutation, or canonical closure truth. AS-54 remains a keep-candidate from
+  transcript_processor-only one-repo evidence.
+- The repo-star review ergonomics working-memory lightness contract lives in
+  `docs/review-ergonomics-working-memory-lightness-contract.md` and
+  `templates/review-ergonomics-working-memory-lightness.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, review bot, controller,
+  scheduler, queue, daemon, registry, retry loop, automatic issue/PR creation,
+  auto-merge, downstream mutation, or canonical memory. AS-55 remains a
+  keep-candidate and remedies should add lightness rather than governance.
+- The validation integrity format tracking contract lives in
+  `docs/validation-integrity-format-tracking-contract.md` and
+  `templates/validation-integrity-format-tracking.md`; consume it by copy-sync
+  or citation only, not by runtime dependency, schema mandate, controller,
+  scheduler, queue, daemon, registry, retry loop, automatic issue/PR creation,
+  auto-merge, downstream mutation, or canonical validation ledger. It records the
+  D3 correction: `briancl2/transcript_processor-private#56` binds the Phase-3
+  format, `briancl2/transcript_processor-private#58` adds fail-closed saved-run
+  drift protection, and this is not AS-56 detector evidence this round.
 - The repo-agent assimilation method (the recovered portfolio_advisor +
   transcript_processor pre-flight process, n=2) is distributed as a copy-sync
   contract family. The umbrella is `docs/repo-assimilation-method-contract.md`
