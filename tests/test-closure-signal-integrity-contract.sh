@@ -45,10 +45,14 @@ for field in [
     "source_issue_or_pr",
     "candidate_id",
     "candidate_disposition",
+    "companion_signal_ids",
     "evidence_runs",
+    "closure_dependency_surface",
+    "external_closure_coupling",
     "work_close_result",
     "post_audit_signal",
     "scorer_signal",
+    "unknown_metric_behavior",
     "divergence_summary",
     "distinct_repo_count",
     "graduation_disposition",
@@ -66,6 +70,10 @@ for phrase in [
     "d1/d2",
     "d3 was clean",
     "keep-candidate",
+    "as-56",
+    "external closure coupling",
+    "sibling repo local paths",
+    "unknown metrics",
     "distinct_repo_count` counts repositories, not repeated runs",
     "transcript_processor-only one-repo evidence",
     "github issue/pr/check/merge truth remains task truth",
@@ -101,8 +109,18 @@ assert payload["schema_version"] == 1
 assert payload["source_issue_or_pr"].endswith("/99")
 assert payload["candidate_id"] == "AS-54"
 assert payload["candidate_disposition"] == "keep_candidate"
+assert payload["companion_signal_ids"] == ["AS-56 when external closure coupling is present"]
 assert payload["distinct_repo_count"] == 1
 assert payload["graduation_disposition"] == "not_graduated_transcript_processor_only_evidence"
+deps = payload["closure_dependency_surface"]
+assert deps["default_closure_entrypoint"] == "scripts/work-close.sh"
+assert deps["external_repo_path_references"] == ["$HOME/repos/repo-auditor/scripts/repo-auditor.sh"]
+assert "unknown post-audit metrics are not clean-result proof" in deps["absence_behavior"]
+coupling = payload["external_closure_coupling"]
+assert coupling["detector_id"] == "AS-56"
+assert "sibling_repo_paths" in coupling["status"]
+unknown = payload["unknown_metric_behavior"]
+assert "PRE=?" in unknown["post_audit_delta"]
 runs = payload["evidence_runs"]
 assert len(runs) == 3
 assert {run["run_id"] for run in runs} == {
@@ -119,7 +137,9 @@ assert "GitHub-visible blocker" in payload["owner_routing"]["fallback"]
 claims = " ".join(payload["bounded_non_claims"]).lower()
 for phrase in [
     "does not graduate as-54",
+    "does not treat as-56 external closure coupling as as-54 graduation evidence",
     "does not replace github issue/pr/check/merge truth",
+    "does not require default closure to reach into sibling repo local paths",
     "does not mutate downstream repositories",
     "does not create a controller",
     "does not make local scorecards",

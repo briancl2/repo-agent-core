@@ -7,6 +7,7 @@
   "source_issue_or_pr": "https://github.com/briancl2/repo-agent-core/issues/99",
   "candidate_id": "AS-54",
   "candidate_disposition": "keep_candidate",
+  "companion_signal_ids": ["AS-56 when external closure coupling is present"],
   "evidence_runs": [
     {
       "run_id": "transcript_processor-D1",
@@ -30,6 +31,21 @@
       "scorer_signal": "clean"
     }
   ],
+  "closure_dependency_surface": {
+    "default_closure_entrypoint": "scripts/work-close.sh",
+    "required_repo_local_dependencies": ["repo-local tests or checks required by the target repo"],
+    "optional_advisory_dependencies": ["repo-auditor post-audit when explicitly available"],
+    "external_repo_path_references": ["$HOME/repos/repo-auditor/scripts/repo-auditor.sh"],
+    "external_dependency_role": "advisory_post_audit",
+    "absence_behavior": "explicit skip evidence; unknown post-audit metrics are not clean-result proof",
+    "failure_behavior": "warning or blocker routed to the owner surface; closure success must not hide it"
+  },
+  "external_closure_coupling": {
+    "status": "present_when_default_closure_reaches_sibling_repo_paths",
+    "detector_id": "AS-56",
+    "evidence": ["scripts/work-close.sh references $HOME/repos/repo-auditor"],
+    "owner_route": "closure-script owner issue plus repo-auditor/repo-upgrade-advisor owner issue when generalized"
+  },
   "work_close_result": {
     "command": "work-close",
     "exit_code": 0,
@@ -47,6 +63,10 @@
     "clean_runs": ["transcript_processor-D3"],
     "required_readback": "scorer fields that changed after work-close"
   },
+  "unknown_metric_behavior": {
+    "post_audit_delta": "unknown values such as PRE=? POST=? DELTA=? are unavailable/advisory, not clean proof",
+    "owner_route": "make skip/failure explicit or route a GitHub-visible blocker"
+  },
   "divergence_summary": "D1/D2 showed closure exit 0 while post-audit and scorer signals degraded; D3 was clean, so this remains a keep-candidate rather than a graduated detector.",
   "distinct_repo_count": 1,
   "graduation_disposition": "not_graduated_transcript_processor_only_evidence",
@@ -63,8 +83,10 @@
   },
   "bounded_non_claims": [
     "does not graduate AS-54 from one-repo transcript_processor evidence",
+    "does not treat AS-56 external closure coupling as AS-54 graduation evidence",
     "does not treat D3 clean evidence as a false-candidate proof",
     "does not replace GitHub issue/PR/check/merge truth",
+    "does not require default closure to reach into sibling repo local paths",
     "does not create issues, pull requests, comments, merges, or closures",
     "does not mutate downstream repositories",
     "does not create a controller, scheduler, queue, daemon, registry, retry loop, watcher, hidden control plane, automatic updater, background sync, auto-merge path, or retained closeout package",
