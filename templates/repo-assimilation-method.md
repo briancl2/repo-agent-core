@@ -25,13 +25,15 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "principle_alignment_anchor": "present (G0 constitution P9-P12)",
     "repo_anthropology": "present",
     "benchmark_before_repair": "present (auditor scorecard dimensions)",
+    "closure_ceremony_portability": "checked: default closure must not hide required signals behind sibling repo local paths",
     "repair_decision_block": "present (P9 fail-closed gate, first-in-family)",
     "maturity_boundary_claim": "present (operating-model-progress only)"
   },
   "seeded_hypotheses": [
     "governance dimension is strong but skill-maturity velocity is weak",
     "surface co-evolution is weak (drift between AGENTS and skills)",
-    "no detector sees the assimilation skeleton dimensions"
+    "no detector sees the assimilation skeleton dimensions",
+    "closure ceremony may hide operator friction through external repo path coupling"
   ],
   "finding_classification": {
     "confirmed": 3,
@@ -49,6 +51,7 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "does not query or mutate GitHub",
     "does not create issues or PRs, merge, or close",
     "does not replace GitHub issue/PR/check/merge truth",
+    "does not require local sibling repo paths or hidden external closure dependencies",
     "adds no scheduler, daemon, queue, controller, registry, or background memory",
     "does not mutate downstream repos and adds no auto-merge"
   ]

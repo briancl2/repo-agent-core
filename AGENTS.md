@@ -312,7 +312,8 @@
   only, not by runtime dependency, controller, scheduler, queue, daemon,
   registry, retry loop, automatic issue/PR creation, auto-merge, downstream
   mutation, or canonical closure truth. AS-54 remains a keep-candidate from
-  transcript_processor-only one-repo evidence.
+  transcript_processor-only one-repo evidence; AS-56-style external closure
+  coupling is companion portability evidence, not AS-54 graduation evidence.
 - The repo-star review ergonomics working-memory lightness contract lives in
   `docs/review-ergonomics-working-memory-lightness-contract.md` and
   `templates/review-ergonomics-working-memory-lightness.md`; consume it by

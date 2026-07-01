@@ -76,7 +76,7 @@ templates/                  # Shared templates
   integrated-native-capability-acceptance.md # Integrated native capability acceptance receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
-  closure-signal-integrity.md # Closure signal integrity candidate receipt
+  closure-signal-integrity.md # Closure signal integrity + external coupling receipt
   review-ergonomics-working-memory-lightness.md # Review working-memory lightness receipt
   validation-integrity-format-tracking.md # Validation format drift tracking receipt
   repo-assimilation-method.md # Repo-agent assimilation method record (11-step skeleton)
@@ -124,7 +124,7 @@ docs/
   integrated-native-capability-acceptance-contract.md # Integrated native capability acceptance contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
-  closure-signal-integrity-contract.md # Closure signal integrity candidate contract
+  closure-signal-integrity-contract.md # Closure signal integrity + external coupling contract
   review-ergonomics-working-memory-lightness-contract.md # Review working-memory lightness contract
   validation-integrity-format-tracking-contract.md # Validation format drift tracking contract
   repo-assimilation-method-contract.md # Repo-agent assimilation method umbrella contract (n=2)

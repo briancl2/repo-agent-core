@@ -93,11 +93,14 @@ assert payload["target_repo"] == "transcript_processor"
 assert payload["n_evidence"] == 2
 assert payload["decision_state"] == "adopt"
 assert payload["maturity_claim_class"] == "operating-model-progress"
+assert payload["mechanics_applied"]["closure_ceremony_portability"].startswith("checked:")
+assert any("external repo path coupling" in item for item in payload["seeded_hypotheses"])
 claims = " ".join(payload["bounded_non_claims"]).lower()
 for phrase in [
     "n=2 observation",
     "does not query or mutate github",
     "does not replace github issue/pr/check/merge truth",
+    "does not require local sibling repo paths",
 ]:
     assert phrase in claims, phrase
 PY
