@@ -347,6 +347,19 @@
   auto issue/PR creator, auto-merge, or downstream mutation. The method is an
   n=2 observation, not proven cross-repo doctrine, and proves operating-model
   readiness rather than repo-agent domain capability.
+- The repo-agent fleet consistency floor contract lives in
+  `docs/repo-agent-fleet-consistency-floor-contract.md` and
+  `templates/repo-agent-fleet-consistency-floor.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, controller, scheduler, queue, daemon,
+  registry, dashboard, watcher, cron job, background worker, automatic issue/PR
+  creation, auto-merge, or downstream mutation. It ratifies a five-dimension
+  shared floor (closure model, CI-check contract, gitignore baseline,
+  learning-extraction gate, review safety net) plus a candidate/advisory sixth
+  dimension (serialization discipline on hot/duplicated routing surfaces) that is
+  not required for conformance in v0.1. It is grounded in the BMA AS-56 sweep
+  retrospective and Phase 0 self-assimilation baseline (briancl2/build-meta-analysis#1214);
+  ratifying it does not make any repo conform and does not authorize any per-repo
+  change. GitHub issue/PR/check/merge truth and operator approval remain binding.
 
 ## Skills
 

@@ -85,6 +85,7 @@ templates/                  # Shared templates
   benchmark-before-repair.md # Benchmark-before-repair record (dimensions before selection)
   repair-decision-block.md # Repair decision-block record (selection-changing admission)
   maturity-boundary-claim.md # Maturity-boundary claim-separation record
+  repo-agent-fleet-consistency-floor.md # Repo-agent fleet consistency floor receipt (BMA #1214)
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -133,6 +134,7 @@ docs/
   benchmark-before-repair-contract.md # Benchmark-before-repair contract
   repair-decision-block-contract.md # Repair decision-block contract
   maturity-boundary-claim-contract.md # Maturity-boundary claim-separation contract
+  repo-agent-fleet-consistency-floor-contract.md # Repo-agent fleet consistency floor contract (BMA #1214 Phase 1)
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
