@@ -1,0 +1,24 @@
+# repo-agent fleet consistency floor baseline (BMA #1214, dimension 3)
+# Prevents local scratch, Python bytecode, and OS/editor noise from appearing
+# as untracked files during fleet audit / advice / optimize runs.
+
+# Local scratch / work directories
+work/
+
+# Python bytecode and caches
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Local virtualenvs
+.venv/
+venv/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor swap files
+*.swp
+*.swo
