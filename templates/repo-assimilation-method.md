@@ -43,6 +43,17 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "not-assessable": 5
   },
   "maturity_claim_class": "operating-model-progress",
+  "validated_domain_outcome_delta": {
+    "domain_enhancement": "second-wave domain fix of the stray prior-context label (D4) via the prompt instruction and grounded synthesis (spec 014)",
+    "outcome_lever": "the prompt instruction that told the model to emit the label (root cause, distributed across three coupled prompt sources)",
+    "rejected_proxy": "the deterministic sanitizer backstop (D4 12->11, a redundant backstop); and in spec 007, reconciliation table row size instead of table presence in the reader body",
+    "target_variable": "D4 label occurrences plus faithfulness/actions on the target's benchmark",
+    "pre_registered_metric": "D4 -> 0 with no faithfulness or attribution regression on the target's own eval, registered before building",
+    "target_own_eval": "transcript_processor HIGR judge, same-judge before/after, n=9 benchmark samples",
+    "measured_delta": "D4 12->0; same-judge composite 2.952->3.095, faithfulness 2.333->2.556 (+0.223 beyond noise), attribution 3.222->3.111 (within noise), conciseness 1.889->2.000 (flat, not claimed), actions 3.000->3.556, hallucinations 81->61 (~25% down), misattributions 16->19 (flat)",
+    "result_class": "confirmed",
+    "owner_contract_respected": "output contract untouched; reconciliation section owner-ring-fenced; conciseness left floored by design pending an owner output-contract decision"
+  },
   "n_evidence": 2,
   "decision_state": "adopt",
   "bounded_non_claims": [
@@ -52,6 +63,8 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "does not create issues or PRs, merge, or close",
     "does not replace GitHub issue/PR/check/merge truth",
     "does not require local sibling repo paths or hidden external closure dependencies",
+    "the validated domain-outcome delta is same-judge target-eval evidence from the domain-fix wave, not a claim that the method is cross-repo doctrine",
+    "the stricter rebuilt judge means only same-judge deltas are valid, not absolute scores vs the historical baseline",
     "adds no scheduler, daemon, queue, controller, registry, or background memory",
     "does not mutate downstream repos and adds no auto-merge"
   ]

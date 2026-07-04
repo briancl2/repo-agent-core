@@ -38,6 +38,7 @@ for field in [
     "seeded_hypotheses",
     "finding_classification",
     "maturity_claim_class",
+    "validated_domain_outcome_delta",
     "n_evidence",
     "decision_state",
     "bounded_non_claims",
@@ -53,6 +54,11 @@ for phrase in [
     "n=2",
     "repo-auditor",
     "repo-upgrade-advisor",
+    "domain-outcome eval gate",
+    "true lever",
+    "prompt instruction",
+    "832cfcd",
+    "same-judge",
 ]:
     assert phrase in lower, phrase
 
@@ -93,6 +99,25 @@ assert payload["target_repo"] == "transcript_processor"
 assert payload["n_evidence"] == 2
 assert payload["decision_state"] == "adopt"
 assert payload["maturity_claim_class"] == "operating-model-progress"
+delta = payload["validated_domain_outcome_delta"]
+assert delta["result_class"] in {
+    "confirmed",
+    "null-reported",
+    "negative-reported",
+    "not-applicable",
+}, delta["result_class"]
+assert delta["result_class"] == "confirmed"
+for key in [
+    "domain_enhancement",
+    "outcome_lever",
+    "rejected_proxy",
+    "target_variable",
+    "pre_registered_metric",
+    "target_own_eval",
+    "measured_delta",
+    "owner_contract_respected",
+]:
+    assert key in delta, key
 assert payload["mechanics_applied"]["closure_ceremony_portability"].startswith("checked:")
 assert any("external repo path coupling" in item for item in payload["seeded_hypotheses"])
 claims = " ".join(payload["bounded_non_claims"]).lower()
@@ -112,6 +137,8 @@ check "contract exists" test -s "$CONTRACT"
 check "template exists" test -s "$TEMPLATE"
 check "contract preserves method semantics" assert_contract_semantics
 check "template preserves method semantics" assert_template_semantics
+check "contract records domain-outcome eval gate field" grep -Fq "validated_domain_outcome_delta" "$CONTRACT"
+check "template records domain-outcome eval gate field" grep -Fq "validated_domain_outcome_delta" "$TEMPLATE"
 check "README points to contract" grep -Fq "repo-assimilation-method-contract.md" "$REPO_ROOT/README.md"
 check "README points to template" grep -Fq "repo-assimilation-method.md" "$REPO_ROOT/README.md"
 check "AGENTS points to contract" grep -Fq "docs/repo-assimilation-method-contract.md" "$REPO_ROOT/AGENTS.md"
