@@ -53,6 +53,8 @@ for phrase in [
     "n=2",
     "repo-auditor",
     "repo-upgrade-advisor",
+    "domain-outcome eval gate",
+    "true outcome lever",
 ]:
     assert phrase in lower, phrase
 
@@ -84,6 +86,7 @@ assert payload["imported_canon"]["source"].endswith("/164")
 assert payload["decision_state"] == "adopt"
 assert payload["codification_target"]["native_before_custom"] is True
 assert "gap severity" in payload["selection_gate"]["chosen_by"]
+assert "outcome_lever" in payload["selection_gate"], "selection_gate.outcome_lever"
 assert "reconstructed" in payload["right_sizing_basis"]["bounded_non_claim"]
 claims = " ".join(payload["bounded_non_claims"]).lower()
 for phrase in [

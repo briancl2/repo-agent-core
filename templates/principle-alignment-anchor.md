@@ -44,7 +44,8 @@
   "selection_gate": {
     "first_repair": "P9 fail-closed work-close gate (highest gap severity)",
     "chosen_by": "gap severity, not issue order",
-    "benchmark_vector": "maturation lane order G0 -> P9 -> P11 -> P12 -> responder-truth"
+    "benchmark_vector": "maturation lane order G0 -> P9 -> P11 -> P12 -> responder-truth",
+    "outcome_lever": "governance-readiness gaps this wave (no domain enhancement); a domain outcome lever is validated separately via the Domain-Outcome Eval Gate"
   },
   "right_sizing_basis": {
     "complexity": "Phase 3 Systematization repo: ~10 agents, 6 skills, 34 scoring tools",
@@ -57,6 +58,7 @@
   "bounded_non_claims": [
     "method capability only; not a controller, registry, or closure-truth surface",
     "proves operating-model readiness, not repo-agent domain capability",
+    "anchoring is not a validated domain outcome, which requires the Domain-Outcome Eval Gate confirmed delta on the target's own eval",
     "n=2 observation (portfolio_advisor + transcript_processor), not proven cross-repo doctrine",
     "does not query or mutate GitHub",
     "does not create issues or pull requests",

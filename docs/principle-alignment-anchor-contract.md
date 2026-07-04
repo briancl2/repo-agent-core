@@ -38,7 +38,7 @@ task-closure authority.
 | `revealed_principles` | Principles the repo already practices as scattered point-repairs but has never codified, with evidence refs. |
 | `principle_gap_matrix` | Ranked gaps (severity × autonomy-merge-safety), each mapped to an imported criterion and an owner route. |
 | `codification_target` | Where the new operating-model principles land; a **native** constitution/spec extension is preferred over a custom side-doc. |
-| `selection_gate` | The rule that the first repair is chosen by gap severity, not issue order, plus the benchmark vector used. |
+| `selection_gate` | The rule that the first repair is chosen by gap severity, not issue order, plus the benchmark vector used. For a domain enhancement it also names the **true outcome lever** the repair targets — not a convenient proxy — per the Domain-Outcome Eval Gate in `docs/repo-assimilation-method-contract.md`. |
 | `right_sizing_basis` | Codebase complexity + repo-agent use case + revealed usage, justifying depth (avoid both half-adoption and over-speccing). |
 | `validation` | Repo-native checks expected before the anchor changes production guidance. |
 | `decision_state` | One of `adopt` / `defer` / `owner-route` / `no-op` / `needs-proof`. |
@@ -55,7 +55,10 @@ A principle-alignment anchor record is admissible only when:
    new custom doc (native-before-custom). A custom side-doc requires a stated
    reason why the native surface could not host the principles.
 3. `selection_gate` names a severity-ranked first repair and the benchmark
-   vector; the first repair is not chosen by issue order.
+   vector; the first repair is not chosen by issue order. For a domain
+   enhancement, the selection gate names the true outcome lever rather than an
+   adjacent proxy and defers to the Domain-Outcome Eval Gate before the
+   enhancement is marked done.
 4. `right_sizing_basis` is justified from complexity + use-case +
    revealed-usage. A bounded non-claim is required when revealed-usage is
    reconstructed rather than measured.
@@ -95,5 +98,7 @@ not a false positive. The gap class transfers; the detector is graduated to n=2.
 This contract does not query GitHub, mutate GitHub, create issues, create PRs,
 merge PRs, close issues, run a scheduler, start a daemon, create a queue, create
 a controller, create a hidden registry, mutate downstream repos, adopt principles
-automatically, or replace GitHub issue/PR/check/merge truth. n=2 is an
-observation, not proven doctrine.
+automatically, or replace GitHub issue/PR/check/merge truth. Anchoring proves
+operating-model readiness (purpose, principles, selection gate); it is not a
+validated domain outcome, which requires the Domain-Outcome Eval Gate's confirmed
+delta on the target's own eval. n=2 is an observation, not proven doctrine.
