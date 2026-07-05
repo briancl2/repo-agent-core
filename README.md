@@ -91,6 +91,8 @@ scripts/                    # Hook scripts
   pre-push-hook.sh          # Push review warning
   compare-scorecards.sh     # Shared scorecard comparison primitive
   check-compare-scorecards-conformance.sh # Fixture + hash drift gate for consumer copies
+  validate-floor-receipt.sh # Canonical static floor-receipt conformance validator (BMA #1214 Phase 4b)
+  fleet-floor-conformance-audit.sh # On-demand read-only live-drift fleet self-audit (BMA #1214 Phase 4b)
 docs/
   core-five-owner-surface-contract.md # Issue #164 core-five owner-surface contract
   live-capability-inventory.md # Live tool/agent tracking surface for calibrated drift checks
