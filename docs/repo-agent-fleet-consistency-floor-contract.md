@@ -130,6 +130,56 @@ shared template. The receipt includes these fields:
     is inadmissible, and a null or negative result must be reported, not hidden or
     relabeled. This rule ratifies a declaration requirement; it does not measure
     or force conformance and does not restate the gate mechanics.
+12. Floor-conformance drift is self-catching through two verification-only
+    mechanisms (BMA #1214 Phase 4 item b), neither of which adds a floor
+    dimension, changes the receipt schema (`schema_version` stays `1`), edits any
+    receipt, or re-touches branch protection:
+    - a **canonical static validator** `scripts/validate-floor-receipt.sh` that,
+     given a receipt path, asserts the receipt exists, declares floor v0.2, has
+     exactly one parsing fenced json block, `schema_version == 1`, a non-empty
+     `ci_check_contract.branch_protection_required_checks` array, and a
+     `domain_outcome_delta` with a `result_class`. Each consuming repo vendors a
+     byte-identical copy and runs it against its own receipt inside that repo's
+     already-required check (no new required status context);
+    - an **on-demand, read-only live-drift fleet self-audit**
+     `scripts/fleet-floor-conformance-audit.sh` that, for each of the five fleet
+     repos, reads the receipt from `main`, runs the static validator, reads live
+     GitHub branch-protection contexts, and asserts
+     `set(receipt branch_protection_required_checks) == set(live contexts)`,
+     exiting non-zero on any drift. It is manual/on-demand only and never a CI
+     check, controller, scheduler, daemon, cron job, registry, watcher, or
+     background process.
+
+## Conformance Verification
+
+Two complementary, verification-only mechanisms make floor drift self-catching.
+Neither adds a floor dimension, changes the receipt schema, edits receipts, or
+alters branch protection.
+
+1. **Canonical static receipt validator** — `scripts/validate-floor-receipt.sh
+   <receipt-path>` (canonical in repo-agent-core). Read-only, no network. Asserts
+   the receipt exists, prose declares floor **v0.2**, contains exactly one fenced
+   `json` code block that parses, `schema_version == 1`,
+   `ci_check_contract.branch_protection_required_checks` is a non-empty array, and
+   `domain_outcome_delta` (dimension 7) is present with a `result_class`. Prints
+   `OK: <path> conforms to floor v0.2` on success and exits non-zero on the first
+   failure. **Each consuming repo vendors a byte-identical copy** (copy-sync per
+   the Copy-Sync Boundary) and wires it to assert **its own** receipt **inside
+   that repo's already-required check** — no new required status-check context is
+   added on any repo.
+
+2. **Live-drift fleet self-audit** — `scripts/fleet-floor-conformance-audit.sh`
+   (canonical in repo-agent-core, **on-demand / read-only only**). For each of the
+   five fleet repos it reads the receipt from `main`, runs the static validator,
+   reads live GitHub branch-protection contexts, and asserts
+   `set(receipt branch_protection_required_checks) == set(live contexts)`. It also
+   byte-compares each consumer's vendored `validate-floor-receipt.sh` against the
+   canonical to close the copy-sync loophole. It prints a per-repo table and exits
+   non-zero on any drift or static-conformance failure. This is the mechanism that
+   catches a receipt claiming stale protection (the exact gap Phase 4(a) exposed).
+   It is **not** a CI check and is never wired into any workflow, controller,
+   scheduler, daemon, cron job, registry, watcher, or background process; an
+   operator runs it manually with an ambient read-only `gh` token.
 
 ## Owner Routing
 

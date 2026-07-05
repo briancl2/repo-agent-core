@@ -364,6 +364,18 @@
   v0.2 via Phase 3); ratifying it does not make any repo conform and does not
   authorize any per-repo change. GitHub issue/PR/check/merge truth and operator
   approval remain binding.
+- Floor-conformance drift is self-catching via two verification-only tools
+  (BMA #1214 Phase 4 item b), neither of which adds a floor dimension, changes the
+  receipt schema (`schema_version` stays `1`), edits any receipt, or re-touches
+  branch protection: `scripts/validate-floor-receipt.sh` is the canonical
+  read-only static receipt validator (each consuming repo vendors a byte-identical
+  copy and runs it on its own receipt inside that repo's already-required check —
+  no new required status context), and `scripts/fleet-floor-conformance-audit.sh`
+  is an on-demand, read-only live-drift fleet self-audit that compares each
+  receipt's recorded `branch_protection_required_checks` against live GitHub
+  protection contexts and exits non-zero on drift. The audit is manual/on-demand
+  only — not a CI check, controller, scheduler, daemon, cron job, registry,
+  watcher, or background process — and never mutates any repo.
 
 ## Skills
 
