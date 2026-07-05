@@ -4,8 +4,11 @@
 > Consuming repo: `briancl2/repo-agent-core`
 > Generated: 2026-07-03T21:26:29Z
 > Source issue: briancl2/build-meta-analysis#1214 (Phase 2, repo 2 of 5)
-> Contract: this repo's `docs/repo-agent-fleet-consistency-floor-contract.md` v0.1,
-> ratified in briancl2/repo-agent-core#105
+> Contract: this repo's `docs/repo-agent-fleet-consistency-floor-contract.md` **v0.2**,
+> ratified v0.1 in briancl2/repo-agent-core#105 and bumped to v0.2 in briancl2/repo-agent-core#110 `fda33bd`
+> (adds declare-mandatory dim-7 `domain_outcome_delta`; `schema_version` stays 1, additive).
+> This refresh records **floor v0.2 conformance** and the now-enforced dim-2 branch protection
+> (BMA #1214 Phase 3 Lane B); dims 1/3/4/5/6 posture is unchanged from the Phase 2 receipt.
 > Template: this repo's `templates/repo-agent-fleet-consistency-floor.md`
 > Core owner issue: briancl2/repo-agent-core#106
 > Reference receipt (repo 1): `briancl2/repo-upgrade-advisor`
@@ -14,7 +17,8 @@
 ## Operator Intent
 
 Declare repo-agent-core's posture against the fleet consistency floor it **owns**
-(5 mandatory dimensions + 1 advisory) with **current, cited live evidence** —
+(5 mandatory dimensions + 1 advisory, plus the v0.2 declare-mandatory dim-7
+`domain_outcome_delta`) with **current, cited live evidence** —
 files, workflow, GitHub branch-protection readback, and the latest representative
 PR check/review readback. Memory is not evidence. This is the reference
 self-conformance: because core authors the contract, template, and contract test,
@@ -31,11 +35,12 @@ or citation only.
 | # | Dimension | Status | Evidence |
 |---|---|---|---|
 | 1 | `closure_model` | Declared — `native_issue_pr_checks_merge` | Native issue → PR → `test` → merge is the only closure path (PR #105; this PR closes #106 the same way). Core has **no** `make work`/`work-close` scripts (`scripts/` has none; `Makefile` `.PHONY` has no `work` target). `scripts/record-closure-identity.sh` emits closure-run identity for gates/CI but does not gate closure. |
-| 2 | `ci_check_contract` | Declared; branch-protection gap flagged | `.github/workflows/ci.yml` (`name: CI`, job `test`, runs `make test`). PR #105 observed a single `test` check = pass (22s); GitHub reports the status check as `test`. `main` is **not** branch-protected (GitHub API 404 "Branch not protected"). |
+| 2 | `ci_check_contract` | **CONFORM — genuinely enforced (branch protection)** | `.github/workflows/ci.yml` (`name: CI`, job `test`, runs `make test`). PR #105 observed a single `test` check = pass (22s); GitHub reports the status check as `test`. `main` **IS** branch-protected: `required_status_checks.contexts = ["test"]`, `strict:true`, `enforce_admins:true`, `required_approving_review_count:0`. dim-2 is now a **real GitHub-enforced merge gate**, not an owner-decision flag. Enforced by BMA #1214 Phase 3 Lane B (2026-07-05); readback `GET repos/briancl2/repo-agent-core/branches/main/protection`. |
 | 3 | `gitignore_baseline` | Met (this PR) | `.gitignore` now contains `work/`, `__pycache__/`, `*.pyc`, `.DS_Store` (+ `*.pyo`, `.pytest_cache/`, `.venv/`, `venv/`, `Thumbs.db`, `*.swp`, `*.swo`). Closes the Phase 0 "no `.gitignore`" gap; clean create (no tracked file matched the tokens; `git ls-files -ci --exclude-standard` empty). |
 | 4 | `learning_extraction_gate` | Partial — no automated gate; author-discipline disposition | `LEARNINGS.md` exists (L1–L7) but core has **no** `work-close.sh` / `make work-close` and no `--no-novel-findings` machinery (Phase 0 line 59). Novel-learning capture relies on author discipline. Disposition for this change: novel learning captured as `LEARNINGS.md` L7 (self-conformance integrity). |
 | 5 | `review_safety_net` | Present, non-deterministic; representative-PR gap flagged | `chatgpt-codex-connector[bot]` fired a COMMENTED review on PR #102 (2026-07-01T12:12:00Z) but did **not** fire on the floor PR #105 (zero reviews, zero comments). Connector present but firing is not guaranteed on every PR. `make review` + the block-by-default pre-commit hook are the local safety net. Confirmed on this PR at review time. |
 | 6 | `serialization_discipline` | Advisory — `candidate_keep` | Core's duplicated surface is the copy-synced `scripts/compare-scorecards.sh` (consumed by repo-auditor/repo-optimizer per P1/P9, not symlinked); drift gate = `scripts/check-compare-scorecards-conformance.sh` + `tests/test-compare-scorecards.sh` (`make validate-compare-scorecards CONSUMERS=...`). Optional in v0.1. |
+| 7 | `domain_outcome_delta` | Declare-mandatory (v0.2) — justified-null | Fleet tool, no product-domain eval; declares not-applicable per floor v0.2 dim-7, bound to the Domain-Outcome Eval Gate (#108). |
 
 ## Repo-Native Validation (this branch, 2026-07-03)
 
@@ -84,7 +89,7 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     {
       "kind": "branch_protection",
       "path_or_url": "GET repos/briancl2/repo-agent-core/branches/main/protection",
-      "summary": "HTTP 404 'Branch not protected'. main has no required status-check protection; the passing `test` check is enforced by operator discipline, not branch protection."
+      "summary": "main IS branch-protected: required_status_checks.contexts = [\"test\"], strict:true, enforce_admins:true, required_approving_review_count:0. The `test` check is a required, GitHub-enforced merge gate. Enabled by BMA #1214 Phase 3 Lane B (2026-07-05)."
     },
     {
       "kind": "github_pr_review",
@@ -99,10 +104,10 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     "notes": "GitHub native issue -> PR -> `test` check -> merge is core's only closure path and is required; it was the path for PR #105 and is the path for this conformance PR (issue #106). Core has NO `make work`/`work-close` machinery: `scripts/` contains no work-init/work-close, and the Makefile `.PHONY` list has no `work` target. `scripts/record-closure-identity.sh` emits a closure-run identity JSON for local gates and GitHub Actions runs (invoked by `make test` and `make closure-identity`) but does not gate or score closure. There is no retained local closeout package treated as truth; GitHub issue/PR/check/merge is the minimum floor and the actual truth."
   },
   "ci_check_contract": {
-    "branch_protection_required_checks": [],
+    "branch_protection_required_checks": ["test"],
     "observed_pr_checks": ["test"],
     "workflow_jobs": ["CI / test"],
-    "skipped_check_policy": "The CI workflow (.github/workflows/ci.yml, name: CI) defines a single job `test` that runs `make test`; GitHub reports the PR status check as `test` (confirmed via `gh pr checks 105` and confirmed again on this PR). No conditional/matrix/skippable checks are defined, so there is no expected skipped check. A `test` result of skipped or neutral is NOT treated as a pass; merge requires `test` = success. Because main is unprotected, the passing `test` check is an advisory merge gate enforced by operator discipline, not by branch protection."
+    "skipped_check_policy": "The CI workflow (.github/workflows/ci.yml, name: CI) defines a single job `test` that runs `make test`; GitHub reports the PR status check as `test` (confirmed via `gh pr checks 105` and confirmed again on this PR). No conditional/matrix/skippable checks are defined, so there is no expected skipped check. A `test` result of skipped or neutral is NOT treated as a pass; merge requires `test` = success. main IS branch-protected (required_status_checks.contexts = [\"test\"], strict:true, enforce_admins:true, required_approving_review_count:0, enabled by BMA #1214 Phase 3 Lane B 2026-07-05), so the passing `test` check is a real GitHub-enforced merge gate, not merely operator discipline."
   },
   "gitignore_baseline": {
     "has_gitignore": true,
@@ -127,7 +132,7 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     "latest_representative_pr_review_seen": false,
     "review_surface": "chatgpt-codex-connector",
     "blockers": ["codex did not fire on the most recent representative PR (#105): zero reviews and zero comments. Firing is non-deterministic (AS-56 retrospective: 3 of 5 sweep PRs)."],
-    "notes": "Verified against GitHub PR review truth: chatgpt-codex-connector[bot] submitted a COMMENTED review on PR #102 (2026-07-01T12:12:00Z), so the connector is configured and does fire on core PRs, but it did NOT fire on PR #105 (the floor ratification PR). The local safety net is `make review` (.agents/skills/reviewing-code-locally) plus the block-by-default pre-commit hook (SKIP_REVIEW=1 only for emergency). Because main is unprotected, an automated review is advisory and does not block merge. This conformance PR is the next representative datapoint; whether codex fires on it is confirmed at review time and does not gate merge."
+    "notes": "Verified against GitHub PR review truth: chatgpt-codex-connector[bot] submitted a COMMENTED review on PR #102 (2026-07-01T12:12:00Z), so the connector is configured and does fire on core PRs, but it did NOT fire on PR #105 (the floor ratification PR). The local safety net is `make review` (.agents/skills/reviewing-code-locally) plus the block-by-default pre-commit hook (SKIP_REVIEW=1 only for emergency). Because required_approving_review_count = 0 (main is branch-protected but requires 0 reviews), an automated review is advisory and does not block merge. This conformance PR is the next representative datapoint; whether codex fires on it is confirmed at review time and does not gate merge."
   },
   "serialization_discipline": {
     "status": "candidate_keep",
@@ -137,6 +142,11 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     "serial_edit_rule": "When editing scripts/compare-scorecards.sh, update the conformance fixture/hash and re-run the compare-scorecards conformance gate against consumers; consumers copy-sync the primitive (P1/P9), so copy drift is review debt caught by the drift gate, not a runtime dependency.",
     "notes": "advisory in v0.1; not required for conformance"
   },
+  "domain_outcome_delta": {
+    "result_class": "not-applicable",
+    "reason": "fleet tool, no product-domain eval; domain-outcome gate applies to the assimilation targets it operates on",
+    "notes": "declare-mandatory in v0.2; binds to the assimilation-method Domain-Outcome Eval Gate (docs/repo-assimilation-method-contract.md step 9 / Validation Rule 7 / validated_domain_outcome_delta). An assimilation target replaces this with a real result_class (confirmed | null-reported | negative-reported) carrying the gate sub-fields outcome_lever, rejected_proxy, target_variable, pre_registered_metric, target_own_eval, measured_delta, owner_contract_respected; do not restate the gate here."
+  },
   "repo_native_validation": [
     {"command_or_check": "make test", "status": "pass", "receipt": "local run 2026-07-03; record-closure-identity + every tests/test-*.sh green, incl. fleet-floor contract test"},
     {"command_or_check": "bash tests/test-repo-agent-fleet-consistency-floor-contract.sh", "status": "pass", "receipt": "local run 2026-07-03; 8/8 (contract + template semantics + README/AGENTS wiring)"},
@@ -145,9 +155,9 @@ replace GitHub issue/PR/check/merge truth or operator approval.
   ],
   "owner_routing": [
     {
-      "gap": "main branch has no required status-check protection; the passing `test` check is enforced by operator discipline, not branch protection",
-      "owner_surface": "briancl2/repo-agent-core (repo owner / operator decision)",
-      "next_owner_action": "Operator decides whether to enable branch protection on main requiring the `test` check. Not forced by this PR (flagged as an owner decision per BMA #1214 Phase 2 boundaries)."
+      "gap": "RESOLVED — main branch previously had no required status-check protection; the passing `test` check was enforced by operator discipline",
+      "owner_surface": "briancl2/repo-agent-core",
+      "next_owner_action": "CLOSED by BMA #1214 Phase 3 Lane B (2026-07-05): main is now branch-protected requiring the `test` check (strict:true, enforce_admins:true, required_approving_review_count:0). dim-2 is a real GitHub-enforced merge gate; no open owner action."
     },
     {
       "gap": "no automated learning-extraction gate exists (no work-close.sh / make work-close / --no-novel-findings); novel-learning capture on native PRs relies on author discipline",
@@ -157,7 +167,7 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     {
       "gap": "automated codex review did not fire on the most recent representative PR (#105); firing is non-deterministic",
       "owner_surface": "briancl2/repo-agent-core (repo owner / codex connector configuration)",
-      "next_owner_action": "Treat codex review as advisory (main is unprotected). If deterministic review is desired, the owner configures required reviews/branch protection. Confirm codex firing on this PR at review time; not forced, not merge-gating."
+      "next_owner_action": "Treat codex review as advisory (required_approving_review_count = 0). If deterministic review is desired, the owner raises required reviews. Confirm codex firing on this PR at review time; not forced, not merge-gating."
     }
   ],
   "bounded_non_claims": [
@@ -167,7 +177,7 @@ replace GitHub issue/PR/check/merge truth or operator approval.
     "scorecards and detector output corroborate floor gaps but do not replace GitHub issue/PR/check/merge truth, branch protection, or operator approval",
     "this receipt is not a controller, scheduler, queue, daemon, registry, dashboard, watcher, cron job, auto-merge path, or background worker",
     "this receipt does not create issues, pull requests, comments, merges, or closures on its own, and does not mutate any other or downstream repository",
-    "branch protection on main is an operator decision and is not forced by this receipt or PR"
+    "branch protection on main was enabled by BMA #1214 Phase 3 Lane B (2026-07-05); this receipt/PR does not change any branch-protection settings"
   ]
 }
 ```
@@ -178,6 +188,6 @@ replace GitHub issue/PR/check/merge truth or operator approval.
   not measure conformance by itself.
 - No product-behavior, contract, template, or contract-test-semantics change
   (`.gitignore` + receipt + one LEARNINGS.md row only).
-- No branch-protection change; flagged as an operator decision.
+- No branch-protection change: `main` is already protected (`test` required) via BMA #1214 Phase 3 Lane B; settings untouched here.
 - No new learning-gate machinery; the absence of a work-close gate is recorded
   honestly and owner-routed.
