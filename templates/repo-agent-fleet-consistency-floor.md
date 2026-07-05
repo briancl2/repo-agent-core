@@ -67,6 +67,11 @@
     "serial_edit_rule": "<owner path>",
     "notes": "advisory in v0.1; not required for conformance"
   },
+  "domain_outcome_delta": {
+    "result_class": "not-applicable",
+    "reason": "fleet tool, no product-domain eval; domain-outcome gate applies to the assimilation targets it operates on",
+    "notes": "declare-mandatory in v0.2; binds to the assimilation-method Domain-Outcome Eval Gate (docs/repo-assimilation-method-contract.md step 9 / Validation Rule 7 / validated_domain_outcome_delta). An assimilation target replaces this with a real result_class (confirmed | null-reported | negative-reported) carrying the gate sub-fields outcome_lever, rejected_proxy, target_variable, pre_registered_metric, target_own_eval, measured_delta, owner_contract_respected; do not restate the gate here."
+  },
   "repo_native_validation": [
     {
       "command_or_check": "<command/check>",
@@ -85,6 +90,7 @@
     "ratifying or emitting this receipt does not make the repo conform and does not authorize per-repo change",
     "this contract does not require identical implementation across repos",
     "serialization discipline is advisory in v0.1 and is not required for conformance",
+    "domain-outcome delta (dimension 7) is declare-mandatory in v0.2; a fleet tool's not-applicable value is by design, not a hidden gap, and ratifying it does not measure or force conformance",
     "scorecards and detector output do not replace GitHub issue/PR/check/merge truth or operator approval",
     "this receipt is not a controller, scheduler, queue, daemon, registry, dashboard, watcher, cron job, auto-merge path, or background worker",
     "this receipt does not create issues, pull requests, comments, merges, or closures, and does not mutate downstream repositories"

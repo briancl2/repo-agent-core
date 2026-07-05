@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Verify the repo-agent fleet consistency floor contract stays bounded,
-# evidence-backed, and keeps the candidate 6th dimension advisory (not required).
+# evidence-backed, keeps the candidate 6th dimension advisory (not required),
+# and carries the v0.2 declare-mandatory 7th dimension (domain_outcome_delta).
 
 set -euo pipefail
 
@@ -41,7 +42,7 @@ for section in [
 ]:
     assert section in lower, section
 
-# All six floor dimension field names must be named.
+# All floor dimension field names must be named (dims 1-7).
 for field in [
     "closure_model",
     "ci_check_contract",
@@ -49,6 +50,7 @@ for field in [
     "learning_extraction_gate",
     "review_safety_net",
     "serialization_discipline",
+    "domain_outcome_delta",
 ]:
     assert field in text, field
 
@@ -80,6 +82,10 @@ for phrase in [
 assert "candidate/advisory" in lower, "candidate/advisory marker"
 assert "advisory in v0.1" in lower, "advisory in v0.1"
 assert "not required for conformance" in lower, "not required for conformance"
+
+# v0.2 ratification: header bump + declare-mandatory dimension 7.
+assert "version: 0.2" in lower, "version 0.2 header"
+assert "declare-mandatory" in lower, "dimension 7 declare-mandatory marker"
 
 # The candidate dimension must not be silently promoted to mandatory.
 for forbidden in [
@@ -124,6 +130,7 @@ for field in [
     "learning_extraction_gate",
     "review_safety_net",
     "serialization_discipline",
+    "domain_outcome_delta",
     "repo_native_validation",
     "owner_routing",
     "bounded_non_claims",
@@ -143,6 +150,10 @@ assert payload["review_safety_net"]["automated_review_expected"] in (True, False
 ser = payload["serialization_discipline"]
 assert "candidate" in ser["status"], ser["status"]
 assert "advisory" in ser.get("notes", "").lower()
+
+# The v0.2 declare-mandatory 7th dimension binds to the eval gate via result_class.
+dod = payload["domain_outcome_delta"]
+assert "result_class" in dod, "domain_outcome_delta.result_class"
 
 claims = " ".join(payload["bounded_non_claims"]).lower()
 for phrase in [
