@@ -1,10 +1,12 @@
 # Repo-Agent Fleet Consistency Floor Contract
 
-> Version: 0.1
-> Date: 2026-07-03
+> Version: 0.2
+> Date: 2026-07-03 (v0.1); 2026-07-04 (v0.2)
 > Owner: repo-agent-core
-> Source issue: briancl2/build-meta-analysis#1214 (Phase 1)
-> Ratified in: briancl2/repo-agent-core#104
+> Source issue: briancl2/build-meta-analysis#1214 (Phase 1 floor; Phase 3 v0.2 dimension 7)
+> Ratified in: briancl2/repo-agent-core#104 (v0.1)
+> v0.2 note: BMA #1214 Phase 3 adds dimension 7 `domain_outcome_delta`, bound to the
+> Domain-Outcome Eval Gate merged in briancl2/repo-agent-core#108 (merge 8230493).
 
 ## Purpose
 
@@ -44,7 +46,10 @@ import.
 
 A conforming repo declares and validates these fields. Dimensions 1-5 are the
 mandatory floor. Dimension 6 is a **candidate/advisory** field in v0.1 and is
-not required for conformance.
+not required for conformance. Dimension 7 (`domain_outcome_delta`), added in
+v0.2, is **declare-mandatory**: every conforming repo declares its
+domain-outcome posture, and fleet tools with no product-domain evaluation
+declare an explicitly justified null.
 
 | # | Field | Required meaning | Evidence origin |
 |---|---|---|---|
@@ -54,6 +59,7 @@ not required for conformance.
 | 4 | `learning_extraction_gate` | How closeout records a novel learning or an explicit no-novel-finding disposition. Silence is not a disposition. | AS-56 retrospective: the `--no-novel-findings` learning-extraction gate ran in only 1 of 5 repos. Phase 0: AS-42 route-changing learning gaps fired on four audited repos. |
 | 5 | `review_safety_net` | How automated review/critique is expected to fire on PRs, verified against GitHub PR review truth, or the explicit reason it is unavailable for that repo. | AS-56 retrospective: automated Codex review fired on only 3 of 5 PRs, missing the two largest-blast-radius changes. Phase 0: AS-08 fired on every audited repo; GitHub review readback matched. |
 | 6 | `serialization_discipline` | **Candidate/advisory in v0.1.** Serialization discipline on hot or duplicated routing surfaces: hot files, duplicated logic, drift gate, and the intended serial edit path. Not required for conformance until a future ratification promotes it with a narrow definition. | AS-56 retrospective: repo-optimizer hot-file merge contention on `generate-patches.sh` and the two-parallel-Python-block hazard. Phase 0: optimizer emitted unsupported/unpatchable blockers, not safe patches. Phase 0 produced no fleet-wide detector for duplicated routing surfaces, so this stays advisory. |
+| 7 | `domain_outcome_delta` | **Declare-mandatory (v0.2).** The repo's domain-outcome evaluation posture, bound to the assimilation-method **Domain-Outcome Eval Gate** (`docs/repo-assimilation-method-contract.md` step 9 / Validation Rule 7 / receipt field `validated_domain_outcome_delta`). For any domain enhancement the repo commits to proving a validated domain-outcome delta on the target's own evaluation — targeting the root-cause `outcome_lever` within owner-stated product contracts, never a proxy — or reporting an explicit null/negative. A fleet tool with no product-domain eval declares a justified null. Do not restate the gate mechanics; reference the method contract. | BMA #1214 Phase 3 ratification and repo-agent-core#108 (merge 8230493), which added the eval gate after the TP spec 007 row-size proxy and the D4 sanitizer-backstop misdiagnosis closed domain enhancements on proxies instead of validated outcome deltas. |
 
 ## Receipt/Distribution Shape
 
@@ -74,6 +80,7 @@ shared template. The receipt includes these fields:
 | `learning_extraction_gate` | Dimension 4 declaration: whether the gate is available, expected at close, supports a no-novel-findings disposition, and its surfaces. |
 | `review_safety_net` | Dimension 5 declaration: whether automated review is expected, whether the latest representative PR review was seen, the review surface, and any blockers. |
 | `serialization_discipline` | Dimension 6 declaration (candidate/advisory): status, hot surfaces, duplicated logic, drift gate, and serial edit rule. Optional in v0.1. |
+| `domain_outcome_delta` | Dimension 7 declaration (declare-mandatory): the domain-outcome posture bound to the method contract's `validated_domain_outcome_delta` sub-fields (`outcome_lever`, `rejected_proxy`, `target_variable`, `pre_registered_metric`, `target_own_eval`, `measured_delta`, `owner_contract_respected`, `result_class`). A fleet tool may declare `{"result_class": "not-applicable", "reason": "…"}`; an assimilation target carries a real `result_class`. See the method contract; do not restate the gate. |
 | `repo_native_validation` | The repo's native checks/commands run to validate the receipt, with pass/fail/skipped/blocked status and receipt paths. |
 | `owner_routing` | The exact GitHub owner surface and next owner action for each gap. |
 | `bounded_non_claims` | Explicit limits on automation, mutation, conformance, and canonical truth. |
@@ -110,6 +117,19 @@ shared template. The receipt includes these fields:
 10. Scorecards and detector output corroborate floor gaps but do not replace
     GitHub issue/PR/check/merge truth, branch protection, repo-local evidence, or
     operator approval.
+11. Domain-outcome delta (dimension 7) is **declare-mandatory** in v0.2: every
+    conforming repo declares a `domain_outcome_delta` bound to the
+    assimilation-method Domain-Outcome Eval Gate (step 9 / Validation Rule 7 /
+    `validated_domain_outcome_delta`). A fleet tool (repo-auditor,
+    repo-upgrade-advisor, repo-optimizer, repo-agent-core, build-meta-analysis)
+    with no product-domain evaluation may declare
+    `{"result_class": "not-applicable", "reason": "fleet tool, no product-domain
+    eval; domain-outcome gate applies to assimilation targets it operates on"}`,
+    while an assimilation target must carry a real `result_class` of `confirmed`
+    / `null-reported` / `negative-reported` — a proxy metric or a `pending` delta
+    is inadmissible, and a null or negative result must be reported, not hidden or
+    relabeled. This rule ratifies a declaration requirement; it does not measure
+    or force conformance and does not restate the gate mechanics.
 
 ## Owner Routing
 
@@ -137,6 +157,9 @@ This contract does not:
 - require identical implementation across the five repos;
 - measure or assert conformance by itself;
 - promote the candidate serialization-discipline dimension to mandatory in v0.1;
+- measure or force conformance by ratifying the domain-outcome delta dimension —
+  dimension 7 is declare-mandatory in v0.2, not a conformance measurement, and a
+  fleet tool's justified-null value is by design, not a hidden gap;
 - replace GitHub issue/PR/check/merge truth, branch protection, or operator
   approval;
 - make scorecards, detector output, reports, or receipts canonical truth;

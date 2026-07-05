@@ -355,11 +355,15 @@
   creation, auto-merge, or downstream mutation. It ratifies a five-dimension
   shared floor (closure model, CI-check contract, gitignore baseline,
   learning-extraction gate, review safety net) plus a candidate/advisory sixth
-  dimension (serialization discipline on hot/duplicated routing surfaces) that is
-  not required for conformance in v0.1. It is grounded in the BMA AS-56 sweep
-  retrospective and Phase 0 self-assimilation baseline (briancl2/build-meta-analysis#1214);
-  ratifying it does not make any repo conform and does not authorize any per-repo
-  change. GitHub issue/PR/check/merge truth and operator approval remain binding.
+  dimension (serialization discipline on hot/duplicated routing surfaces) not
+  required for conformance in v0.1, and a v0.2 declare-mandatory seventh
+  dimension (`domain_outcome_delta`, bound to the assimilation-method
+  Domain-Outcome Eval Gate in briancl2/repo-agent-core#108) where fleet tools
+  declare a justified null. It is grounded in the BMA AS-56 sweep retrospective
+  and Phase 0 self-assimilation baseline (briancl2/build-meta-analysis#1214;
+  v0.2 via Phase 3); ratifying it does not make any repo conform and does not
+  authorize any per-repo change. GitHub issue/PR/check/merge truth and operator
+  approval remain binding.
 
 ## Skills
 
