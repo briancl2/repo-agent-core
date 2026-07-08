@@ -86,6 +86,7 @@ templates/                  # Shared templates
   repair-decision-block.md # Repair decision-block record (selection-changing admission)
   maturity-boundary-claim.md # Maturity-boundary claim-separation record
   repo-agent-fleet-consistency-floor.md # Repo-agent fleet consistency floor receipt (BMA #1214)
+  repo-health-retrospective-method.md # Repo-health retrospective method record (5 surfaces x 3 passes)
 scripts/                    # Hook scripts
   pre-commit-hook.sh        # v2 hard-default review (blocks by default)
   pre-push-hook.sh          # Push review warning
@@ -137,6 +138,7 @@ docs/
   repair-decision-block-contract.md # Repair decision-block contract
   maturity-boundary-claim-contract.md # Maturity-boundary claim-separation contract
   repo-agent-fleet-consistency-floor-contract.md # Repo-agent fleet consistency floor contract (BMA #1214 Phase 1)
+  repo-health-retrospective-method-contract.md # Repo-health / operating-model retrospective method contract
   compare-scorecards-distribution.md # Supported copy-sync distribution model
 .agents/skills/             # Shared skills
   reviewing-code-locally/   # Pre-commit code review skill
@@ -234,6 +236,25 @@ validator theater, controller, scheduler, queue, daemon, registry, background
 memory process, automatic issue/PR creator, auto-updater, or downstream
 mutation grant. GBrain references stay advisory and cannot override operator
 intent, GitHub truth, repo evidence, or repo-local instructions.
+
+## Repo-Health Retrospective Method Contract
+
+The [repo-health retrospective method contract](docs/repo-health-retrospective-method-contract.md)
+generalizes BMA's operating-model retrospective (BMA #1270 Track D) into a
+reusable fleet method so any repo can run a rigorous repo-health / anti-pattern
+retrospective. It fixes five method elements: five operating surfaces examined
+with three passes each (known / emerging / detection-verdict), a falsifiable
+thesis, an add-lightness ranking (CUT/SIMPLIFY over new mechanism, ties broken
+toward deletion) cross-checked by an INDEPENDENT outcome-proxy re-rank that can
+refute the thesis, a candidate-detector register handed back unbuilt
+(id · verdict {CUT|SIMPLIFY|ADD|BOUNDED-HELPER|DO-NOT-BUILD|CONDITIONAL} ·
+anti-pattern · evidence · owner · acceptance · tally), and a
+primary-evidence-first hierarchy that keeps canonical repo/GitHub truth above
+secondary session-log evidence. Consumers may copy the
+[template](templates/repo-health-retrospective-method.md) or cite the contract,
+but must not turn it into a runtime dependency, controller, scheduler, queue,
+registry, generated inventory, or background sync mechanism, and must not let it
+implement detectors, open issues, or mutate sibling repos as a side effect.
 
 ## Interruption Recovery Contract
 

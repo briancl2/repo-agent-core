@@ -38,6 +38,21 @@
   upstream docs/root instructions are necessary but not sufficient; require a
   safe documented native attempt or concrete owner-surface blocker, and carry
   real native output or blocker evidence on the verdict-bearing surface.
+- The repo-health retrospective method contract lives in
+  `docs/repo-health-retrospective-method-contract.md` and
+  `templates/repo-health-retrospective-method.md`; consume it by copy-sync or
+  citation only, not by runtime dependency, controller, scheduler, queue,
+  registry, generated inventory, daemon, background memory process, automatic
+  issue/PR creator, auto-updater, or downstream mutation. It generalizes BMA's
+  operating-model retrospective (BMA #1270 Track D) and fixes five method
+  elements: five operating surfaces with three passes each (known / emerging /
+  detection-verdict), a falsifiable thesis, an add-lightness ranking
+  (CUT/SIMPLIFY over new mechanism, ties broken toward deletion) cross-checked
+  by an INDEPENDENT outcome-proxy re-rank that can refute the thesis, a
+  candidate-detector register handed back unbuilt, and a primary-evidence-first
+  hierarchy that keeps canonical repo/GitHub truth above secondary session-log
+  evidence. It does not implement detectors, open issues, or mutate sibling
+  repos.
 - Goal-mode runtime/self-healing evaluation language lives in
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
