@@ -75,6 +75,7 @@ templates/                  # Shared templates
   deep-research-source-ledger-v2-adoption.md # Deep Research source-ledger v2 adoption template
   integrated-native-capability-acceptance.md # Integrated native capability acceptance receipt
   github-parsed-closure-semantics.md # GitHub parsed closure semantics receipt
+  assimilation-github-work-management-v1.md # Assimilation GitHub work-management receipt
   route-changing-learning-failure.md # Route-changing learning/failure receipt
   closure-signal-integrity.md # Closure signal integrity + external coupling receipt
   review-ergonomics-working-memory-lightness.md # Review working-memory lightness receipt
@@ -127,6 +128,7 @@ docs/
   deep-research-source-ledger-v2-adoption-contract.md # Deep Research source-ledger v2 adoption contract
   integrated-native-capability-acceptance-contract.md # Integrated native capability acceptance contract
   github-parsed-closure-semantics-contract.md # GitHub parsed closure semantics contract
+  assimilation-github-work-management-v1-contract.md # Assimilation GitHub work-management contract
   route-changing-learning-failure-contract.md # Route-changing learning/failure contract
   closure-signal-integrity-contract.md # Closure signal integrity + external coupling contract
   review-ergonomics-working-memory-lightness-contract.md # Review working-memory lightness contract
@@ -361,6 +363,21 @@ registry, retained closeout package, automatic issue/PR creator, issue-state
 repair mechanism, or closure authority. It exists to catch cases where negated
 body wording still creates a parsed closing reference; GitHub issue/PR/check/
 merge truth remains closure truth.
+
+## Assimilation GitHub Work Management V1 Contract
+
+The [assimilation GitHub work-management V1 contract](docs/assimilation-github-work-management-v1-contract.md)
+defines the shared `ASSIMILATION_GITHUB_WORK_MANAGEMENT_V1` receipt for
+BMA-assimilated repo-agent repos. It keeps V1 focused on
+`github_closure_reconciliation`, `required_ci_and_reviewer_model`,
+`shared_fact_control`, and `autonomous_merge_eligibility_candidate`, with
+`permission_insufficient` treated as an access blocker rather than a
+repo-quality gap. Consumers may copy-sync or cite the
+[template](templates/assimilation-github-work-management-v1.md), but must not
+turn it into a GitHub client, review bot, runtime dependency, controller,
+scheduler, queue, daemon, registry, dashboard, automatic issue/PR loop,
+auto-merge path, retained closeout package, or downstream mutation path.
+GitHub issue/PR/check/review/merge truth remains authoritative.
 
 ## Route-Changing Learning Failure Contract
 

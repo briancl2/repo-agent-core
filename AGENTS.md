@@ -310,6 +310,17 @@
   `closingIssuesReferences` surface plus before/after issue state is the
   authoritative evidence when PR body wording, including negated wording, could
   affect a child issue unexpectedly.
+- The Issue #164 assimilation GitHub work-management V1 contract lives in
+  `docs/assimilation-github-work-management-v1-contract.md` and
+  `templates/assimilation-github-work-management-v1.md`; consume it by
+  copy-sync or citation only, not by runtime dependency, GitHub client, review
+  bot, controller, scheduler, queue, daemon, registry, dashboard, automatic
+  issue/PR loop, auto-merge path, retained closeout package, or downstream
+  mutation. It keeps V1 focused on `github_closure_reconciliation`,
+  `required_ci_and_reviewer_model`, `shared_fact_control`, and
+  `autonomous_merge_eligibility_candidate`; `permission_insufficient` is an
+  access/readback blocker, not a repo-quality gap. GitHub
+  issue/PR/check/review/merge truth remains authoritative.
 - The Issue #164 route-changing learning/failure contract lives in
   `docs/route-changing-learning-failure-contract.md` and
   `templates/route-changing-learning-failure.md`; consume it by copy-sync or
