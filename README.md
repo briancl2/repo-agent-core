@@ -378,6 +378,8 @@ turn it into a GitHub client, review bot, runtime dependency, controller,
 scheduler, queue, daemon, registry, dashboard, automatic issue/PR loop,
 auto-merge path, retained closeout package, or downstream mutation path.
 GitHub issue/PR/check/review/merge truth remains authoritative.
+Repo-auditor AS-59 detector detects gaps and overclaims in receipt/material
+surfaces; this README section is an index/explainer surface, not a receipt.
 
 ## Route-Changing Learning Failure Contract
 
