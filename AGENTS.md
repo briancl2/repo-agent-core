@@ -52,7 +52,7 @@
   candidate-detector register handed back unbuilt, and a primary-evidence-first
   hierarchy that keeps canonical repo/GitHub truth above secondary session-log
   evidence. It does not implement detectors, open issues, or mutate sibling
-  repos.
+  repos. Core itself can run this retrospective against its own evidence, foreground and on-demand (self-serve).
 - Goal-mode runtime/self-healing evaluation language lives in
   `docs/goal-episode-evaluation-contract.md` and
   `templates/goal-episode-evaluation.md`; consume it by copy-sync or citation,
