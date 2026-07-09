@@ -320,7 +320,18 @@
   `required_ci_and_reviewer_model`, `shared_fact_control`, and
   `autonomous_merge_eligibility_candidate`; `permission_insufficient` is an
   access/readback blocker, not a repo-quality gap. GitHub
-  issue/PR/check/review/merge truth remains authoritative.
+  issue/PR/check/review/merge truth remains authoritative. Repo-auditor AS-59
+  detector detects gaps and overclaims in receipt/material surfaces; this
+  `AGENTS.md` convention is an index/explainer plus owner-boundary note, not a
+  receipt. Generated AS-59 patch packs remain advisory until an owner PR
+  applies or remediates them. Before merge, require worker-return or
+  coordinator-takeover receipt, coordinator consumption receipt, no-drift target
+  git head/status evidence, repo-auditor AS-59 output, repo-upgrade-advisor
+  score PASS, repo-optimizer replay receipt, repo-native tests, and GitHub
+  checks. Only active, non-scan-limited AS-59 evidence with one safe
+  repo-relative target and explicit owner PR boundary can become
+  `eligible_for_patch_bundle_generation`; otherwise record the blocker on the
+  owner GitHub issue and do not claim delivery.
 - The Issue #164 route-changing learning/failure contract lives in
   `docs/route-changing-learning-failure-contract.md` and
   `templates/route-changing-learning-failure.md`; consume it by copy-sync or
