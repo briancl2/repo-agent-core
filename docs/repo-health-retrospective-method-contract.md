@@ -122,6 +122,33 @@ Every candidate_register row carries exactly one verdict:
   patchable owner surface and skip speculative new-surface ADD work that lacks
   one.
 
+## Running This Retrospective On Your Own Repo (Self-Serve)
+
+This method is a standing, per-repo capability: any fleet repo can run its own
+repo-health retrospective against its own evidence, on demand, without a new
+mechanism. It is an agent-run, **foreground, on-demand** procedure — not a
+controller, scheduler, cron, daemon, registry, or standing process.
+
+To run one on a repo:
+
+1. Gather that repo's own primary evidence first: git history, `LEARNINGS.md`,
+   reports, `AGENTS.md`, GitHub issue/PR/check/merge state, and its
+   signature/anti-pattern scan catalog. Session-log/runtime exhaust is secondary
+   and may only corroborate.
+2. Apply the Method Rules above: state one falsifiable thesis, examine the five
+   operating surfaces with three passes each, rank findings by add-lightness,
+   carry an independent outcome-proxy re-rank that can refute the ranking, and
+   produce a candidate-detector register handed back unbuilt.
+3. Fill the record in `templates/repo-health-retrospective-method.md` and land
+   the completed record as **one report** in that repo's own convention
+   (`research/reports/` in BMA, `docs/` in the inner-loop fleet repos). The
+   report is the only repository mutation.
+
+Reuse by reference, not relocation. This contract plus the template are the
+portable method; a repo does not need to copy any BMA-specific runner skill to
+run a retrospective. Each fleet repo makes the capability discoverable by adding
+a one-line pointer to this contract in its `AGENTS.md`.
+
 ## Add-Lightness Discipline
 
 The ranking rule prefers cutting and simplifying over adding new governance or
