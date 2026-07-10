@@ -25,12 +25,22 @@ check() {
 assert_contract_semantics() {
     python3 - "$CONTRACT" <<'PY'
 import sys
+import re
 
 text = open(sys.argv[1], encoding="utf-8").read()
 lower = text.lower()
 
 required_phrases = [
+    "> Version: 1.2",
     "EXTERNAL_CRITIQUE_CAPABILITY",
+    "external-critique-profile",
+    "claude-opus-4.8|max",
+    "gemini-3.1-pro-preview|high",
+    "gpt-5.6-sol|max",
+    "Configured-profile conformance",
+    "observed runtime availability/receipt truth",
+    "Historical receipts and archived outputs are immutable evidence",
+    "not profile drift to rewrite",
     "bounded risk sensor",
     "not authority",
     "default path is one critic",
@@ -54,7 +64,12 @@ required_phrases = [
 for phrase in required_phrases:
     assert phrase.lower() in lower, phrase
 
+assert not re.search(r"external-critique-profile(?:[-_](?:v?\d|20\d{2})|@)", lower), \
+    "profile pointer must not carry a date or revision identity"
+
 for slot in [
+    "external_critique_profile_pointer",
+    "configured_model_effort_slots",
     "authority_refs",
     "risk_vocabulary",
     "trigger_examples",
@@ -95,6 +110,13 @@ lower = text.lower()
 
 for phrase in [
     "artifact: EXTERNAL_CRITIQUE_CAPABILITY",
+    "`external_critique_profile_pointer`: `external-critique-profile`",
+    "`default_single`: [`claude-opus-4.8|max`]",
+    "`latest_panel`: [`claude-opus-4.8|max`, `gemini-3.1-pro-preview|high`, `gpt-5.6-sol|max`]",
+    "configured-profile conformance",
+    "runtime separation",
+    "historical receipts and archived outputs are immutable evidence",
+    "never revise a historical receipt or archived output",
     "BMA seed evidence, if any",
     "authority refs",
     "target principles precedence",
@@ -142,6 +164,24 @@ for phrase in [
 PY
 }
 
+assert_summary_sync() {
+    python3 - "$REPO_ROOT/README.md" "$REPO_ROOT/AGENTS.md" <<'PY'
+import sys
+
+for path in sys.argv[1:]:
+    lower = open(path, encoding="utf-8").read().lower()
+    for phrase in [
+        "external-critique-profile",
+        "claude-opus-4.8|max",
+        "gemini-3.1-pro-preview|high",
+        "gpt-5.6-sol|max",
+        "configured-profile conformance",
+        "historical receipts and archived outputs",
+    ]:
+        assert phrase in lower, f"{path}: {phrase}"
+PY
+}
+
 assert_no_positive_regrowth_language() {
     python3 - "$CONTRACT" "$TEMPLATE" <<'PY'
 import sys
@@ -180,6 +220,7 @@ check "contract exists" test -s "$CONTRACT"
 check "template exists" test -s "$TEMPLATE"
 check "contract preserves bounded critique semantics" assert_contract_semantics
 check "template preserves localizable slots" assert_template_semantics
+check "README and AGENTS summarize the portable profile" assert_summary_sync
 check "contract/template avoid positive regrowth language" assert_no_positive_regrowth_language
 check "README points to critique capability contract" grep -Fq "external-critique-capability-contract.md" "$REPO_ROOT/README.md"
 check "README points to critique capability template" grep -Fq "external-critique-capability.md" "$REPO_ROOT/README.md"

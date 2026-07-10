@@ -235,7 +235,12 @@
   reusable repo-agent mechanisms localize there before prompt files; prompts
   remain request, sidecar, or provenance artifacts. Model/path availability is
   observed receipt or output evidence, not a static routing promise or probe
-  program.
+  program. The stable `external-critique-profile` pointer carries no date or
+  revision identity: default single is `claude-opus-4.8|max`; latest-panel is
+  `claude-opus-4.8|max`, `gemini-3.1-pro-preview|high`, and
+  `gpt-5.6-sol|max`. Configured-profile conformance is separate from observed
+  runtime availability, and historical receipts and archived outputs remain
+  immutable evidence rather than drift to rewrite.
 - The Issue #164 Deep Research/source-intelligence native corpus contract lives
   in `docs/deep-research-source-intelligence-native-corpus-contract.md` and
   `templates/deep-research-source-intelligence-native-corpus.md`; consume it by
