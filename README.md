@@ -460,7 +460,13 @@ phrasing; literal BMA wording is seed evidence only, not canonical target text.
 When a repo has a skill system or capability convention, reusable repo-agent
 mechanisms should localize there before prompt files; prompts remain request,
 sidecar, or provenance artifacts. Model/path availability belongs in observed
-receipt or output fields, not static routing promises or probe programs.
+receipt or output fields, not static routing promises or probe programs. The
+stable `external-critique-profile` pointer has no date or revision identity.
+Default single configures `claude-opus-4.8|max`; latest-panel configures
+`claude-opus-4.8|max`, `gemini-3.1-pro-preview|high`, and `gpt-5.6-sol|max`.
+Configured-profile conformance is separate from observed runtime availability.
+Historical receipts and archived outputs are immutable evidence, not drift to
+rewrite.
 
 ## Deep Research Source-Intelligence Native Corpus Contract
 
