@@ -7,6 +7,31 @@
   "source_issue_or_pr": "https://github.com/briancl2/repo-agent-core/issues/117",
   "parent_campaign_url": "https://github.com/briancl2/build-meta-analysis/issues/1318",
   "consuming_repo": "briancl2/<repo>",
+  "operator_count": 1,
+  "host_count": 1,
+  "actual_concurrency": 1,
+  "unattended_runtime_need": {
+    "state": "none_observed",
+    "observed_task": "none",
+    "evidence": []
+  },
+  "smallest_native_architecture": {
+    "candidate": "foreground repo-native issue -> branch -> PR -> checks -> merge on the operator laptop",
+    "larger_proposed_shape": "none",
+    "enterprise_components": [],
+    "concrete_observed_need": [],
+    "disposition": "admit_smallest_native"
+  },
+  "stale_native_constraint_intake": {
+    "status": "clean",
+    "old_constraint": "none observed",
+    "current_native_activation_rule": "no native activation change is requested by this receipt",
+    "proof_boundary": "current upstream instructions, owner-approved activation evidence, safe native attempt, and repo-native validation",
+    "authority_boundary": "GitHub issue/PR/check/review/merge truth and repo-local owner policy remain authoritative",
+    "touched_validator_or_test": [],
+    "owner_surface_evidence": [],
+    "disposition": "no_change"
+  },
   "generated_at": "<UTC timestamp>",
   "evidence_refs": [
     {
@@ -129,6 +154,9 @@
     "does not replace GitHub issue/PR/check/review/merge truth",
     "does not make local staged-diff review authoritative for cross-PR consistency",
     "does not make local work-close output closure truth when GitHub review threads or issue state disagree",
+    "does not justify enterprise coordination complexity for one operator on one laptop without concrete observed need",
+    "does not treat a still-current native constraint as migration friction",
+    "does not activate native features or weaken valid authority boundaries through stale-native-constraint intake",
     "does not authorize autonomous merge, auto-merge, background merge loops, or a broad waiver of human review",
     "does not create issues, pull requests, comments, merges, or closures",
     "does not mutate downstream repositories",

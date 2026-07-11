@@ -8,6 +8,31 @@ transcript_processor n=2 campaign; replace values per consuming repo.
   "artifact": "REPO_ASSIMILATION_METHOD_RECORD",
   "schema_version": 1,
   "target_repo": "transcript_processor",
+  "operator_count": 1,
+  "host_count": 1,
+  "actual_concurrency": 1,
+  "unattended_runtime_need": {
+    "state": "none_observed",
+    "observed_task": "none",
+    "evidence": []
+  },
+  "smallest_native_architecture": {
+    "candidate": "foreground repo-native issue -> branch -> PR -> checks -> merge on the operator laptop",
+    "larger_proposed_shape": "none",
+    "enterprise_components": [],
+    "concrete_observed_need": [],
+    "disposition": "admit_smallest_native"
+  },
+  "stale_native_constraint_intake": {
+    "status": "clean",
+    "old_constraint": "none observed",
+    "current_native_activation_rule": "no native activation change is requested by this record",
+    "proof_boundary": "current upstream instructions, owner-approved activation evidence, safe native attempt, and repo-native validation",
+    "authority_boundary": "GitHub issue/PR/check/merge truth and repo-local owner policy remain authoritative",
+    "touched_validator_or_test": [],
+    "owner_surface_evidence": [],
+    "disposition": "no_change"
+  },
   "skeleton_steps_applied": [
     "1 github-truth + scratch",
     "2 freeze operator ask + anti-overclaim",
@@ -63,6 +88,8 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "does not create issues or PRs, merge, or close",
     "does not replace GitHub issue/PR/check/merge truth",
     "does not require local sibling repo paths or hidden external closure dependencies",
+    "does not justify enterprise coordination complexity for one operator on one laptop without concrete observed need",
+    "does not activate native features or weaken valid authority boundaries through stale-native-constraint intake",
     "the validated domain-outcome delta is same-judge target-eval evidence from the domain-fix wave, not a claim that the method is cross-repo doctrine",
     "the stricter rebuilt judge means only same-judge deltas are valid, not absolute scores vs the historical baseline",
     "adds no scheduler, daemon, queue, controller, registry, or background memory",
