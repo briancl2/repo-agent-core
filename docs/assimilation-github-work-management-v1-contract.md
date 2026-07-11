@@ -26,6 +26,15 @@ The V1 shape intentionally has only four work-management fields:
 - `shared_fact_control`
 - `autonomous_merge_eligibility_candidate`
 
+The receipt also carries five operating-context fields — `operator_count`,
+`host_count`, `actual_concurrency`, `unattended_runtime_need`, and
+`smallest_native_architecture` — plus a compact
+`stale_native_constraint_intake`. These are evidence context for selecting the
+four work-management fields, not additional V1 work-management dimensions.
+They keep a one-operator, one-laptop repo from inheriting enterprise complexity
+without a concrete observed need and make stale executable constraints visible
+when an owner-approved native activation rule changes.
+
 `permission_insufficient` is an evidence state, not a repo-quality gap and not
 a fifth V1 work-management field. If a repo cannot read PRs, checks, reviews,
 branch/ruleset evidence, or parsed closing references, the receipt must record
@@ -63,6 +72,12 @@ An assimilation GitHub work-management receipt includes these fields:
 | `source_issue_or_pr` | Owner issue or PR that requested the readback. |
 | `parent_campaign_url` | Parent BMA campaign issue when applicable. |
 | `consuming_repo` | The `briancl2/<repo>` being assessed or updated. |
+| `operator_count` | Actual operator count for the assessed operating shape. |
+| `host_count` | Actual host count for the assessed operating shape. |
+| `actual_concurrency` | Measured simultaneous work, not planned lanes or possible future scale. |
+| `unattended_runtime_need` | Observed unattended task plus evidence, or explicit `none_observed`. |
+| `smallest_native_architecture` | Least-complex native candidate, any larger proposed shape, concrete observed need, and `admit_smallest_native` / `justify_larger_native` / `reject_enterprise_without_observed_need` disposition. |
+| `stale_native_constraint_intake` | Compact old-constraint/current-rule/proof-boundary/authority-boundary/touched-validator-or-test/owner-evidence readback and disposition. |
 | `generated_at` | UTC timestamp for the readback. |
 | `evidence_refs` | Current GitHub, repo, validation, and review evidence used for the receipt. |
 | `permission_insufficient` | Explicit access blocker for PR/check/review/branch/ruleset/parsed-closure evidence; this is not a repo-quality gap. |
@@ -74,6 +89,41 @@ An assimilation GitHub work-management receipt includes these fields:
 | `owner_routing` | Exact owner surfaces for gaps, permission blockers, or follow-up arcs. |
 | `next_owner_action` | One exact next owner action, not a category. |
 | `bounded_non_claims` | Explicit limits on automation, mutation, merge authority, and closure truth. |
+
+### Solo operating context and stale-native-constraint intake
+
+For `operator_count: 1` and `host_count: 1`, decisions start from the smallest
+foreground or product-native architecture that satisfies the measured
+`actual_concurrency` and `unattended_runtime_need`. A controller, scheduler,
+queue, daemon, registry, dashboard, retry loop, or other enterprise-style
+coordination component must be rejected as
+`reject_enterprise_without_observed_need` unless `concrete_observed_need`
+contains current evidence that the smaller native shape cannot meet the task.
+Future scale or a possible second operator is not current evidence.
+
+`stale_native_constraint_intake` distinguishes migration friction from a valid
+authority guard. Required sub-fields are:
+
+- `status`: `clean`, `migration_friction_found`, or
+  `permission_insufficient`;
+- `old_constraint`: the prior native-mode constraint being checked;
+- `current_native_activation_rule`: the current owner-approved rule;
+- `proof_boundary`: upstream instructions, safe native attempt, and validation
+  evidence required before the rule can change;
+- `authority_boundary`: route, source, review, mutation, and closure authority
+  that remains valid even when activation changes;
+- `touched_validator_or_test`: exact executable expectations checked or
+  changed;
+- `owner_surface_evidence`: current issue, PR, docs, or policy evidence; and
+- `disposition`: `no_change`, `update_stale_constraint`,
+  `preserve_valid_authority_boundary`, or `owner_route`.
+
+A clean constraint records `status: clean` and `disposition: no_change`; its
+mere presence is not a finding. `update_stale_constraint` requires a current
+activation rule, owner evidence, named touched validator/test, proof boundary,
+and preserved authority boundary. Missing evidence or permission routes to the
+owner surface. This intake neither activates the native system nor relaxes
+GitHub authority.
 
 ### github_closure_reconciliation
 
@@ -178,29 +228,36 @@ evidence to propose or evaluate a repo-local autonomous-merge policy.
 2. The only V1 work-management fields are
    `github_closure_reconciliation`, `required_ci_and_reviewer_model`,
    `shared_fact_control`, and `autonomous_merge_eligibility_candidate`.
-3. `permission_insufficient` must be explicit when PRs, checks, reviews,
+3. Operating context must reflect measured reality. A one-operator, one-host
+   case rejects enterprise-style coordination components unless concrete
+   observed need justifies them; aspirational scale is insufficient.
+4. A stale-native-constraint finding requires current activation and owner
+   evidence plus a named touched validator/test, proof boundary, and preserved
+   authority boundary. A current constraint is a clean control and must not
+   false-positive.
+5. `permission_insufficient` must be explicit when PRs, checks, reviews,
    branch/ruleset settings, or parsed-closing evidence cannot be read. It routes
    to access or owner-surface repair and must not be scored as repo-quality
    failure.
-4. `github_closure_reconciliation` must include cross-session/cross-PR readback
+6. `github_closure_reconciliation` must include cross-session/cross-PR readback
    when sibling PRs can implement the same source issue or share a regime fact.
-5. `required_ci_and_reviewer_model` must name exact checks and the
+7. `required_ci_and_reviewer_model` must name exact checks and the
    authoritative reviewer model. Local staged-diff review must be labeled a
    pre-check.
-6. `shared_fact_control` must name the owning source for shared regime values or
+8. `shared_fact_control` must name the owning source for shared regime values or
    mark duplicate copies blocked until a drift gate exists.
-7. `autonomous_merge_eligibility_candidate` is candidate-only and cannot be
+9. `autonomous_merge_eligibility_candidate` is candidate-only and cannot be
    used as merge authority without separate repo-local owner issue/PR/check/
    merge evidence.
-8. `next_owner_action` must be exact: a specific issue, PR, contract, detector,
-   recommendation, patch bundle, access repair, or repo-local adoption action.
-9. Later repo-auditor, repo-upgrade-advisor, repo-optimizer, or BMA acceptance
-   propagation requires separate owner issues, branches, PRs, checks, and merge
-   truth. This repo-agent-core contract does not implement those arcs.
-10. Any implementation that creates a controller, scheduler, queue, daemon,
-   registry, dashboard, watcher, retry loop, background poller, automatic
-   issue/PR loop, auto-merge path, retained closeout truth, or downstream
-   mutation path violates this contract.
+10. `next_owner_action` must be exact: a specific issue, PR, contract, detector,
+    recommendation, patch bundle, access repair, or repo-local adoption action.
+11. Later repo-auditor, repo-upgrade-advisor, repo-optimizer, or BMA acceptance
+    propagation requires separate owner issues, branches, PRs, checks, and merge
+    truth. This repo-agent-core contract does not implement those arcs.
+12. Any implementation that creates a controller, scheduler, queue, daemon,
+    registry, dashboard, watcher, retry loop, background poller, automatic
+    issue/PR loop, auto-merge path, retained closeout truth, or downstream
+    mutation path violates this contract.
 
 ## Owner Routing
 
@@ -233,6 +290,11 @@ This contract does not:
 - make local work-close output closure truth when GitHub review threads or issue
   state disagree;
 - require identical CI or reviewer implementation across repos;
+- treat possible future scale as evidence for enterprise coordination
+  complexity;
+- treat a still-current native constraint as migration friction;
+- activate a native feature or weaken route, source, review, mutation, or
+  closure authority through the stale-native-constraint intake;
 - authorize autonomous merge, auto-merge, background merge loops, or a broad
   waiver of human review;
 - mutate downstream or target repositories;

@@ -336,7 +336,14 @@
   checks. Only active, non-scan-limited AS-59 evidence with one safe
   repo-relative target and explicit owner PR boundary can become
   `eligible_for_patch_bundle_generation`; otherwise record the blocker on the
-  owner GitHub issue and do not claim delivery.
+  owner GitHub issue and do not claim delivery. The receipt also records
+  `operator_count`, `host_count`, `actual_concurrency`,
+  `unattended_runtime_need`, `smallest_native_architecture`, and a compact
+  `stale_native_constraint_intake` as evidence context, not new V1
+  work-management dimensions. For one operator on one laptop, reject
+  enterprise coordination complexity unless concrete observed need justifies
+  it; update stale executable constraints without weakening valid authority
+  boundaries.
 - The Issue #164 route-changing learning/failure contract lives in
   `docs/route-changing-learning-failure-contract.md` and
   `templates/route-changing-learning-failure.md`; consume it by copy-sync or
@@ -388,7 +395,12 @@
   — not as a runtime dependency, controller, scheduler, queue, daemon, registry,
   auto issue/PR creator, auto-merge, or downstream mutation. The method is an
   n=2 observation, not proven cross-repo doctrine, and proves operating-model
-  readiness rather than repo-agent domain capability.
+  readiness rather than repo-agent domain capability. Its step-2 operating
+  shape records `operator_count`, `host_count`, `actual_concurrency`,
+  `unattended_runtime_need`, `smallest_native_architecture`, and
+  `stale_native_constraint_intake`; one operator on one laptop defaults to the
+  smallest native shape and rejects enterprise complexity without concrete
+  observed need.
 - The repo-agent fleet consistency floor contract lives in
   `docs/repo-agent-fleet-consistency-floor-contract.md` and
   `templates/repo-agent-fleet-consistency-floor.md`; consume it by copy-sync or

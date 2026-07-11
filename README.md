@@ -372,7 +372,11 @@ BMA-assimilated repo-agent repos. It keeps V1 focused on
 `github_closure_reconciliation`, `required_ci_and_reviewer_model`,
 `shared_fact_control`, and `autonomous_merge_eligibility_candidate`, with
 `permission_insufficient` treated as an access blocker rather than a
-repo-quality gap. Consumers may copy-sync or cite the
+repo-quality gap. It also records the actual operator/host/concurrency/runtime
+shape, selects the smallest native architecture, and checks for stale native
+constraints without adding V1 work-management dimensions. One operator on one
+laptop does not justify enterprise coordination complexity without concrete
+observed need. Consumers may copy-sync or cite the
 [template](templates/assimilation-github-work-management-v1.md), but must not
 turn it into a GitHub client, review bot, runtime dependency, controller,
 scheduler, queue, daemon, registry, dashboard, automatic issue/PR loop,

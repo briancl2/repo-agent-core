@@ -43,7 +43,8 @@ A checklist for future experiments, not a required ceremony or adopted cross-rep
 contract:
 
 1. Start with GitHub truth and a clean scratch target.
-2. Freeze the operator ask and the anti-overclaim boundary.
+2. Freeze the operator ask and the anti-overclaim boundary, then record the
+   actual operator/host/concurrency shape and smallest native architecture.
 3. Build repo anthropology (purpose, use cases, deliverables, operator
    interaction model, defined principles, revealed principles).
 4. Define benchmark dimensions before selecting repairs.
@@ -60,6 +61,44 @@ contract:
    whether the metric changed the next decision.
 10. Retrospect and route reusable learning to BMA only after target evidence.
 11. Rollover long parent issues before they become a new local closeout stack.
+
+## Solo Operator Native Architecture Check (step 2)
+
+Assimilation decisions must describe the system that actually exists, not an
+imagined organization. Record `operator_count`, `host_count`,
+`actual_concurrency`, and `unattended_runtime_need` before choosing an
+architecture. Then record `smallest_native_architecture`: the least complex
+native shape that satisfies the observed need, the larger candidate being
+considered, any concrete evidence that requires the larger shape, and the
+disposition.
+
+For one operator on one laptop, the default is the smallest foreground or
+product-native shape that works. A controller, scheduler, queue, daemon,
+registry, dashboard, retry loop, or other enterprise-style coordination layer
+is rejected unless a concrete observed need shows why the smaller native shape
+cannot satisfy the work. Aspirational scale, possible future collaborators, or
+unmeasured unattended-runtime wishes are not evidence. `actual_concurrency`
+records measured simultaneous work, not the number of possible lanes in a
+plan; `unattended_runtime_need` records the observed task and evidence, or an
+explicit `none_observed` state.
+
+The same intake performs a compact stale-native-constraint check. The
+`stale_native_constraint_intake` field records the old constraint, the current
+native activation rule, proof and authority boundaries, touched validators or
+tests, owner-surface evidence, and one disposition:
+
+- `no_change` when the old constraint is still current (the clean control);
+- `update_stale_constraint` when executable glue still enforces a superseded
+  blanket ban;
+- `preserve_valid_authority_boundary` when native activation changed but the
+  route, source, review, mutation, or closure boundary remains valid; or
+- `owner_route` when evidence or permission is insufficient.
+
+This check updates stale expectations; it does not weaken still-valid authority
+constraints or activate a native feature by itself. The feature's current
+upstream instructions, owner-approved activation surface, safe native attempt,
+and repo-native validation remain the proof boundary. GitHub issue/PR/check/
+merge truth remains authoritative.
 
 ## Domain-Outcome Eval Gate (step 9)
 
@@ -173,6 +212,8 @@ taxonomy shapes the sweep output itself:
 | Proxy-metric / governance-as-outcome | A domain enhancement closed on a proxy variable or on governance conformance without a validated domain-outcome delta (TP spec 007's row-size proxy; the D4 sanitizer-backstop misdiagnosis). | Domain-Outcome Eval Gate (step 9): root-cause the true lever, pre-register and validate the metric on the target's own eval, report nulls. |
 | Dirty checkout denial | A clean scratch target avoids contamination but not operator-local divergence. | Treat stale/divergent checkout as a first-class friction issue with owner action. |
 | Advisory fleet overreach | Repo-star findings helped, but patchability evidence was weak. | Fleet findings stay advisory unless deterministic patch/check proof exists. |
+| Enterprise architecture by imagination | A solo operator on one laptop was modeled as a future organization, adding coordination machinery without an observed need. | Record operator/host/concurrency/runtime evidence first and admit the smallest native architecture; reject larger coordination layers without concrete need. |
+| Stale native blanket ban | A native mode became owner-approved while validators or tests still enforced the old categorical ban. | Compare the old constraint to the current activation rule, preserve valid authority boundaries, and update only named stale executable glue with owner evidence. |
 
 ## Transfer Lessons
 
@@ -202,6 +243,12 @@ assumption that warning/byte reductions prove domain outcome progress.
 | `artifact` | Must be `REPO_ASSIMILATION_METHOD_RECORD`. |
 | `schema_version` | Integer record version. |
 | `target_repo` | The repo-agent being assimilated. |
+| `operator_count` | Count of actual operators responsible for the assimilated system. |
+| `host_count` | Count of actual hosts needed by the observed operating shape. |
+| `actual_concurrency` | Measured simultaneous work, not planned or aspirational lanes. |
+| `unattended_runtime_need` | Observed unattended-runtime task and evidence, or explicit `none_observed`. |
+| `smallest_native_architecture` | Least-complex native candidate, larger proposed shape, concrete observed need, and `admit_smallest_native` / `justify_larger_native` / `reject_enterprise_without_observed_need` disposition. |
+| `stale_native_constraint_intake` | Compact old-constraint/current-rule/proof-boundary/authority-boundary/touched-validator-or-test/owner-evidence check with `no_change` / `update_stale_constraint` / `preserve_valid_authority_boundary` / `owner_route` disposition. |
 | `skeleton_steps_applied` | Which of the 11 steps were applied. |
 | `mechanics_applied` | Which mechanic records exist (anchor, anthropology, benchmark, decision-block, maturity-boundary). |
 | `seeded_hypotheses` | Hypotheses recorded before the sweep. |
@@ -216,8 +263,11 @@ assumption that warning/byte reductions prove domain outcome progress.
 
 1. `artifact` must equal `REPO_ASSIMILATION_METHOD_RECORD` and `target_repo`
    must be named.
-2. The skeleton is a checklist, not a gate: a target may apply a subset of steps
-   and record why the others were skipped. Steps are not ceremony.
+2. The skeleton is a checklist, not a universal gate: a target may apply a
+   subset of steps and record why the others were skipped. Step 9 is the narrow
+   exception: it is conditionally mandatory when the work includes a domain
+   enhancement, and records `not-applicable` only when no domain enhancement
+   exists. Steps are not ceremony.
 3. `maturity_claim_class` must not exceed the proof actually held (see the
    maturity-boundary contract). GitHub closure + green checks support only
    operating-model progress.
@@ -235,6 +285,16 @@ assumption that warning/byte reductions prove domain outcome progress.
    null or negative result must be present and reported, not hidden or relabeled;
    and an assimilation carrying no domain enhancement records `not-applicable` with
    a reason.
+8. The operating shape must reflect actual evidence. When `operator_count` is
+   `1`, `host_count` is `1`, and no concrete need requires a larger shape,
+   enterprise-style coordination components must be recorded as
+   `reject_enterprise_without_observed_need`; possible future scale is not a
+   justification.
+9. `stale_native_constraint_intake` must not infer migration friction from the
+   mere presence of a constraint. `update_stale_constraint` requires a current
+   activation rule, owner-surface evidence, a named touched validator/test, and
+   preserved proof and authority boundaries. A current constraint records
+   `no_change`; insufficient evidence records `owner_route`.
 
 ## Maturity And Proof
 
@@ -275,4 +335,6 @@ cross-repo doctrine, and it proves operating-model readiness rather than
 repo-agent domain capability. The Domain-Outcome Eval Gate records a validated
 delta on the target's own eval or an explicit justified null; it does not itself
 run any eval, mutate the target, or convert governance conformance into a
-domain-outcome claim.
+domain-outcome claim. The solo operating-shape and stale-native-constraint
+intakes are advisory evidence fields, not authorization to activate services,
+weaken authority boundaries, or add coordination machinery.

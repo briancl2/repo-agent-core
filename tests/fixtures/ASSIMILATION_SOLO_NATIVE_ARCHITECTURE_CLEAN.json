@@ -1,0 +1,29 @@
+{
+  "operator_count": 1,
+  "host_count": 1,
+  "actual_concurrency": 1,
+  "unattended_runtime_need": {
+    "state": "none_observed",
+    "observed_task": "none",
+    "evidence": []
+  },
+  "smallest_native_architecture": {
+    "candidate": "foreground repo-native command on the operator laptop",
+    "larger_proposed_shape": "none",
+    "enterprise_components": [],
+    "concrete_observed_need": [],
+    "disposition": "admit_smallest_native"
+  },
+  "stale_native_constraint_intake": {
+    "status": "clean",
+    "old_constraint": "foreground-only execution remains current",
+    "current_native_activation_rule": "foreground-only execution remains current",
+    "proof_boundary": "owner policy and repo-native validation",
+    "authority_boundary": "GitHub issue/PR/check/merge truth remains authoritative",
+    "touched_validator_or_test": [],
+    "owner_surface_evidence": [
+      "owner policy confirms the constraint remains current"
+    ],
+    "disposition": "no_change"
+  }
+}

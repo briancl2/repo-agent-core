@@ -1,0 +1,35 @@
+{
+  "operator_count": 1,
+  "host_count": 1,
+  "actual_concurrency": 1,
+  "unattended_runtime_need": {
+    "state": "observed",
+    "observed_task": "one owner-approved native background lifecycle",
+    "evidence": [
+      "owner issue names the scoped activation"
+    ]
+  },
+  "smallest_native_architecture": {
+    "candidate": "the product-native scoped lifecycle on the operator laptop",
+    "larger_proposed_shape": "external coordination service",
+    "enterprise_components": [],
+    "concrete_observed_need": [
+      "the approved native lifecycle must persist for its documented task"
+    ],
+    "disposition": "admit_smallest_native"
+  },
+  "stale_native_constraint_intake": {
+    "status": "migration_friction_found",
+    "old_constraint": "validator rejects every background lifecycle",
+    "current_native_activation_rule": "owner-approved scoped native lifecycle is allowed with lifecycle proof",
+    "proof_boundary": "current upstream instructions, owner issue, safe native attempt, and repo-native validation",
+    "authority_boundary": "the native lifecycle cannot select routes, mutate outside scope, or replace GitHub closure truth",
+    "touched_validator_or_test": [
+      "tests/test-native-lifecycle-guard.sh"
+    ],
+    "owner_surface_evidence": [
+      "https://github.com/example/repo/issues/123"
+    ],
+    "disposition": "update_stale_constraint"
+  }
+}

@@ -7,6 +7,9 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 CONTRACT="$REPO_ROOT/docs/assimilation-github-work-management-v1-contract.md"
 TEMPLATE="$REPO_ROOT/templates/assimilation-github-work-management-v1.md"
+CLEAN_FIXTURE="$REPO_ROOT/tests/fixtures/ASSIMILATION_SOLO_NATIVE_ARCHITECTURE_CLEAN.json"
+STALE_FIXTURE="$REPO_ROOT/tests/fixtures/ASSIMILATION_STALE_NATIVE_CONSTRAINT_FOUND.json"
+ENTERPRISE_FIXTURE="$REPO_ROOT/tests/fixtures/ASSIMILATION_SOLO_REJECTS_ENTERPRISE_ARCHITECTURE.json"
 
 PASS=0
 FAIL=0
@@ -63,6 +66,12 @@ for field in [
     "source_issue_or_pr",
     "parent_campaign_url",
     "consuming_repo",
+    "operator_count",
+    "host_count",
+    "actual_concurrency",
+    "unattended_runtime_need",
+    "smallest_native_architecture",
+    "stale_native_constraint_intake",
     "generated_at",
     "evidence_refs",
     "permission_insufficient",
@@ -87,6 +96,10 @@ for phrase in [
     "candidate-only",
     "github issue/pr/check/review/merge truth is\nauthoritative",
     "later repo-auditor, repo-upgrade-advisor, repo-optimizer, or bma acceptance",
+    "one-operator, one-laptop",
+    "reject_enterprise_without_observed_need",
+    "update_stale_constraint",
+    "clean constraint",
 ]:
     assert phrase in lower, phrase
 
@@ -122,6 +135,26 @@ assert payload["schema_version"] == 1
 assert payload["source_issue_or_pr"].endswith("/117")
 assert payload["parent_campaign_url"].endswith("/1318")
 assert payload["consuming_repo"].startswith("briancl2/")
+assert payload["operator_count"] == 1
+assert payload["host_count"] == 1
+assert isinstance(payload["actual_concurrency"], int) and payload["actual_concurrency"] >= 1
+assert payload["unattended_runtime_need"]["state"] in {"none_observed", "observed"}
+architecture = payload["smallest_native_architecture"]
+assert architecture["disposition"] == "admit_smallest_native"
+assert architecture["enterprise_components"] == []
+assert architecture["concrete_observed_need"] == []
+intake = payload["stale_native_constraint_intake"]
+assert intake["status"] == "clean"
+assert intake["disposition"] == "no_change"
+for field in [
+    "old_constraint",
+    "current_native_activation_rule",
+    "proof_boundary",
+    "authority_boundary",
+    "touched_validator_or_test",
+    "owner_surface_evidence",
+]:
+    assert field in intake, field
 
 domain_fields = {
     "github_closure_reconciliation",
@@ -208,12 +241,42 @@ assert "do not start it from this receipt" in payload["next_owner_action"].lower
 PY
 }
 
+assert_operating_context_fixtures() {
+    python3 - "$CLEAN_FIXTURE" "$STALE_FIXTURE" "$ENTERPRISE_FIXTURE" <<'PY'
+import json
+import sys
+
+clean, stale, enterprise = [json.load(open(path, encoding="utf-8")) for path in sys.argv[1:]]
+
+clean_intake = clean["stale_native_constraint_intake"]
+assert clean_intake["status"] == "clean"
+assert clean_intake["disposition"] == "no_change"
+assert clean_intake["old_constraint"] == clean_intake["current_native_activation_rule"]
+
+stale_intake = stale["stale_native_constraint_intake"]
+assert stale_intake["status"] == "migration_friction_found"
+assert stale_intake["disposition"] == "update_stale_constraint"
+assert stale_intake["touched_validator_or_test"]
+assert stale_intake["owner_surface_evidence"]
+assert stale_intake["proof_boundary"]
+assert stale_intake["authority_boundary"]
+
+assert enterprise["operator_count"] == 1
+assert enterprise["host_count"] == 1
+architecture = enterprise["smallest_native_architecture"]
+assert architecture["enterprise_components"]
+assert architecture["concrete_observed_need"] == []
+assert architecture["disposition"] == "reject_enterprise_without_observed_need"
+PY
+}
+
 echo "=== Assimilation GitHub Work Management V1 Contract Test ==="
 
 check "contract exists" test -s "$CONTRACT"
 check "template exists" test -s "$TEMPLATE"
 check "contract preserves V1 semantics" assert_contract_semantics
 check "template preserves receipt shape" assert_template_semantics
+check "operating-context fixtures distinguish clean, stale, and rejected enterprise cases" assert_operating_context_fixtures
 check "README points to contract" grep -Fq "assimilation-github-work-management-v1-contract.md" "$REPO_ROOT/README.md"
 check "README points to template" grep -Fq "assimilation-github-work-management-v1.md" "$REPO_ROOT/README.md"
 check "AGENTS points to contract" grep -Fq "docs/assimilation-github-work-management-v1-contract.md" "$REPO_ROOT/AGENTS.md"
