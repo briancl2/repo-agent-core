@@ -17,8 +17,8 @@
   ],
   "operator_interaction_model": "single operator, foreground execution, issue -> PR -> merge",
   "defined_principles": {
-    "surface": ".specify/memory/constitution.md",
-    "principles": "P1-P12 operating-model and engineering principles"
+    "surface": "CONSTITUTION.md plus subordinate AGENTS.md and repo-local policy",
+    "principles": "shared constitutional floor plus owner-local specialization"
   },
   "revealed_principles": [
     {
@@ -33,9 +33,9 @@
   "evidence_refs": [
     "AGENTS.md",
     "LEARNINGS.md",
-    ".specify/memory/constitution.md",
+    "CONSTITUTION.md",
     ".github/workflows/ci.yml",
-    "specs/003-operating-model-constitution",
+    "applicable owner-local contracts/specs",
     "anti-pattern rule-5 + start_new_session->preexec_fn repair history"
   ],
   "decision_state": "adopt",

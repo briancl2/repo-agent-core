@@ -1,11 +1,19 @@
 # Principle-Alignment Anchor Contract
 
 This contract defines a portable copy-sync language for a **principle-alignment
-anchor** — the foundational step-0 of repo-agent operating-model assimilation. A
-repo-agent gains an operating-model layer by importing an operating-model
-principle canon as *assessment criteria*, reconciling it against the repo's
-existing engineering constitution, deriving revealed principles, and producing a
-principle gap matrix that anchors all downstream repair selection.
+anchor** — the foundational step-0 of repo-agent operating-model assimilation.
+The anchor starts with root `CONSTITUTION.md` as the shared semantic floor, then
+reconciles subordinate owner policy, revealed practice, and any cited external
+canon used as advisory assessment criteria. An imported canon can inform
+owner-policy reasoning; it cannot extend, amend, or outrank the shared root.
+The result is a principle gap matrix that anchors downstream repair selection.
+
+Read root `CONSTITUTION.md` before using this method. Apply only articles that
+change the forward decision, finding, scope, or conclusion, and state that
+effect when it occurs. Do not duplicate the nine articles or convert them into
+a universal checklist. Owner-local specialization may strengthen or specialize
+the floor, but unresolved conflict with shared meaning stops for explicit
+resolution.
 
 This is guidance for issue bodies, PR bodies, docs, templates, and retained
 evaluation records. It is not a runtime package, schema mandate, generated
@@ -32,12 +40,12 @@ task-closure authority.
 | --- | --- |
 | `artifact` | Must be `PRINCIPLE_ALIGNMENT_ANCHOR_RECORD`. |
 | `schema_version` | Contract version for the record shape. |
-| `repo_identity` | The repo-agent being anchored, and its existing engineering constitution surface (e.g. `.specify/memory/constitution.md`). |
-| `imported_canon` | The operating-model principle canon imported as assessment criteria, with source/citation. |
-| `reconciliation_table` | Each imported criterion mapped to the nearest existing principle, with a verdict: `present` / `partial` / `gap` / `present-but-scattered`. |
+| `repo_identity` | The repo-agent being anchored, root `CONSTITUTION.md`, and the subordinate owner-policy surfaces being assessed. |
+| `imported_canon` | A cited external canon used only as advisory owner-policy assessment criteria; it carries no shared constitutional authority. |
+| `reconciliation_table` | Each imported criterion mapped to the relevant shared article and/or nearest owner policy, with a verdict: `present` / `partial` / `gap` / `present-but-scattered`. |
 | `revealed_principles` | Principles the repo already practices as scattered point-repairs but has never codified, with evidence refs. |
-| `principle_gap_matrix` | Ranked gaps (severity × autonomy-merge-safety), each mapped to an imported criterion and an owner route. |
-| `codification_target` | Where the new operating-model principles land; a **native** constitution/spec extension is preferred over a custom side-doc. |
+| `principle_gap_matrix` | Ranked owner-policy or practice gaps (severity × autonomy-merge-safety), each mapped to an imported criterion and an owner route. |
+| `codification_target` | The subordinate owner-policy, contract, or spec surface where a local gap would land. Shared meaning changes only through explicit ratification of exact, hash-identified root bytes. |
 | `selection_gate` | The rule that the first repair is chosen by gap severity, not issue order, plus the benchmark vector used. For a domain enhancement it also names the **true outcome lever** the repair targets — not a convenient proxy — per the Domain-Outcome Eval Gate in `docs/repo-assimilation-method-contract.md`. |
 | `right_sizing_basis` | Codebase complexity + repo-agent use case + revealed usage, justifying depth (avoid both half-adoption and over-speccing). |
 | `validation` | Repo-native checks expected before the anchor changes production guidance. |
@@ -51,9 +59,10 @@ A principle-alignment anchor record is admissible only when:
 1. `repo_identity`, `imported_canon`, `reconciliation_table`, and
    `principle_gap_matrix` are present, and the imported canon carries a
    source/citation.
-2. `codification_target` prefers a **native** constitution/spec extension over a
-   new custom doc (native-before-custom). A custom side-doc requires a stated
-   reason why the native surface could not host the principles.
+2. `codification_target` prefers an existing native owner-policy, contract, or
+   spec surface over a new custom doc (native-before-custom). It must not extend
+   root `CONSTITUTION.md`; a shared-meaning change instead requires explicit
+   ratification of exact, hash-identified root bytes.
 3. `selection_gate` names a severity-ranked first repair and the benchmark
    vector; the first repair is not chosen by issue order. For a domain
    enhancement, the selection gate names the true outcome lever rather than an
@@ -65,7 +74,8 @@ A principle-alignment anchor record is admissible only when:
 5. `revealed_principles` cite evidence refs (commits, repairs, or docs) rather
    than aspirational claims.
 6. `decision_state` blocks adoption (`needs-proof` or `owner-route`) when the
-   gap matrix, codification target, or validation is missing.
+   gap matrix, codification target, validation, or resolution of a shared-root
+   conflict is missing.
 7. `bounded_non_claims` forbid treating the anchor as a controller, registry,
    closure-truth surface, or proof of repo-agent capability.
 
@@ -86,8 +96,11 @@ not a false positive. The gap class transfers; the detector is graduated to n=2.
 
 ## Owner Routing
 
-- A repo with no operating-model constitution surface routes to its own
-  constitution/spec owner issue before adoption.
+- A repo missing the ratified root constitution, or holding different root
+  bytes, routes to its own exact-byte ratification owner surface before
+  adoption.
+- Owner-policy gaps route to the target repo's existing instruction, contract,
+  or spec owner surface; they do not become shared constitutional amendments.
 - A missing or uncited imported canon routes to the canon source surface.
 - Detector or advisor propagation gaps route to repo-auditor (a detector for a
   missing anchor) or repo-upgrade-advisor (a recommendation that packages the
@@ -101,4 +114,5 @@ a controller, create a hidden registry, mutate downstream repos, adopt principle
 automatically, or replace GitHub issue/PR/check/merge truth. Anchoring proves
 operating-model readiness (purpose, principles, selection gate); it is not a
 validated domain outcome, which requires the Domain-Outcome Eval Gate's confirmed
-delta on the target's own eval. n=2 is an observation, not proven doctrine.
+delta on the target's own eval. It does not amend or extend root
+`CONSTITUTION.md`. n=2 is an observation, not proven doctrine.

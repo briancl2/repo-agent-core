@@ -34,6 +34,15 @@ dependency, controller, scheduler, queue, daemon, registry, generated
 inventory, background memory process, auto-updater, MCP server, automatic
 issue/PR creator, or downstream mutation.
 
+## Constitutional Lens
+
+Read root `CONSTITUTION.md` before running the retrospective. Use relevant
+articles as a backward-looking lens on decisions and outcomes, while keeping
+owner policy and direct evidence primary for repo-specific facts. State a
+constitutional effect only when it changes a finding, ranking, recommendation,
+scope, or conclusion. Do not duplicate the nine articles or turn them into an
+additional checklist.
+
 ## Related Contracts And Evidence
 
 - `docs/native-evidence-before-verdict-contract.md`
@@ -131,8 +140,9 @@ controller, scheduler, cron, daemon, registry, or standing process.
 
 To run one on a repo:
 
-1. Gather that repo's own primary evidence first: git history, `LEARNINGS.md`,
-   reports, `AGENTS.md`, GitHub issue/PR/check/merge state, and its
+1. Read root `CONSTITUTION.md`, then gather that repo's own primary evidence:
+   git history, `LEARNINGS.md`, reports, `AGENTS.md`, GitHub
+   issue/PR/check/merge state, and its
    signature/anti-pattern scan catalog. Session-log/runtime exhaust is secondary
    and may only corroborate.
 2. Apply the Method Rules above: state one falsifiable thesis, examine the five

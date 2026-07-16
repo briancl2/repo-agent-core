@@ -6,11 +6,12 @@
   "schema_version": 1,
   "repo_identity": {
     "repo": "transcript_processor",
-    "constitution_surface": ".specify/memory/constitution.md",
-    "existing_principles": "P1-P8 engineering principles already codified"
+    "constitution_surface": "CONSTITUTION.md",
+    "existing_principles": "shared constitutional floor plus subordinate AGENTS.md and repo-local policy"
   },
   "imported_canon": {
     "canon": "BMA operating-model principle canon",
+    "authority": "advisory owner-policy assessment criteria only",
     "criteria": [
       "P9 a red gate is not closure",
       "P10 CI/issue/PR state is truth",
@@ -20,10 +21,10 @@
     "source": "https://github.com/briancl2/build-meta-analysis/issues/164"
   },
   "reconciliation_table": [
-    {"criterion": "P9 red gate is not closure", "nearest_existing": "ad hoc work-close", "verdict": "present-but-scattered"},
-    {"criterion": "P10 CI/issue/PR state is truth", "nearest_existing": "CI presence", "verdict": "partial"},
-    {"criterion": "P11 automation earns authority gradually", "nearest_existing": "none", "verdict": "gap"},
-    {"criterion": "P12 grounded route-changes", "nearest_existing": "LEARNINGS.md entries", "verdict": "gap"}
+    {"criterion": "P9 red gate is not closure", "nearest_existing": "Article 5 plus owner closeout policy", "verdict": "present-but-scattered"},
+    {"criterion": "P10 CI/issue/PR state is truth", "nearest_existing": "Article 3 plus CI owner policy", "verdict": "partial"},
+    {"criterion": "P11 automation earns authority gradually", "nearest_existing": "Article 2; local operating policy gap", "verdict": "gap"},
+    {"criterion": "P12 grounded route-changes", "nearest_existing": "Articles 4 and 6 plus LEARNINGS.md", "verdict": "gap"}
   ],
   "revealed_principles": [
     {
@@ -37,9 +38,9 @@
     {"gap": "P12 grounded route-changing learnings", "severity": "medium", "autonomy_merge_safety": "medium", "owner_route": "transcript_processor #34"}
   ],
   "codification_target": {
-    "target": "native constitution extension P9-P12 via specs/003-operating-model-constitution",
+    "target": "subordinate owner policy/spec for P9-P12; shared root remains unchanged",
     "native_before_custom": true,
-    "reason_if_custom": "not applicable; native constitution hosted the principles"
+    "reason_if_custom": "not applicable; existing owner-policy surfaces host the local specialization"
   },
   "selection_gate": {
     "first_repair": "P9 fail-closed work-close gate (highest gap severity)",
@@ -66,6 +67,7 @@
     "does not start a daemon, scheduler, queue, controller, or hidden registry",
     "does not mutate downstream repos",
     "does not adopt principles automatically",
+    "does not amend or extend root CONSTITUTION.md",
     "does not replace GitHub issue/PR/check/merge truth"
   ]
 }
