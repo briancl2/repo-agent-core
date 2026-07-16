@@ -4,6 +4,11 @@
 > This repo provides schemas, templates, hooks, and scoring infrastructure
 > used by repo-auditor, repo-upgrade-advisor, and repo-optimizer.
 
+Read `CONSTITUTION.md` first. It is the shared semantic floor. This file and
+repo-agent-core's contracts remain subordinate owner policy: they may specialize
+or strengthen that floor, but cannot weaken it or create additional shared
+constitutional meaning. Stop for explicit resolution if the two conflict.
+
 ## Purpose
 
 `repo-agent-core` is the foundation layer. It contains:

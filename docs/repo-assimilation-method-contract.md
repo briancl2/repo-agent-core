@@ -15,13 +15,22 @@ task truth. The method is an **n=2 observation** (portfolio_advisor +
 transcript_processor by-hand campaigns), not proven cross-repo doctrine —
 *generalization cannot outrun proof*.
 
+Read root `CONSTITUTION.md` before applying this method. Use relevant articles
+for forward decisions about authority, evidence, architecture, repair selection,
+and owner outcomes, and for backward analysis of why prior decisions produced
+their results. Mention a constitutional effect only when it changes a finding,
+recommendation, scope, or conclusion. Do not duplicate the nine articles or
+turn them into another assimilation checklist; all mechanic contracts and
+owner-local policy remain subordinate to the shared floor.
+
 ## Related Contracts
 
 The method composes five mechanic contracts; consume each by copy-sync or
 citation only, never as a runtime dependency:
 
-- `docs/principle-alignment-anchor-contract.md` — step 0/2: revealed vs defined
-  principles reconciled into a constitution anchor.
+- `docs/principle-alignment-anchor-contract.md` — step 0/2: root constitutional
+  floor, revealed practice, and subordinate owner policy reconciled into an
+  anchor.
 - `docs/repo-anthropology-contract.md` — step 3: purpose, use cases,
   deliverables, operator interaction model, defined and revealed principles.
 - `docs/benchmark-before-repair-contract.md` — step 4: benchmark dimensions

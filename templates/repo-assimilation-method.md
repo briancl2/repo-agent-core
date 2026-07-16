@@ -47,7 +47,7 @@ transcript_processor n=2 campaign; replace values per consuming repo.
     "11 parent-issue rollover"
   ],
   "mechanics_applied": {
-    "principle_alignment_anchor": "present (G0 constitution P9-P12)",
+    "principle_alignment_anchor": "present (root constitutional floor plus subordinate owner-policy assessment)",
     "repo_anthropology": "present",
     "benchmark_before_repair": "present (auditor scorecard dimensions)",
     "closure_ceremony_portability": "checked: default closure must not hide required signals behind sibling repo local paths",
