@@ -1,4 +1,4 @@
-.PHONY: review test closure-identity validate-schemas validate-compare-scorecards install-hooks help
+.PHONY: review test closure-identity validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
 
 # Default target
 help:
@@ -7,6 +7,8 @@ help:
 	@echo "Targets:"
 	@echo "  make review           Run code review on staged changes"
 	@echo "  make test             Run all tests (schemas + samples)"
+	@echo "  make validate-owner-convergence"
+	@echo "                        Validate cached-index owner package convergence"
 	@echo "  make closure-identity Emit closure-run identity for the current gate"
 	@echo "  make validate-schemas Validate all JSON schemas"
 	@echo "  make validate-compare-scorecards"
@@ -21,6 +23,7 @@ review:
 test:
 	@echo "=== Running core test suite ==="
 	@CLOSURE_PHASE=test PARENT_COMMAND="make test" bash scripts/record-closure-identity.sh test
+	@$(MAKE) --no-print-directory validate-owner-convergence
 	@for t in tests/test-*.sh; do \
 		echo "--- $$t ---"; bash "$$t" || exit 1; \
 	done
@@ -32,6 +35,9 @@ validate-schemas:
 	@for s in schemas/*.schema.json; do \
 		python3 -c "import json; json.load(open('$$s'))" && echo "  ✓ $$(basename $$s)" || echo "  ✗ $$(basename $$s)"; \
 	done
+
+validate-owner-convergence:
+	@python3 scripts/validate_owner_convergence.py --repo .
 
 validate-compare-scorecards:
 	@echo "=== Validating compare-scorecards distribution model ==="
