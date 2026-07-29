@@ -1,5 +1,7 @@
 .PHONY: review test closure-identity validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
 
+OWNER_CONVERGENCE_BASE_REF ?= HEAD^
+
 # Default target
 help:
 	@echo "repo-agent-core — Shared primitives for the repo-agent fleet"
@@ -37,7 +39,8 @@ validate-schemas:
 	done
 
 validate-owner-convergence:
-	@python3 scripts/validate_owner_convergence.py --repo .
+	@python3 scripts/validate_owner_convergence.py --repo . \
+		--base-ref "$(OWNER_CONVERGENCE_BASE_REF)"
 
 validate-compare-scorecards:
 	@echo "=== Validating compare-scorecards distribution model ==="

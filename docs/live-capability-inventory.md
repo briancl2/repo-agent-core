@@ -1,104 +1,92 @@
 # Owner package inventory
 
-This is the single human-readable owner inventory. The active package is small;
-retained historical families are compatibility evidence only. The inventory is
-validated from cached Git index entries and blobs, never from an unstaged
-working-tree view.
+This is the single human-readable owner inventory. Active exports carry
+path-and-literal-token evidence for their repo-native owner caller and for every
+declared exact consumer caller. A dash means that no consumer claim is made.
+The validator reads cached Git blobs, never an unstaged working-tree view.
 
 ## Active exports
 
-The `Callers` column is an owner declaration used for orphan checks. `owner`
-means repo-native use; the other values name the three exact consumer classes.
-Patterns must match at least one cached index path.
+Each evidence cell uses `path::literal-token`. Active patterns must be
+non-overlapping, and every row must have verified owner evidence.
 
-| Path | Class | Callers |
-|---|---|---|
-| `CONSTITUTION.md` | shared semantic floor | owner,auditor,advisor,optimizer |
-| `AGENTS.md` | compact bootloader | owner |
-| `README.md` | package entrypoint | owner |
-| `docs/live-capability-inventory.md` | owner-manifest | owner |
-| `.github/workflows/ci.yml` | native CI | owner |
-| `Makefile` | native command surface | owner |
-| `.agents/skills/reviewing-code-locally/**` | portable review skill | owner,auditor,advisor,optimizer |
-| `schemas/*.schema.json` | exported schema bytes | owner,auditor,advisor,optimizer |
-| `scripts/validate-artifacts.sh` | artifact validator | owner,optimizer |
-| `scripts/compare-scorecards.sh` | scorecard comparison primitive | owner,auditor,optimizer |
-| `scripts/check-compare-scorecards-conformance.sh` | copy-sync conformance gate | owner,auditor,optimizer |
-| `docs/compare-scorecards-distribution.md` | distribution contract | owner,auditor,optimizer |
-| `scripts/install-hooks.sh` | consumer-called installer | owner,auditor,advisor,optimizer |
-| `scripts/pre-commit-hook.sh` | installer source | owner,auditor,advisor,optimizer |
-| `scripts/pre-push-hook.sh` | installer source | owner,auditor,advisor,optimizer |
-| `hooks/pre-commit-hook.sh` | installable hook | owner,auditor,advisor,optimizer |
-| `hooks/pre-push-hook.sh` | installable hook | owner,auditor,advisor,optimizer |
-| `scripts/record-closure-identity.sh` | native test helper | owner |
-| `scripts/validate_owner_convergence.py` | cached-index convergence guard | owner |
-| `tests/test-owner-convergence.sh` | focused convergence tests | owner |
-| `tests/test-compare-scorecards.sh` | comparison behavior tests | owner |
-| `tests/test-closure-identity.sh` | closure helper tests | owner |
-| `tests/test-schemas.sh` | schema syntax and sample tests | owner |
-| `templates/findings-table.md` | findings export | auditor |
-| `templates/transfer-readiness.md` | transfer receipt export | optimizer |
-| `templates/optimizer_policy.yaml` | optimizer policy export | optimizer |
-| `templates/v3.1-markdown-handoff.md` | portable handoff export | auditor,advisor,optimizer |
+| Path | Class | Owner evidence | Auditor evidence | Advisor evidence | Optimizer evidence |
+|---|---|---|---|---|---|
+| `CONSTITUTION.md` | shared semantic floor | `AGENTS.md::CONSTITUTION.md` | - | - | - |
+| `AGENTS.md` | compact bootloader | `README.md::AGENTS.md` | - | - | - |
+| `README.md` | package entrypoint | `AGENTS.md::repo-agent-core` | - | - | - |
+| `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |
+| `.github/workflows/ci.yml` | native CI | `tests/test-closure-identity.sh::.github/workflows/ci.yml` | - | - | - |
+| `Makefile` | native command surface | `.github/workflows/ci.yml::make test` | - | - | - |
+| `.agents/skills/reviewing-code-locally/SKILL.md` | portable review skill | `AGENTS.md::reviewing-code-locally` | - | - | - |
+| `.agents/skills/reviewing-code-locally/references/review-prompt.md` | portable review prompt | `.agents/skills/reviewing-code-locally/SKILL.md::references/review-prompt.md` | - | - | - |
+| `.agents/skills/reviewing-code-locally/scripts/local_review.sh` | portable review command | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` |
+| `schemas/ADAPTER_AUDIT_SUMMARY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/AGENTIC_ROOT_CAUSE_BRIEFS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/COMMAND_OUTPUT_ROI_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/CRITIQUE_RESULT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/FINDINGS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | `tests/test-auditor-schemas.sh::schemas/FINDINGS.schema.json` | - | - |
+| `schemas/GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/HERMES_FOREGROUND_RUN_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/HOTSPOT_EVIDENCE_PACKETS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/OPPORTUNITIES.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | `scripts/score-operation.sh::schemas/OPPORTUNITIES.schema.json` | - |
+| `schemas/OPTIMIZATION_SCORECARD.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | `scripts/repo-optimizer.sh::OPTIMIZATION_SCORECARD.json` |
+| `schemas/PLAYBOOK_MANIFEST_AUTHORITY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/REPO_STAR_DOWNSTREAM_GENERICITY_PROOF_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/REPO_STAR_GENERICITY_PROOF_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/SCORECARD.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | `docs/invocation-contract.md::schemas/SCORECARD.schema.json` | - | - |
+| `schemas/SOURCE_INSIGHT_PACKET.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/TOKEN_MEASUREMENT_SUMMARY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
+| `schemas/TRANSFER_ORACLE_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | `tests/test-transfer-oracle-consumer.sh::schemas/TRANSFER_ORACLE_RECEIPT.schema.json` |
+| `scripts/validate-artifacts.sh` | artifact validator | `tests/test-schemas.sh::scripts/validate-artifacts.sh` | - | - | `tests/test-transfer-oracle-consumer.sh::scripts/validate-artifacts.sh` |
+| `scripts/compare-scorecards.sh` | scorecard comparison primitive | `tests/test-compare-scorecards.sh::scripts/compare-scorecards.sh` | `tests/test-compare-scorecards.sh::scripts/compare-scorecards.sh` | - | `docs/agent-operations.md::scripts/compare-scorecards.sh` |
+| `scripts/check-compare-scorecards-conformance.sh` | copy-sync conformance gate | `Makefile::scripts/check-compare-scorecards-conformance.sh` | - | - | - |
+| `docs/compare-scorecards-distribution.md` | distribution contract | `tests/test-compare-scorecards.sh::docs/compare-scorecards-distribution.md` | - | - | - |
+| `scripts/install-hooks.sh` | consumer-called installer | `Makefile::scripts/install-hooks.sh` | `Makefile::repo-agent-core/scripts/install-hooks.sh` | - | `Makefile::repo-agent-core/scripts/install-hooks.sh` |
+| `hooks/pre-commit-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-commit-hook.sh` | - | - | - |
+| `hooks/pre-push-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-push-hook.sh` | - | - | - |
+| `scripts/record-closure-identity.sh` | native test helper | `Makefile::scripts/record-closure-identity.sh` | - | - | - |
+| `scripts/validate_owner_convergence.py` | cached-index convergence guard | `Makefile::scripts/validate_owner_convergence.py` | - | - | - |
+| `tests/test-owner-convergence.sh` | focused convergence tests | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/test-compare-scorecards.sh` | comparison behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/test-closure-identity.sh` | closure helper tests | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/test-schemas.sh` | schema syntax and sample tests | `Makefile::tests/test-*.sh` | - | - | - |
 
 ## Compatibility-only retained paths
 
-These existing paths remain byte-preserved unless changed by a separate owner
-decision. Current exact consumers cite portions of these families, so they are
-not bulk-deleted. They are not active authority and are excluded from active
-prose checks.
+Every pattern must resolve to the same path set and blob identities in the
+rollback base and cached index. Removing or changing even one retained contract
+therefore fails closed.
 
 | Pattern | Classification |
 |---|---|
 | `docs/*-contract.md` | compatibility/history-only contract evidence |
 | `docs/repo-agent-fleet-consistency-floor-receipt.md` | compatibility/history-only receipt |
-| `templates/*.md` | compatibility/history-only template unless listed active above |
-| `tests/samples/*.json` | schema compatibility sample |
-| `tests/fixtures/*.json` | schema compatibility fixture |
-| `schemas/*.schema.json` | active byte export; historical semantics remain compatibility-bound |
+| `templates/*` | compatibility/history-only templates |
+| `tests/samples/*.json` | schema compatibility samples |
+| `tests/fixtures/*.json` | schema compatibility fixtures |
+| `schemas/*.schema.json` | active byte exports with preserved identities |
+| `scripts/pre-*-hook.sh` | retained legacy hook copies |
 | `LEARNINGS.md` | historical owner learning log |
 
-## Removed-name successors
+## Removed-name successor rules
 
-Every retired tracked name has one current successor. Rollback is Git history at
-the exact pre-convergence base; the successor is the active owner route, not a
-redirect or compatibility stack.
+The base-tree-minus-index deletion set must be covered exactly once by these
+rules. Every base match must be absent from the index and every successor must
+be present.
 
-| Removed path | Successor |
+| Removed pattern | Successor |
 |---|---|
-| `.github/agents/speckit.analyze.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.checklist.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.clarify.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.constitution.agent.md` | `CONSTITUTION.md` |
-| `.github/agents/speckit.implement.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.plan.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.specify.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.tasks.agent.md` | `AGENTS.md` |
-| `.github/agents/speckit.taskstoissues.agent.md` | `AGENTS.md` |
-| `.github/prompts/speckit.analyze.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.checklist.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.clarify.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.constitution.prompt.md` | `CONSTITUTION.md` |
-| `.github/prompts/speckit.implement.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.plan.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.specify.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.tasks.prompt.md` | `AGENTS.md` |
-| `.github/prompts/speckit.taskstoissues.prompt.md` | `AGENTS.md` |
-| `.specify/memory/constitution.md` | `CONSTITUTION.md` |
-| `.specify/scripts/bash/check-prerequisites.sh` | `Makefile` |
-| `.specify/scripts/bash/common.sh` | `Makefile` |
-| `.specify/scripts/bash/create-new-feature.sh` | `AGENTS.md` |
-| `.specify/scripts/bash/setup-plan.sh` | `AGENTS.md` |
-| `.specify/scripts/bash/update-agent-context.sh` | `AGENTS.md` |
-| `.specify/templates/agent-file-template.md` | `AGENTS.md` |
-| `.specify/templates/checklist-template.md` | `AGENTS.md` |
-| `.specify/templates/constitution-template.md` | `CONSTITUTION.md` |
-| `.specify/templates/plan-template.md` | `AGENTS.md` |
-| `.specify/templates/spec-template.md` | `AGENTS.md` |
-| `.specify/templates/tasks-template.md` | `AGENTS.md` |
+| `.github/agents/speckit.*.agent.md` | `AGENTS.md` |
+| `.github/prompts/speckit.*.prompt.md` | `AGENTS.md` |
+| `.specify/**` | `AGENTS.md` |
 | `.vscode/settings.json` | `README.md` |
 | `specs/001-schema-validation-tests/spec.md` | `tests/test-schemas.sh` |
 | `docs/current-program-status.md` | `docs/live-capability-inventory.md` |
+| `tests/test-*-contract.sh` | `tests/test-owner-convergence.sh` |
+| `tests/test-floor-receipt-conformance.sh` | `tests/test-owner-convergence.sh` |
 
 ## Boundaries
 
