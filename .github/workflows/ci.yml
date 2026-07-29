@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Run tests
         env:
@@ -26,4 +28,5 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
           PARENT_COMMAND: make test
+          OWNER_CONVERGENCE_BASE_REF: ${{ github.event.pull_request.base.sha || 'HEAD^' }}
         run: make test
