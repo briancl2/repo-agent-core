@@ -8,7 +8,7 @@ trap 'rm -rf "$TMP_ROOT"' EXIT
 
 REPO="$TMP_ROOT/repo"
 INSTALLED="$TMP_ROOT/installed"
-mkdir -p "$REPO/docs" "$REPO/compat" "$REPO/schemas"
+mkdir -p "$REPO/docs" "$REPO/compat" "$REPO/schemas" "$REPO/scripts" "$REPO/tests"
 mkdir -p "$INSTALLED/private-name/skills/example"
 mkdir -p "$INSTALLED/private-name/agents" "$INSTALLED/private-name/prompts"
 
@@ -21,6 +21,7 @@ printf '%s\n' \
   '# Bootloader' \
   'Package owner route.' \
   'Active owner route.' \
+  'Floor test route.' \
   'docs/live-capability-inventory.md' \
   'schemas/*.schema.json' \
   > "$REPO/AGENTS.md"
@@ -31,6 +32,12 @@ printf '%s\n' '{"type":"object"}' > "$REPO/schemas/FIXTURE.schema.json"
 printf '%s\n' 'rollback source a' > "$REPO/removed-a.txt"
 printf '%s\n' 'rollback source b' > "$REPO/removed-b.txt"
 printf '%s\n' 'retained base path' > "$REPO/unclassified.txt"
+printf '%s\n' 'canonical floor validator bytes' > "$REPO/scripts/validate-floor-receipt.sh"
+printf '%s\n' 'read-only fleet floor audit bytes' > "$REPO/scripts/fleet-floor-conformance-audit.sh"
+printf '%s\n' \
+  'scripts/validate-floor-receipt.sh' \
+  'scripts/fleet-floor-conformance-audit.sh' \
+  > "$REPO/tests/test-floor-receipt-conformance.sh"
 printf '%s\n' '# Historical inventory' > "$REPO/docs/live-capability-inventory.md"
 git -C "$REPO" add .
 git -C "$REPO" commit -qm "base"
@@ -50,6 +57,9 @@ printf '%s\n' \
   '| `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |' \
   '| `active.txt` | fixture export | `AGENTS.md::Active owner route.` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` |' \
   '| `schemas/FIXTURE.schema.json` | schema export | `AGENTS.md::schemas/*.schema.json` | - | - | - |' \
+  '| `scripts/validate-floor-receipt.sh` | floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` |' \
+  '| `scripts/fleet-floor-conformance-audit.sh` | fleet audit | `tests/test-floor-receipt-conformance.sh::scripts/fleet-floor-conformance-audit.sh` | - | - | - |' \
+  '| `tests/test-floor-receipt-conformance.sh` | floor tests | `AGENTS.md::Floor test route.` | - | - | - |' \
   '' \
   '## Compatibility-only retained paths' \
   '' \
@@ -57,6 +67,7 @@ printf '%s\n' \
   '|---|---|' \
   '| `compat/*.md` | retained contract |' \
   '| `schemas/*.schema.json` | unchanged schema |' \
+  '| `unclassified.txt` | classified retained fixture |' \
   '' \
   '## Removed-name successor rules' \
   '' \
@@ -79,7 +90,7 @@ make_consumer() {
   git -C "$consumer" init -q
   git -C "$consumer" config user.email "owner-convergence@example.invalid"
   git -C "$consumer" config user.name "Owner Convergence Test"
-  printf '%s\n' 'ACTIVE_TOKEN' > "$consumer/evidence.txt"
+  printf '%s\n' 'ACTIVE_TOKEN' 'FLOOR_TOKEN' > "$consumer/evidence.txt"
   if [ "$label" = "auditor" ]; then
     local newline_path
     newline_path="$consumer/"$'line\nbreak.txt'
@@ -144,11 +155,13 @@ expect_pass "cached index, rollback delta, schema identity, and three consumers 
 cp "$TMP_ROOT/stdout" "$TMP_ROOT/positive.json"
 for expected in \
   '"consumer_count": 3' \
-  '"caller_checks": 3' \
+  '"caller_checks": 6' \
   '"deleted_paths": 2' \
   '"orphan_active_exports": 0' \
   '"removed_reference_files": 1' \
-  '"unchanged_schema_blobs": 1'
+  '"unchanged_floor_export_blobs": 2' \
+  '"unchanged_schema_blobs": 1' \
+  '"unclassified_index_paths": 0'
 do
   if grep -Fq "$expected" "$TMP_ROOT/positive.json"; then
     pass "positive receipt contains $expected"
@@ -195,6 +208,29 @@ printf '%s\n' '{"type":"string"}' > "$REPO/schemas/FIXTURE.schema.json"
 git -C "$REPO" add schemas/FIXTURE.schema.json
 expect_fail "changed exported schema bytes fail closed" "${VALIDATE[@]}"
 git -C "$REPO" restore --source="$BASE" --staged --worktree schemas/FIXTURE.schema.json
+
+git -C "$REPO" rm -q scripts/validate-floor-receipt.sh
+expect_fail "deleted canonical floor validator fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/validate-floor-receipt.sh
+
+printf '%s\n' 'drifted floor validator bytes' > "$REPO/scripts/validate-floor-receipt.sh"
+git -C "$REPO" add scripts/validate-floor-receipt.sh
+expect_fail "drifted canonical floor validator fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/validate-floor-receipt.sh
+
+git -C "$REPO" rm -q scripts/fleet-floor-conformance-audit.sh
+expect_fail "deleted fleet floor audit fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/fleet-floor-conformance-audit.sh
+
+printf '%s\n' 'drifted fleet floor audit bytes' > "$REPO/scripts/fleet-floor-conformance-audit.sh"
+git -C "$REPO" add scripts/fleet-floor-conformance-audit.sh
+expect_fail "drifted fleet floor audit fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/fleet-floor-conformance-audit.sh
+
+printf '%s\n' 'new unclassified path' > "$REPO/new-unclassified.txt"
+git -C "$REPO" add new-unclassified.txt
+expect_fail "new unclassified tracked path fails closed" "${VALIDATE[@]}"
+git -C "$REPO" rm -q -f new-unclassified.txt
 
 git -C "$REPO" restore --source="$BASE" --staged --worktree removed-a.txt
 expect_fail "partially retained removed-name family fails closed" "${VALIDATE[@]}"

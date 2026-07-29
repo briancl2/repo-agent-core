@@ -40,6 +40,8 @@ non-overlapping, and every row must have verified owner evidence.
 | `schemas/SOURCE_INSIGHT_PACKET.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/TOKEN_MEASUREMENT_SUMMARY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/TRANSFER_ORACLE_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | `tests/test-transfer-oracle-consumer.sh::schemas/TRANSFER_ORACLE_RECEIPT.schema.json` |
+| `scripts/validate-floor-receipt.sh` | canonical portable floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` |
+| `scripts/fleet-floor-conformance-audit.sh` | read-only fleet floor audit | `tests/test-floor-receipt-conformance.sh::scripts/fleet-floor-conformance-audit.sh` | - | - | - |
 | `scripts/validate-artifacts.sh` | artifact validator | `tests/test-schemas.sh::scripts/validate-artifacts.sh` | - | - | `tests/test-transfer-oracle-consumer.sh::scripts/validate-artifacts.sh` |
 | `scripts/compare-scorecards.sh` | scorecard comparison primitive | `tests/test-compare-scorecards.sh::scripts/compare-scorecards.sh` | `tests/test-compare-scorecards.sh::scripts/compare-scorecards.sh` | - | `docs/agent-operations.md::scripts/compare-scorecards.sh` |
 | `scripts/check-compare-scorecards-conformance.sh` | copy-sync conformance gate | `Makefile::scripts/check-compare-scorecards-conformance.sh` | - | - | - |
@@ -50,6 +52,7 @@ non-overlapping, and every row must have verified owner evidence.
 | `scripts/record-closure-identity.sh` | native test helper | `Makefile::scripts/record-closure-identity.sh` | - | - | - |
 | `scripts/validate_owner_convergence.py` | cached-index convergence guard | `Makefile::scripts/validate_owner_convergence.py` | - | - | - |
 | `tests/test-owner-convergence.sh` | focused convergence tests | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/test-floor-receipt-conformance.sh` | canonical floor validator behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-compare-scorecards.sh` | comparison behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-closure-identity.sh` | closure helper tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-schemas.sh` | schema syntax and sample tests | `Makefile::tests/test-*.sh` | - | - | - |
@@ -58,10 +61,13 @@ non-overlapping, and every row must have verified owner evidence.
 
 Every pattern must resolve to the same path set and blob identities in the
 rollback base and cached index. Removing or changing even one retained contract
-therefore fails closed.
+therefore fails closed. `.gitignore` is intentionally included in this
+byte-preserved hygiene bucket for this convergence change; a later ignore-rule
+edit needs its own owner change and base comparison.
 
 | Pattern | Classification |
 |---|---|
+| `.gitignore` | owner hygiene and generated-artifact exclusion |
 | `docs/*-contract.md` | compatibility/history-only contract evidence |
 | `docs/repo-agent-fleet-consistency-floor-receipt.md` | compatibility/history-only receipt |
 | `templates/*` | compatibility/history-only templates |
@@ -86,7 +92,6 @@ be present.
 | `specs/001-schema-validation-tests/spec.md` | `tests/test-schemas.sh` |
 | `docs/current-program-status.md` | `docs/live-capability-inventory.md` |
 | `tests/test-*-contract.sh` | `tests/test-owner-convergence.sh` |
-| `tests/test-floor-receipt-conformance.sh` | `tests/test-owner-convergence.sh` |
 
 ## Boundaries
 

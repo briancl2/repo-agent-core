@@ -16,6 +16,10 @@ from pathlib import Path
 INVENTORY_PATH = "docs/live-capability-inventory.md"
 ACTIVE_AUTHORITY = ("AGENTS.md", "README.md")
 CALLER_LABELS = ("auditor", "advisor", "optimizer")
+PRESERVED_FLOOR_EXPORTS = (
+    "scripts/validate-floor-receipt.sh",
+    "scripts/fleet-floor-conformance-audit.sh",
+)
 RETIRED_AUTHORITY_TOKENS = (
     "Issue #164",
     "Hermes",
@@ -152,7 +156,12 @@ def parse_evidence(cell: str, label: str, pattern: str) -> tuple[Evidence, ...]:
 
 def parse_inventory(
     repo: Path, index: dict[str, IndexEntry]
-) -> tuple[list[ActiveExport], list[tuple[str, str]], list[str]]:
+) -> tuple[
+    list[ActiveExport],
+    list[tuple[str, str]],
+    list[str],
+    dict[str, int],
+]:
     if INVENTORY_PATH not in index:
         raise ConvergenceError(f"missing active inventory: {INVENTORY_PATH}")
     inventory = text_blob(
@@ -202,13 +211,41 @@ def parse_inventory(
         )
 
     compatibility: list[str] = []
+    compatibility_paths: set[str] = set()
     for row in compatibility_rows:
         if len(row) != 2:
             raise ConvergenceError("compatibility-only row must have two columns")
         pattern, _ = row
         if pattern in compatibility:
             raise ConvergenceError(f"duplicate compatibility pattern: {pattern}")
+        expanded = matching_paths(index_paths, pattern)
+        if not expanded:
+            raise ConvergenceError(
+                f"compatibility pattern matches no cached index path: {pattern}"
+            )
         compatibility.append(pattern)
+        compatibility_paths.update(expanded)
+
+    schema_paths = {
+        path
+        for path in index_paths
+        if path.startswith("schemas/") and path.endswith(".schema.json")
+    }
+    classification_overlap = claimed_paths.intersection(compatibility_paths)
+    if classification_overlap != schema_paths:
+        unexpected = sorted(classification_overlap - schema_paths)
+        missing = sorted(schema_paths - classification_overlap)
+        raise ConvergenceError(
+            "active/compatibility overlap must equal the exported schema set; "
+            f"unexpected={unexpected}, missing={missing}"
+        )
+    classified_paths = claimed_paths.union(compatibility_paths)
+    unclassified = sorted(index_paths - classified_paths)
+    if unclassified:
+        raise ConvergenceError(
+            f"unclassified cached index paths ({len(unclassified)}): "
+            + ", ".join(unclassified)
+        )
 
     removed_rules: list[tuple[str, str]] = []
     for row in removed_rows:
@@ -222,7 +259,11 @@ def parse_inventory(
                 f"removed-name successor is not in cached index: {pattern} -> {successor}"
             )
         removed_rules.append((pattern, successor))
-    return active, removed_rules, compatibility
+    return active, removed_rules, compatibility, {
+        "classified_index_paths": len(classified_paths),
+        "classification_overlap_paths": len(classification_overlap),
+        "unclassified_index_paths": len(unclassified),
+    }
 
 
 def validate_active_prose(repo: Path, index: dict[str, IndexEntry]) -> None:
@@ -363,12 +404,22 @@ def validate_base_delta(
     for path in schemas:
         if base.get(path) != index[path].sha:
             raise ConvergenceError(f"exported schema bytes changed from base: {path}")
+    for path in PRESERVED_FLOOR_EXPORTS:
+        if path not in base or path not in index:
+            raise ConvergenceError(
+                f"preserved floor export missing from base or cached index: {path}"
+            )
+        if base[path] != index[path].sha:
+            raise ConvergenceError(
+                f"preserved floor export bytes changed from base: {path}"
+            )
     return deleted, {
         "removed_rules": len(removed_rules),
         "deleted_paths": len(deleted),
         "rollback_paths": len(deleted),
         "compatibility_paths": len(compatibility_paths),
         "unchanged_schema_blobs": len(schemas),
+        "unchanged_floor_export_blobs": len(PRESERVED_FLOOR_EXPORTS),
     }
 
 
@@ -486,7 +537,7 @@ def main() -> int:
     if not repo.is_dir():
         raise ConvergenceError(f"repository is not a directory: {repo}")
     index = index_entries(repo)
-    active, removed_rules, compatibility = parse_inventory(repo, index)
+    active, removed_rules, compatibility, classification = parse_inventory(repo, index)
     validate_active_prose(repo, index)
     utf8_count = validate_active_utf8(repo, index, active)
     owner_checks = validate_owner_evidence(repo, index, active)
@@ -506,6 +557,7 @@ def main() -> int:
             "rollback_paths": 0,
             "compatibility_paths": 0,
             "unchanged_schema_blobs": 0,
+            "unchanged_floor_export_blobs": 0,
         }
     consumers = validate_consumers(active, deleted_paths, args.consumer)
     result = {
@@ -518,6 +570,7 @@ def main() -> int:
         "orphan_active_exports": sum(
             1 for export in active if not any(export.evidence.values())
         ),
+        **classification,
         "harness_counts": category_counts_from_paths(sorted(index)),
         "installed_counts": installed_counts(
             Path(args.installed_root).resolve() if args.installed_root else None
