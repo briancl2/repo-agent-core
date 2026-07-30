@@ -244,6 +244,7 @@ git -C "$REPO" commit -qm "converged package"
 cp "$ROOT/scripts/validate_owner_convergence.py" \
   "$REPO/scripts/validate_owner_convergence.py"
 MAKE_VALIDATE=(
+  env -u OWNER_CONVERGENCE_BASE_REF
   make --no-print-directory -s
   -C "$REPO"
   -f "$ROOT/Makefile"
