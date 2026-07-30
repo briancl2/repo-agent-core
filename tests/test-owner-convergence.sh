@@ -240,6 +240,38 @@ git -C "$REPO" rm -q unclassified.txt
 expect_fail "undeclared base-to-index deletion fails closed" "${VALIDATE[@]}"
 git -C "$REPO" restore --source="$BASE" --staged --worktree unclassified.txt
 
+git -C "$REPO" commit -qm "converged package"
+cp "$ROOT/scripts/validate_owner_convergence.py" \
+  "$REPO/scripts/validate_owner_convergence.py"
+MAKE_VALIDATE=(
+  make --no-print-directory -s
+  -C "$REPO"
+  -f "$ROOT/Makefile"
+  validate-owner-convergence
+)
+expect_pass "clean committed index defaults to HEAD^" "${MAKE_VALIDATE[@]}"
+if grep -Fq '"deleted_paths": 2' "$TMP_ROOT/stdout"; then
+  pass "clean committed index validates the latest commit delta"
+else
+  fail "clean committed index validates the latest commit delta"
+fi
+
+printf '%s\n' 'head-only compatibility bytes' > "$REPO/compat/head-only.md"
+git -C "$REPO" add compat/head-only.md
+git -C "$REPO" commit -qm "add compatibility path"
+git -C "$REPO" rm -q compat/head-only.md
+expect_fail \
+  "staged deletion of HEAD-only compatibility path defaults to HEAD" \
+  "${MAKE_VALIDATE[@]}"
+if grep -Fq \
+  "deleted path must match exactly one removed-name rule: compat/head-only.md" \
+  "$TMP_ROOT/stderr"
+then
+  pass "staged deletion is evaluated against HEAD"
+else
+  fail "staged deletion is evaluated against HEAD"
+fi
+
 echo ""
 echo "=== test-owner-convergence.sh: $PASS pass, $FAIL fail ==="
 [ "$FAIL" -eq 0 ] || exit 1

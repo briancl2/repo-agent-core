@@ -1,6 +1,6 @@
 .PHONY: review test closure-identity validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
 
-OWNER_CONVERGENCE_BASE_REF ?= HEAD^
+OWNER_CONVERGENCE_BASE_REF ?= $(shell if git diff --cached --quiet --; then printf 'HEAD^'; else printf 'HEAD'; fi)
 
 # Default target
 help:
