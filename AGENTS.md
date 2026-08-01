@@ -38,6 +38,20 @@ Files retained under compatibility-only paths preserve current caller evidence
 and history. They do not create active policy. Their eventual removal requires
 an exact cached caller scan and an explicit successor or rollback route.
 
+## Reporting and continuation
+
+Keep reporting proportional to the work and evidence. Material progress uses
+`Delta / Next`. Terminal reporting uses `Outcome / Residual / Next`; a
+coordinator terminal adds one `Zoom-out` line connecting the owner-local result
+to the governing outcome. Preserve evidence classes, authority continuity, one
+writer, current issue/PR/check/review/merge/readback truth, and claim ceilings;
+wording never substitutes for delivery.
+
+For a sparse `continue` instruction or a pasted or followed recommendation,
+reload the governing parent or owner outcome, then select the largest unclosed
+outcome inside the current authority boundary. Do not default to the last local
+recommendation.
+
 ## Native commands
 
 ```bash
