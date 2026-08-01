@@ -120,6 +120,52 @@ fail() {
   echo "  FAIL: $1"
 }
 
+if grep -Fq 'Material progress uses' < <(git -C "$ROOT" show :AGENTS.md) \
+  && grep -Fq '`Delta / Next`' < <(git -C "$ROOT" show :AGENTS.md) \
+  && grep -Fq '`Outcome / Residual / Next`' < <(git -C "$ROOT" show :AGENTS.md) \
+  && grep -Fq '`Zoom-out`' < <(git -C "$ROOT" show :AGENTS.md); then
+  pass "active guidance carries compact proportional reporting forms"
+else
+  fail "active guidance carries compact proportional reporting forms"
+fi
+
+if grep -Fq 'reload the governing parent or owner outcome' \
+  < <(git -C "$ROOT" show :AGENTS.md) \
+  && grep -Fq 'select the largest unclosed' \
+  < <(git -C "$ROOT" show :AGENTS.md) \
+  && grep -Fq 'Do not default to the last local' \
+  < <(git -C "$ROOT" show :AGENTS.md); then
+  pass "sparse continuation reloads the governing outcome"
+else
+  fail "sparse continuation reloads the governing outcome"
+fi
+
+if grep -Fq 'Goal/Goal-null' < <(git -C "$ROOT" show :AGENTS.md) \
+  || grep -Fq '/tmp' < <(git -C "$ROOT" show :AGENTS.md) \
+  || grep -Fq 'batch count' < <(git -C "$ROOT" show :AGENTS.md) \
+  || grep -Fq 'progress ledger' < <(git -C "$ROOT" show :AGENTS.md) \
+  || grep -Fq 'heartbeat' < <(git -C "$ROOT" show :AGENTS.md) \
+  || grep -Fq 'Issue-164 carrier' < <(git -C "$ROOT" show :AGENTS.md); then
+  fail "legacy compatibility fields are absent from active reporting guidance"
+else
+  pass "legacy compatibility fields are absent from active reporting guidance"
+fi
+
+if grep -Fq '`docs/codex-native-runtime-readiness-contract.md`' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md) \
+  && grep -Fq '`templates/codex-native-runtime-readiness.md`' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md) \
+  && grep -Fq '`docs/goal-episode-evaluation-contract.md`' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md) \
+  && grep -Fq '`templates/goal-episode-evaluation.md`' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md) \
+  && grep -Fq 'are not ordinary reporting or execution defaults.' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md); then
+  pass "caller-bound Goal/runtime surfaces stay explicitly compatibility only"
+else
+  fail "caller-bound Goal/runtime surfaces stay explicitly compatibility only"
+fi
+
 expect_pass() {
   local label="$1"
   shift

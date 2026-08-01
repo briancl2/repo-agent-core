@@ -65,6 +65,16 @@ therefore fails closed. `.gitignore` is intentionally included in this
 byte-preserved hygiene bucket for this convergence change; a later ignore-rule
 edit needs its own owner change and base comparison.
 
+Four legacy Goal/runtime surfaces remain byte-preserved because current Auditor,
+Advisor, and BMA code or tests still call them:
+`docs/codex-native-runtime-readiness-contract.md`,
+`templates/codex-native-runtime-readiness.md`,
+`docs/goal-episode-evaluation-contract.md`, and
+`templates/goal-episode-evaluation.md`. They are compatibility only. Their
+Goal/Goal-null, `/tmp` run-root, batch count, progress ledger, heartbeat, and
+Issue-164 carrier fields are not ordinary reporting or execution defaults.
+Removal waits for later owner-local caller migrations.
+
 | Pattern | Classification |
 |---|---|
 | `.gitignore` | owner hygiene and generated-artifact exclusion |
