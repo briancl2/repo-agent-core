@@ -11,7 +11,8 @@ The repository exports:
   transfer receipts, and retained compatible artifact formats;
 - `scripts/validate-artifacts.sh`;
 - the copy-synced `scripts/compare-scorecards.sh` primitive and conformance gate;
-- installable review hooks and the `reviewing-code-locally` skill; and
+- installable review hooks plus the `reviewing-code-locally` and
+  `owner-delivery` skills; and
 - one deterministic cached-index owner-convergence guard.
 
 `CONSTITUTION.md` is the shared semantic floor. `AGENTS.md` is the compact owner
@@ -54,3 +55,11 @@ redirect stack, plan family, or control plane.
 Shared scripts are copied into consumers rather than linked at runtime. Each
 consumer remains independently runnable and owns its own issue, pull request,
 checks, review, merge, and readback.
+
+The portable
+[`owner-delivery`](.agents/skills/owner-delivery/SKILL.md) skill keeps route
+holds local, admits the requested native object rather than its transport, and
+matches settlement to the actual effect. A consumer copies the skill directory
+unchanged, adds one owner-local trigger naming route holds, admission,
+settlement tier, epoch boundaries, and sparse continuation, then proves it on
+one real owner outcome before claiming lower operator burden.
