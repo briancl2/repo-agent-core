@@ -33,7 +33,10 @@ for required in \
   '| Consequential, private, destructive, or external mutation |' \
   'One task carries one owner outcome epoch.' \
   'do not create heartbeat comments' \
-  'select its largest ready result inside current authority.'
+  'select its largest ready result inside current authority.' \
+  'return the causal blocker with its exact next unblock.' \
+  'Do not manufacture an' \
+  'Missing authority alone is not a decision.'
 do
   if skill_has "$required"; then
     pass "skill carries: $required"
@@ -42,7 +45,7 @@ do
   fi
 done
 
-header='case_id	stage	route_state	dependency	safe_alternate	effect	native_object	answers_need	packaging_slo	second_epoch	expected'
+header='case_id	stage	route_state	dependency	safe_alternate	effect	authority	operator_decision	native_object	answers_need	packaging_slo	second_epoch	expected'
 actual_header="$(git -C "$ROOT" show ":$FIXTURE_PATH" | sed -n '1p')"
 if [ "$actual_header" = "$(printf '%b' "$header")" ]; then
   pass "fixture header is exact"
@@ -51,7 +54,8 @@ else
 fi
 
 while IFS=$'\t' read -r case_id stage route_state dependency safe_alternate \
-  effect native_object answers_need packaging_slo second_epoch expected
+  effect authority operator_decision native_object answers_need packaging_slo \
+  second_epoch expected
 do
   [ "$case_id" = "case_id" ] && continue
   decision=""
@@ -61,8 +65,12 @@ do
         || [ "$dependency" = "disjoint" ] \
         || [ "$safe_alternate" = "yes" ]; then
         decision="continue-outcome"
-      else
+      elif [ "$effect" = "consequential" ] \
+        && [ "$authority" = "missing" ] \
+        && [ "$operator_decision" = "required" ]; then
         decision="ask-one-consequential-question"
+      else
+        decision="return-causal-blocker"
       fi
       ;;
     admission)

@@ -35,6 +35,11 @@ does not hold the owner outcome merely because it was the last attempted path.
   existing authority.
 - If progress requires a consequential route or effect outside current
   authority, ask exactly one question naming the decision and its tradeoff.
+- Missing authority alone is not a decision. If granting it could not make the
+  route feasible, return the blocker rather than ask for permission.
+- If no safe route remains and no operator decision can change that fact,
+  return the causal blocker with its exact next unblock. Do not manufacture an
+  approval question.
 - Do not ask for ceremonial confirmation of a settled boundary.
 
 After a terminal child result is consumed, reload the governing outcome and
@@ -82,6 +87,8 @@ Return `Outcome / Residual / Next`. A coordinator adds one `Zoom-out` line.
 Keep child evidence distinct from parent consumption and program completion.
 
 The primitive is complete when the named native result is delivered or one
-causal blocker plus one exact consequential question is returned. It does not
-create a controller, dashboard, registry, scheduler, queue, watcher, daemon,
-background state, automatic retry, or automatic GitHub action.
+causal blocker with its exact next unblock is returned. Include one operator
+question only when progress actually requires a consequential choice outside
+current authority. The primitive does not create a controller, dashboard,
+registry, scheduler, queue, watcher, daemon, background state, automatic retry,
+or automatic GitHub action.
