@@ -21,6 +21,7 @@ non-overlapping, and every row must have verified owner evidence.
 | `.agents/skills/reviewing-code-locally/SKILL.md` | portable review skill | `AGENTS.md::reviewing-code-locally` | - | - | - |
 | `.agents/skills/reviewing-code-locally/references/review-prompt.md` | portable review prompt | `.agents/skills/reviewing-code-locally/SKILL.md::references/review-prompt.md` | - | - | - |
 | `.agents/skills/reviewing-code-locally/scripts/local_review.sh` | portable review command | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` |
+| `.agents/skills/owner-delivery/SKILL.md` | portable owner-delivery skill | `README.md::.agents/skills/owner-delivery/SKILL.md` | - | - | - |
 | `schemas/ADAPTER_AUDIT_SUMMARY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/AGENTIC_ROOT_CAUSE_BRIEFS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/COMMAND_OUTPUT_ROI_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
@@ -52,6 +53,8 @@ non-overlapping, and every row must have verified owner evidence.
 | `scripts/record-closure-identity.sh` | native test helper | `Makefile::scripts/record-closure-identity.sh` | - | - | - |
 | `scripts/validate_owner_convergence.py` | cached-index convergence guard | `Makefile::scripts/validate_owner_convergence.py` | - | - | - |
 | `tests/test-owner-convergence.sh` | focused convergence tests | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/fixtures/owner-delivery-cases.tsv` | owner-delivery decision fixtures | `tests/test-owner-delivery.sh::tests/fixtures/owner-delivery-cases.tsv` | - | - | - |
+| `tests/test-owner-delivery.sh` | owner-delivery fixture test | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-floor-receipt-conformance.sh` | canonical floor validator behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-compare-scorecards.sh` | comparison behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-closure-identity.sh` | closure helper tests | `Makefile::tests/test-*.sh` | - | - | - |

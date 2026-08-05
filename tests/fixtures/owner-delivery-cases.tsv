@@ -1,0 +1,10 @@
+case_id	stage	route_state	dependency	safe_alternate	effect	native_object	answers_need	packaging_slo	second_epoch	expected
+browser-held-researcher-continues	route	held	causal	yes	-	-	-	-	no	continue-outcome
+backup-held-unrelated-work-continues	route	held	disjoint	no	-	-	-	-	no	continue-outcome
+held-route-needs-new-consequential-choice	route	held	causal	no	consequential	-	-	-	no	ask-one-consequential-question
+complete-report-packaging-slo-miss	admission	open	causal	no	none	complete	yes	miss	no	admit-native-object
+transport-success-shell-rejected	admission	open	causal	no	none	shell	no	met	no	reject-no-outcome
+read-only-result-no-pr-ceremony	settlement	open	causal	no	none	complete	yes	met	no	native-terminal
+ordinary-reversible-mutation	settlement	open	causal	no	ordinary	complete	yes	met	no	focused-owner-gates
+consequential-mutation-full-gates	settlement	open	causal	no	consequential	complete	yes	met	no	full-authority-gates
+second-experiment-epoch-returns	epoch	open	causal	no	none	complete	yes	met	yes	return-before-next-epoch
