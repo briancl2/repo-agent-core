@@ -160,6 +160,7 @@ def parse_inventory(
     list[ActiveExport],
     list[tuple[str, str]],
     list[str],
+    list[str],
     dict[str, int],
 ]:
     if INVENTORY_PATH not in index:
@@ -170,6 +171,7 @@ def parse_inventory(
     active_rows = section_table(inventory, "## Active exports")
     compatibility_rows = section_table(inventory, "## Compatibility-only retained paths")
     removed_rows = section_table(inventory, "## Removed-name successor rules")
+    terminal_rows = section_table(inventory, "## Exact terminal retirements")
 
     active: list[ActiveExport] = []
     claimed_paths: set[str] = set()
@@ -259,7 +261,29 @@ def parse_inventory(
                 f"removed-name successor is not in cached index: {pattern} -> {successor}"
             )
         removed_rules.append((pattern, successor))
-    return active, removed_rules, compatibility, {
+
+    terminal_retirements: list[str] = []
+    for row in terminal_rows:
+        if len(row) != 2:
+            raise ConvergenceError("terminal-retirement row must have two columns")
+        path, disposition = row
+        if disposition != "retired-without-successor":
+            raise ConvergenceError(
+                f"unknown terminal-retirement disposition: {path} -> {disposition}"
+            )
+        if any(character in path for character in "*?["):
+            raise ConvergenceError(
+                f"terminal retirement must name one exact path: {path}"
+            )
+        if path in terminal_retirements:
+            raise ConvergenceError(f"duplicate terminal-retirement path: {path}")
+        if path in index:
+            raise ConvergenceError(
+                f"terminal-retirement path remains in cached index: {path}"
+            )
+        terminal_retirements.append(path)
+
+    return active, removed_rules, terminal_retirements, compatibility, {
         "classified_index_paths": len(classified_paths),
         "classification_overlap_paths": len(classification_overlap),
         "unclassified_index_paths": len(unclassified),
@@ -345,6 +369,7 @@ def validate_base_delta(
     repo: Path,
     index: dict[str, IndexEntry],
     removed_rules: list[tuple[str, str]],
+    terminal_retirements: list[str],
     compatibility: list[str],
     base_ref: str,
 ) -> tuple[list[str], dict[str, int]]:
@@ -365,6 +390,10 @@ def validate_base_delta(
             if path in assignments:
                 assignments[path].append(pattern)
 
+    for path in terminal_retirements:
+        if path in assignments:
+            assignments[path].append(f"terminal:{path}")
+
     for path, rules in assignments.items():
         if len(rules) != 1:
             raise ConvergenceError(
@@ -380,11 +409,19 @@ def validate_base_delta(
             raise ConvergenceError(
                 f"compatibility pattern matches no rollback-base path: {pattern}"
             )
-        if before != after:
+        added = sorted(set(after) - set(before))
+        if added:
             raise ConvergenceError(
-                f"compatibility path set changed from rollback base: {pattern}"
+                f"compatibility pattern gained a path after rollback base: "
+                f"{pattern} -> {added[0]}"
             )
-        for path in before:
+        removed = sorted(set(before) - set(after))
+        for path in removed:
+            if path not in terminal_retirements:
+                raise ConvergenceError(
+                    f"compatibility path set changed from rollback base: {pattern} -> {path}"
+                )
+        for path in after:
             if base[path] != index[path].sha:
                 raise ConvergenceError(
                     f"compatibility blob changed from rollback base: {path}"
@@ -415,6 +452,7 @@ def validate_base_delta(
             )
     return deleted, {
         "removed_rules": len(removed_rules),
+        "terminal_retirements": len(terminal_retirements),
         "deleted_paths": len(deleted),
         "rollback_paths": len(deleted),
         "compatibility_paths": len(compatibility_paths),
@@ -537,13 +575,24 @@ def main() -> int:
     if not repo.is_dir():
         raise ConvergenceError(f"repository is not a directory: {repo}")
     index = index_entries(repo)
-    active, removed_rules, compatibility, classification = parse_inventory(repo, index)
+    (
+        active,
+        removed_rules,
+        terminal_retirements,
+        compatibility,
+        classification,
+    ) = parse_inventory(repo, index)
     validate_active_prose(repo, index)
     utf8_count = validate_active_utf8(repo, index, active)
     owner_checks = validate_owner_evidence(repo, index, active)
     if args.base_ref:
         deleted_paths, base_delta = validate_base_delta(
-            repo, index, removed_rules, compatibility, args.base_ref
+            repo,
+            index,
+            removed_rules,
+            terminal_retirements,
+            compatibility,
+            args.base_ref,
         )
         if args.require_deletions and not deleted_paths:
             raise ConvergenceError("base-to-index deletion set is unexpectedly empty")
@@ -553,6 +602,7 @@ def main() -> int:
         deleted_paths = []
         base_delta = {
             "removed_rules": len(removed_rules),
+            "terminal_retirements": len(terminal_retirements),
             "deleted_paths": 0,
             "rollback_paths": 0,
             "compatibility_paths": 0,
