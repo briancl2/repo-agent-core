@@ -17,7 +17,9 @@ The repository exports:
 
 `CONSTITUTION.md` is the shared semantic floor. `AGENTS.md` is the compact owner
 bootloader. The canonical delivery route is an owner issue, one branch, one pull
-request, native checks, review, merge, and live readback.
+request, native checks, review, merge, and live readback. The
+`.github/workflows/ci.yml` workflow runs `make test` as the protected `test`
+status check.
 
 ## Use
 
