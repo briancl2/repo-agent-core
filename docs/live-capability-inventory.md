@@ -27,7 +27,6 @@ non-overlapping, and every row must have verified owner evidence.
 | `schemas/COMMAND_OUTPUT_ROI_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/CRITIQUE_RESULT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/FINDINGS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | `tests/test-auditor-schemas.sh::schemas/FINDINGS.schema.json` | - | - |
-| `schemas/GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/HERMES_FOREGROUND_FAILURE_GUIDANCE.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/HERMES_FOREGROUND_REPO_STAR_PILOT_RELIABILITY_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/HERMES_FOREGROUND_RUN_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
@@ -60,11 +59,12 @@ non-overlapping, and every row must have verified owner evidence.
 
 ## Compatibility-only retained paths
 
-Every pattern must resolve to the same path set and blob identities in the
-rollback base and cached index. Removing or changing even one retained contract
-therefore fails closed. `.gitignore` is intentionally included in this
-byte-preserved hygiene bucket for this convergence change; a later ignore-rule
-edit needs its own owner change and base comparison.
+Every retained path must keep its rollback-base blob identity. A compatibility
+deletion fails closed unless its exact path appears in the terminal-retirement
+table below; wildcard retirement, additions under compatibility patterns, and
+retained-byte changes always fail. `.gitignore` is intentionally included in
+this byte-preserved hygiene bucket; a later ignore-rule edit needs its own owner
+change and base comparison.
 
 Four legacy Goal/runtime surfaces remain byte-preserved because current Auditor,
 Advisor, and BMA code or tests still call them:
@@ -106,11 +106,25 @@ be present.
 | `scripts/record-closure-identity.sh` | `.github/workflows/ci.yml` |
 | `tests/test-closure-identity.sh` | `.github/workflows/ci.yml` |
 
+## Exact terminal retirements
+
+These exact paths have no replacement capability. Their operator-authorized
+retirement is distinct from a successor or compatibility route; historical
+references outside the live package remain evidence, not callers.
+
+| Exact path | Disposition |
+|---|---|
+| `docs/gbrain-advisory-pilot-outcome-learning-loop-contract.md` | `retired-without-successor` |
+| `schemas/GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.schema.json` | `retired-without-successor` |
+| `templates/gbrain-advisory-pilot-outcome-learning-loop.md` | `retired-without-successor` |
+| `tests/samples/GBRAIN_ADVISORY_PILOT_OUTCOME_LEARNING_LOOP_RECEIPT.json` | `retired-without-successor` |
+
 ## Boundaries
 
 - Compatibility retention does not make historical material active policy.
-- Schema bytes and current consumer exports remain unchanged by this owner
-  convergence.
+- Retained schema bytes and current consumer exports remain unchanged; an
+  exact-rule-covered zero-consumer schema may be retired without changing any
+  retained schema semantics.
 - Installed and harness discovery is count-only by category; private names and
   contents are never emitted.
 - The package creates no controller, registry, dashboard, plan family,

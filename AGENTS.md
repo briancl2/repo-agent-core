@@ -36,7 +36,8 @@ daemon, background sync, or sibling-repository mutation path.
 
 Files retained under compatibility-only paths preserve current caller evidence
 and history. They do not create active policy. Their eventual removal requires
-an exact cached caller scan and an explicit successor or rollback route.
+an exact cached caller scan and an explicit successor, rollback route, or exact
+operator-authorized terminal retirement.
 
 ## Reporting and continuation
 

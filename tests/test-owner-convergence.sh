@@ -28,6 +28,7 @@ printf '%s\n' \
 printf '%s\n' '# Package' 'AGENTS.md' > "$REPO/README.md"
 printf '%s\n' 'ACTIVE_TOKEN' > "$REPO/active.txt"
 printf '%s\n' 'compatibility bytes' > "$REPO/compat/keep.md"
+printf '%s\n' 'retired compatibility bytes' > "$REPO/compat/retired.md"
 printf '%s\n' '{"type":"object"}' > "$REPO/schemas/FIXTURE.schema.json"
 printf '%s\n' 'rollback source a' > "$REPO/removed-a.txt"
 printf '%s\n' 'rollback source b' > "$REPO/removed-b.txt"
@@ -43,7 +44,7 @@ git -C "$REPO" add .
 git -C "$REPO" commit -qm "base"
 
 BASE="$(git -C "$REPO" rev-parse HEAD)"
-rm "$REPO/removed-a.txt" "$REPO/removed-b.txt"
+rm "$REPO/removed-a.txt" "$REPO/removed-b.txt" "$REPO/compat/retired.md"
 printf '%s\n' \
   '# Owner package inventory' \
   '' \
@@ -74,6 +75,12 @@ printf '%s\n' \
   '| Removed pattern | Successor |' \
   '|---|---|' \
   '| `removed-*.txt` | `active.txt` |' \
+  '' \
+  '## Exact terminal retirements' \
+  '' \
+  '| Exact path | Disposition |' \
+  '|---|---|' \
+  '| `compat/retired.md` | `retired-without-successor` |' \
   > "$REPO/docs/live-capability-inventory.md"
 git -C "$REPO" add -A
 cp "$REPO/docs/live-capability-inventory.md" "$TMP_ROOT/good-inventory.md"
@@ -197,14 +204,15 @@ VALIDATE=(
   --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
 )
 
-expect_pass "cached index, rollback delta, schema identity, and three consumers pass" "${VALIDATE[@]}"
+expect_pass "cached index, declared compatibility retirement, schema identity, and three consumers pass" "${VALIDATE[@]}"
 cp "$TMP_ROOT/stdout" "$TMP_ROOT/positive.json"
 for expected in \
   '"consumer_count": 3' \
   '"caller_checks": 6' \
-  '"deleted_paths": 2' \
+  '"deleted_paths": 3' \
   '"orphan_active_exports": 0' \
   '"removed_reference_files": 1' \
+  '"terminal_retirements": 1' \
   '"unchanged_floor_export_blobs": 2' \
   '"unchanged_schema_blobs": 1' \
   '"unclassified_index_paths": 0'
@@ -222,6 +230,13 @@ if grep -Fq "private-name" "$TMP_ROOT/positive.json" "$TMP_ROOT/stderr"; then
 else
   pass "installed discovery exposes no private names"
 fi
+
+sed 's#`compat/retired.md` | `retired-without-successor`#`compat/*.md` | `retired-without-successor`#' \
+  "$TMP_ROOT/good-inventory.md" > "$REPO/docs/live-capability-inventory.md"
+git -C "$REPO" add docs/live-capability-inventory.md
+expect_fail "wildcard terminal retirement fails closed" "${VALIDATE[@]}"
+cp "$TMP_ROOT/good-inventory.md" "$REPO/docs/live-capability-inventory.md"
+git -C "$REPO" add docs/live-capability-inventory.md
 
 printf '%s\n' '# Bootloader' 'Issue #164 is active.' > "$REPO/AGENTS.md"
 expect_pass "unstaged bad prose cannot override the clean cached index" "${VALIDATE[@]}"
@@ -297,7 +312,7 @@ MAKE_VALIDATE=(
   validate-owner-convergence
 )
 expect_pass "clean committed index defaults to HEAD^" "${MAKE_VALIDATE[@]}"
-if grep -Fq '"deleted_paths": 2' "$TMP_ROOT/stdout"; then
+if grep -Fq '"deleted_paths": 3' "$TMP_ROOT/stdout"; then
   pass "clean committed index validates the latest commit delta"
 else
   fail "clean committed index validates the latest commit delta"
