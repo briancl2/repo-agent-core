@@ -16,7 +16,7 @@ non-overlapping, and every row must have verified owner evidence.
 | `AGENTS.md` | compact bootloader | `README.md::AGENTS.md` | - | - | - |
 | `README.md` | package entrypoint | `AGENTS.md::repo-agent-core` | - | - | - |
 | `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |
-| `.github/workflows/ci.yml` | native CI | `tests/test-closure-identity.sh::.github/workflows/ci.yml` | - | - | - |
+| `.github/workflows/ci.yml` | native CI | `README.md::.github/workflows/ci.yml` | - | - | - |
 | `Makefile` | native command surface | `.github/workflows/ci.yml::make test` | - | - | - |
 | `.agents/skills/reviewing-code-locally/SKILL.md` | portable review skill | `AGENTS.md::reviewing-code-locally` | - | - | - |
 | `.agents/skills/reviewing-code-locally/references/review-prompt.md` | portable review prompt | `.agents/skills/reviewing-code-locally/SKILL.md::references/review-prompt.md` | - | - | - |
@@ -50,14 +50,12 @@ non-overlapping, and every row must have verified owner evidence.
 | `scripts/install-hooks.sh` | consumer-called installer | `Makefile::scripts/install-hooks.sh` | `Makefile::repo-agent-core/scripts/install-hooks.sh` | - | `Makefile::repo-agent-core/scripts/install-hooks.sh` |
 | `hooks/pre-commit-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-commit-hook.sh` | - | - | - |
 | `hooks/pre-push-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-push-hook.sh` | - | - | - |
-| `scripts/record-closure-identity.sh` | native test helper | `Makefile::scripts/record-closure-identity.sh` | - | - | - |
 | `scripts/validate_owner_convergence.py` | cached-index convergence guard | `Makefile::scripts/validate_owner_convergence.py` | - | - | - |
 | `tests/test-owner-convergence.sh` | focused convergence tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/fixtures/owner-delivery-cases.tsv` | owner-delivery decision fixtures | `tests/test-owner-delivery.sh::tests/fixtures/owner-delivery-cases.tsv` | - | - | - |
 | `tests/test-owner-delivery.sh` | owner-delivery fixture test | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-floor-receipt-conformance.sh` | canonical floor validator behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-compare-scorecards.sh` | comparison behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
-| `tests/test-closure-identity.sh` | closure helper tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-schemas.sh` | schema syntax and sample tests | `Makefile::tests/test-*.sh` | - | - | - |
 
 ## Compatibility-only retained paths
@@ -105,6 +103,8 @@ be present.
 | `specs/001-schema-validation-tests/spec.md` | `tests/test-schemas.sh` |
 | `docs/current-program-status.md` | `docs/live-capability-inventory.md` |
 | `tests/test-*-contract.sh` | `tests/test-owner-convergence.sh` |
+| `scripts/record-closure-identity.sh` | `.github/workflows/ci.yml` |
+| `tests/test-closure-identity.sh` | `.github/workflows/ci.yml` |
 
 ## Boundaries
 

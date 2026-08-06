@@ -1,4 +1,4 @@
-.PHONY: review test closure-identity validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
+.PHONY: review test validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
 
 OWNER_CONVERGENCE_BASE_REF ?= $(shell if git diff --cached --quiet --; then printf 'HEAD^'; else printf 'HEAD'; fi)
 
@@ -11,7 +11,6 @@ help:
 	@echo "  make test             Run all tests (schemas + samples)"
 	@echo "  make validate-owner-convergence"
 	@echo "                        Validate cached-index owner package convergence"
-	@echo "  make closure-identity Emit closure-run identity for the current gate"
 	@echo "  make validate-schemas Validate all JSON schemas"
 	@echo "  make validate-compare-scorecards"
 	@echo "                        Validate compare-scorecards copy-sync drift gate"
@@ -24,7 +23,6 @@ review:
 
 test:
 	@echo "=== Running core test suite ==="
-	@CLOSURE_PHASE=test PARENT_COMMAND="make test" bash scripts/record-closure-identity.sh test
 	@$(MAKE) --no-print-directory validate-owner-convergence
 	@for t in tests/test-*.sh; do \
 		echo "--- $$t ---"; bash "$$t" || exit 1; \
@@ -53,6 +51,3 @@ validate-compare-scorecards:
 
 install-hooks:
 	@bash scripts/install-hooks.sh $(TARGET)
-
-closure-identity:
-	@bash scripts/record-closure-identity.sh $(CLOSURE_PHASE)
