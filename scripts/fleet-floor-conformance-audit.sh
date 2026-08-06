@@ -4,17 +4,22 @@
 #
 # Usage: bash fleet-floor-conformance-audit.sh
 #
-# For each of the 5 fleet repos it reads LIVE GitHub truth (read-only) and
-# asserts, per repo:
-#   * the floor receipt on `main` passes the canonical static validator
+# For the participating fleet repos it reads LIVE GitHub truth (read-only) and
+# asserts:
+#   * each receipt participant's floor receipt on `main` passes the canonical
+#     static validator
 #     (floor v0.2, one parsing json block, schema_version 1,
 #      non-empty ci_check_contract.branch_protection_required_checks,
 #      domain_outcome_delta with a result_class);
-#   * set(receipt branch_protection_required_checks) == set(live GitHub
-#     required_status_checks.contexts) — this catches the exact drift class
-#     BMA #1214 Phase 4(a) exposed (a receipt claiming stale protection);
-#   * (consumers only) the vendored scripts/validate-floor-receipt.sh is
+#   * each receipt participant's set(receipt branch_protection_required_checks)
+#     == set(live GitHub required_status_checks.contexts) — this catches the
+#     exact drift class BMA #1214 Phase 4(a) exposed (a receipt claiming stale
+#     protection);
+#   * each exact-copy validator consumer's vendored
+#     scripts/validate-floor-receipt.sh is
 #     byte-identical to core's canonical copy (copy-sync drift guard, D2).
+# repo-optimizer is an exact-copy validator consumer but is intentionally not a
+# local receipt participant after repo-optimizer #133 / PR #134.
 #
 # Prints a per-repo table and EXITS NON-ZERO if any repo drifts or fails static
 # conformance.
@@ -57,8 +62,27 @@ REPOS = [
     "repo-auditor",
     "build-meta-analysis",
 ]
+RECEIPT_PARTICIPANTS = {
+    "repo-agent-core",
+    "repo-upgrade-advisor",
+    "repo-auditor",
+    "build-meta-analysis",
+}
+VALIDATOR_CONSUMERS = {
+    "repo-upgrade-advisor",
+    "repo-optimizer",
+    "repo-auditor",
+    "build-meta-analysis",
+}
 RECEIPT = "docs/repo-agent-fleet-consistency-floor-receipt.md"
 VALIDATOR = "scripts/validate-floor-receipt.sh"
+
+if set(REPOS) != RECEIPT_PARTICIPANTS | VALIDATOR_CONSUMERS:
+    print("ERROR: every fleet repo must have a receipt or validator role", file=sys.stderr)
+    sys.exit(2)
+if CORE in VALIDATOR_CONSUMERS:
+    print("ERROR: core must supply, not consume, the canonical validator", file=sys.stderr)
+    sys.exit(2)
 
 
 def gh_contents(repo, path):
@@ -141,63 +165,73 @@ rows = []
 any_fail = False
 
 for repo in REPOS:
-    static_ok = False
+    receipt_required = repo in RECEIPT_PARTICIPANTS
+    validator_required = repo in VALIDATOR_CONSUMERS
+    static_ok = None
     set_match = None
-    vendor_ok = None  # None = N/A (core), True/False for consumers
-    live = gh_contexts(repo)
+    vendor_ok = None  # None = N/A, True/False for exact-copy consumers
+    live = None
     recorded = None
+    note_parts = []
+    receipt_missing = False
 
-    text = gh_contents(repo, RECEIPT)
-    if text is None:
-        rows.append((repo, "-", "-", "MISSING", "receipt not found on main"))
-        any_fail = True
-        continue
+    if receipt_required:
+        live = gh_contexts(repo)
+        text = gh_contents(repo, RECEIPT)
+        if text is None:
+            receipt_missing = True
+            static_ok = False
+            set_match = False
+            note_parts.append("receipt not found on main")
+        else:
+            receipt_file = os.path.join(tmp, f"receipt-{repo}.md")
+            with open(receipt_file, "w", encoding="utf-8") as fh:
+                fh.write(text)
 
-    receipt_file = os.path.join(tmp, f"receipt-{repo}.md")
-    with open(receipt_file, "w", encoding="utf-8") as fh:
-        fh.write(text)
+            res = subprocess.run(["bash", validator_path, receipt_file],
+                                 capture_output=True, text=True)
+            static_ok = res.returncode == 0
+            if not static_ok:
+                static_msg = (res.stderr.strip().splitlines()[-1]
+                              if res.stderr.strip() else "static fail")
+                note_parts.append(static_msg)
 
-    res = subprocess.run(["bash", validator_path, receipt_file],
-                         capture_output=True, text=True)
-    static_ok = res.returncode == 0
-    static_msg = "" if static_ok else res.stderr.strip().splitlines()[-1] if res.stderr.strip() else "static fail"
+            recorded = receipt_contexts(text)
+            if live is None:
+                set_match = False
+                note_parts.append("live protection unreadable")
+            elif recorded is None:
+                set_match = False
+                note_parts.append("receipt contexts unreadable")
+            else:
+                set_match = set(recorded) == set(live)
+                if not set_match:
+                    note_parts.append(f"recorded={recorded} live={live}")
 
-    recorded = receipt_contexts(text)
-
-    if live is None:
-        set_match = False
-        note = "live protection unreadable"
-    elif recorded is None:
-        set_match = False
-        note = "receipt contexts unreadable"
-    else:
-        set_match = set(recorded) == set(live)
-        note = "" if set_match else f"recorded={recorded} live={live}"
-
-    if repo != CORE:
+    if validator_required:
         vendored = gh_contents(repo, VALIDATOR)
         if vendored is None:
             vendor_ok = False
-            note = (note + "; " if note else "") + "vendored validator missing"
+            note_parts.append("vendored validator missing")
         else:
             vendor_ok = (vendored == canonical_text)
             if not vendor_ok:
-                note = (note + "; " if note else "") + "vendored validator drift"
+                note_parts.append("vendored validator drift")
 
-    verdict_ok = static_ok and bool(set_match) and (vendor_ok is not False)
+    receipt_ok = not receipt_required or (bool(static_ok) and bool(set_match))
+    validator_ok = not validator_required or vendor_ok is True
+    verdict_ok = receipt_ok and validator_ok
     if not verdict_ok:
         any_fail = True
-        if static_msg and not note:
-            note = static_msg
-        elif static_msg:
-            note = static_msg + "; " + note
 
     recorded_disp = ",".join(recorded) if recorded else "-"
     live_disp = ",".join(live) if live else "-"
-    verdict = "OK" if verdict_ok else "DRIFT"
+    verdict = "OK" if verdict_ok else "MISSING" if receipt_missing else "DRIFT"
+    static_disp = {True: "ok", False: "FAIL", None: "n/a"}[static_ok]
     vendor_disp = {True: "match", False: "DRIFT", None: "n/a"}[vendor_ok]
+    note = "; ".join(note_parts)
     rows.append((repo, recorded_disp, live_disp, verdict,
-                 f"static={'ok' if static_ok else 'FAIL'} vendored={vendor_disp}"
+                 f"static={static_disp} vendored={vendor_disp}"
                  + (f"; {note}" if note else "")))
 
 # Render table.
