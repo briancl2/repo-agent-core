@@ -58,7 +58,7 @@ printf '%s\n' \
   '| `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |' \
   '| `active.txt` | fixture export | `AGENTS.md::Active owner route.` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` |' \
   '| `schemas/FIXTURE.schema.json` | schema export | `AGENTS.md::schemas/*.schema.json` | - | - | - |' \
-  '| `scripts/validate-floor-receipt.sh` | floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` |' \
+  '| `scripts/validate-floor-receipt.sh` | floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` | `scripts/validate-owner-convergence.py::scripts/validate-floor-receipt.sh` |' \
   '| `scripts/fleet-floor-conformance-audit.sh` | fleet audit | `tests/test-floor-receipt-conformance.sh::scripts/fleet-floor-conformance-audit.sh` | - | - | - |' \
   '| `tests/test-floor-receipt-conformance.sh` | floor tests | `AGENTS.md::Floor test route.` | - | - | - |' \
   '' \
@@ -98,6 +98,11 @@ make_consumer() {
   git -C "$consumer" config user.email "owner-convergence@example.invalid"
   git -C "$consumer" config user.name "Owner Convergence Test"
   printf '%s\n' 'ACTIVE_TOKEN' 'FLOOR_TOKEN' > "$consumer/evidence.txt"
+  if [ "$label" = "optimizer" ]; then
+    mkdir -p "$consumer/scripts"
+    printf '%s\n' 'scripts/validate-floor-receipt.sh' \
+      > "$consumer/scripts/validate-owner-convergence.py"
+  fi
   if [ "$label" = "auditor" ]; then
     local newline_path
     newline_path="$consumer/"$'line\nbreak.txt'
