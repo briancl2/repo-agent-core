@@ -16,10 +16,9 @@ from pathlib import Path
 INVENTORY_PATH = "docs/live-capability-inventory.md"
 ACTIVE_AUTHORITY = ("AGENTS.md", "README.md")
 CALLER_LABELS = ("auditor", "advisor", "optimizer")
-PRESERVED_FLOOR_EXPORTS = (
-    "scripts/validate-floor-receipt.sh",
-    "scripts/fleet-floor-conformance-audit.sh",
-)
+# Exact-copy exports remain byte-identical to the rollback base. The fleet audit
+# is Core-owned behavior and is covered by owner evidence plus focused tests.
+PRESERVED_FLOOR_EXPORTS = ("scripts/validate-floor-receipt.sh",)
 RETIRED_AUTHORITY_TOKENS = (
     "Issue #164",
     "Hermes",

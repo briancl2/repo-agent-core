@@ -58,7 +58,7 @@ printf '%s\n' \
   '| `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |' \
   '| `active.txt` | fixture export | `AGENTS.md::Active owner route.` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` | `evidence.txt::ACTIVE_TOKEN` |' \
   '| `schemas/FIXTURE.schema.json` | schema export | `AGENTS.md::schemas/*.schema.json` | - | - | - |' \
-  '| `scripts/validate-floor-receipt.sh` | floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` |' \
+  '| `scripts/validate-floor-receipt.sh` | floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `evidence.txt::FLOOR_TOKEN` | `evidence.txt::FLOOR_TOKEN` | `scripts/validate-owner-convergence.py::scripts/validate-floor-receipt.sh` |' \
   '| `scripts/fleet-floor-conformance-audit.sh` | fleet audit | `tests/test-floor-receipt-conformance.sh::scripts/fleet-floor-conformance-audit.sh` | - | - | - |' \
   '| `tests/test-floor-receipt-conformance.sh` | floor tests | `AGENTS.md::Floor test route.` | - | - | - |' \
   '' \
@@ -98,6 +98,11 @@ make_consumer() {
   git -C "$consumer" config user.email "owner-convergence@example.invalid"
   git -C "$consumer" config user.name "Owner Convergence Test"
   printf '%s\n' 'ACTIVE_TOKEN' 'FLOOR_TOKEN' > "$consumer/evidence.txt"
+  if [ "$label" = "optimizer" ]; then
+    mkdir -p "$consumer/scripts"
+    printf '%s\n' 'scripts/validate-floor-receipt.sh' \
+      > "$consumer/scripts/validate-owner-convergence.py"
+  fi
   if [ "$label" = "auditor" ]; then
     local newline_path
     newline_path="$consumer/"$'line\nbreak.txt'
@@ -126,6 +131,13 @@ fail() {
   FAIL=$((FAIL + 1))
   echo "  FAIL: $1"
 }
+
+if grep -Fq '| `scripts/validate-floor-receipt.sh` | canonical portable floor validator | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `tests/test-floor-receipt-conformance.sh::scripts/validate-floor-receipt.sh` | `scripts/validate-owner-convergence.py::scripts/validate-floor-receipt.sh` |' \
+  < <(git -C "$ROOT" show :docs/live-capability-inventory.md); then
+  pass "floor validator inventory preserves unrelated evidence and names Optimizer owner validation"
+else
+  fail "floor validator inventory preserves unrelated evidence and names Optimizer owner validation"
+fi
 
 if grep -Fq 'Material progress uses' < <(git -C "$ROOT" show :AGENTS.md) \
   && grep -Fq '`Delta / Next`' < <(git -C "$ROOT" show :AGENTS.md) \
@@ -213,7 +225,7 @@ for expected in \
   '"orphan_active_exports": 0' \
   '"removed_reference_files": 1' \
   '"terminal_retirements": 1' \
-  '"unchanged_floor_export_blobs": 2' \
+  '"unchanged_floor_export_blobs": 1' \
   '"unchanged_schema_blobs": 1' \
   '"unclassified_index_paths": 0'
 do
@@ -285,7 +297,7 @@ git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/fleet-floor-
 
 printf '%s\n' 'drifted fleet floor audit bytes' > "$REPO/scripts/fleet-floor-conformance-audit.sh"
 git -C "$REPO" add scripts/fleet-floor-conformance-audit.sh
-expect_fail "drifted fleet floor audit fails closed" "${VALIDATE[@]}"
+expect_pass "owner-local fleet floor audit may evolve under focused coverage" "${VALIDATE[@]}"
 git -C "$REPO" restore --source="$BASE" --staged --worktree scripts/fleet-floor-conformance-audit.sh
 
 printf '%s\n' 'new unclassified path' > "$REPO/new-unclassified.txt"
