@@ -11,8 +11,8 @@ The repository exports:
   transfer receipts, and retained compatible artifact formats;
 - `scripts/validate-artifacts.sh`;
 - the copy-synced `scripts/compare-scorecards.sh` primitive and conformance gate;
-- installable review hooks plus the `reviewing-code-locally` and
-  `owner-delivery` skills; and
+- installable review hooks plus the `reviewing-code-locally`,
+  `owner-delivery`, and `using-bma-researcher` skills; and
 - one deterministic cached-index owner-convergence guard.
 
 `CONSTITUTION.md` is the shared semantic floor. `AGENTS.md` is the compact owner
@@ -27,6 +27,7 @@ status check.
 make test
 make validate-owner-convergence
 make validate-compare-scorecards CONSUMERS="../repo-auditor ../repo-optimizer"
+make validate-bma-researcher-skill
 make review
 ```
 
@@ -65,3 +66,11 @@ matches settlement to the actual effect. A consumer copies the skill directory
 unchanged, adds one owner-local trigger naming route holds, admission,
 settlement tier, epoch boundaries, and sparse continuation, then proves it on
 one real owner outcome before claiming lower operator burden.
+
+The provider-neutral
+[`using-bma-researcher`](.agents/skills/using-bma-researcher/SKILL.md) skill
+turns one ordinary question or genuine agent-detected need into a stateless BMA
+prepare, same-attempt route preflight, package-and-custody handoff, and
+answer-first reentry workflow. Its installer copies one byte-identical semantic core into explicit
+personal skill roots, blocks unapproved drift replacement, and can preserve a
+verified pre-install backup for an explicitly authorized replacement.

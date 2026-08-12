@@ -8,7 +8,7 @@ meaning.
 
 `repo-agent-core` owns a small portable package of schemas, deterministic
 validation and scorecard tools, installable review hooks, and the
-`reviewing-code-locally` skill used by the repo-agent consumers.
+`reviewing-code-locally`, `owner-delivery`, and `using-bma-researcher` skills.
 
 For every change:
 
@@ -60,4 +60,5 @@ make review
 make test
 make validate-owner-convergence
 make validate-compare-scorecards CONSUMERS="../repo-auditor ../repo-optimizer"
+make validate-bma-researcher-skill
 ```

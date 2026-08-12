@@ -1,4 +1,4 @@
-.PHONY: review test validate-schemas validate-owner-convergence validate-compare-scorecards install-hooks help
+.PHONY: review test validate-schemas validate-owner-convergence validate-compare-scorecards validate-bma-researcher-skill install-hooks help
 
 OWNER_CONVERGENCE_BASE_REF ?= $(shell if git diff --cached --quiet --; then printf 'HEAD^'; else printf 'HEAD'; fi)
 
@@ -15,6 +15,8 @@ help:
 	@echo "  make validate-compare-scorecards"
 	@echo "                        Validate compare-scorecards copy-sync drift gate"
 	@echo "                        Usage: make validate-compare-scorecards CONSUMERS=\"../repo-auditor ../repo-optimizer\""
+	@echo "  make validate-bma-researcher-skill"
+	@echo "                        Validate portable Researcher skill/install behavior"
 	@echo "  make install-hooks    Install git hooks into a target repo"
 	@echo "                        Usage: make install-hooks TARGET=~/repos/my-repo"
 
@@ -48,6 +50,9 @@ validate-compare-scorecards:
 	else \
 		echo "No CONSUMERS provided; synthetic copy-sync drift-gate tests only."; \
 	fi
+
+validate-bma-researcher-skill:
+	@bash tests/test-using-bma-researcher.sh
 
 install-hooks:
 	@bash scripts/install-hooks.sh $(TARGET)

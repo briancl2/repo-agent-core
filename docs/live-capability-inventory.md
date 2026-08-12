@@ -22,6 +22,7 @@ non-overlapping, and every row must have verified owner evidence.
 | `.agents/skills/reviewing-code-locally/references/review-prompt.md` | portable review prompt | `.agents/skills/reviewing-code-locally/SKILL.md::references/review-prompt.md` | - | - | - |
 | `.agents/skills/reviewing-code-locally/scripts/local_review.sh` | portable review command | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` | `Makefile::.agents/skills/reviewing-code-locally/scripts/local_review.sh` |
 | `.agents/skills/owner-delivery/SKILL.md` | portable owner-delivery skill | `README.md::.agents/skills/owner-delivery/SKILL.md` | - | - | - |
+| `.agents/skills/using-bma-researcher/**` | portable Researcher skill | `README.md::.agents/skills/using-bma-researcher/SKILL.md` | - | - | - |
 | `schemas/ADAPTER_AUDIT_SUMMARY.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/AGENTIC_ROOT_CAUSE_BRIEFS.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
 | `schemas/COMMAND_OUTPUT_ROI_RECEIPT.schema.json` | exported schema byte | `Makefile::schemas/*.schema.json` | - | - | - |
@@ -47,12 +48,14 @@ non-overlapping, and every row must have verified owner evidence.
 | `scripts/check-compare-scorecards-conformance.sh` | copy-sync conformance gate | `Makefile::scripts/check-compare-scorecards-conformance.sh` | - | - | - |
 | `docs/compare-scorecards-distribution.md` | distribution contract | `tests/test-compare-scorecards.sh::docs/compare-scorecards-distribution.md` | - | - | - |
 | `scripts/install-hooks.sh` | consumer-called installer | `Makefile::scripts/install-hooks.sh` | `Makefile::repo-agent-core/scripts/install-hooks.sh` | - | `Makefile::repo-agent-core/scripts/install-hooks.sh` |
+| `scripts/install-bma-researcher-skill.py` | personal skill installer and drift gate | `Makefile::validate-bma-researcher-skill` | - | - | - |
 | `hooks/pre-commit-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-commit-hook.sh` | - | - | - |
 | `hooks/pre-push-hook.sh` | installable hook | `scripts/install-hooks.sh::hooks/pre-push-hook.sh` | - | - | - |
 | `scripts/validate_owner_convergence.py` | cached-index convergence guard | `Makefile::scripts/validate_owner_convergence.py` | - | - | - |
 | `tests/test-owner-convergence.sh` | focused convergence tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/fixtures/owner-delivery-cases.tsv` | owner-delivery decision fixtures | `tests/test-owner-delivery.sh::tests/fixtures/owner-delivery-cases.tsv` | - | - | - |
 | `tests/test-owner-delivery.sh` | owner-delivery fixture test | `Makefile::tests/test-*.sh` | - | - | - |
+| `tests/test-using-bma-researcher.sh` | portable Researcher skill/install tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-floor-receipt-conformance.sh` | canonical floor validator behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-compare-scorecards.sh` | comparison behavior tests | `Makefile::tests/test-*.sh` | - | - | - |
 | `tests/test-schemas.sh` | schema syntax and sample tests | `Makefile::tests/test-*.sh` | - | - | - |
