@@ -1,0 +1,51 @@
+{
+  "attempt_alias": "fixture1666attempt00000000000000",
+  "browser_required": true,
+  "candidate_selection": {
+    "absence_claim": "inspected_count_and_remaining_unknowns_only",
+    "inventory": "fresh_user_owned_tabs",
+    "max_inspected": 3,
+    "origin_filter": "exact_origin",
+    "rank": [
+      "exact_task_or_conversation_url",
+      "signed_in_home",
+      "observed_recency",
+      "fresh_random_alias"
+    ],
+    "selection": "first_fully_eligible"
+  },
+  "case_id": "issue1666-successor-golden",
+  "host_continuation": {
+    "pty": "resume_exact_session_until_terminal",
+    "settle_with_outstanding_work": false,
+    "yielded_tool_cell": "resume_exact_cell_until_terminal"
+  },
+  "policy": {
+    "account_switch": false,
+    "consequential_clarifications_max": 1,
+    "initial_sends": 1,
+    "model_switch": false,
+    "provider_switch": false,
+    "retries": 0
+  },
+  "portable_route_fields": "booleans_and_fresh_random_aliases_only",
+  "provider_input_sha256": "c39a30f5b67fb571469188f8d1cff56cd06026da6e939456f1e8ca3b4a871525",
+  "provider_origin": "https://chatgpt.com",
+  "schema_version": "bma_researcher_route_requirements.v3",
+  "selected_route": "chatgpt_deep_research",
+  "task_required_capabilities": [
+    "source_native_context",
+    "open_world_currentness",
+    "source_breadth",
+    "contradiction_discovery",
+    "deep_research_workflow"
+  ],
+  "workflow": {
+    "deep_research_literal_selection_required": true,
+    "deep_research_post_send_identity_required": true,
+    "x_bookmarks_required": false,
+    "x_integrated_grok_required": false,
+    "x_premium_plus_required": false,
+    "x_private_host_identity_required": false
+  }
+}

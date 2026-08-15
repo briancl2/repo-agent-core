@@ -34,6 +34,51 @@ The operator asks for the current decision from a previously admitted report.
 Use its opaque admission handle plus the current ordinary question. Render the
 answer, residual, next decision, and claim ceiling without relaunching research.
 
+## Emitted v3 inline transport
+
+`prepare` emits `bma_researcher_route_requirements.v3`. Re-read the exact
+prepared file. Match its hash against `route-requirements.json` and
+`invocation.json`, but match its UTF-8 byte count only against
+`invocation.json`; the v3 route-requirements object has no
+`provider_input_bytes`. Keep the composer otherwise empty, insert only those
+exact bytes, and read the complete composer back. With exact identity and no
+`[Truncated]`, construct the v3 observation, run v3 `preflight-check`, and send
+once. Do not add a v4 transport object or turn the legacy branch into a file
+upload.
+
+## Emitted v4 exact-inline transport
+
+`prepare` emits `bma_researcher_route_requirements.v4` with
+`transport.representation: exact_inline_text`. Do not choose the branch from
+the file size. Match the prepared file hash/bytes, require upload disabled,
+insert only the exact bytes into an empty composer, and verify the whole
+composer hash/bytes with no extra text or `[Truncated]`. Record true prepared
+hash/byte and exact-inline matches, false chooser/upload/name/size fields, and
+true absence fields in the initial v4 observation. Run `preflight-check`, then
+make the one initiation.
+
+## Emitted v4 native-file transport
+
+`prepare` emits `bma_researcher_route_requirements.v4` with
+`transport.representation: native_file_upload` and the exact prepared filename,
+hash, and byte count. Re-read the immutable prepared file; leave the composer
+empty. Arm `waitForEvent("filechooser")` before clicking the visible file input
+or upload opener, then call `chooser.setFiles` once with that file's absolute
+path. After completed visible upload state, match visible filename and byte
+size, re-read the local hash/bytes, and confirm the composer remains empty with
+no `[Truncated]`. Record false exact-inline and true chooser/upload/name/size,
+prepared-binding, and absence booleans in the initial v4 observation. Only then
+run `preflight-check` and send once. This binds host-side consistency, not
+provider attention, extraction, semantic use, or report completeness.
+
+For both v4 cases, keep the observation's outbound hash and byte count bound to
+the exact prepared artifact. The transport object—not a rewritten outbound
+message—distinguishes inline text from native file upload.
+
+If any expected schema, representation, requirement, hash, byte count,
+completion state, visible name/size, composer state, or boolean is missing or
+drifted, stop before send. Do not compact, rebuild, retry, or switch route.
+
 ## Rendered-DOM compound citations
 
 A completed response has one ordinary citation and one `+2` compound citation.

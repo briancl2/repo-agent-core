@@ -6,6 +6,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SKILL_PATH=".agents/skills/using-bma-researcher/SKILL.md"
 INSTALLER="$ROOT/scripts/install-bma-researcher-skill.py"
 SOURCE="$ROOT/.agents/skills/using-bma-researcher"
+V3_ROUTE_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v3-route-requirements.json"
+V3_INVOCATION_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v3-invocation.json"
 TEST_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TEST_ROOT"' EXIT
 
@@ -58,6 +60,42 @@ for required in \
   '`synthesize_dossier`' \
   'at most one consequential clarification, zero retry,' \
   'no provider, account, or model switch.' \
+  'read the emitted `route-requirements.json` schema first.' \
+  'A v3 object has no v4 transport field; only after identifying v4' \
+  'Branch only on those emitted fields; never' \
+  'For v3, require its SHA-256 to match both the prepared invocation and route requirements,' \
+  'UTF-8 byte count to match the invocation; v3 route requirements do not carry' \
+  '`provider_input_bytes`. For v4, require both SHA-256 and UTF-8 byte count to' \
+  'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' \
+  '`bma_researcher_route_observation.v3` observation without v4 transport fields,' \
+  '`transport.representation` is exactly `exact_inline_text` or' \
+  '`native_file_upload` and its associated requirement fields agree:' \
+  '"representation": "exact_inline_text",' \
+  '"prepared_input_sha256_match": true,' \
+  '"prepared_input_bytes_match": true,' \
+  '"exact_inline_text_match": true,' \
+  '"supported_native_file_chooser_used": false,' \
+  '"upload_completed": false,' \
+  '"visible_file_name_match": false,' \
+  '"visible_file_size_match": false,' \
+  'Start `waitForEvent("filechooser")` before clicking' \
+  '`chooser.setFiles` once with the absolute path to the prepared run-local file.' \
+  'Do not use `locator.setInputFiles`, a native-picker fallback, a reconstructed' \
+  '"representation": "native_file_upload",' \
+  '"exact_inline_text_match": false,' \
+  '"supported_native_file_chooser_used": true,' \
+  '"upload_completed": true,' \
+  '"visible_file_name_match": true,' \
+  '"visible_file_size_match": true,' \
+  '"undeclared_composer_text_absent": true,' \
+  '"truncation_marker_absent": true' \
+  'A clarification observation carries no transport' \
+  '`bma_researcher_route_observation.v4`, keep `outbound_message_sha256` and' \
+  '`outbound_message_bytes` bound to the exact prepared artifact' \
+  'does not authorize compaction, a second send, retry, or account/provider/model' \
+  'The v4 transport receipt proves only host-side consistency' \
+  'It does not prove provider' \
+  'attention, extraction, semantic use, or report completeness.' \
   'Packaging stops at `PACKAGED`.' \
   'return `NO_ACTION`' \
   'Resume a yielded tool call by' \
@@ -163,6 +201,157 @@ do
     pass "skill carries: $required"
   else
     fail "skill carries: $required"
+  fi
+done
+
+transport_skill_valid() {
+  local candidate="$1"
+  local guard
+  for guard in \
+    'read the emitted `route-requirements.json` schema first.' \
+    'A v3 object has no v4 transport field; only after identifying v4' \
+    'For v3, require its SHA-256 to match both the prepared invocation and route requirements,' \
+    'UTF-8 byte count to match the invocation; v3 route requirements do not carry `provider_input_bytes`.' \
+    'For v4, require both SHA-256 and UTF-8 byte count to match both artifacts.' \
+    'Unsupported schemas, unknown representations, schema/field drift,' \
+    'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' \
+    '`bma_researcher_route_observation.v3` observation without v4 transport fields,' \
+    'For `bma_researcher_route_requirements.v4`, accept browser transport only when' \
+    '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_inline_text_match": true, "supported_native_file_chooser_used": false, "upload_completed": false, "visible_file_name_match": false, "visible_file_size_match": false, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_inline_text_match": false, "supported_native_file_chooser_used": true, "upload_completed": true, "visible_file_name_match": true, "visible_file_size_match": true, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    'Start `waitForEvent("filechooser")` before clicking' \
+    '`chooser.setFiles` once with the absolute path to the prepared run-local file.' \
+    '`preflight-check` only after every required boolean is established' \
+    'does not authorize compaction, a second send, retry, or account/provider/model'
+  do
+    grep -Fq -- "$guard" <<< "$candidate" || return 1
+  done
+}
+
+if transport_skill_valid "$SKILL_TEXT"; then
+  pass "canonical transport contract passes exact branch validator"
+else
+  fail "canonical transport contract passes exact branch validator"
+fi
+
+for mutation_target in \
+  'bma_researcher_route_requirements.v3' \
+  'bma_researcher_route_requirements.v4' \
+  '"representation": "exact_inline_text"' \
+  '"representation": "native_file_upload"' \
+  'prepared_input_sha256_match' \
+  'prepared_input_bytes_match' \
+  'provider_input_bytes' \
+  'exact_inline_text_match' \
+  'supported_native_file_chooser_used' \
+  'upload_completed' \
+  'visible_file_name_match' \
+  'visible_file_size_match' \
+  'undeclared_composer_text_absent' \
+  'truncation_marker_absent' \
+  'waitForEvent("filechooser")' \
+  'chooser.setFiles' \
+  'a second send'
+do
+  MUTATED_SKILL_TEXT="$(python3 -c \
+    'import sys; print(sys.stdin.read().replace(sys.argv[1], "__drifted_transport_guard__"), end="")' \
+    "$mutation_target" <<< "$SKILL_TEXT")"
+  if transport_skill_valid "$MUTATED_SKILL_TEXT"; then
+    fail "transport validator rejects drift: $mutation_target"
+  else
+    pass "transport validator rejects drift: $mutation_target"
+  fi
+done
+
+# Byte-identical copies of the historical prepared-v3 fixture generated by BMA
+# commit 973e635447e747a18d9362e5e16a3ce80559b04c.
+if [ "$(shasum -a 256 "$V3_ROUTE_FIXTURE" | awk '{print $1}')" = \
+  "da7d4fcf68aababf6b7b5740ea86cd42e68933566850f57dfcb8827e54c6962f" ] && \
+  [ "$(shasum -a 256 "$V3_INVOCATION_FIXTURE" | awk '{print $1}')" = \
+  "c2a71594ccc9a226f72b1f09b6c85f2bf3f795c46b5882bd1773c672e3ecc20c" ] && \
+  python3 -c 'import json,sys; route=json.load(open(sys.argv[1])); invocation=json.load(open(sys.argv[2])); assert route["schema_version"] == "bma_researcher_route_requirements.v3"; assert "provider_input_sha256" in route; assert "provider_input_bytes" not in route; assert route["provider_input_sha256"] == invocation["provider_input"]["sha256"]; assert isinstance(invocation["provider_input"]["bytes"], int); assert invocation["route_requirements"]["sha256"] == sys.argv[3]' \
+    "$V3_ROUTE_FIXTURE" "$V3_INVOCATION_FIXTURE" \
+    "da7d4fcf68aababf6b7b5740ea86cd42e68933566850f57dfcb8827e54c6962f"; then
+  pass "authoritative BMA v3 fixture keeps bytes in invocation, not route requirements"
+else
+  fail "authoritative BMA v3 fixture keeps bytes in invocation, not route requirements"
+fi
+
+if grep -Fq -- \
+  'SHA-256 and UTF-8 byte count to match the prepared invocation and route requirements.' \
+  <<< "$SKILL_TEXT"; then
+  fail "v3 guidance does not depend on route_requirements.provider_input_bytes"
+elif grep -Fq -- \
+  'UTF-8 byte count to match the invocation; v3 route requirements do not carry `provider_input_bytes`.' \
+  <<< "$SKILL_TEXT"; then
+  pass "v3 guidance does not depend on route_requirements.provider_input_bytes"
+else
+  fail "v3 guidance does not depend on route_requirements.provider_input_bytes"
+fi
+
+V3_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' | cut -d: -f1)"
+V4_BRANCH_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'For `bma_researcher_route_requirements.v4`, accept browser transport only when' | cut -d: -f1)"
+V4_INLINE_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'For `exact_inline_text`, require native upload disabled.' | cut -d: -f1)"
+V4_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'For `native_file_upload`, require the emitted upload object' | cut -d: -f1)"
+PREFLIGHT_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'Write the exact declared representation into the v4 observation and call' | cut -d: -f1)"
+if [ -n "$V3_TRANSPORT_LINE" ] && [ -n "$V4_BRANCH_LINE" ] && \
+  [ -n "$V4_INLINE_LINE" ] && [ -n "$V4_UPLOAD_LINE" ] && \
+  [ -n "$PREFLIGHT_TRANSPORT_LINE" ] && \
+  [ "$V3_TRANSPORT_LINE" -lt "$V4_BRANCH_LINE" ] && \
+  [ "$V4_BRANCH_LINE" -lt "$V4_INLINE_LINE" ] && \
+  [ "$V4_INLINE_LINE" -lt "$V4_UPLOAD_LINE" ] && \
+  [ "$V4_UPLOAD_LINE" -lt "$PREFLIGHT_TRANSPORT_LINE" ]; then
+  pass "v3, v4 inline, v4 upload, and preflight operations are mutually ordered"
+else
+  fail "v3, v4 inline, v4 upload, and preflight operations are mutually ordered"
+fi
+
+for transport_contract in \
+  'The host reads the emitted route-requirements schema first.' \
+  'V3 has no v4 transport field; only v4 requires reading `transport.representation`.' \
+  '`bma_researcher_route_requirements.v3` retains exact inline transport only.' \
+  'matches its hash against both route requirements and the invocation' \
+  'matches its UTF-8 byte count against the invocation only;' \
+  'v3 route requirements have no `provider_input_bytes`.' \
+  '`bma_researcher_route_requirements.v4` requires the prepared hash and byte count to match' \
+  'Browser representations are exactly `exact_inline_text` or `native_file_upload`;' \
+  'an unknown representation or schema/representation drift fails before preflight or send.' \
+  'a `filechooser` wait armed before clicking the actual visible file input or its visible opener' \
+  'one `chooser.setFiles` call with the absolute prepared-file path' \
+  '`locator.setInputFiles`, native-picker fallback, reconstructed files, extra' \
+  'Clarification carries no transport object and cannot redefine the initial transport.' \
+  "the initial observation's outbound hash and byte count remain bound to the exact prepared artifact" \
+  'It does not prove provider attention, extraction, semantic use, or report completeness.'
+do
+  if grep -Fq -- "$transport_contract" <<< "$CONTRACT_TEXT"; then
+    pass "researcher contract carries transport invariant: $transport_contract"
+  else
+    fail "researcher contract carries transport invariant: $transport_contract"
+  fi
+done
+
+for transport_example in \
+  '## Emitted v3 inline transport' \
+  'match its UTF-8 byte count only against `invocation.json`' \
+  'the v3 route-requirements object has no `provider_input_bytes`.' \
+  '## Emitted v4 exact-inline transport' \
+  '## Emitted v4 native-file transport' \
+  '`prepare` emits `bma_researcher_route_requirements.v4`' \
+  'Do not choose the branch from the file size.' \
+  'Arm `waitForEvent("filechooser")` before clicking the visible file input' \
+  'Only then run `preflight-check` and send once.' \
+  "keep the observation's outbound hash and byte count bound to" \
+  'stop before send. Do not compact, rebuild, retry, or switch route.'
+do
+  if grep -Fq -- "$transport_example" <<< "$EXAMPLE_TEXT"; then
+    pass "researcher example carries transport case: $transport_example"
+  else
+    fail "researcher example carries transport case: $transport_example"
   fi
 done
 

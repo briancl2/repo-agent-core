@@ -77,6 +77,99 @@ one provider task, and no provider, account, or model switch. Never treat route
 failure as permission to use cookies, scraping, another account, reconstructed
 context, or an unapproved browser.
 
+## Execute the emitted transport contract
+
+After `prepare`, read the emitted `route-requirements.json` schema first. A v3
+object has no v4 transport field; only after identifying v4, read its declared
+`transport.representation`. Branch only on those emitted fields; never infer
+transport from input size, provider UI, or prior runs. Re-read the exact
+run-local `provider-input.md` immediately before transport. For v3, require its
+SHA-256 to match both the prepared invocation and route requirements, and its
+UTF-8 byte count to match the invocation; v3 route requirements do not carry
+`provider_input_bytes`. For v4, require both SHA-256 and UTF-8 byte count to
+match both artifacts. Unsupported schemas, unknown representations,
+schema/field drift, or a changed prepared file stop before preflight or send.
+
+For `bma_researcher_route_requirements.v3`, preserve the compatibility path:
+start with an empty composer, place only the exact `provider-input.md` bytes
+inline, read the composer back, and require exact hash/byte identity, no
+undeclared text, and no `[Truncated]` marker. Construct the
+`bma_researcher_route_observation.v3` observation without v4 transport fields,
+run v3 `preflight-check`, and make the one initiation only after it passes. A
+v3 route never gains attachment or reconstruction behavior.
+
+For `bma_researcher_route_requirements.v4`, accept browser transport only when
+`transport.representation` is exactly `exact_inline_text` or
+`native_file_upload` and its associated requirement fields agree:
+
+- For `exact_inline_text`, require native upload disabled. Start with an empty
+  composer, insert only the exact prepared bytes, then read back the whole
+  composer and compare exact SHA-256 and UTF-8 byte count. Require no
+  undeclared composer text and no `[Truncated]` marker. Set the initial v4
+  `transport` object exactly as follows:
+
+  ```json
+  {
+    "representation": "exact_inline_text",
+    "prepared_input_sha256_match": true,
+    "prepared_input_bytes_match": true,
+    "exact_inline_text_match": true,
+    "supported_native_file_chooser_used": false,
+    "upload_completed": false,
+    "visible_file_name_match": false,
+    "visible_file_size_match": false,
+    "undeclared_composer_text_absent": true,
+    "truncation_marker_absent": true
+  }
+  ```
+
+- For `native_file_upload`, require the emitted upload object to enable and
+  require the supported native file chooser, upload completion, visible
+  filename match, and visible file-size match for the exact prepared
+  `provider-input.md`. Keep the composer empty. Start
+  `waitForEvent("filechooser")` before clicking the actual visible file input or
+  the visible upload control that opens it; obtain that chooser and call
+  `chooser.setFiles` once with the absolute path to the prepared run-local file.
+  Do not use `locator.setInputFiles`, a native-picker fallback, a reconstructed
+  copy, or another file. Wait for completed visible attachment state, then
+  re-read the local file and require the original hash/byte count plus the
+  emitted visible filename and byte-size matches. Recheck that the composer is
+  empty and no `[Truncated]` marker is present. Set the initial v4 `transport`
+  object exactly as follows:
+
+  ```json
+  {
+    "representation": "native_file_upload",
+    "prepared_input_sha256_match": true,
+    "prepared_input_bytes_match": true,
+    "exact_inline_text_match": false,
+    "supported_native_file_chooser_used": true,
+    "upload_completed": true,
+    "visible_file_name_match": true,
+    "visible_file_size_match": true,
+    "undeclared_composer_text_absent": true,
+    "truncation_marker_absent": true
+  }
+  ```
+
+Write the exact declared representation into the v4 observation and call
+`preflight-check` only after every required boolean is established, immediately
+before the one initiation. In the initial
+`bma_researcher_route_observation.v4`, keep `outbound_message_sha256` and
+`outbound_message_bytes` bound to the exact prepared artifact for either
+representation; the transport object records how those bytes are presented. A
+clarification observation carries no transport object and cannot redefine
+initial transport. Any false or missing boolean,
+representation drift, upload error, incomplete upload, filename/size mismatch,
+extra composer text, truncation, or local file drift stops before send. It does
+not authorize compaction, a second send, retry, or account/provider/model
+switch. For emitted `source_native_exact_bytes`, use the separate source-native
+terminal acquisition path; never reinterpret it as a browser representation.
+
+The v4 transport receipt proves only host-side consistency between the prepared
+artifact and the observed inline or upload state. It does not prove provider
+attention, extraction, semantic use, or report completeness.
+
 ## Prove the same attempt immediately before send
 
 Obtain a fresh user-owned browser-tab inventory. Filter the exact origin, rank
@@ -86,7 +179,9 @@ account, entitlement, and capability. If none qualifies, report inspected count
 and remaining unknowns; do not claim global absence.
 
 V3 route-identity/preflight artifacts record only portable booleans and a fresh
-random attempt alias. Capture-v4 additionally permits only the bounded,
+random attempt alias. V4 route-identity/preflight additionally carries the
+prepared artifact bindings allowed by the runtime contract and otherwise keeps
+portable state to booleans and fresh random aliases. Capture-v4 additionally permits only the bounded,
 route-allowlisted, non-identity `response_completion_marker` enum below; it
 carries no handles, hashes, UI text, or stable identifiers. Cookies, credential
 data, DOM, screenshots, and private account state remain host-local. Navigation,
