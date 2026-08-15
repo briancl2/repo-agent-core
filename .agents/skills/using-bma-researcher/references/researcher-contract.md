@@ -21,12 +21,49 @@ the harness-facing invariants compact and provider neutral.
 - One initiation, zero retry, one provider task, and no provider/account/model
   switch by default.
 - At most one clarification, and only when it is consequential to the answer.
+- The host reads the emitted route-requirements schema first. V3 has no v4
+  transport field; only v4 requires reading `transport.representation`. The
+  host never selects transport from input size, provider UI, or earlier attempts.
+- `bma_researcher_route_requirements.v3` retains exact inline transport only. The host re-reads
+  `provider-input.md`, matches its hash against both route requirements and the
+  invocation, and matches its UTF-8 byte count against the invocation only;
+  v3 route requirements have no `provider_input_bytes`. The host puts only
+  those bytes in an empty composer, rejects undeclared text or `[Truncated]`,
+  writes no v4 transport object, and runs v3 preflight before the one send.
+- `bma_researcher_route_requirements.v4` requires the prepared hash and byte count to match
+  both route requirements and invocation immediately before transport. Browser representations are exactly
+  `exact_inline_text` or `native_file_upload`; an unknown representation or
+  schema/representation drift fails before preflight or send.
+- V4 `exact_inline_text` requires the complete composer readback to match the
+  exact prepared hash and UTF-8 byte count, native-upload booleans false, no
+  undeclared text, and no truncation marker before preflight.
+- V4 `native_file_upload` requires the emitted supported-chooser requirements,
+  an empty composer, a `filechooser` wait armed before clicking the actual
+  visible file input or its visible opener, one `chooser.setFiles` call with
+  the absolute prepared-file path, completed visible upload state, matching
+  visible filename and byte size, and a post-upload local hash/byte recheck.
+  `locator.setInputFiles`, native-picker fallback, reconstructed files, extra
+  composer text, and `[Truncated]` are forbidden.
+- The initial v4 transport object records the emitted representation; prepared
+  hash/byte matches; exact-inline match; supported chooser use; upload
+  completion; visible name/size matches; undeclared-composer-text absence; and
+  truncation-marker absence. Exact-inline makes only its applicable booleans
+  true; upload makes only its applicable booleans true. Clarification carries
+  no transport object and cannot redefine the initial transport.
+- For either v4 browser representation, the initial observation's outbound
+  hash and byte count remain bound to the exact prepared artifact; the
+  transport object records whether those bytes are inline or the native file.
+- The v4 transport receipt establishes host-side prepared-artifact and visible
+  transport-state consistency only. It does not prove provider attention,
+  extraction, semantic use, or report completeness.
 - The pre-send observation is explicit, fresh, same-attempt, and invalidated by
   navigation, reset, handoff, or restart.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
 - V3 route-identity/preflight receipts contain booleans and fresh random
-  attempt aliases only. Capture-v4 additionally permits only its bounded,
+  attempt aliases only. V4 route-identity/preflight additionally carries the
+  prepared artifact bindings allowed by the runtime contract and otherwise
+  retains only booleans and fresh random aliases. Capture-v4 additionally permits only its bounded,
   route-allowlisted, non-identity `response_completion_marker` enum; it carries
   no handles, hashes, UI text, or stable identifiers.
 - Deep Research needs launch-time selection and post-send native workflow proof.

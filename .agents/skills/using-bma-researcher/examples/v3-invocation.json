@@ -1,0 +1,128 @@
+{
+  "attempt_alias": "fixture1666attempt00000000000000",
+  "budget_semantics": {
+    "candidate_snapshot_safety_bound": {
+      "allowed_bytes": 52428800,
+      "observed_bytes": null,
+      "responsible_concept": "candidate_snapshot_safety_bound",
+      "responsible_layer": "installed_context_freezer",
+      "status": "not_applicable_to_replay"
+    },
+    "context_provider_input": {
+      "allowed_bytes": 20000,
+      "observed_bytes": 10930,
+      "responsible_concept": "context_provider_input_byte_budget",
+      "responsible_layer": "context_selection_and_provider_input",
+      "status": "within"
+    },
+    "report_output": {
+      "hard_max_words": null,
+      "observed_words": null,
+      "responsible_concept": "report_output_target_or_hard_max",
+      "responsible_layer": "report_capture_and_package",
+      "status": "pending_report_capture",
+      "target_words": null
+    }
+  },
+  "case_id": "issue1666-successor-golden",
+  "context": {
+    "assembly_status": "COMPLETE",
+    "context_bundle_sha256": "fdf44628b28a2b90d6113deb92a5ab0074f9d605f2c980547fe6c962bb79eda8",
+    "coverage_receipt_sha256": "9792716c20a9918a392ede3126c64388297b0f2e7922d6874df5d187beca9cdf",
+    "frozen_once": true,
+    "installed_sources_read": false,
+    "operator_baseline_sha256": "afb6afc936916cd62e4b5eb032bdc81cc17cc2d8757faec846e0adfbd90f802a",
+    "provider_context_sha256": "94ffe01a7c1a643aebdf17817db19e0f654c57b1cb84b1d271fafad57bedda79"
+  },
+  "currentness": {
+    "cutoff": "2026-08-12T12:00:00Z",
+    "refresh_allowed": true
+  },
+  "episode": {
+    "authority_reference": null,
+    "independently_arising": false,
+    "kind": "test_fixture",
+    "prior_failed_canary": null
+  },
+  "invoking_owner": {
+    "authority_mode": "advisory_only",
+    "consumer": "BMA Researcher successor contract test",
+    "issue": 1666,
+    "mutation": false,
+    "publication": false,
+    "repository": "briancl2/build-meta-analysis"
+  },
+  "job": {
+    "families": [
+      "analyze_decision",
+      "investigate_claim"
+    ],
+    "primary_family": "analyze_decision"
+  },
+  "limits": {
+    "compatibility_source": "legacy_v3_byte_limit",
+    "component_limit": 12,
+    "context_provider_input_byte_budget": 20000,
+    "elapsed_seconds_limit": 30,
+    "hop_limit": 2,
+    "page_limit": 10,
+    "report_output_words_hard_max": null,
+    "report_output_words_target": null,
+    "root_limit": 3
+  },
+  "preparation_started_at": "2026-08-15T21:52:25.282648Z",
+  "privacy": {
+    "classification": "mixed",
+    "credentials_transported": false,
+    "raw_private_export": false,
+    "source_egress": {
+      "admitted_research": "local_only",
+      "field_theory_x": "provider_exportable",
+      "youtube_transcript": "sanitized_only"
+    }
+  },
+  "provider_input": {
+    "bytes": 10930,
+    "path": "provider-input.md",
+    "relevance_input": "exact_ordinary_question_only",
+    "representation": "exact_question_plus_generated_context_spine",
+    "sha256": "c39a30f5b67fb571469188f8d1cff56cd06026da6e939456f1e8ca3b4a871525"
+  },
+  "provider_work_started": false,
+  "question": "How should BMA combine agent memory evidence from X threads, YouTube transcripts, and prior research before choosing a maintainable context architecture?",
+  "question_sha256": "fd9c49bfe21985491e1a0e4cbdce21924c56f6ddaf342854dd8e9e5a15cd911d",
+  "request_recorded_at": "2026-08-12T12:00:00Z",
+  "request_recorded_before_context": true,
+  "request_sha256": "8aca2fbeb403bf97d0dcfa54fc1b4932d6428d41200ef2fd235473c81005f94c",
+  "route_requirements": {
+    "path": "route-requirements.json",
+    "selected_route": "chatgpt_deep_research",
+    "sha256": "da7d4fcf68aababf6b7b5740ea86cd42e68933566850f57dfcb8827e54c6962f"
+  },
+  "schema_version": "bma_researcher_invocation.v3",
+  "scope": {
+    "claim_ceiling": "Sanitized fixture proof of exact preparation, route consistency, packaging, and reentry only; no provider execution, source truth, owner usefulness, natural episode, or release claim.",
+    "excluded": [
+      "provider execution, owner mutation, publication, and release claims"
+    ],
+    "included": [
+      "sanitized deterministic mixed-source context"
+    ]
+  },
+  "state": {
+    "dossier_handle": null,
+    "kind": "composite",
+    "prior_admission_handle": null
+  },
+  "task_required_capabilities": [
+    "source_native_context",
+    "open_world_currentness",
+    "source_breadth",
+    "contradiction_discovery",
+    "deep_research_workflow"
+  ],
+  "trigger": {
+    "kind": "test_fixture",
+    "reference": "sanitized tracked provider-input golden fixture"
+  }
+}
