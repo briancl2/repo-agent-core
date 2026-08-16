@@ -53,8 +53,9 @@ the harness-facing invariants compact and provider neutral.
   independent transport identity.
 - V5 deliberately does not require visible attachment byte-size UI. It binds
   the exact local file hash/bytes and path, trusted activation, chooser and
-  upload completion, bounded visible filename match, exact composer instruction,
-  absence of undeclared text, and absence of `[Truncated]`.
+  upload completion, the complete visible attachment-name inventory and count,
+  exactly one bounded matching filename, exact composer instruction, absence of
+  undeclared text, and absence of `[Truncated]`.
 - X/Grok v5 `exact_inline_text` requires complete composer readback to match
   exact prepared bytes while upload fields are false. Clarification carries no
   transport object and cannot redefine initial transport.
@@ -68,11 +69,12 @@ the harness-facing invariants compact and provider neutral.
   navigation, reset, handoff, or restart.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
-- V5 identity evidence contains only portable booleans and a fresh random
-  attempt alias. Initial transport/preflight additionally carries only exact
-  prepared hash/byte bindings and transport booleans allowed by the executable
-  runtime; it contains no account handle, cookie, credential, stable identity,
-  DOM, or screenshot. Capture-v4 additionally permits only its bounded,
+- V5 identity evidence contains portable booleans and a fresh random attempt
+  alias. Initial native-upload transport/preflight additionally carries exact
+  prepared hash/byte bindings, the bounded attachment-basename inventory and
+  small count, and transport booleans allowed by the executable runtime; it
+  contains no account handle, cookie, credential, stable identity, DOM,
+  screenshot, or other UI text. Capture-v4 additionally permits only its bounded,
   route-allowlisted, non-identity `response_completion_marker` enum; it carries
   no handles, hashes, UI text, or stable identifiers.
 - Deep Research needs launch-time selection and post-send native workflow proof.
@@ -118,15 +120,23 @@ the harness-facing invariants compact and provider neutral.
   evidence is complete.
 - ChatGPT also permits `browser_rendered_markdown` when native export is absent
   and the current citation carousel cannot satisfy the legacy all-members drawer
-  model. Capture exact response-subtree browser `innerText` bytes and exact DOM;
+  model. Capture exact response-subtree browser `innerText` bytes and exact
+  `outerHTML`;
   traverse response-local citation controls and every compound carousel once in
   displayed order; and preserve first-seen exact HTTPS URLs without
-  normalization. `materialize-browser-rendered-capture` rejects duplicate or
+  normalization. In one fixed browser evaluation, clone the response root and
+  add the v1 schema marker, current attempt alias, and base64 encodings of those
+  exact three byte sequences before serializing the response-bound evidence DOM.
+  Retain exact separately staged text and URL files.
+  `materialize-browser-rendered-capture` parses that root, rejects a wrong
+  attempt, duplicate evidence marker, or staged/evidence mismatch, and rejects duplicate or
   invalid URLs, uses a canonical separator and `## Response citation URLs`
   ledger, derives citations, keeps all raw inputs owner-private, emits
   a canonical hash-bound materialization receipt and
   `capture-browser-rendered.json`, carries null strict rendered-DOM provenance
   fields, and makes no native-export, entailment, or UI-completeness claim.
+  This is producer-declared binding, not browser attestation or proof against
+  deliberate fabrication or same-response origin.
   Package re-derives the exact report, citations, and receipt from retained
   inputs, rejects unmaterialized caller captures, and materialization failure
   rolls back only its newly created report/private outputs.

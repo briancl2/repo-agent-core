@@ -133,14 +133,19 @@ exactly the following field set. An exact-label observation is:
   "chooser_selected_prepared_input_match": true,
   "upload_completed": true,
   "visible_file_name_match": true,
+  "visible_attachment_names": ["provider-input.md"],
+  "visible_attachment_count": 1,
   "undeclared_composer_text_absent": true,
   "truncation_marker_absent": true
 }
 ```
 
-When ChatGPT displays its generated positive-integer duplicate suffix, the same
-exact field set still records `"visible_file_name_match": true`. An unrelated
-label records false and fails preflight.
+Record the actual visible label in `visible_attachment_names`. When ChatGPT
+displays its generated positive-integer duplicate suffix, such as
+`provider-input(1).md`, the same exact field set still records
+`"visible_file_name_match": true`. Preflight independently requires one name,
+count `1`, and the bounded exact-or-suffix matcher. An unrelated label or any
+second attachment fails even if the boolean was set true.
 
 X/Grok retains the separate bounded `exact_inline_text` route: the whole
 prepared file must match the empty-composer readback exactly, and all upload
@@ -157,6 +162,8 @@ booleans remain false. Its exact v5 transport object is:
   "chooser_selected_prepared_input_match": false,
   "upload_completed": false,
   "visible_file_name_match": false,
+  "visible_attachment_names": [],
+  "visible_attachment_count": 0,
   "undeclared_composer_text_absent": true,
   "truncation_marker_absent": true
 }
@@ -187,10 +194,11 @@ account, entitlement, and capability. If none qualifies, report inspected count
 and remaining unknowns; do not claim global absence.
 
 V5 identity evidence records portable booleans and a fresh random attempt alias;
-initial transport/preflight additionally carries only the exact prepared
-hash/byte bindings and transport booleans allowed by the executable runtime.
+initial native-upload transport/preflight additionally carries the exact prepared
+hash/byte bindings, bounded attachment-basename inventory and small count, and
+transport booleans allowed by the executable runtime.
 It carries no account handle, cookie, credential, stable identity, DOM, or
-screenshot. Capture-v4 additionally permits only the bounded,
+screenshot and no other UI text. Capture-v4 additionally permits only the bounded,
 route-allowlisted, non-identity `response_completion_marker` enum below; it
 carries no handles, hashes, UI text, or stable identifiers. Cookies, credential
 data, DOM, screenshots, and private account state remain host-local. Navigation,
@@ -258,10 +266,24 @@ When ChatGPT exposes no response-specific native export and its current
 compound-citation carousel cannot satisfy the legacy all-members-at-once drawer
 model, use `browser_rendered_markdown`. From the exact completed assistant
 response subtree, save Playwright's response-specific browser `innerText` bytes
-without clipboard or manual reconstruction and save the exact response DOM.
+without clipboard or manual reconstruction and save its exact `outerHTML`.
 Enumerate response-local citation controls in DOM order, traverse every current
 compound carousel once in displayed order, and save a JSON array of first-seen
-exact HTTPS URLs without normalization. Run once per capture-local
+exact HTTPS URLs without normalization. In one fixed browser evaluation, clone
+the exact response root and set these five attributes on the clone before
+serializing its `outerHTML` as the response-bound browser evidence DOM:
+
+- `data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"`
+- `data-bma-researcher-attempt-alias="<current attempt alias>"`
+- `data-bma-response-inner-text-base64="<base64 exact staged innerText bytes>"`
+- `data-bma-ordered-citation-urls-json-base64="<base64 exact staged URL-JSON bytes>"`
+- `data-bma-original-response-outer-html-base64="<base64 exact original response outerHTML bytes>"`
+
+Discard the clone after serialization. The runtime parses the retained response
+root, requires its current attempt alias, and rejects separately staged text or
+URL bytes that differ or duplicate evidence markers. This is producer-declared
+response binding, not browser attestation or proof against deliberate
+fabrication. Run once per capture-local
 materialization attempt:
 
 ```text
@@ -270,13 +292,14 @@ bma-researcher materialize-browser-rendered-capture \
   --capture <citation-free-draft> \
   --response-text <exact-inner-text> \
   --citation-urls <ordered-url-json> \
-  --assistant-dom <exact-response-dom>
+  --assistant-dom <response-bound-browser-evidence-dom>
 ```
 
 The command rejects duplicate or invalid URLs, preserves the exact provider
 response text as an unchanged prefix, and appends one canonical host-authored
 `## Response citation URLs` custody list,
-derives portable citation rows, retains all three inputs owner-privately, and
+derives portable citation rows from the retained response DOM, retains all three inputs and embedded
+exact response `outerHTML` owner-privately, and
 emits a hash-bound materialization receipt plus
 `capture-browser-rendered.json`. Pass only that emitted capture directly
 to `package`; its `rendered_dom_provenance` and `citation_source_map` remain

@@ -105,6 +105,8 @@ for required in \
   '"chooser_selected_prepared_input_match": true,' \
   '"upload_completed": true,' \
   '"visible_file_name_match": true,' \
+  '"visible_attachment_names": ["provider-input.md"],' \
+  '"visible_attachment_count": 1,' \
   '"undeclared_composer_text_absent": true,' \
   '"truncation_marker_absent": true' \
   'X/Grok retains the separate bounded `exact_inline_text` route' \
@@ -114,6 +116,8 @@ for required in \
   '"chooser_selected_prepared_input_match": false,' \
   '"upload_completed": false,' \
   '"visible_file_name_match": false,' \
+  '"visible_attachment_names": [],' \
+  '"visible_attachment_count": 0,' \
   'A clarification observation carries no transport' \
   'does not authorize compaction, retry, a second send, or a route,' \
   '`bma-researcher transport-probe --output-dir <new-dir>`' \
@@ -137,8 +141,8 @@ for required in \
   'source-native records false/null after' \
   'Preflight-v3 has neither field.' \
   'V5 identity evidence records portable booleans and a fresh random attempt alias;' \
-  'exact prepared' \
-  'hash/byte bindings and transport booleans allowed by the executable runtime.' \
+  'initial native-upload transport/preflight additionally carries the exact prepared' \
+  'hash/byte bindings, bounded attachment-basename inventory and small count, and' \
   'route-allowlisted, non-identity `response_completion_marker` enum below;' \
   'it carries no handles, hashes, UI text, or stable identifiers.' \
   'The exact `RESPONSE_COMPLETION_MARKERS` allowlist' \
@@ -249,9 +253,9 @@ transport_skill_valid() {
     '`submission_instruction` in the composer' \
     'does not expose a dependable attachment byte-size readback' \
     'ChatGPT `bma_researcher_route_observation.v5` transport object uses exactly the following field set. An exact-label observation is:' \
-    '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": true, "supported_native_file_chooser_used": true, "chooser_selected_prepared_input_match": true, "upload_completed": true, "visible_file_name_match": true, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
-    'the same exact field set still records `"visible_file_name_match": true`. An unrelated label records false and fails preflight.' \
-    '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": false, "supported_native_file_chooser_used": false, "chooser_selected_prepared_input_match": false, "upload_completed": false, "visible_file_name_match": false, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": true, "supported_native_file_chooser_used": true, "chooser_selected_prepared_input_match": true, "upload_completed": true, "visible_file_name_match": true, "visible_attachment_names": ["provider-input.md"], "visible_attachment_count": 1, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    'Preflight independently requires one name, count `1`, and the bounded exact-or-suffix matcher.' \
+    '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": false, "supported_native_file_chooser_used": false, "chooser_selected_prepared_input_match": false, "upload_completed": false, "visible_file_name_match": false, "visible_attachment_names": [], "visible_attachment_count": 0, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
     '`bma-researcher transport-probe --output-dir <new-dir>`' \
     '`send_authorized: false`' \
     'does not authorize compaction, retry, a second send, or a route,'
@@ -278,6 +282,8 @@ for mutation_target in \
   'chooser_selected_prepared_input_match' \
   'upload_completed' \
   'visible_file_name_match' \
+  'visible_attachment_names' \
+  'visible_attachment_count' \
   'undeclared_composer_text_absent' \
   'truncation_marker_absent' \
   'tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})' \
@@ -358,8 +364,8 @@ for transport_contract in \
   '`userGesture: true`.' \
   'does not require visible attachment byte-size UI.' \
   '`transport-probe` is a deterministic, non-sensitive, no-send 256 KiB browser' \
-  'V5 identity evidence contains only portable booleans and a fresh random' \
-  'prepared hash/byte bindings and transport booleans allowed by the executable' \
+  'V5 identity evidence contains portable booleans and a fresh random attempt' \
+  'bounded attachment-basename inventory and' \
   'It does not prove provider attention, extraction, semantic use, or report completeness.'
 do
   if grep -Fq -- "$transport_contract" <<< "$CONTRACT_TEXT"; then
@@ -416,6 +422,44 @@ else
   fail "native direct-package and rendered materialize/package branches are mutually exclusive and ordered"
 fi
 
+browser_rendered_skill_valid() {
+  local candidate="$1"
+  local guard
+  for guard in \
+    'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"' \
+    'data-bma-researcher-attempt-alias' \
+    'data-bma-response-inner-text-base64' \
+    'data-bma-ordered-citation-urls-json-base64' \
+    'data-bma-original-response-outer-html-base64' \
+    'requires its current attempt alias' \
+    'rejects separately staged text or URL bytes that differ or duplicate evidence markers' \
+    'not browser attestation or proof against deliberate fabrication.'
+  do
+    grep -Fq -- "$guard" <<< "$candidate" || return 1
+  done
+}
+
+if browser_rendered_skill_valid "$SKILL_TEXT"; then
+  pass "browser-rendered response-root binding contract is complete"
+else
+  fail "browser-rendered response-root binding contract is complete"
+fi
+
+for mutation_target in \
+  'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"' \
+  'data-bma-researcher-attempt-alias' \
+  'data-bma-response-inner-text-base64' \
+  'data-bma-ordered-citation-urls-json-base64' \
+  'data-bma-original-response-outer-html-base64'
+do
+  mutated_browser_text="${SKILL_TEXT/"$mutation_target"/__removed_browser_guard__}"
+  if browser_rendered_skill_valid "$mutated_browser_text"; then
+    fail "browser-rendered validator rejects drift: $mutation_target"
+  else
+    pass "browser-rendered validator rejects drift: $mutation_target"
+  fi
+done
+
 if grep -Fq -- \
   'After send and any consequential clarification, the producer resumes the exact yielded/browser handle and boundedly polls that same response before either capture branch.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
@@ -434,7 +478,7 @@ else
 fi
 
 if grep -Fq -- \
-  'V5 identity evidence contains only portable booleans and a fresh random attempt alias.' \
+  'V5 identity evidence contains portable booleans and a fresh random attempt alias.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'Capture-v4 additionally permits only its bounded, route-allowlisted, non-identity `response_completion_marker` enum;' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
