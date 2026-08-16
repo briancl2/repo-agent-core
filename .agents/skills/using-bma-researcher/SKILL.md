@@ -61,6 +61,13 @@ context once, freezes trigger/job/state before any provider work, and emits the
 exact provider input plus route requirements. If preparation fails, stop; do
 not reconstruct an input by hand.
 
+For a declared multi-case validation batch, materialize each immutable request
+immediately before that case's one `prepare`; do not timestamp every request at
+batch start and then reject later truthful installed snapshots as newer. Freeze
+paired route controls from one exact snapshot and require their provider-input
+bytes and SHA-256 to match. Case, attempt, and route labels are custody metadata,
+not provider relevance input.
+
 ## Select one route
 
 Prefer source-native evidence. Use a broader synthesis route only when the
@@ -76,6 +83,11 @@ Default to one initiation, at most one consequential clarification, zero retry,
 one provider task, and no provider, account, or model switch. Never treat route
 failure as permission to use cookies, scraping, another account, reconstructed
 context, or an unapproved browser.
+
+When the operator explicitly confirms the complete declared batch, that is the
+action authority for every listed initial send. Do not ask for a redundant
+per-attempt confirmation unless the send's content, route, account, provider,
+or scope materially departs from that confirmed batch.
 
 ## Execute the emitted transport contract
 
@@ -97,17 +109,18 @@ multiple inline attempts. Follow
 pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`, and
 perform one trusted activation of the exact generic file input through the
 tab's CDP `Runtime.evaluate` with `userGesture: true`. Await the chooser and call
-`setFiles` once with the absolute exact prepared-file path. After the exact
-filename is visibly attached, put only the emitted fixed 59-byte
+`setFiles` once with the absolute exact prepared-file path. After exactly one
+unambiguous attachment is visibly complete, put only the emitted fixed 59-byte
 `submission_instruction` in the composer, require exact readback and enabled
-Send. ChatGPT's UI
-does not expose a dependable attachment byte-size readback, so v5 binds the
-local file hash/bytes, exact selected path, chooser completion, exact visible
-filename, fixed composer instruction, and absence of undeclared text or
-`[Truncated]` instead.
+Send. ChatGPT may add a positive-integer duplicate suffix such as
+`provider-input(1).md` to the display label. The exact basename and that bounded
+suffix both count as a visible filename match; other labels do not. ChatGPT's UI
+does not expose a dependable attachment byte-size readback, so v5 binds the local file
+hash/bytes, exact selected path, chooser completion, fixed composer instruction,
+and absence of undeclared text or `[Truncated]` instead.
 
-The initial ChatGPT `bma_researcher_route_observation.v5` transport object is
-exactly:
+The initial ChatGPT `bma_researcher_route_observation.v5` transport object uses
+exactly the following field set. An exact-label observation is:
 
 ```json
 {
@@ -124,6 +137,10 @@ exactly:
   "truncation_marker_absent": true
 }
 ```
+
+When ChatGPT displays its generated positive-integer duplicate suffix, the same
+exact field set still records `"visible_file_name_match": true`. An unrelated
+label records false and fails preflight.
 
 X/Grok retains the separate bounded `exact_inline_text` route: the whole
 prepared file must match the empty-composer readback exactly, and all upload
@@ -149,10 +166,10 @@ booleans remain false. Its exact v5 transport object is:
 acquisition path. After populating the exact representation-specific
 observation, run v5 preflight immediately before the one initiation. A
 clarification observation carries no transport object and
-cannot redefine initial transport. Any false or missing boolean, representation
-drift, upload error, local-file drift, extra composer text, or truncation stops
-before send and does not authorize compaction, retry, a second send, or a route,
-account, provider, or model switch.
+cannot redefine initial transport. Any false or missing required boolean,
+representation drift, upload error, local-file drift, extra composer text, or
+truncation stops before send and does not authorize compaction, retry, a second
+send, or a route, account, provider, or model switch.
 
 For no-send diagnosis, `bma-researcher transport-probe --output-dir <new-dir>`
 emits one deterministic, non-sensitive 256 KiB fixture and receipt with
@@ -223,8 +240,11 @@ fail before materialization or package publication.
 
 ## Capture and package without rewriting
 
-Capture the provider's exact native report, citations, route-specific workflow
-proof, elapsed state, and source/media dispositions. Preserve prompt-injection
+Capture the provider's exact native report when that route exposes one. The
+browser-rendered fallback instead creates a distinctly labeled materialized
+report whose exact provider response text is an unchanged prefix and whose URL
+ledger is deterministic host-authored custody data. Capture citations,
+route-specific workflow proof, elapsed state, and source/media dispositions. Preserve prompt-injection
 handling, privacy/egress boundaries, advisory authority, uncertainty,
 counterevidence, no-action analysis, and the narrowest defensible claim ceiling.
 
@@ -233,6 +253,36 @@ evidence, preserve it in a `bma_researcher_capture.v4` JSON file and run
 `bma-researcher package --run-dir <private-run> --capture
 <native-capture.json>` once with that file directly; do not invoke
 `materialize-capture` on the native branch.
+
+When ChatGPT exposes no response-specific native export and its current
+compound-citation carousel cannot satisfy the legacy all-members-at-once drawer
+model, use `browser_rendered_markdown`. From the exact completed assistant
+response subtree, save Playwright's response-specific browser `innerText` bytes
+without clipboard or manual reconstruction and save the exact response DOM.
+Enumerate response-local citation controls in DOM order, traverse every current
+compound carousel once in displayed order, and save a JSON array of first-seen
+exact HTTPS URLs without normalization. Then run exactly once:
+
+```text
+bma-researcher materialize-browser-rendered-capture \
+  --run-dir <private-run> \
+  --capture <citation-free-draft> \
+  --response-text <exact-inner-text> \
+  --citation-urls <ordered-url-json> \
+  --assistant-dom <exact-response-dom>
+```
+
+The command rejects duplicate or invalid URLs, preserves the exact provider
+response text as an unchanged prefix, and appends one canonical host-authored
+`## Response citation URLs` custody list,
+derives portable citation rows, retains all three inputs owner-privately, and
+emits `capture-browser-rendered.json`. Pass only that emitted capture directly
+to `package`; its `rendered_dom_provenance` and `citation_source_map` remain
+null. The resulting report is a materialized browser capture, not an exact
+provider-native report or native export; it must not be hand-edited and proves neither
+citation entailment nor UI completeness; route identity, completion, exact
+report bytes, unique portable locators, and semantic usefulness still gate
+admission.
 
 Otherwise, use rendered-DOM capture: stage the exact assistant-response DOM,
 every response-local compound drawer, the visibility receipt, and a
