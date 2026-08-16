@@ -45,7 +45,12 @@ all-members drawer model. Bind the exact assistant response subtree and save its
 Playwright browser `innerText` bytes and exact DOM. Enumerate only that response's citation controls in DOM order;
 traverse each current compound carousel once in displayed order and save the
 first-seen exact HTTPS URLs as an ordered JSON array without normalization.
-Run `bma-researcher materialize-browser-rendered-capture` once with the
+Run `bma-researcher materialize-browser-rendered-capture` once per capture-local
+materialization attempt with the
 citation-free capture draft and those three owner-private files. Package only
-the emitted `capture-browser-rendered.json`. Do not use clipboard text, manually
+the emitted `capture-browser-rendered.json`; package revalidates its hash-bound
+private materialization inputs and rejects a caller-authored substitute. A
+pre-emission local validation failure may be corrected in capture-local staging
+and rematerialized against the same completed response; never rerun after
+successful emission. Do not use clipboard text, manually
 rebuild report Markdown, hand-author citation rows, or claim a native export.

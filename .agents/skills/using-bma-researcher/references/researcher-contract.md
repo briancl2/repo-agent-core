@@ -124,8 +124,16 @@ the harness-facing invariants compact and provider neutral.
   normalization. `materialize-browser-rendered-capture` rejects duplicate or
   invalid URLs, uses a canonical separator and `## Response citation URLs`
   ledger, derives citations, keeps all raw inputs owner-private, emits
+  a canonical hash-bound materialization receipt and
   `capture-browser-rendered.json`, carries null strict rendered-DOM provenance
   fields, and makes no native-export, entailment, or UI-completeness claim.
+  Package re-derives the exact report, citations, and receipt from retained
+  inputs, rejects unmaterialized caller captures, and materialization failure
+  rolls back only its newly created report/private outputs.
+  A pre-emission local validation failure may be corrected in capture-local
+  staging and rematerialized against the same completed provider response; this
+  does not authorize another provider send. Successful emission remains
+  terminal for that materialization path.
 - Rendered-DOM capture uses one immutable assistant-response DOM plus one
   same-response source-drawer DOM for every compound citation group, staged in
   a separate owner-private directory outside the run. The materializer creates

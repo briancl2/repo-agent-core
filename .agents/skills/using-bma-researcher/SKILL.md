@@ -261,7 +261,8 @@ response subtree, save Playwright's response-specific browser `innerText` bytes
 without clipboard or manual reconstruction and save the exact response DOM.
 Enumerate response-local citation controls in DOM order, traverse every current
 compound carousel once in displayed order, and save a JSON array of first-seen
-exact HTTPS URLs without normalization. Then run exactly once:
+exact HTTPS URLs without normalization. Run once per capture-local
+materialization attempt:
 
 ```text
 bma-researcher materialize-browser-rendered-capture \
@@ -276,13 +277,20 @@ The command rejects duplicate or invalid URLs, preserves the exact provider
 response text as an unchanged prefix, and appends one canonical host-authored
 `## Response citation URLs` custody list,
 derives portable citation rows, retains all three inputs owner-privately, and
-emits `capture-browser-rendered.json`. Pass only that emitted capture directly
+emits a hash-bound materialization receipt plus
+`capture-browser-rendered.json`. Pass only that emitted capture directly
 to `package`; its `rendered_dom_provenance` and `citation_source_map` remain
 null. The resulting report is a materialized browser capture, not an exact
 provider-native report or native export; it must not be hand-edited and proves neither
 citation entailment nor UI completeness; route identity, completion, exact
 report bytes, unique portable locators, and semantic usefulness still gate
-admission.
+admission. Packaging re-derives report and citation bytes from the retained
+private inputs and rejects a direct caller-authored capture. A failed
+materialization removes only its newly created report/private outputs before a
+corrected capture proceeds. If local validation rejects the staged capture
+before successful emission, correct only that capture-local staging and rerun
+this command against the same completed provider response; this is not a
+provider retry. Never rerun it after successful emission.
 
 Otherwise, use rendered-DOM capture: stage the exact assistant-response DOM,
 every response-local compound drawer, the visibility receipt, and a
