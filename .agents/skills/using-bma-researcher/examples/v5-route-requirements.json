@@ -1,0 +1,68 @@
+{
+  "attempt_alias": "transportv5fixture001",
+  "browser_required": true,
+  "candidate_selection": {
+    "absence_claim": "inspected_count_and_remaining_unknowns_only",
+    "inventory": "fresh_user_owned_tabs",
+    "max_inspected": 3,
+    "origin_filter": "exact_origin",
+    "rank": [
+      "exact_task_or_conversation_url",
+      "signed_in_home",
+      "observed_recency",
+      "fresh_random_alias"
+    ],
+    "selection": "first_fully_eligible"
+  },
+  "case_id": "bma-browser-transport-v5-fixture",
+  "host_continuation": {
+    "pty": "resume_exact_session_until_terminal",
+    "settle_with_outstanding_work": false,
+    "yielded_tool_cell": "resume_exact_cell_until_terminal"
+  },
+  "policy": {
+    "account_switch": false,
+    "consequential_clarifications_max": 1,
+    "initial_sends": 1,
+    "model_switch": false,
+    "provider_switch": false,
+    "retries": 0
+  },
+  "portable_route_fields": "booleans_and_fresh_random_aliases_only",
+  "provider_input_bytes": 262144,
+  "provider_input_sha256": "645296e6d229288d27a3962823fe2063a73fca63bac52bc26cde0354e9250e29",
+  "provider_origin": "https://chatgpt.com",
+  "schema_version": "bma_researcher_route_requirements.v5",
+  "selected_route": "chatgpt_pro",
+  "task_required_capabilities": [
+    "private_context"
+  ],
+  "transport": {
+    "claim_ceiling": "receipt consistency binds the prepared file and visible upload state; it does not prove provider attention, extraction, or semantic use",
+    "inline_safety_bound_bytes": 0,
+    "native_file_upload": {
+      "enabled": true,
+      "file_name": "provider-input.md",
+      "media_type": "text/markdown",
+      "prepared_file_selection_match_required": true,
+      "supported_native_file_chooser_required": true,
+      "trusted_file_input_activation_method": "chrome_runtime_evaluate_user_gesture_exact_generic_input_v1",
+      "trusted_file_input_activation_required": true,
+      "upload_completion_required": true,
+      "visible_file_name_match_required": true
+    },
+    "representation": "native_file_upload",
+    "route_hard_max_bytes": 2000000,
+    "submission_instruction": "Use the attached provider-input.md as the complete request.",
+    "truncation_marker_forbidden": true,
+    "undeclared_composer_text_forbidden": true
+  },
+  "workflow": {
+    "deep_research_literal_selection_required": false,
+    "deep_research_post_send_identity_required": false,
+    "x_bookmarks_required": false,
+    "x_integrated_grok_required": false,
+    "x_premium_plus_required": false,
+    "x_private_host_identity_required": false
+  }
+}

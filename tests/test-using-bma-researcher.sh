@@ -8,6 +8,8 @@ INSTALLER="$ROOT/scripts/install-bma-researcher-skill.py"
 SOURCE="$ROOT/.agents/skills/using-bma-researcher"
 V3_ROUTE_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v3-route-requirements.json"
 V3_INVOCATION_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v3-invocation.json"
+V5_ROUTE_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v5-route-requirements.json"
+V5_PROBE_FIXTURE="$ROOT/.agents/skills/using-bma-researcher/examples/v5-transport-probe.json"
 TEST_ROOT="$(mktemp -d)"
 trap 'rm -rf "$TEST_ROOT"' EXIT
 
@@ -18,6 +20,7 @@ if ! git -C "$ROOT" diff --quiet -- \
   echo "ERROR: relevant working-tree bytes differ from the tested Git index" >&2
   exit 1
 fi
+
 if [ -n "$(git -C "$ROOT" ls-files --others --exclude-standard -- \
   .agents/skills/using-bma-researcher \
   scripts/install-bma-researcher-skill.py \
@@ -38,6 +41,20 @@ fail() {
   FAIL=$((FAIL + 1))
   echo "  FAIL: $1"
 }
+
+# Exact outputs from BMA candidate e7af37bd96ed3318620fd4eb665579b1d9ad2b86.
+# The route fixture comes from route_requirements() for the exact probe bytes;
+# the manifest is the byte-identical transport-probe output.
+if [ "$(shasum -a 256 "$V5_ROUTE_FIXTURE" | awk '{print $1}')" = \
+  "a883383c8ff8cf8dc5744dd22ba5e2d394e0e5aebc3666f12a4c8bbed3f7aad9" ] && \
+  [ "$(shasum -a 256 "$V5_PROBE_FIXTURE" | awk '{print $1}')" = \
+  "4e05c8088528e990a565def6ed0452f83dc6c150e3cf75f2936613f9d326b78e" ] && \
+  python3 -c 'import json,sys; route=json.load(open(sys.argv[1])); probe=json.load(open(sys.argv[2])); artifact=probe["artifacts"][0]; transport=route["transport"]; upload=transport["native_file_upload"]; assert route["schema_version"] == "bma_researcher_route_requirements.v5"; assert route["selected_route"] == "chatgpt_pro"; assert route["provider_input_sha256"] == artifact["sha256"]; assert route["provider_input_bytes"] == artifact["bytes"] == 262144; assert transport["representation"] == artifact["representation"] == "native_file_upload"; assert transport["submission_instruction"] == artifact["submission_instruction"]; assert upload["trusted_file_input_activation_method"] == artifact["file_input_activation_method"]; assert upload["supported_native_file_chooser_required"] is True; assert upload["trusted_file_input_activation_required"] is True; assert upload["upload_completion_required"] is True; assert upload["prepared_file_selection_match_required"] is True; assert upload["visible_file_name_match_required"] is True; assert "visible_file_size_match_required" not in upload; assert probe["schema_version"] == "bma_researcher_chatgpt_transport_probe.v1"; assert probe["send_authorized"] is False; assert artifact["submission_instruction_bytes"] == 59' \
+    "$V5_ROUTE_FIXTURE" "$V5_PROBE_FIXTURE"; then
+  pass "hash-pinned BMA v5 route and transport-probe fixtures match the canonical skill"
+else
+  fail "hash-pinned BMA v5 route and transport-probe fixtures match the canonical skill"
+fi
 
 SKILL_TEXT="$(git -C "$ROOT" show ":$SKILL_PATH" | tr '\n' ' ' | tr -s ' ')"
 CONTRACT_TEXT="$(git -C "$ROOT" show \
@@ -60,41 +77,49 @@ for required in \
   '`synthesize_dossier`' \
   'at most one consequential clarification, zero retry,' \
   'no provider, account, or model switch.' \
-  'read the emitted `route-requirements.json` schema first.' \
-  'A v3 object has no v4 transport field; only after identifying v4' \
-  'Branch only on those emitted fields; never' \
-  'For v3, require its SHA-256 to match both the prepared invocation and route requirements,' \
-  'UTF-8 byte count to match the invocation; v3 route requirements do not carry' \
-  '`provider_input_bytes`. For v4, require both SHA-256 and UTF-8 byte count to' \
-  'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' \
-  '`bma_researcher_route_observation.v3` observation without v4 transport fields,' \
-  '`transport.representation` is exactly `exact_inline_text` or' \
-  '`native_file_upload` and its associated requirement fields agree:' \
-  '"representation": "exact_inline_text",' \
+  'read the emitted `route-requirements.json` schema first and' \
+  'Current foreground work requires' \
+  '`bma_researcher_route_requirements.v5`; retained v3/v4 examples are historical' \
+  'readback evidence and never authorize a new send.' \
+  'For ChatGPT Pro or Deep Research, v5 always declares' \
+  '`transport.representation: native_file_upload`.' \
+  'Never bulk-insert prepared' \
+  'provider-input bytes into the ChatGPT composer and never split them across' \
+  'multiple inline attempts.' \
+  'open' \
+  '`Add files and more`, require the visible `Upload from computer` action,' \
+  'pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`' \
+  '`Runtime.evaluate` with `userGesture: true`.' \
+  '`setFiles` once with the absolute exact prepared-file path.' \
+  'fixed 59-byte' \
+  '`submission_instruction` in the composer' \
+  'ChatGPT' \
+  'does not expose a dependable attachment byte-size readback' \
+  'ChatGPT `bma_researcher_route_observation.v5` transport object is' \
+  '"representation": "native_file_upload",' \
   '"prepared_input_sha256_match": true,' \
   '"prepared_input_bytes_match": true,' \
-  '"exact_inline_text_match": true,' \
-  '"supported_native_file_chooser_used": false,' \
-  '"upload_completed": false,' \
-  '"visible_file_name_match": false,' \
-  '"visible_file_size_match": false,' \
-  'Start `waitForEvent("filechooser")` before clicking' \
-  '`chooser.setFiles` once with the absolute path to the prepared run-local file.' \
-  'Do not use `locator.setInputFiles`, a native-picker fallback, a reconstructed' \
-  '"representation": "native_file_upload",' \
-  '"exact_inline_text_match": false,' \
+  '"exact_composer_text_match": true,' \
+  '"trusted_file_input_activation_used": true,' \
   '"supported_native_file_chooser_used": true,' \
+  '"chooser_selected_prepared_input_match": true,' \
   '"upload_completed": true,' \
   '"visible_file_name_match": true,' \
-  '"visible_file_size_match": true,' \
   '"undeclared_composer_text_absent": true,' \
   '"truncation_marker_absent": true' \
+  'X/Grok retains the separate bounded `exact_inline_text` route' \
+  '"representation": "exact_inline_text",' \
+  '"trusted_file_input_activation_used": false,' \
+  '"supported_native_file_chooser_used": false,' \
+  '"chooser_selected_prepared_input_match": false,' \
+  '"upload_completed": false,' \
+  '"visible_file_name_match": false,' \
   'A clarification observation carries no transport' \
-  '`bma_researcher_route_observation.v4`, keep `outbound_message_sha256` and' \
-  '`outbound_message_bytes` bound to the exact prepared artifact' \
-  'does not authorize compaction, a second send, retry, or account/provider/model' \
-  'The v4 transport receipt proves only host-side consistency' \
-  'It does not prove provider' \
+  'does not authorize compaction, retry, a second send, or a route,' \
+  '`bma-researcher transport-probe --output-dir <new-dir>`' \
+  '`send_authorized: false`' \
+  'The v5 receipt proves browser control and prepared-artifact consistency only;' \
+  'it does not prove provider' \
   'attention, extraction, semantic use, or report completeness.' \
   'Packaging stops at `PACKAGED`.' \
   'return `NO_ACTION`' \
@@ -111,7 +136,9 @@ for required in \
   '`workflow.response_completion_marker`' \
   'source-native records false/null after' \
   'Preflight-v3 has neither field.' \
-  'V3 route-identity/preflight artifacts record only portable booleans' \
+  'V5 identity evidence records portable booleans and a fresh random attempt alias;' \
+  'exact prepared' \
+  'hash/byte bindings and transport booleans allowed by the executable runtime.' \
   'route-allowlisted, non-identity `response_completion_marker` enum below;' \
   'it carries no handles, hashes, UI text, or stable identifiers.' \
   'The exact `RESPONSE_COMPLETION_MARKERS` allowlist' \
@@ -208,21 +235,23 @@ transport_skill_valid() {
   local candidate="$1"
   local guard
   for guard in \
-    'read the emitted `route-requirements.json` schema first.' \
-    'A v3 object has no v4 transport field; only after identifying v4' \
-    'For v3, require its SHA-256 to match both the prepared invocation and route requirements,' \
-    'UTF-8 byte count to match the invocation; v3 route requirements do not carry `provider_input_bytes`.' \
-    'For v4, require both SHA-256 and UTF-8 byte count to match both artifacts.' \
-    'Unsupported schemas, unknown representations, schema/field drift,' \
-    'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' \
-    '`bma_researcher_route_observation.v3` observation without v4 transport fields,' \
-    'For `bma_researcher_route_requirements.v4`, accept browser transport only when' \
-    '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_inline_text_match": true, "supported_native_file_chooser_used": false, "upload_completed": false, "visible_file_name_match": false, "visible_file_size_match": false, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
-    '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_inline_text_match": false, "supported_native_file_chooser_used": true, "upload_completed": true, "visible_file_name_match": true, "visible_file_size_match": true, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
-    'Start `waitForEvent("filechooser")` before clicking' \
-    '`chooser.setFiles` once with the absolute path to the prepared run-local file.' \
-    '`preflight-check` only after every required boolean is established' \
-    'does not authorize compaction, a second send, retry, or account/provider/model'
+    'read the emitted `route-requirements.json` schema first and' \
+    '`bma_researcher_route_requirements.v5`; retained v3/v4 examples are historical readback evidence' \
+    'For ChatGPT Pro or Deep Research, v5 always declares' \
+    '`transport.representation: native_file_upload`.' \
+    'Never bulk-insert prepared provider-input bytes into the ChatGPT composer and never split them across' \
+    '`Add files and more`, require the visible `Upload from computer` action,' \
+    'pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`' \
+    '`Runtime.evaluate` with `userGesture: true`.' \
+    '`setFiles` once with the absolute exact prepared-file path.' \
+    '`submission_instruction` in the composer' \
+    'does not expose a dependable attachment byte-size readback' \
+    'ChatGPT `bma_researcher_route_observation.v5` transport object is exactly:' \
+    '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": true, "supported_native_file_chooser_used": true, "chooser_selected_prepared_input_match": true, "upload_completed": true, "visible_file_name_match": true, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": false, "supported_native_file_chooser_used": false, "chooser_selected_prepared_input_match": false, "upload_completed": false, "visible_file_name_match": false, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    '`bma-researcher transport-probe --output-dir <new-dir>`' \
+    '`send_authorized: false`' \
+    'does not authorize compaction, retry, a second send, or a route,'
   do
     grep -Fq -- "$guard" <<< "$candidate" || return 1
   done
@@ -235,22 +264,23 @@ else
 fi
 
 for mutation_target in \
-  'bma_researcher_route_requirements.v3' \
-  'bma_researcher_route_requirements.v4' \
-  '"representation": "exact_inline_text"' \
+  'bma_researcher_route_requirements.v5' \
   '"representation": "native_file_upload"' \
+  '"representation": "exact_inline_text"' \
   'prepared_input_sha256_match' \
   'prepared_input_bytes_match' \
-  'provider_input_bytes' \
-  'exact_inline_text_match' \
+  'exact_composer_text_match' \
+  'trusted_file_input_activation_used' \
   'supported_native_file_chooser_used' \
+  'chooser_selected_prepared_input_match' \
   'upload_completed' \
   'visible_file_name_match' \
-  'visible_file_size_match' \
   'undeclared_composer_text_absent' \
   'truncation_marker_absent' \
-  'waitForEvent("filechooser")' \
-  'chooser.setFiles' \
+  'tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})' \
+  'Runtime.evaluate' \
+  'submission_instruction' \
+  'transport-probe' \
   'a second send'
 do
   MUTATED_SKILL_TEXT="$(python3 -c \
@@ -279,53 +309,54 @@ fi
 
 if grep -Fq -- \
   'SHA-256 and UTF-8 byte count to match the prepared invocation and route requirements.' \
-  <<< "$SKILL_TEXT"; then
+  <<< "$EXAMPLE_TEXT"; then
   fail "v3 guidance does not depend on route_requirements.provider_input_bytes"
 elif grep -Fq -- \
-  'UTF-8 byte count to match the invocation; v3 route requirements do not carry `provider_input_bytes`.' \
-  <<< "$SKILL_TEXT"; then
+  'match its UTF-8 byte count only against `invocation.json`' \
+  <<< "$EXAMPLE_TEXT"; then
   pass "v3 guidance does not depend on route_requirements.provider_input_bytes"
 else
   fail "v3 guidance does not depend on route_requirements.provider_input_bytes"
 fi
 
-V3_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'For `bma_researcher_route_requirements.v3`, preserve the compatibility path:' | cut -d: -f1)"
-V4_BRANCH_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'For `bma_researcher_route_requirements.v4`, accept browser transport only when' | cut -d: -f1)"
-V4_INLINE_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'For `exact_inline_text`, require native upload disabled.' | cut -d: -f1)"
-V4_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'For `native_file_upload`, require the emitted upload object' | cut -d: -f1)"
+V5_SCHEMA_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'Current foreground work requires' | cut -d: -f1)"
+V5_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'For ChatGPT Pro or Deep Research, v5 always declares' | cut -d: -f1)"
+V5_OBSERVATION_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'The initial ChatGPT `bma_researcher_route_observation.v5` transport object is' | cut -d: -f1)"
 PREFLIGHT_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'Write the exact declared representation into the v4 observation and call' | cut -d: -f1)"
-if [ -n "$V3_TRANSPORT_LINE" ] && [ -n "$V4_BRANCH_LINE" ] && \
-  [ -n "$V4_INLINE_LINE" ] && [ -n "$V4_UPLOAD_LINE" ] && \
+  'observation, run v5 preflight immediately before the one initiation.' | cut -d: -f1)"
+if [ -n "$V5_SCHEMA_LINE" ] && [ -n "$V5_UPLOAD_LINE" ] && \
+  [ -n "$V5_OBSERVATION_LINE" ] && \
   [ -n "$PREFLIGHT_TRANSPORT_LINE" ] && \
-  [ "$V3_TRANSPORT_LINE" -lt "$V4_BRANCH_LINE" ] && \
-  [ "$V4_BRANCH_LINE" -lt "$V4_INLINE_LINE" ] && \
-  [ "$V4_INLINE_LINE" -lt "$V4_UPLOAD_LINE" ] && \
-  [ "$V4_UPLOAD_LINE" -lt "$PREFLIGHT_TRANSPORT_LINE" ]; then
-  pass "v3, v4 inline, v4 upload, and preflight operations are mutually ordered"
+  [ "$V5_SCHEMA_LINE" -lt "$V5_UPLOAD_LINE" ] && \
+  [ "$V5_UPLOAD_LINE" -lt "$V5_OBSERVATION_LINE" ] && \
+  [ "$V5_OBSERVATION_LINE" -lt "$PREFLIGHT_TRANSPORT_LINE" ]; then
+  pass "v5 ChatGPT upload and preflight operations are mutually ordered"
 else
-  fail "v3, v4 inline, v4 upload, and preflight operations are mutually ordered"
+  fail "v5 ChatGPT upload and preflight operations are mutually ordered"
 fi
 
 for transport_contract in \
   'The host reads the emitted route-requirements schema first.' \
-  'V3 has no v4 transport field; only v4 requires reading `transport.representation`.' \
-  '`bma_researcher_route_requirements.v3` retains exact inline transport only.' \
-  'matches its hash against both route requirements and the invocation' \
-  'matches its UTF-8 byte count against the invocation only;' \
+  'Current foreground work requires v5.' \
+  'Retained v3/v4 examples are historical readback evidence' \
+  '`bma_researcher_route_requirements.v3` is retained only for exact historical' \
+  'Its hash remains bound to both route requirements and' \
+  'its UTF-8 byte count comes from the invocation because v3' \
   'v3 route requirements have no `provider_input_bytes`.' \
-  '`bma_researcher_route_requirements.v4` requires the prepared hash and byte count to match' \
-  'Browser representations are exactly `exact_inline_text` or `native_file_upload`;' \
-  'an unknown representation or schema/representation drift fails before preflight or send.' \
-  'a `filechooser` wait armed before clicking the actual visible file input or its visible opener' \
-  'one `chooser.setFiles` call with the absolute prepared-file path' \
-  '`locator.setInputFiles`, native-picker fallback, reconstructed files, extra' \
-  'Clarification carries no transport object and cannot redefine the initial transport.' \
-  "the initial observation's outbound hash and byte count remain bound to the exact prepared artifact" \
+  'It cannot authorize a current preflight or send.' \
+  '`bma_researcher_route_requirements.v5` requires the prepared hash and byte' \
+  'ChatGPT always declares `native_file_upload`; X/Grok alone retains' \
+  'opens `Add files and more`, requires visible `Upload' \
+  'pre-arms the `filechooser` wait' \
+  '`Runtime.evaluate` activation of the exact generic file input with' \
+  '`userGesture: true`.' \
+  'does not require visible attachment byte-size UI.' \
+  '`transport-probe` is a deterministic, non-sensitive, no-send 256 KiB browser' \
+  'V5 identity evidence contains only portable booleans and a fresh random' \
+  'prepared hash/byte bindings and transport booleans allowed by the executable' \
   'It does not prove provider attention, extraction, semantic use, or report completeness.'
 do
   if grep -Fq -- "$transport_contract" <<< "$CONTRACT_TEXT"; then
@@ -336,16 +367,17 @@ do
 done
 
 for transport_example in \
-  '## Emitted v3 inline transport' \
+  '## Historical v3 transport readback' \
   'match its UTF-8 byte count only against `invocation.json`' \
   'the v3 route-requirements object has no `provider_input_bytes`.' \
-  '## Emitted v4 exact-inline transport' \
-  '## Emitted v4 native-file transport' \
-  '`prepare` emits `bma_researcher_route_requirements.v4`' \
-  'Do not choose the branch from the file size.' \
-  'Arm `waitForEvent("filechooser")` before clicking the visible file input' \
-  'Only then run `preflight-check` and send once.' \
-  "keep the observation's outbound hash and byte count bound to" \
+  'Do not create a composer observation, run preflight, upload, or send from a v3 artifact.' \
+  '## Current v5 ChatGPT native-file transport' \
+  '`prepare` emits `bma_researcher_route_requirements.v5`' \
+  'pre-arm `waitForEvent("filechooser")`' \
+  'Never bulk-insert the prepared file into ChatGPT' \
+  '## Current v5 X/Grok exact-inline transport' \
+  '## Questionless transport certification' \
+  '`send_authorized: false`' \
   'stop before send. Do not compact, rebuild, retry, or switch route.'
 do
   if grep -Fq -- "$transport_example" <<< "$EXAMPLE_TEXT"; then
@@ -399,7 +431,7 @@ else
 fi
 
 if grep -Fq -- \
-  'V3 route-identity/preflight receipts contain booleans and fresh random attempt aliases only.' \
+  'V5 identity evidence contains only portable booleans and a fresh random attempt alias.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'Capture-v4 additionally permits only its bounded, route-allowlisted, non-identity `response_completion_marker` enum;' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \

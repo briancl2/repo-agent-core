@@ -21,49 +21,48 @@ the harness-facing invariants compact and provider neutral.
 - One initiation, zero retry, one provider task, and no provider/account/model
   switch by default.
 - At most one clarification, and only when it is consequential to the answer.
-- The host reads the emitted route-requirements schema first. V3 has no v4
-  transport field; only v4 requires reading `transport.representation`. The
-  host never selects transport from input size, provider UI, or earlier attempts.
-- `bma_researcher_route_requirements.v3` retains exact inline transport only. The host re-reads
-  `provider-input.md`, matches its hash against both route requirements and the
-  invocation, and matches its UTF-8 byte count against the invocation only;
-  v3 route requirements have no `provider_input_bytes`. The host puts only
-  those bytes in an empty composer, rejects undeclared text or `[Truncated]`,
-  writes no v4 transport object, and runs v3 preflight before the one send.
-- `bma_researcher_route_requirements.v4` requires the prepared hash and byte count to match
-  both route requirements and invocation immediately before transport. Browser representations are exactly
-  `exact_inline_text` or `native_file_upload`; an unknown representation or
-  schema/representation drift fails before preflight or send.
-- V4 `exact_inline_text` requires the complete composer readback to match the
-  exact prepared hash and UTF-8 byte count, native-upload booleans false, no
-  undeclared text, and no truncation marker before preflight.
-- V4 `native_file_upload` requires the emitted supported-chooser requirements,
-  an empty composer, a `filechooser` wait armed before clicking the actual
-  visible file input or its visible opener, one `chooser.setFiles` call with
-  the absolute prepared-file path, completed visible upload state, matching
-  visible filename and byte size, and a post-upload local hash/byte recheck.
-  `locator.setInputFiles`, native-picker fallback, reconstructed files, extra
-  composer text, and `[Truncated]` are forbidden.
-- The initial v4 transport object records the emitted representation; prepared
-  hash/byte matches; exact-inline match; supported chooser use; upload
-  completion; visible name/size matches; undeclared-composer-text absence; and
-  truncation-marker absence. Exact-inline makes only its applicable booleans
-  true; upload makes only its applicable booleans true. Clarification carries
-  no transport object and cannot redefine the initial transport.
-- For either v4 browser representation, the initial observation's outbound
-  hash and byte count remain bound to the exact prepared artifact; the
-  transport object records whether those bytes are inline or the native file.
-- The v4 transport receipt establishes host-side prepared-artifact and visible
-  transport-state consistency only. It does not prove provider attention,
+- The host reads the emitted route-requirements schema first. Current foreground
+  work requires v5. Retained v3/v4 examples are historical readback evidence
+  only and never authorize a new send. The host never selects transport from
+  input size, provider UI, or earlier attempts.
+- `bma_researcher_route_requirements.v3` is retained only for exact historical
+  readback validation. Its hash remains bound to both route requirements and
+  invocation, while its UTF-8 byte count comes from the invocation because v3
+  route requirements have no `provider_input_bytes`. It cannot authorize a
+  current preflight or send.
+- `bma_researcher_route_requirements.v5` requires the prepared hash and byte
+  count to match both route requirements and invocation immediately before
+  transport. ChatGPT always declares `native_file_upload`; X/Grok alone retains
+  bounded `exact_inline_text`.
+- ChatGPT native upload opens `Add files and more`, requires visible `Upload
+  from computer`, pre-arms the `filechooser` wait, and performs one trusted CDP
+  `Runtime.evaluate` activation of the exact generic file input with
+  `userGesture: true`. The chooser calls `setFiles` once with the absolute exact
+  prepared path and records the chooser-selection match only when that path's
+  current hash/bytes match the prepared artifact. The exact filename must become visible before the fixed
+  submission instruction is placed in the composer and read back exactly.
+- V5 deliberately does not require visible attachment byte-size UI. It binds
+  the exact local file hash/bytes and path, trusted activation, chooser and
+  upload completion, visible exact filename, exact composer instruction,
+  absence of undeclared text, and absence of `[Truncated]`.
+- X/Grok v5 `exact_inline_text` requires complete composer readback to match
+  exact prepared bytes while upload fields are false. Clarification carries no
+  transport object and cannot redefine initial transport.
+- The v5 transport receipt establishes browser control and host-side
+  prepared-artifact consistency only. It does not prove provider attention,
   extraction, semantic use, or report completeness.
+- `transport-probe` is a deterministic, non-sensitive, no-send 256 KiB browser
+  diagnostic with `send_authorized: false`; it needs no research question and
+  must never be sent.
 - The pre-send observation is explicit, fresh, same-attempt, and invalidated by
   navigation, reset, handoff, or restart.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
-- V3 route-identity/preflight receipts contain booleans and fresh random
-  attempt aliases only. V4 route-identity/preflight additionally carries the
-  prepared artifact bindings allowed by the runtime contract and otherwise
-  retains only booleans and fresh random aliases. Capture-v4 additionally permits only its bounded,
+- V5 identity evidence contains only portable booleans and a fresh random
+  attempt alias. Initial transport/preflight additionally carries only exact
+  prepared hash/byte bindings and transport booleans allowed by the executable
+  runtime; it contains no account handle, cookie, credential, stable identity,
+  DOM, or screenshot. Capture-v4 additionally permits only its bounded,
   route-allowlisted, non-identity `response_completion_marker` enum; it carries
   no handles, hashes, UI text, or stable identifiers.
 - Deep Research needs launch-time selection and post-send native workflow proof.
