@@ -24,11 +24,28 @@ its composer. X/Grok retains its separate bounded inline route.
    exact run's `provider-input.md`. Record
    `chooser_selected_prepared_input_match: true` only when the selected path is
    that exact prepared path and its bytes/hash still match route requirements.
-7. Require completed attachment UI with the exact visible filename. Fill the
-   composer once with exactly `Use the attached provider-input.md as the
+7. Require exactly one completed, unambiguous attachment. ChatGPT may display a
+   positive-integer duplicate suffix such as `provider-input(1).md`; record the
+   filename match as true for either the exact basename or that bounded suffix,
+   and false for any unrelated label. The exact chooser-selected absolute path
+   and prepared hash/bytes must independently bind the upload. Fill
+   the composer once with exactly `Use the attached provider-input.md as the
    complete request.` Require exact readback, no other composer text, no
    `[Truncated]`, and an enabled send control before preflight.
 
 The chooser, attachment, and enabled Send prove browser control only. They do
 not prove provider attention, extraction, semantic use, or a completed send.
 Do not send a `transport-probe` fixture.
+
+## Browser-rendered capture fallback
+
+Use this fallback only when the completed response has no native Markdown export
+and the current compound-citation carousel cannot satisfy the strict
+all-members drawer model. Bind the exact assistant response subtree and save its
+Playwright browser `innerText` bytes and exact DOM. Enumerate only that response's citation controls in DOM order;
+traverse each current compound carousel once in displayed order and save the
+first-seen exact HTTPS URLs as an ordered JSON array without normalization.
+Run `bma-researcher materialize-browser-rendered-capture` once with the
+citation-free capture draft and those three owner-private files. Package only
+the emitted `capture-browser-rendered.json`. Do not use clipboard text, manually
+rebuild report Markdown, hand-author citation rows, or claim a native export.

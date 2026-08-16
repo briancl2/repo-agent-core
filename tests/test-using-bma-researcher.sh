@@ -95,7 +95,7 @@ for required in \
   '`submission_instruction` in the composer' \
   'ChatGPT' \
   'does not expose a dependable attachment byte-size readback' \
-  'ChatGPT `bma_researcher_route_observation.v5` transport object is' \
+  'ChatGPT `bma_researcher_route_observation.v5` transport object uses' \
   '"representation": "native_file_upload",' \
   '"prepared_input_sha256_match": true,' \
   '"prepared_input_bytes_match": true,' \
@@ -155,6 +155,8 @@ for required in \
   'preserve it in a `bma_researcher_capture.v4` JSON file and run' \
   '`bma-researcher package --run-dir <private-run> --capture <native-capture.json>` once with that file directly;' \
   'do not invoke `materialize-capture` on the native branch.' \
+  'materialize-browser-rendered-capture' \
+  '`capture-browser-rendered.json`' \
   'Otherwise, use rendered-DOM capture: stage the exact assistant-response DOM,' \
   'every response-local compound drawer, the visibility receipt, and a citation-free capture draft' \
   '`bma-researcher materialize-capture`' \
@@ -246,8 +248,9 @@ transport_skill_valid() {
     '`setFiles` once with the absolute exact prepared-file path.' \
     '`submission_instruction` in the composer' \
     'does not expose a dependable attachment byte-size readback' \
-    'ChatGPT `bma_researcher_route_observation.v5` transport object is exactly:' \
+    'ChatGPT `bma_researcher_route_observation.v5` transport object uses exactly the following field set. An exact-label observation is:' \
     '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": true, "supported_native_file_chooser_used": true, "chooser_selected_prepared_input_match": true, "upload_completed": true, "visible_file_name_match": true, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
+    'the same exact field set still records `"visible_file_name_match": true`. An unrelated label records false and fails preflight.' \
     '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": false, "supported_native_file_chooser_used": false, "chooser_selected_prepared_input_match": false, "upload_completed": false, "visible_file_name_match": false, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
     '`bma-researcher transport-probe --output-dir <new-dir>`' \
     '`send_authorized: false`' \
@@ -324,7 +327,7 @@ V5_SCHEMA_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
 V5_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
   'For ChatGPT Pro or Deep Research, v5 always declares' | cut -d: -f1)"
 V5_OBSERVATION_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'The initial ChatGPT `bma_researcher_route_observation.v5` transport object is' | cut -d: -f1)"
+  'The initial ChatGPT `bma_researcher_route_observation.v5` transport object uses' | cut -d: -f1)"
 PREFLIGHT_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
   'observation, run v5 preflight immediately before the one initiation.' | cut -d: -f1)"
 if [ -n "$V5_SCHEMA_LINE" ] && [ -n "$V5_UPLOAD_LINE" ] && \
@@ -478,7 +481,9 @@ fi
 if grep -Fq -- \
   'A complete native export is preserved in a `bma_researcher_capture.v4` JSON file and passed directly to `bma-researcher package --run-dir <private-run> --capture <native-capture.json>`; the native branch never calls `materialize-capture`.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
-  'Otherwise, the rendered-DOM branch calls `materialize-capture` exactly once' \
+  'A complete `browser_rendered_markdown` capture is likewise passed directly to `package` with null strict rendered-DOM provenance fields, but only after `materialize-browser-rendered-capture` emits it.' \
+  <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'Only the strict `rendered_dom_markdown` branch calls `materialize-capture` exactly once' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'only the emitted `capture-materialized.json` to `package`' \
   <<< "$CONTRACT_TEXT"; then

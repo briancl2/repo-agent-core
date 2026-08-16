@@ -6,6 +6,9 @@ the harness-facing invariants compact and provider neutral.
 ## Request invariants
 
 - One immutable owner-private run directory outside Git.
+- In a multi-case batch, freeze each request immediately before its one
+  `prepare`; paired route controls share one exact snapshot. Case, attempt, and
+  route labels remain host-local custody metadata rather than relevance input.
 - Exact ordinary question is the only relevance input.
 - Trigger is `operator_question` or `agent_detected_need`.
 - Authority and job family are frozen before context or routing.
@@ -20,6 +23,9 @@ the harness-facing invariants compact and provider neutral.
 
 - One initiation, zero retry, one provider task, and no provider/account/model
   switch by default.
+- One explicit confirmation of a fully declared batch authorizes its listed
+  initial sends; no per-attempt reconfirmation is required absent material
+  content, route, account, provider, or scope drift.
 - At most one clarification, and only when it is consequential to the answer.
 - The host reads the emitted route-requirements schema first. Current foreground
   work requires v5. Retained v3/v4 examples are historical readback evidence
@@ -39,11 +45,15 @@ the harness-facing invariants compact and provider neutral.
   `Runtime.evaluate` activation of the exact generic file input with
   `userGesture: true`. The chooser calls `setFiles` once with the absolute exact
   prepared path and records the chooser-selection match only when that path's
-  current hash/bytes match the prepared artifact. The exact filename must become visible before the fixed
-  submission instruction is placed in the composer and read back exactly.
+  current hash/bytes match the prepared artifact. Exactly one unambiguous
+  completed attachment must be visible before the fixed submission instruction
+  is placed in the composer and read back exactly. A ChatGPT-generated
+  positive-integer duplicate suffix counts as a filename match; unrelated labels
+  fail. The chooser-selected exact path and prepared hash/bytes remain the
+  independent transport identity.
 - V5 deliberately does not require visible attachment byte-size UI. It binds
   the exact local file hash/bytes and path, trusted activation, chooser and
-  upload completion, visible exact filename, exact composer instruction,
+  upload completion, bounded visible filename match, exact composer instruction,
   absence of undeclared text, and absence of `[Truncated]`.
 - X/Grok v5 `exact_inline_text` requires complete composer readback to match
   exact prepared bytes while upload fields are false. Clarification carries no
@@ -99,9 +109,23 @@ the harness-facing invariants compact and provider neutral.
 
 ## Result invariants
 
-- The native report is preserved byte-for-byte.
+- A provider-native report is preserved byte-for-byte when available. A
+  `browser_rendered_markdown` artifact is distinctly materialized: exact provider
+  response text remains an unchanged prefix and a canonical host-authored URL
+  custody ledger follows it. The complete materialized artifact is then
+  preserved byte-for-byte and must not be called a provider-native report.
 - Native Markdown export is preferred when its response-specific citation
   evidence is complete.
+- ChatGPT also permits `browser_rendered_markdown` when native export is absent
+  and the current citation carousel cannot satisfy the legacy all-members drawer
+  model. Capture exact response-subtree browser `innerText` bytes and exact DOM;
+  traverse response-local citation controls and every compound carousel once in
+  displayed order; and preserve first-seen exact HTTPS URLs without
+  normalization. `materialize-browser-rendered-capture` rejects duplicate or
+  invalid URLs, uses a canonical separator and `## Response citation URLs`
+  ledger, derives citations, keeps all raw inputs owner-private, emits
+  `capture-browser-rendered.json`, carries null strict rendered-DOM provenance
+  fields, and makes no native-export, entailment, or UI-completeness claim.
 - Rendered-DOM capture uses one immutable assistant-response DOM plus one
   same-response source-drawer DOM for every compound citation group, staged in
   a separate owner-private directory outside the run. The materializer creates
@@ -159,7 +183,11 @@ the harness-facing invariants compact and provider neutral.
   file and passed directly to `bma-researcher package --run-dir <private-run>
   --capture <native-capture.json>`; the native branch never calls
   `materialize-capture`.
-- Otherwise, the rendered-DOM branch calls `materialize-capture` exactly once
+- A complete `browser_rendered_markdown` capture is likewise passed directly
+  to `package` with null strict rendered-DOM provenance fields, but only after
+  `materialize-browser-rendered-capture` emits it. It never calls the strict
+  `materialize-capture` command and retains exact raw inputs owner-privately.
+- Only the strict `rendered_dom_markdown` branch calls `materialize-capture` exactly once
   to derive citation groups, ordered citations, entity-aware byte occurrences,
   receipts, and source map; agents never hand-author them. That branch passes
   only the emitted `capture-materialized.json` to `package`, which emits the
