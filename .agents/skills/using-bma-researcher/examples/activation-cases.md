@@ -34,50 +34,47 @@ The operator asks for the current decision from a previously admitted report.
 Use its opaque admission handle plus the current ordinary question. Render the
 answer, residual, next decision, and claim ceiling without relaunching research.
 
-## Emitted v3 inline transport
+## Historical v3 transport readback
 
 `prepare` emits `bma_researcher_route_requirements.v3`. Re-read the exact
 prepared file. Match its hash against `route-requirements.json` and
 `invocation.json`, but match its UTF-8 byte count only against
 `invocation.json`; the v3 route-requirements object has no
-`provider_input_bytes`. Keep the composer otherwise empty, insert only those
-exact bytes, and read the complete composer back. With exact identity and no
-`[Truncated]`, construct the v3 observation, run v3 `preflight-check`, and send
-once. Do not add a v4 transport object or turn the legacy branch into a file
-upload.
+`provider_input_bytes`. Validate the retained bytes only. Do not create a
+composer observation, run preflight, upload, or send from a v3 artifact.
 
-## Emitted v4 exact-inline transport
+## Current v5 ChatGPT native-file transport
 
-`prepare` emits `bma_researcher_route_requirements.v4` with
-`transport.representation: exact_inline_text`. Do not choose the branch from
-the file size. Match the prepared file hash/bytes, require upload disabled,
-insert only the exact bytes into an empty composer, and verify the whole
-composer hash/bytes with no extra text or `[Truncated]`. Record true prepared
-hash/byte and exact-inline matches, false chooser/upload/name/size fields, and
-true absence fields in the initial v4 observation. Run `preflight-check`, then
-make the one initiation.
+`prepare` emits `bma_researcher_route_requirements.v5` with
+`transport.representation: native_file_upload`, the exact prepared filename,
+hash, byte count, trusted activation method, and fixed submission instruction.
+Re-read the immutable file. Open `Add files and more`, require visible `Upload
+from computer`, pre-arm `waitForEvent("filechooser")`, then use the exact trusted
+generic-input activation and call `chooser.setFiles` once with the absolute
+prepared path; the chooser-selection match is true only when that exact path
+and its current hash/bytes match the prepared artifact. Require the exact
+visible filename. Put only `Use the attached
+provider-input.md as the complete request.` in the composer, read it back
+exactly, require enabled Send and no `[Truncated]`, then run v5 preflight.
+Never bulk-insert the prepared file into ChatGPT or require a visible size that
+the product does not show.
 
-## Emitted v4 native-file transport
+## Current v5 X/Grok exact-inline transport
 
-`prepare` emits `bma_researcher_route_requirements.v4` with
-`transport.representation: native_file_upload` and the exact prepared filename,
-hash, and byte count. Re-read the immutable prepared file; leave the composer
-empty. Arm `waitForEvent("filechooser")` before clicking the visible file input
-or upload opener, then call `chooser.setFiles` once with that file's absolute
-path. After completed visible upload state, match visible filename and byte
-size, re-read the local hash/bytes, and confirm the composer remains empty with
-no `[Truncated]`. Record false exact-inline and true chooser/upload/name/size,
-prepared-binding, and absence booleans in the initial v4 observation. Only then
-run `preflight-check` and send once. This binds host-side consistency, not
-provider attention, extraction, semantic use, or report completeness.
+X/Grok may emit `exact_inline_text` under its bounded route maximum. Insert the
+complete prepared bytes once into an empty composer and require exact readback;
+all upload booleans remain false. Do not reinterpret this as a ChatGPT route.
 
-For both v4 cases, keep the observation's outbound hash and byte count bound to
-the exact prepared artifact. The transport object—not a rewritten outbound
-message—distinguishes inline text from native file upload.
+## Questionless transport certification
 
-If any expected schema, representation, requirement, hash, byte count,
-completion state, visible name/size, composer state, or boolean is missing or
-drifted, stop before send. Do not compact, rebuild, retry, or switch route.
+`bma-researcher transport-probe --output-dir <new-dir>` produces a deterministic
+256 KiB `provider-input.md` plus a receipt with `send_authorized: false`. Use it
+to certify the ChatGPT chooser/upload/instruction path without a research
+question. Never send the probe.
+
+If any schema, requirement, hash, byte count, completion state, exact filename,
+composer state, or boolean is missing or drifted, stop before send. Do not
+compact, rebuild, retry, or switch route.
 
 ## Rendered-DOM compound citations
 

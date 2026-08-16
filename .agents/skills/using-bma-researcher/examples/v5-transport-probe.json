@@ -1,0 +1,19 @@
+{
+  "artifacts": [
+    {
+      "bytes": 262144,
+      "file_input_activation_method": "chrome_runtime_evaluate_user_gesture_exact_generic_input_v1",
+      "path": "provider-input.md",
+      "representation": "native_file_upload",
+      "sha256": "645296e6d229288d27a3962823fe2063a73fca63bac52bc26cde0354e9250e29",
+      "submission_instruction": "Use the attached provider-input.md as the complete request.",
+      "submission_instruction_bytes": 59,
+      "submission_instruction_sha256": "a386da8ad8dfb6d85dca91419f08299ee4c355afd07f9b6754688657e416fecd"
+    }
+  ],
+  "claim_ceiling": "fixtures certify browser control and transport binding only after live observation; they do not authorize a provider send or prove provider use",
+  "provider_origin": "https://chatgpt.com",
+  "schema_version": "bma_researcher_chatgpt_transport_probe.v1",
+  "send_authorized": false,
+  "status": "READY_FOR_BROWSER_CERTIFICATION"
+}
