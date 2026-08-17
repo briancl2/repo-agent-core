@@ -67,6 +67,15 @@ the harness-facing invariants compact and provider neutral.
   must never be sent.
 - The pre-send observation is explicit, fresh, same-attempt, and invalidated by
   navigation, reset, handoff, or restart.
+- Provider work starts at initial Send activation. One confirmed sleep/wake or
+  connectivity break before that point permits one same-route recovery: discard stale handles, enumerate fresh user-owned
+  tabs, and revalidate the same account, entitlement, capability, attempt, and
+  route. It adds no send or provider retry. Known enabled extension file-URL
+  permission remains valid absent a fresh explicit permission-denied error.
+  After Send activation, a confirmed break may reacquire the exact already-sent
+  conversation and response with fresh user-owned handles after route,
+  conversation, and response identity revalidation; it permits no new task or
+  send. Connectivity recovery does not erase counted page-control failures.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
 - V5 identity evidence contains portable booleans and a fresh random attempt
@@ -82,7 +91,11 @@ the harness-facing invariants compact and provider neutral.
   Bookmarks, and integrated-Grok proof.
 - After send and any consequential clarification, the producer resumes the
   exact yielded/browser handle and boundedly polls that same response before
-  either capture branch. Generation-transition-stable requires its exact
+  either capture branch. The sole exception is the confirmed post-Send
+  connectivity recovery above: once route, conversation, and response identity
+  are revalidated, its fresh browser handle becomes the exact continuation
+  handle for that already-sent response and is not handle drift.
+  Generation-transition-stable requires its exact
   route-specific generation/Stop control observed active then absent, a
   response-specific post-generation action row/control, exact response-subtree
   byte/hash stability across two bounded post-stop polls, and no navigation,
@@ -127,19 +140,24 @@ the harness-facing invariants compact and provider neutral.
   normalization plus the route-specific response-local traversal used to
   produce that list: source-index rows for Deep Research or direct source
   anchors for Pro. In one fixed browser evaluation, clone the response root and
-  add the v1 schema marker, current attempt alias, and base64 encodings of those
-  exact three byte sequences before serializing the response-bound evidence DOM.
-  Retain exact separately staged text, URL, and traversal files.
+  add the v2 schema marker, current attempt alias, and base64 encodings of the
+  exact text, original HTML, ordered URL-list, and route-traversal bytes before
+  serializing the response-bound evidence DOM. The materializer derives its
+  private component files from that sole current browser artifact. Historical
+  v1 evidence DOMs retain exact separately staged text, URL, and traversal files
+  for readback compatibility.
   The traversal has only the exact Deep indexed-row array or Pro direct-link
   object defined in `SKILL.md`; the shapes are route-exclusive, indexed rows
-  are contiguous from 1, and direct links are
+  are contiguous from 1 through at most 999, the separately bounded portable
+  URL ledger remains at most 100, and direct links are
   in response DOM order. The portable array must equal the first-seen bound
   locators. A raw href may bind to a separately retained portable locator when
   their sole difference is ChatGPT's terminal `utm_source=chatgpt.com` query
   component; neither retained value is rewritten.
   `materialize-browser-rendered-capture` parses that root, rejects a wrong
-  attempt, duplicate evidence marker, or staged/evidence mismatch, and rejects duplicate or
-  invalid URLs, uses a canonical separator plus citation-occurrence and
+  attempt or duplicate evidence marker, validates the v2 embedded components,
+  retains staged/evidence mismatch rejection for historical v1 inputs, and
+  rejects duplicate or invalid URLs, uses a canonical separator plus citation-occurrence and
   `## Response citation URLs` ledgers, derives citations and the portable
   browser occurrence map, keeps all raw inputs owner-private, emits
   a canonical hash-bound materialization receipt and
@@ -150,6 +168,12 @@ the harness-facing invariants compact and provider neutral.
   or DOM-to-innerText position. Missing source indexes, nonportable attachments, and
   visible `+N` members without retained locators remain explicit partial map
   evidence.
+  Current maps use
+  `bma_researcher_browser_rendered_citation_occurrence_map.v2`; their
+  `unresolved_additional_compound_member_count_lower_bound` counts additional
+  source members disclosed by visible `+N` markers. Historical v1 maps preserve
+  `unresolved_compound_member_occurrence_lower_bound` and their rendered wording
+  during exact readback; v2 evidence cannot downgrade to a v1 map.
   This is producer-declared binding, not browser attestation or proof against
   deliberate fabrication or same-response origin.
   Package re-derives the exact report, citations, and receipt from retained

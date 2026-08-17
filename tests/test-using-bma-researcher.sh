@@ -77,6 +77,16 @@ for required in \
   '`synthesize_dossier`' \
   'at most one consequential clarification, zero retry,' \
   'no provider, account, or model switch.' \
+  'Provider work starts when the initial Send control is activated.' \
+  'sleep/wake or connectivity break before that activation may recover the same' \
+  'This is handle recovery, not an ordinary provider' \
+  'extension file-URL access unless a fresh' \
+  'direct browser error explicitly reports a permission denial.' \
+  'reacquire the exact already-sent conversation and response with fresh user-owned tab and' \
+  'never create a new provider task or resend.' \
+  'fresh browser handle becomes' \
+  'the exact continuation handle for that already-sent response; this is not' \
+  'handle drift.' \
   'read the emitted `route-requirements.json` schema first and' \
   'Current foreground work requires' \
   '`bma_researcher_route_requirements.v5`; retained v3/v4 examples are historical' \
@@ -161,6 +171,11 @@ for required in \
   'do not invoke `materialize-capture` on the native branch.' \
   'materialize-browser-rendered-capture' \
   '`capture-browser-rendered.json`' \
+  'bma_researcher_browser_rendered_dom_evidence.v2' \
+  '`data-bma-citation-traversal-json-base64="<base64 exact route traversal JSON bytes>"`' \
+  '`index` is contiguous from 1 through at most 999' \
+  '`bma_researcher_browser_rendered_citation_occurrence_map.v2`' \
+  '`unresolved_additional_compound_member_count_lower_bound`' \
   'Otherwise, use rendered-DOM capture: stage the exact assistant-response DOM,' \
   'every response-local compound drawer, the visibility receipt, and a citation-free capture draft' \
   '`bma-researcher materialize-capture`' \
@@ -364,6 +379,14 @@ for transport_contract in \
   '`userGesture: true`.' \
   'does not require visible attachment byte-size UI.' \
   '`transport-probe` is a deterministic, non-sensitive, no-send 256 KiB browser' \
+  'Provider work starts at initial Send activation.' \
+  'connectivity break before that point permits one same-route recovery' \
+  'Known enabled extension file-URL' \
+  'permission remains valid absent a fresh explicit permission-denied error.' \
+  'After Send activation, a confirmed break may reacquire the exact already-sent' \
+  'Connectivity recovery does not erase counted page-control failures.' \
+  'fresh browser handle becomes the exact continuation' \
+  'handle for that already-sent response and is not handle drift.' \
   'V5 identity evidence contains portable booleans and a fresh random attempt' \
   'bounded attachment-basename inventory and' \
   'It does not prove provider attention, extraction, semantic use, or report completeness.'
@@ -428,25 +451,30 @@ browser_rendered_skill_valid() {
   local normalized
   normalized="$(printf '%s' "$candidate" | tr '\n\t' ' ' | tr -s ' ')"
   for guard in \
-    'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"' \
+    'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v2"' \
     'data-bma-researcher-attempt-alias' \
     'data-bma-response-inner-text-base64' \
     'data-bma-ordered-citation-urls-json-base64' \
     'data-bma-original-response-outer-html-base64' \
-    '--citation-traversal <response-local-traversal-json>' \
+    'data-bma-citation-traversal-json-base64' \
+    'derives the owner-private text, URL, traversal, and original-HTML components from that one current browser artifact.' \
+    'historical v1 evidence DOM remains readable only with its three separately staged text, URL, and traversal files.' \
     'This indexed form is accepted only for Deep Research.' \
+    'index` is contiguous from 1 through at most 999' \
     'This direct-link form is accepted only for Pro.' \
     '"conversation_url": "https://chatgpt.com/c/example"' \
     '"portable_urls": ["https://example.com/source"]' \
     'does not rewrite either retained value.' \
     'Direct-link `links` preserves duplicate anchor occurrences' \
-    'marker-candidate spans to retained source-index rows' \
+    'marker-candidate spans from 1 through 999 to retained source-index rows' \
     'Pro maps exact line-bounded marker candidates to response-local ChatGPT source anchors with matching `href`/`alt`, `_blank` target, and `noopener` relation.' \
     'do not attest an ambiguous candidate'"'"'s exact UI role' \
     'portable citation-occurrence map' \
     'Missing source indexes, nonportable attachments, and visible `+N` members without retained locators remain explicit partial evidence.' \
     'requires its current attempt alias' \
-    'rejects separately staged text or URL bytes that differ or duplicate evidence markers' \
+    'bma_researcher_browser_rendered_citation_occurrence_map.v2' \
+    'unresolved_additional_compound_member_count_lower_bound' \
+    'a v2 evidence DOM cannot downgrade its map to v1.' \
     'not browser attestation or proof against deliberate fabrication.'
   do
     grep -Fq -- "$guard" <<< "$normalized" || return 1
@@ -460,12 +488,12 @@ else
 fi
 
 for mutation_target in \
-  'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"' \
+  'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v2"' \
   'data-bma-researcher-attempt-alias' \
   'data-bma-response-inner-text-base64' \
   'data-bma-ordered-citation-urls-json-base64' \
   'data-bma-original-response-outer-html-base64' \
-  '--citation-traversal <response-local-traversal-json>'
+  'data-bma-citation-traversal-json-base64'
 do
   mutated_browser_text="${SKILL_TEXT/"$mutation_target"/__removed_browser_guard__}"
   if browser_rendered_skill_valid "$mutated_browser_text"; then

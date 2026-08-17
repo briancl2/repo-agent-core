@@ -38,6 +38,20 @@ The chooser, attachment, and enabled Send prove browser control only. They do
 not prove provider attention, extraction, semantic use, or a completed send.
 Do not send a `transport-probe` fixture.
 
+## Sleep, wake, and connectivity recovery
+
+A confirmed sleep/wake or connectivity break before initial Send activation
+invalidates browser handles and the route observation, not known extension
+file-URL permission. Once per attempt, discard every stale handle, enumerate
+fresh user-owned tabs, and revalidate the same account, entitlement, capability,
+attempt, and task-shaped route. This same-route recovery adds no send and allows
+no provider, account, model, or route switch. Reopen extension permissions only
+when a fresh direct browser error explicitly reports a permission denial. After
+Send activation, a confirmed break may reacquire the exact already-sent
+conversation and response through fresh user-owned tab and page handles after
+reverifying route, conversation, and response identity. It never creates a new
+provider task or send.
+
 ## Browser-rendered capture fallback
 
 Use this fallback only when the completed response has no native Markdown export
@@ -46,8 +60,8 @@ all-members drawer model. Bind the exact assistant response subtree and save its
 Playwright browser `innerText` bytes and exact `outerHTML`. Enumerate only that response's citation controls in DOM order;
 traverse each current compound carousel once in displayed order and save the
 first-seen exact HTTPS URLs as an ordered JSON array without normalization.
-Retain the route-specific response-local traversal that produced
-that URL list as a separate owner-private JSON file.
+Retain the route-specific response-local traversal that produced that URL list
+inside the same response-root serialization.
 The exact schemas and examples live in `SKILL.md`: Deep Research uses the
 contiguous indexed row array (`index`, `urls`, `text`); Pro requires the exact
 direct-link object (`conversation_url`, `links`, `portable_urls`). The shapes are
@@ -56,19 +70,20 @@ Collect it in the same fixed response-root evaluation, add no fields, and allow
 the materializer to regard a raw href and separately retained portable locator
 as equivalent only when their sole difference is ChatGPT's terminal
 `utm_source=chatgpt.com` query component. Neither retained value is rewritten.
-Create the v1 attempt-bound response-root evidence DOM described in `SKILL.md`
-from those exact three byte sequences. The runtime parses its root attributes
-and rejects a wrong attempt, duplicate evidence marker, or mismatched staged
-text/URL bytes. This remains producer-declared evidence, not browser attestation
-or proof against deliberate fabrication.
+Create the v2 attempt-bound response-root evidence DOM described in `SKILL.md`
+from the exact text, original HTML, URL-list, and traversal bytes in that one
+fixed browser evaluation. The runtime parses its root attributes and rejects a
+wrong attempt, duplicate evidence marker, or missing embedded component. This
+remains producer-declared evidence, not browser attestation or proof against
+deliberate fabrication. Historical v1 evidence DOMs retain their separately
+staged text, URL, and traversal compatibility path.
 Run `bma-researcher materialize-browser-rendered-capture` once per capture-local
-materialization attempt with the citation-free capture draft, exact text, URL
-list, traversal, and evidence DOM owner-private files, including
-`--citation-traversal <response-local-traversal-json>`. Package only
+materialization attempt with the citation-free capture draft and sole current
+evidence DOM owner-private file. Package only
 the emitted `capture-browser-rendered.json`; package revalidates its hash-bound
 private materialization inputs and rejects a caller-authored substitute. The
-portable occurrence map binds Deep Research numbered marker-candidate spans to
-retained source indexes or Pro line-bounded marker candidates to response-local
+portable occurrence map binds Deep Research numbered marker-candidate spans 1
+through 999 to retained source indexes or Pro line-bounded marker candidates to response-local
 ChatGPT source anchors with matching `href`/`alt`, `_blank` target, and
 `noopener` relation.
 Missing indexes, nonportable attachment references, and visible `+N` members
@@ -79,3 +94,8 @@ pre-emission local validation failure may be corrected in capture-local staging
 and rematerialized against the same completed response; never rerun after
 successful emission. Do not use clipboard text, manually
 rebuild report Markdown, hand-author citation rows, or claim a native export.
+
+Current occurrence maps use
+`bma_researcher_browser_rendered_citation_occurrence_map.v2` with
+`unresolved_additional_compound_member_count_lower_bound`. Historical v1 maps
+retain their former field name and rendered wording during exact readback.
