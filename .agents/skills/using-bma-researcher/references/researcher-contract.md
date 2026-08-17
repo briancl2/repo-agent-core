@@ -124,13 +124,15 @@ the harness-facing invariants compact and provider neutral.
   `outerHTML`;
   traverse response-local citation controls and every compound carousel once in
   displayed order; and preserve first-seen exact HTTPS URLs without
-  normalization plus the response-local source-index or direct-link traversal
-  used to produce that list. In one fixed browser evaluation, clone the response root and
+  normalization plus the route-specific response-local traversal used to
+  produce that list: source-index rows for Deep Research or direct source
+  anchors for Pro. In one fixed browser evaluation, clone the response root and
   add the v1 schema marker, current attempt alias, and base64 encodings of those
   exact three byte sequences before serializing the response-bound evidence DOM.
   Retain exact separately staged text, URL, and traversal files.
-  The traversal has only the exact indexed-row array or Pro direct-link object
-  defined in `SKILL.md`; indexed rows are contiguous from 1 and direct links are
+  The traversal has only the exact Deep indexed-row array or Pro direct-link
+  object defined in `SKILL.md`; the shapes are route-exclusive, indexed rows
+  are contiguous from 1, and direct links are
   in response DOM order. The portable array must equal the first-seen bound
   locators. A raw href may bind to a separately retained portable locator when
   their sole difference is ChatGPT's terminal `utm_source=chatgpt.com` query
@@ -143,7 +145,9 @@ the harness-facing invariants compact and provider neutral.
   a canonical hash-bound materialization receipt and
   `capture-browser-rendered.json`, carries null strict rendered-DOM provenance,
   and makes no native-export, entailment, compound-member-completeness, or
-  UI-completeness claim. Missing source indexes, nonportable attachments, and
+  UI-completeness claim. Its exact text spans are marker candidates; retained
+  `innerText` plus HTML does not attest an ambiguous candidate's exact UI role
+  or DOM-to-innerText position. Missing source indexes, nonportable attachments, and
   visible `+N` members without retained locators remain explicit partial map
   evidence.
   This is producer-declared binding, not browser attestation or proof against
