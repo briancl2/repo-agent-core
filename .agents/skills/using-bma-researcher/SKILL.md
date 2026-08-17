@@ -84,6 +84,15 @@ one provider task, and no provider, account, or model switch. Never treat route
 failure as permission to use cookies, scraping, another account, reconstructed
 context, or an unapproved browser.
 
+Provider work starts when the initial Send control is activated. One confirmed
+sleep/wake or connectivity break before that activation may recover the same
+route once. This is handle recovery, not an ordinary provider
+retry: discard stale browser handles, enumerate fresh user-owned tabs, and
+revalidate the same account, entitlement, capability, attempt, and route. It
+adds no send and permits no provider, account, model, or route switch. Do not
+reopen or ask the operator to re-enable extension file-URL access unless a fresh
+direct browser error explicitly reports a permission denial.
+
 When the operator explicitly confirms the complete declared batch, that is the
 action authority for every listed initial send. Do not ask for a redundant
 per-attempt confirmation unless the send's content, route, account, provider,
@@ -204,6 +213,14 @@ carries no handles, hashes, UI text, or stable identifiers. Cookies, credential
 data, DOM, screenshots, and private account state remain host-local. Navigation,
 reset, handoff, or restart invalidates the observation.
 
+After a confirmed pre-provider sleep/wake or connectivity break, invalidate the
+old observation with its stale handles and use the one same-route recovery above.
+Known enabled extension permission is not invalidated by handle loss. After Send
+activation, a confirmed sleep/wake or connectivity break may instead reacquire
+the exact already-sent conversation and response with fresh user-owned tab and
+page handles. Reverify route, conversation, and response identity; never create
+a new provider task or resend.
+
 Immediately before send, run `bma-researcher preflight-check` with the explicit
 same-attempt observation. This checks receipt consistency; it does not make
 browser observation and send atomic. Recheck the same tab at capture. Package
@@ -215,13 +232,17 @@ operator account, Premium+, Bookmarks, and integrated Grok. For actual Deep
 Research, literally select `+` then `Deep research`, preserve pre-send
 selection, and require post-send plan/progress/completed-report evidence.
 
-After two repeated page-control failures, stop. Resume a yielded tool call by
+After two repeated page-control failures in the attempt, stop; connectivity
+recovery does not erase counted failures. Resume a yielded tool call by
 its exact cell identifier and a PTY by its exact session until terminal; never
 settle an attempt while either is outstanding.
 
 After the send and optional consequential clarification, resume the exact
 yielded/browser handle and boundedly poll that same response before choosing a
-capture branch. A generation-transition-stable marker requires the exact
+capture branch. The sole exception is the confirmed post-Send connectivity
+recovery above: after identity revalidation, its fresh browser handle becomes
+the exact continuation handle for that already-sent response; this is not
+handle drift. A generation-transition-stable marker requires the exact
 response's route-specific generation/Stop control observed active then absent,
 a response-specific post-generation action row/control, exact response-subtree
 byte/hash stability across two bounded post-stop polls, and no navigation,
@@ -272,21 +293,23 @@ compound carousel once in displayed order, and save a JSON array of first-seen
 exact HTTPS URLs without normalization. Also retain the route-specific
 response-local traversal used to produce that URL list: source-index rows for
 Deep Research or direct source anchors for Pro. In one fixed browser evaluation, clone
-the exact response root and set these five attributes on the clone before
+the exact response root and set these six attributes on the clone before
 serializing its `outerHTML` as the response-bound browser evidence DOM:
 
-- `data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"`
+- `data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v2"`
 - `data-bma-researcher-attempt-alias="<current attempt alias>"`
-- `data-bma-response-inner-text-base64="<base64 exact staged innerText bytes>"`
-- `data-bma-ordered-citation-urls-json-base64="<base64 exact staged URL-JSON bytes>"`
+- `data-bma-response-inner-text-base64="<base64 exact innerText bytes>"`
+- `data-bma-ordered-citation-urls-json-base64="<base64 exact URL-JSON bytes>"`
 - `data-bma-original-response-outer-html-base64="<base64 exact original response outerHTML bytes>"`
+- `data-bma-citation-traversal-json-base64="<base64 exact route traversal JSON bytes>"`
 
 Discard the clone after serialization. The runtime parses the retained response
-root, requires its current attempt alias, and rejects separately staged text or
-URL bytes that differ or duplicate evidence markers. This is producer-declared
+root, requires its current attempt alias, and derives the owner-private text,
+URL, traversal, and original-HTML components from that one current browser
+artifact. A historical v1 evidence DOM remains readable only with its three
+separately staged text, URL, and traversal files. This is producer-declared
 response binding, not browser attestation or proof against deliberate
-fabrication. Run once per capture-local
-materialization attempt:
+fabrication.
 
 The traversal JSON is collected in that same fixed response-root evaluation and
 has one of these two exact shapes; do not add fields or synthesize missing rows:
@@ -300,11 +323,11 @@ has one of these two exact shapes; do not add fields or synthesize missing rows:
 
 This indexed form is accepted only for Deep Research.
 Rows are the completed response's displayed source-index rows in order;
-`index` is contiguous from 1, `text` is the exact nonempty displayed row text,
+`index` is contiguous from 1 through at most 999, `text` is the exact nonempty displayed row text,
 and `urls` contains that row's unique exact HTTPS hrefs in displayed order.
 Use an empty `urls` array only when the visible row is a nonportable attachment.
-The first-seen portable URLs across all rows must equal the separately retained
-ordered URL array.
+The first-seen portable URLs across all rows must equal the embedded ordered URL
+array, whose separate portable-URL bound remains 100.
 
 ```json
 {
@@ -328,28 +351,26 @@ the exact completed response root and traverse each compound control once.
 Direct-link `links` preserves duplicate anchor occurrences; indexed rows require
 unique URLs within each row but preserve repeated URLs across different rows.
 Build the portable array in first-seen order during collection and do not edit
-either retained file afterward.
+the serialized evidence artifact afterward.
 
 ```text
 bma-researcher materialize-browser-rendered-capture \
   --run-dir <private-run> \
   --capture <citation-free-draft> \
-  --response-text <exact-inner-text> \
-  --citation-urls <ordered-url-json> \
-  --citation-traversal <response-local-traversal-json> \
   --assistant-dom <response-bound-browser-evidence-dom>
 ```
 
 The command rejects duplicate or invalid URLs, preserves the exact provider
 response text as an unchanged prefix, and appends one canonical host-authored
 portable citation-occurrence map plus `## Response citation URLs` custody list,
-derives portable citation rows from the retained response DOM and traversal, retains all four inputs and embedded
-exact response `outerHTML` owner-privately, and
+derives portable citation rows from the retained response DOM and traversal,
+retains the capture draft plus the evidence artifact's four embedded components
+and exact response `outerHTML` owner-privately, and
 emits a hash-bound materialization receipt plus
 `capture-browser-rendered.json`. Pass only that emitted capture directly
 to `package`; its strict `rendered_dom_provenance` remains null and its separate
 browser citation-occurrence map is portable. Deep Research maps exact numbered
-marker-candidate spans to retained source-index rows; Pro maps exact line-bounded
+marker-candidate spans from 1 through 999 to retained source-index rows; Pro maps exact line-bounded
 marker candidates to response-local ChatGPT source anchors with matching
 `href`/`alt`, `_blank` target, and `noopener` relation. Missing source indexes, nonportable
 attachments, and visible `+N` members without retained locators remain explicit
@@ -366,6 +387,14 @@ corrected capture proceeds. If local validation rejects the staged capture
 before successful emission, correct only that capture-local staging and rerun
 this command against the same completed provider response; this is not a
 provider retry. Never rerun it after successful emission.
+
+Current occurrence maps use
+`bma_researcher_browser_rendered_citation_occurrence_map.v2`. Its
+`unresolved_additional_compound_member_count_lower_bound` field counts
+additional source members disclosed by visible `+N` markers. Historical v1
+maps retain `unresolved_compound_member_occurrence_lower_bound` and their exact
+rendered wording during readback; a v2 evidence DOM cannot downgrade its map to
+v1.
 
 Otherwise, use rendered-DOM capture: stage the exact assistant-response DOM,
 every response-local compound drawer, the visibility receipt, and a
