@@ -269,8 +269,9 @@ response subtree, save Playwright's response-specific browser `innerText` bytes
 without clipboard or manual reconstruction and save its exact `outerHTML`.
 Enumerate response-local citation controls in DOM order, traverse every current
 compound carousel once in displayed order, and save a JSON array of first-seen
-exact HTTPS URLs without normalization. Also retain the response-local
-source-index or direct-link traversal used to produce that URL list. In one fixed browser evaluation, clone
+exact HTTPS URLs without normalization. Also retain the route-specific
+response-local traversal used to produce that URL list: source-index rows for
+Deep Research or direct source anchors for Pro. In one fixed browser evaluation, clone
 the exact response root and set these five attributes on the clone before
 serializing its `outerHTML` as the response-bound browser evidence DOM:
 
@@ -297,7 +298,7 @@ has one of these two exact shapes; do not add fields or synthesize missing rows:
 ]
 ```
 
-This indexed form is required for Deep Research and is also accepted for Pro.
+This indexed form is accepted only for Deep Research.
 Rows are the completed response's displayed source-index rows in order;
 `index` is contiguous from 1, `text` is the exact nonempty displayed row text,
 and `urls` contains that row's unique exact HTTPS hrefs in displayed order.
@@ -348,12 +349,15 @@ emits a hash-bound materialization receipt plus
 `capture-browser-rendered.json`. Pass only that emitted capture directly
 to `package`; its strict `rendered_dom_provenance` remains null and its separate
 browser citation-occurrence map is portable. Deep Research maps exact numbered
-marker spans to retained source-index rows; Pro maps exact line-bounded marker
-spans to response-local link anchors. Missing source indexes, nonportable
+marker-candidate spans to retained source-index rows; Pro maps exact line-bounded
+marker candidates to response-local ChatGPT source anchors with matching
+`href`/`alt`, `_blank` target, and `noopener` relation. Missing source indexes, nonportable
 attachments, and visible `+N` members without retained locators remain explicit
 partial evidence. The resulting report is a materialized browser capture, not an exact
 provider-native report or native export; it must not be hand-edited and proves neither
-citation entailment, compound-member completeness, nor UI completeness; route identity, completion, exact
+citation entailment, compound-member completeness, nor UI completeness. Retained
+`innerText` and HTML also do not attest an ambiguous candidate's exact UI role
+or DOM-to-innerText position; route identity, completion, exact
 report bytes, unique portable locators, and semantic usefulness still gate
 admission. Packaging re-derives report and citation bytes from the retained
 private inputs and rejects a direct caller-authored capture. A failed

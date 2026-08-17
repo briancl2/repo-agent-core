@@ -425,6 +425,8 @@ fi
 browser_rendered_skill_valid() {
   local candidate="$1"
   local guard
+  local normalized
+  normalized="$(printf '%s' "$candidate" | tr '\n\t' ' ' | tr -s ' ')"
   for guard in \
     'data-bma-researcher-browser-rendered-dom-evidence="bma_researcher_browser_rendered_dom_evidence.v1"' \
     'data-bma-researcher-attempt-alias' \
@@ -432,19 +434,22 @@ browser_rendered_skill_valid() {
     'data-bma-ordered-citation-urls-json-base64' \
     'data-bma-original-response-outer-html-base64' \
     '--citation-traversal <response-local-traversal-json>' \
-    'This indexed form is required for Deep Research and is also accepted for Pro.' \
+    'This indexed form is accepted only for Deep Research.' \
     'This direct-link form is accepted only for Pro.' \
     '"conversation_url": "https://chatgpt.com/c/example"' \
     '"portable_urls": ["https://example.com/source"]' \
     'does not rewrite either retained value.' \
     'Direct-link `links` preserves duplicate anchor occurrences' \
+    'marker-candidate spans to retained source-index rows' \
+    'Pro maps exact line-bounded marker candidates to response-local ChatGPT source anchors with matching `href`/`alt`, `_blank` target, and `noopener` relation.' \
+    'do not attest an ambiguous candidate'"'"'s exact UI role' \
     'portable citation-occurrence map' \
     'Missing source indexes, nonportable attachments, and visible `+N` members without retained locators remain explicit partial evidence.' \
     'requires its current attempt alias' \
     'rejects separately staged text or URL bytes that differ or duplicate evidence markers' \
     'not browser attestation or proof against deliberate fabrication.'
   do
-    grep -Fq -- "$guard" <<< "$candidate" || return 1
+    grep -Fq -- "$guard" <<< "$normalized" || return 1
   done
 }
 

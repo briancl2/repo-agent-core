@@ -46,11 +46,12 @@ all-members drawer model. Bind the exact assistant response subtree and save its
 Playwright browser `innerText` bytes and exact `outerHTML`. Enumerate only that response's citation controls in DOM order;
 traverse each current compound carousel once in displayed order and save the
 first-seen exact HTTPS URLs as an ordered JSON array without normalization.
-Retain the response-local source-index or direct-link traversal that produced
+Retain the route-specific response-local traversal that produced
 that URL list as a separate owner-private JSON file.
 The exact schemas and examples live in `SKILL.md`: Deep Research uses the
-contiguous indexed row array (`index`, `urls`, `text`); Pro may use that form or
-the exact direct-link object (`conversation_url`, `links`, `portable_urls`).
+contiguous indexed row array (`index`, `urls`, `text`); Pro requires the exact
+direct-link object (`conversation_url`, `links`, `portable_urls`). The shapes are
+route-exclusive.
 Collect it in the same fixed response-root evaluation, add no fields, and allow
 the materializer to regard a raw href and separately retained portable locator
 as equivalent only when their sole difference is ChatGPT's terminal
@@ -66,11 +67,14 @@ list, traversal, and evidence DOM owner-private files, including
 `--citation-traversal <response-local-traversal-json>`. Package only
 the emitted `capture-browser-rendered.json`; package revalidates its hash-bound
 private materialization inputs and rejects a caller-authored substitute. The
-portable occurrence map binds Deep Research numbered marker spans to retained
-source indexes or Pro line-bounded marker spans to response-local link anchors.
+portable occurrence map binds Deep Research numbered marker-candidate spans to
+retained source indexes or Pro line-bounded marker candidates to response-local
+ChatGPT source anchors with matching `href`/`alt`, `_blank` target, and
+`noopener` relation.
 Missing indexes, nonportable attachment references, and visible `+N` members
 without retained locators remain partial; the map proves neither entailment,
-compound-member completeness, nor provider-UI completeness. A
+compound-member completeness, provider-UI completeness, nor an ambiguous
+candidate's exact UI role or DOM-to-innerText position. A
 pre-emission local validation failure may be corrected in capture-local staging
 and rematerialized against the same completed response; never rerun after
 successful emission. Do not use clipboard text, manually
