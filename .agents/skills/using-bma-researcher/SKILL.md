@@ -269,7 +269,8 @@ response subtree, save Playwright's response-specific browser `innerText` bytes
 without clipboard or manual reconstruction and save its exact `outerHTML`.
 Enumerate response-local citation controls in DOM order, traverse every current
 compound carousel once in displayed order, and save a JSON array of first-seen
-exact HTTPS URLs without normalization. In one fixed browser evaluation, clone
+exact HTTPS URLs without normalization. Also retain the response-local
+source-index or direct-link traversal used to produce that URL list. In one fixed browser evaluation, clone
 the exact response root and set these five attributes on the clone before
 serializing its `outerHTML` as the response-bound browser evidence DOM:
 
@@ -286,26 +287,73 @@ response binding, not browser attestation or proof against deliberate
 fabrication. Run once per capture-local
 materialization attempt:
 
+The traversal JSON is collected in that same fixed response-root evaluation and
+has one of these two exact shapes; do not add fields or synthesize missing rows:
+
+```json
+[
+  {"index": 1, "urls": ["https://example.com/source"], "text": "Displayed source row"},
+  {"index": 2, "urls": [], "text": "Displayed attachment row"}
+]
+```
+
+This indexed form is required for Deep Research and is also accepted for Pro.
+Rows are the completed response's displayed source-index rows in order;
+`index` is contiguous from 1, `text` is the exact nonempty displayed row text,
+and `urls` contains that row's unique exact HTTPS hrefs in displayed order.
+Use an empty `urls` array only when the visible row is a nonportable attachment.
+The first-seen portable URLs across all rows must equal the separately retained
+ordered URL array.
+
+```json
+{
+  "conversation_url": "https://chatgpt.com/c/example",
+  "links": [
+    {"href": "https://example.com/source", "text": "Example Source"}
+  ],
+  "portable_urls": ["https://example.com/source"]
+}
+```
+
+This direct-link form is accepted only for Pro. `conversation_url` is the exact
+claimed ChatGPT conversation URL; `links` contains every response-local source
+anchor in DOM order with its exact href and nonempty displayed text; and
+`portable_urls` is byte-for-byte the ordered URL-array value. Collection may
+expose a raw anchor href whose only difference from its separately surfaced
+portable locator is a terminal `utm_source=chatgpt.com` query component. The
+materializer may regard that exact pair as equivalent for binding, but it does
+not rewrite either retained value. In both forms, enumerate only descendants of
+the exact completed response root and traverse each compound control once.
+Direct-link `links` preserves duplicate anchor occurrences; indexed rows require
+unique URLs within each row but preserve repeated URLs across different rows.
+Build the portable array in first-seen order during collection and do not edit
+either retained file afterward.
+
 ```text
 bma-researcher materialize-browser-rendered-capture \
   --run-dir <private-run> \
   --capture <citation-free-draft> \
   --response-text <exact-inner-text> \
   --citation-urls <ordered-url-json> \
+  --citation-traversal <response-local-traversal-json> \
   --assistant-dom <response-bound-browser-evidence-dom>
 ```
 
 The command rejects duplicate or invalid URLs, preserves the exact provider
 response text as an unchanged prefix, and appends one canonical host-authored
-`## Response citation URLs` custody list,
-derives portable citation rows from the retained response DOM, retains all three inputs and embedded
+portable citation-occurrence map plus `## Response citation URLs` custody list,
+derives portable citation rows from the retained response DOM and traversal, retains all four inputs and embedded
 exact response `outerHTML` owner-privately, and
 emits a hash-bound materialization receipt plus
 `capture-browser-rendered.json`. Pass only that emitted capture directly
-to `package`; its `rendered_dom_provenance` and `citation_source_map` remain
-null. The resulting report is a materialized browser capture, not an exact
+to `package`; its strict `rendered_dom_provenance` remains null and its separate
+browser citation-occurrence map is portable. Deep Research maps exact numbered
+marker spans to retained source-index rows; Pro maps exact line-bounded marker
+spans to response-local link anchors. Missing source indexes, nonportable
+attachments, and visible `+N` members without retained locators remain explicit
+partial evidence. The resulting report is a materialized browser capture, not an exact
 provider-native report or native export; it must not be hand-edited and proves neither
-citation entailment nor UI completeness; route identity, completion, exact
+citation entailment, compound-member completeness, nor UI completeness; route identity, completion, exact
 report bytes, unique portable locators, and semantic usefulness still gate
 admission. Packaging re-derives report and citation bytes from the retained
 private inputs and rejects a direct caller-authored capture. A failed

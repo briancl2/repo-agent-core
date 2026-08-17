@@ -124,17 +124,28 @@ the harness-facing invariants compact and provider neutral.
   `outerHTML`;
   traverse response-local citation controls and every compound carousel once in
   displayed order; and preserve first-seen exact HTTPS URLs without
-  normalization. In one fixed browser evaluation, clone the response root and
+  normalization plus the response-local source-index or direct-link traversal
+  used to produce that list. In one fixed browser evaluation, clone the response root and
   add the v1 schema marker, current attempt alias, and base64 encodings of those
   exact three byte sequences before serializing the response-bound evidence DOM.
-  Retain exact separately staged text and URL files.
+  Retain exact separately staged text, URL, and traversal files.
+  The traversal has only the exact indexed-row array or Pro direct-link object
+  defined in `SKILL.md`; indexed rows are contiguous from 1 and direct links are
+  in response DOM order. The portable array must equal the first-seen bound
+  locators. A raw href may bind to a separately retained portable locator when
+  their sole difference is ChatGPT's terminal `utm_source=chatgpt.com` query
+  component; neither retained value is rewritten.
   `materialize-browser-rendered-capture` parses that root, rejects a wrong
   attempt, duplicate evidence marker, or staged/evidence mismatch, and rejects duplicate or
-  invalid URLs, uses a canonical separator and `## Response citation URLs`
-  ledger, derives citations, keeps all raw inputs owner-private, emits
+  invalid URLs, uses a canonical separator plus citation-occurrence and
+  `## Response citation URLs` ledgers, derives citations and the portable
+  browser occurrence map, keeps all raw inputs owner-private, emits
   a canonical hash-bound materialization receipt and
-  `capture-browser-rendered.json`, carries null strict rendered-DOM provenance
-  fields, and makes no native-export, entailment, or UI-completeness claim.
+  `capture-browser-rendered.json`, carries null strict rendered-DOM provenance,
+  and makes no native-export, entailment, compound-member-completeness, or
+  UI-completeness claim. Missing source indexes, nonportable attachments, and
+  visible `+N` members without retained locators remain explicit partial map
+  evidence.
   This is producer-declared binding, not browser attestation or proof against
   deliberate fabrication or same-response origin.
   Package re-derives the exact report, citations, and receipt from retained

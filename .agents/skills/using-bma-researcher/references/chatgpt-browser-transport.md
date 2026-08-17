@@ -46,16 +46,31 @@ all-members drawer model. Bind the exact assistant response subtree and save its
 Playwright browser `innerText` bytes and exact `outerHTML`. Enumerate only that response's citation controls in DOM order;
 traverse each current compound carousel once in displayed order and save the
 first-seen exact HTTPS URLs as an ordered JSON array without normalization.
+Retain the response-local source-index or direct-link traversal that produced
+that URL list as a separate owner-private JSON file.
+The exact schemas and examples live in `SKILL.md`: Deep Research uses the
+contiguous indexed row array (`index`, `urls`, `text`); Pro may use that form or
+the exact direct-link object (`conversation_url`, `links`, `portable_urls`).
+Collect it in the same fixed response-root evaluation, add no fields, and allow
+the materializer to regard a raw href and separately retained portable locator
+as equivalent only when their sole difference is ChatGPT's terminal
+`utm_source=chatgpt.com` query component. Neither retained value is rewritten.
 Create the v1 attempt-bound response-root evidence DOM described in `SKILL.md`
 from those exact three byte sequences. The runtime parses its root attributes
 and rejects a wrong attempt, duplicate evidence marker, or mismatched staged
 text/URL bytes. This remains producer-declared evidence, not browser attestation
 or proof against deliberate fabrication.
 Run `bma-researcher materialize-browser-rendered-capture` once per capture-local
-materialization attempt with the
-citation-free capture draft and those three owner-private files. Package only
+materialization attempt with the citation-free capture draft, exact text, URL
+list, traversal, and evidence DOM owner-private files, including
+`--citation-traversal <response-local-traversal-json>`. Package only
 the emitted `capture-browser-rendered.json`; package revalidates its hash-bound
-private materialization inputs and rejects a caller-authored substitute. A
+private materialization inputs and rejects a caller-authored substitute. The
+portable occurrence map binds Deep Research numbered marker spans to retained
+source indexes or Pro line-bounded marker spans to response-local link anchors.
+Missing indexes, nonportable attachment references, and visible `+N` members
+without retained locators remain partial; the map proves neither entailment,
+compound-member completeness, nor provider-UI completeness. A
 pre-emission local validation failure may be corrected in capture-local staging
 and rematerialized against the same completed response; never rerun after
 successful emission. Do not use clipboard text, manually
