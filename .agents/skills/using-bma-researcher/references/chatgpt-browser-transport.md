@@ -49,8 +49,15 @@ no provider, account, model, or route switch. Reopen extension permissions only
 when a fresh direct browser error explicitly reports a permission denial. After
 Send activation, a confirmed break may reacquire the exact already-sent
 conversation and response through fresh user-owned tab and page handles after
-reverifying route, conversation, and response identity. It never creates a new
-provider task or send.
+reverifying route, conversation, and response identity. This recovery adds no
+send. If ChatGPT explicitly reports a connectivity interruption, the response
+cannot resume after that recovery, and the newest operator authority explicitly
+requests completion, capture-v5 permits one same-route retry with the exact
+prepared bytes and fixed instruction. Revalidate the user-owned tab; preserve
+provider/account/model/route identity; disclose both sends and the
+tab/conversation reset; allow no clarification; and require a completed
+captured response. Timeout, stale UI, and ordinary provider failure do not
+qualify.
 
 ## Browser-rendered capture fallback
 

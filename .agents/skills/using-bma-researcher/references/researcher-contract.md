@@ -74,8 +74,14 @@ the harness-facing invariants compact and provider neutral.
   permission remains valid absent a fresh explicit permission-denied error.
   After Send activation, a confirmed break may reacquire the exact already-sent
   conversation and response with fresh user-owned handles after route,
-  conversation, and response identity revalidation; it permits no new task or
-  send. Connectivity recovery does not erase counted page-control failures.
+  conversation, and response identity revalidation; that recovery adds no send.
+  Capture-v5 alone permits one same-route retry when ChatGPT explicitly reports
+  a connectivity interruption, the response cannot resume after recovery, and
+  the newest operator authority explicitly requests completion. It binds the
+  same prepared bytes/instruction/provider/account/model/route, discloses two
+  sends and the fresh-tab/conversation boundary, permits no clarification, and
+  requires a completed captured response. Connectivity recovery does not erase
+  counted page-control failures.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
 - V5 identity evidence contains portable booleans and a fresh random attempt
@@ -83,7 +89,7 @@ the harness-facing invariants compact and provider neutral.
   prepared hash/byte bindings, the bounded attachment-basename inventory and
   small count, and transport booleans allowed by the executable runtime; it
   contains no account handle, cookie, credential, stable identity, DOM,
-  screenshot, or other UI text. Capture-v4 additionally permits only its bounded,
+  screenshot, or other UI text. Capture-v4/v5 additionally permit their bounded,
   route-allowlisted, non-identity `response_completion_marker` enum; it carries
   no handles, hashes, UI text, or stable identifiers.
 - Deep Research needs launch-time selection and post-send native workflow proof.
@@ -102,7 +108,7 @@ the harness-facing invariants compact and provider neutral.
   reset, or handoff. Missing the active transition without the Pro native-export
   marker, timeout, or drift permits no capture or retry; generic UI is
   ineligible.
-- Capture-v4 requires `workflow.response_complete` true plus an exact route-bound
+- Capture-v4/v5 require `workflow.response_complete` true plus an exact route-bound
   `workflow.response_completion_marker`: Deep Research accepts only
   `deep_research_completed_report`; Pro accepts
   `response_specific_native_markdown_export_ready` or
@@ -236,7 +242,7 @@ the harness-facing invariants compact and provider neutral.
   inventory to exact serialized nodes; it is not browser attestation and does
   not prove producer honesty, viewport intersection, clipping freedom, z-order,
   or absence of occlusion.
-- A complete native export is preserved in a `bma_researcher_capture.v4` JSON
+- A complete native export is preserved in a `bma_researcher_capture.v5` JSON
   file and passed directly to `bma-researcher package --run-dir <private-run>
   --capture <native-capture.json>`; the native branch never calls
   `materialize-capture`.

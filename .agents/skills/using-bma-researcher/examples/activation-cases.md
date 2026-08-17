@@ -84,12 +84,13 @@ and boundedly poll this exact response. For a Pro generation-transition path,
 observe its route-specific generation/Stop control active then absent, its
 response-specific post-generation action row/control, and response-subtree
 byte/hash stability over two bounded post-stop polls without navigation, reset,
-or handoff. Then set capture-v4 `workflow.response_complete` true and
+or handoff. Then set capture-v5 `workflow.response_complete` true and
 `workflow.response_completion_marker` to
 `chatgpt_pro_generation_transition_stable`. If the active transition was missed,
 use `response_specific_native_markdown_export_ready` only when this exact
 response's post-generation native Markdown export control/result is available;
-otherwise timeout or drift means no capture and no retry. Do not infer terminal
+otherwise timeout or drift means no capture and does not by itself authorize
+the bounded connectivity retry. Do not infer terminal
 state from generic menus, titles, feedback controls, answer-like text, or
 citation counts.
 Freeze the supported response-specific Markdown, save the assistant-response
