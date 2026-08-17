@@ -83,7 +83,8 @@ for required in \
   'extension file-URL access unless a fresh' \
   'direct browser error explicitly reports a permission denial.' \
   'reacquire the exact already-sent conversation and response with fresh user-owned tab and' \
-  'never create a new provider task or resend.' \
+  'capture-v5 permits one same-route retry.' \
+  'Timeout, stale UI, or ordinary provider failure never activates this' \
   'fresh browser handle becomes' \
   'the exact continuation handle for that already-sent response; this is not' \
   'handle drift.' \
@@ -146,7 +147,7 @@ for required in \
   '`chatgpt_pro_generation_transition_stable`' \
   '`x_grok_generation_transition_stable`' \
   '`deep_research_completed_report`' \
-  'stop with no capture and no retry.' \
+  'stop with no capture. That state alone does not authorize the bounded' \
   '`workflow.response_completion_marker`' \
   'source-native records false/null after' \
   'Preflight-v3 has neither field.' \
@@ -166,7 +167,7 @@ for required in \
   'producer-declared same-attempt evidence, not browser attestation, UI-stability,' \
   'report, product, and custody states are' \
   'If a response-specific native Markdown export carries complete citation evidence,' \
-  'preserve it in a `bma_researcher_capture.v4` JSON file and run' \
+  'preserve it in a `bma_researcher_capture.v5` JSON file and run' \
   '`bma-researcher package --run-dir <private-run> --capture <native-capture.json>` once with that file directly;' \
   'do not invoke `materialize-capture` on the native branch.' \
   'materialize-browser-rendered-capture' \
@@ -508,22 +509,22 @@ if grep -Fq -- \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'Generation-transition-stable requires its exact route-specific generation/Stop control observed active then absent, a response-specific post-generation action row/control, exact response-subtree byte/hash stability across two bounded post-stop polls, and no navigation, reset, or handoff.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
-  'Capture-v4 requires `workflow.response_complete` true plus an exact route-bound `workflow.response_completion_marker`:' \
+  'Capture-v4/v5 require `workflow.response_complete` true plus an exact route-bound `workflow.response_completion_marker`:' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   '`response_specific_native_markdown_export_ready` or `chatgpt_pro_generation_transition_stable`;' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'Preflight-v3 rejects both fields.' <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'producer-declared same-attempt evidence, not attestation or proof of UI stability or semantic completeness.' \
   <<< "$CONTRACT_TEXT"; then
-  pass "researcher contract carries the capture-v4 terminal-response gate and claim ceiling"
+  pass "researcher contract carries the capture-v4/v5 terminal-response gate and claim ceiling"
 else
-  fail "researcher contract carries the capture-v4 terminal-response gate and claim ceiling"
+  fail "researcher contract carries the capture-v4/v5 terminal-response gate and claim ceiling"
 fi
 
 if grep -Fq -- \
   'V5 identity evidence contains portable booleans and a fresh random attempt alias.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
-  'Capture-v4 additionally permits only its bounded, route-allowlisted, non-identity `response_completion_marker` enum;' \
+  'Capture-v4/v5 additionally permit their bounded, route-allowlisted, non-identity `response_completion_marker` enum;' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   '`chatgpt_deep_research -> {deep_research_completed_report}`' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
@@ -566,7 +567,7 @@ else
 fi
 
 if grep -Fq -- \
-  'A complete native export is preserved in a `bma_researcher_capture.v4` JSON file and passed directly to `bma-researcher package --run-dir <private-run> --capture <native-capture.json>`; the native branch never calls `materialize-capture`.' \
+  'A complete native export is preserved in a `bma_researcher_capture.v5` JSON file and passed directly to `bma-researcher package --run-dir <private-run> --capture <native-capture.json>`; the native branch never calls `materialize-capture`.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'A complete `browser_rendered_markdown` capture is likewise passed directly to `package` with null strict rendered-DOM provenance fields, but only after `materialize-browser-rendered-capture` emits it.' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
@@ -586,7 +587,7 @@ if grep -Fq -- \
   <<< "$EXAMPLE_TEXT" && grep -Fq -- \
   'use `response_specific_native_markdown_export_ready` only when this exact response' \
   <<< "$EXAMPLE_TEXT" && grep -Fq -- \
-  'otherwise timeout or drift means no capture and no retry.' <<< "$EXAMPLE_TEXT"; then
+  'otherwise timeout or drift means no capture and does not by itself authorize' <<< "$EXAMPLE_TEXT"; then
   pass "compound example gates capture on the same-response terminal observation"
 else
   fail "compound example gates capture on the same-response terminal observation"

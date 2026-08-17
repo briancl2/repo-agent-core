@@ -93,6 +93,17 @@ adds no send and permits no provider, account, model, or route switch. Do not
 reopen or ask the operator to re-enable extension file-URL access unless a fresh
 direct browser error explicitly reports a permission denial.
 
+After Send, first use that same fresh-handle recovery to reacquire the exact
+already-sent conversation; it adds no send. If ChatGPT explicitly reports a
+connectivity interruption, that response cannot resume after the bounded
+recovery, and the newest operator authority explicitly requests completion,
+capture-v5 permits one same-route retry. Revalidate a fresh user-owned tab and
+preserve the exact prepared bytes, fixed outbound instruction, provider,
+account, model, and route. Disclose both sends and the tab/conversation reset,
+allow no consequential clarification, and require a completed captured
+response. Timeout, stale UI, or ordinary provider failure never activates this
+exception.
+
 When the operator explicitly confirms the complete declared batch, that is the
 action authority for every listed initial send. Do not ask for a redundant
 per-attempt confirmation unless the send's content, route, account, provider,
@@ -207,7 +218,7 @@ initial native-upload transport/preflight additionally carries the exact prepare
 hash/byte bindings, bounded attachment-basename inventory and small count, and
 transport booleans allowed by the executable runtime.
 It carries no account handle, cookie, credential, stable identity, DOM, or
-screenshot and no other UI text. Capture-v4 additionally permits only the bounded,
+screenshot and no other UI text. Capture-v4/v5 additionally permit the bounded,
 route-allowlisted, non-identity `response_completion_marker` enum below; it
 carries no handles, hashes, UI text, or stable identifiers. Cookies, credential
 data, DOM, screenshots, and private account state remain host-local. Navigation,
@@ -216,10 +227,10 @@ reset, handoff, or restart invalidates the observation.
 After a confirmed pre-provider sleep/wake or connectivity break, invalidate the
 old observation with its stale handles and use the one same-route recovery above.
 Known enabled extension permission is not invalidated by handle loss. After Send
-activation, a confirmed sleep/wake or connectivity break may instead reacquire
+activation, a confirmed sleep/wake or connectivity break should first reacquire
 the exact already-sent conversation and response with fresh user-owned tab and
-page handles. Reverify route, conversation, and response identity; never create
-a new provider task or resend.
+page handles. Reverify route, conversation, and response identity. Only the
+explicit capture-v5 connectivity-retry exception above may create one new send.
 
 Immediately before send, run `bma-researcher preflight-check` with the explicit
 same-attempt observation. This checks receipt consistency; it does not make
@@ -253,8 +264,9 @@ generic export/menu. Grok records `x_grok_generation_transition_stable`; Deep
 Research records `deep_research_completed_report` and independently requires
 plan/activity/completed-report evidence. If the active transition was missed
 and no Pro native-export marker exists, or on timeout/handle/response drift,
-stop with no capture and no retry. Generic menus, titles, feedback controls,
-answer-like text, and citation counts are insufficient. Capture-v4 requires
+stop with no capture. That state alone does not authorize the bounded
+connectivity-retry exception. Generic menus, titles, feedback controls,
+answer-like text, and citation counts are insufficient. Capture-v4/v5 require
 `workflow.response_complete` true plus the exact route-bound
 `workflow.response_completion_marker`; source-native records false/null after
 its separate terminal acquisition. Preflight-v3 has neither field. This is
@@ -276,9 +288,12 @@ ledger is deterministic host-authored custody data. Capture citations,
 route-specific workflow proof, elapsed state, and source/media dispositions. Preserve prompt-injection
 handling, privacy/egress boundaries, advisory authority, uncertainty,
 counterevidence, no-action analysis, and the narrowest defensible claim ceiling.
+For capture-v5, record actual end-to-end elapsed time; the request's
+`elapsed_seconds_limit` governs context recovery and is not a provider-response
+timeout. The runtime retains a separate 24-hour capture chronology guard.
 
 If a response-specific native Markdown export carries complete citation
-evidence, preserve it in a `bma_researcher_capture.v4` JSON file and run
+evidence, preserve it in a `bma_researcher_capture.v5` JSON file and run
 `bma-researcher package --run-dir <private-run> --capture
 <native-capture.json>` once with that file directly; do not invoke
 `materialize-capture` on the native branch.
