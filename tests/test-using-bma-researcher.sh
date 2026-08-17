@@ -431,6 +431,15 @@ browser_rendered_skill_valid() {
     'data-bma-response-inner-text-base64' \
     'data-bma-ordered-citation-urls-json-base64' \
     'data-bma-original-response-outer-html-base64' \
+    '--citation-traversal <response-local-traversal-json>' \
+    'This indexed form is required for Deep Research and is also accepted for Pro.' \
+    'This direct-link form is accepted only for Pro.' \
+    '"conversation_url": "https://chatgpt.com/c/example"' \
+    '"portable_urls": ["https://example.com/source"]' \
+    'does not rewrite either retained value.' \
+    'Direct-link `links` preserves duplicate anchor occurrences' \
+    'portable citation-occurrence map' \
+    'Missing source indexes, nonportable attachments, and visible `+N` members without retained locators remain explicit partial evidence.' \
     'requires its current attempt alias' \
     'rejects separately staged text or URL bytes that differ or duplicate evidence markers' \
     'not browser attestation or proof against deliberate fabrication.'
@@ -450,7 +459,8 @@ for mutation_target in \
   'data-bma-researcher-attempt-alias' \
   'data-bma-response-inner-text-base64' \
   'data-bma-ordered-citation-urls-json-base64' \
-  'data-bma-original-response-outer-html-base64'
+  'data-bma-original-response-outer-html-base64' \
+  '--citation-traversal <response-local-traversal-json>'
 do
   mutated_browser_text="${SKILL_TEXT/"$mutation_target"/__removed_browser_guard__}"
   if browser_rendered_skill_valid "$mutated_browser_text"; then
