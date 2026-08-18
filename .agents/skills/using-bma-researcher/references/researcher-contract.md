@@ -5,10 +5,22 @@ the harness-facing invariants compact and provider neutral.
 
 ## Request invariants
 
-- One immutable owner-private run directory outside Git.
-- In a multi-case batch, freeze each request immediately before its one
-  `prepare`; paired route controls share one exact snapshot. Case, attempt, and
-  route labels remain host-local custody metadata rather than relevance input.
+- One mode-0700 owner-private episode directory outside Git and one immutable
+  run directory per attempt.
+- Source-owner refresh and exact-object binding finish before the one prepare.
+  Field Theory and YouTube retain their existing refresh contracts; the binding
+  records their exact observed identities/cutoffs. Research Brain is an
+  explicit fresh clean checkout at the episode-recorded full commit, never a
+  mutable default. `prepare` performs no refresh.
+- `materialize-request --mode ordinary` is the sole ordinary constructor. Its
+  otherwise complete v3 draft leaves `recorded_at` and `currentness.cutoff`
+  null; the BMA-owned materializer derives one current UTC value for both and
+  securely publishes the existing request-file contract. Replay/test-fixture
+  values remain explicit and strict.
+- In a multi-case batch, bind exact sources and materialize each request
+  immediately before its one `prepare`; paired route controls share one exact
+  binding. Case, attempt, and route labels remain host-local custody metadata
+  rather than relevance input.
 - Exact ordinary question is the only relevance input.
 - Trigger is `operator_question` or `agent_detected_need`.
 - Authority and job family are frozen before context or routing.
@@ -18,6 +30,9 @@ the harness-facing invariants compact and provider neutral.
 - Prohibited relevance inputs include source identifiers, corpus roots,
   retrieval queries, expected sources, expected claims, expected conclusions,
   hidden labels, held-out hints, and backfill seeds.
+- A `ForegroundError` retains its safe verbatim message, exception class, and
+  stable operation stage only in the owner-private failure receipt. Public CLI
+  and stderr remain bounded and generic.
 
 ## Route invariants
 
@@ -40,6 +55,11 @@ the harness-facing invariants compact and provider neutral.
   count to match both route requirements and invocation immediately before
   transport. ChatGPT always declares `native_file_upload`; X/Grok alone retains
   bounded `exact_inline_text`.
+- Immediately before every supported upload or exact-inline fill capable of
+  disclosing prepared bytes, the host invokes `bma-researcher egress-possible`
+  and requires success. The immutable owner-private event binds episode, route,
+  prepared hash/bytes, and timestamp. Repetition revalidates the same event; it
+  grants no send, retry, or attempt authority.
 - ChatGPT native upload opens `Add files and more`, requires visible `Upload
   from computer`, pre-arms the `filechooser` wait, and performs one trusted CDP
   `Runtime.evaluate` activation of the exact generic file input with
@@ -56,7 +76,8 @@ the harness-facing invariants compact and provider neutral.
   upload completion, the complete visible attachment-name inventory and count,
   exactly one bounded matching filename, exact composer instruction, absence of
   undeclared text, and absence of `[Truncated]`.
-- X/Grok v5 `exact_inline_text` requires complete composer readback to match
+- X/Grok v5 `exact_inline_text` invokes `egress-possible` immediately before
+  the exact composer fill, then requires complete composer readback to match
   exact prepared bytes while upload fields are false. Clarification carries no
   transport object and cannot redefine initial transport.
 - The v5 transport receipt establishes browser control and host-side
@@ -67,6 +88,13 @@ the harness-facing invariants compact and provider neutral.
   must never be sent.
 - The pre-send observation is explicit, fresh, same-attempt, and invalidated by
   navigation, reset, handoff, or restart.
+- Current preflight is v7 and requires the conservative event to predate the
+  initial observation. The event is possible-disclosure evidence, not completed
+  transfer, provider work, send, attempt consumption, or retry authority. A
+  bypassed or interrupted upload/fill remains `egress_possible`; positive
+  evidence may refine only later state. This applies only to browser routes;
+  source-native acquisition creates no event, browser observation, preflight,
+  or send and binds its exact acquisition directly in capture/package.
 - Provider work starts at initial Send activation. One confirmed sleep/wake or
   connectivity break before that point permits one same-route recovery: discard stale handles, enumerate fresh user-owned
   tabs, and revalidate the same account, entitlement, capability, attempt, and
@@ -85,9 +113,10 @@ the harness-facing invariants compact and provider neutral.
 - Capture repeats origin, conversation, host-local identity-match, entitlement,
   capability, random attempt-alias, and route-specific workflow checks.
 - V5 identity evidence contains portable booleans and a fresh random attempt
-  alias. Initial native-upload transport/preflight additionally carries exact
-  prepared hash/byte bindings, the bounded attachment-basename inventory and
-  small count, and transport booleans allowed by the executable runtime; it
+  alias. Initial native-upload transport additionally carries exact prepared
+  hash/byte bindings, the bounded attachment-basename inventory and small
+  count, and transport booleans allowed by the executable runtime; v7 preflight
+  cross-binds that transport plus the owner-private egress event. Identity evidence
   contains no account handle, cookie, credential, stable identity, DOM,
   screenshot, or other UI text. Capture-v4/v5 additionally permit their bounded,
   route-allowlisted, non-identity `response_completion_marker` enum; it carries
@@ -116,7 +145,7 @@ the harness-facing invariants compact and provider neutral.
   `x_grok_generation_transition_stable`. The Pro native marker requires that
   exact response's post-generation native Markdown export control/result, not a
   generic export/menu. Source-native requires false/null after its separate
-  terminal acquisition. Preflight-v3 rejects both fields. Deep Research
+  terminal acquisition. Preflight receipts reject both fields. Deep Research
   independently retains its plan/activity/completed-report bits. This is
   producer-declared same-attempt evidence, not attestation or proof of UI
   stability or semantic completeness.

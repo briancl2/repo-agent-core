@@ -69,6 +69,14 @@ skill_has() {
 for required in \
   'The exact ordinary question is the only relevance input.' \
   '`agent_detected_need` before retrieving context or choosing a route.' \
+  '`bma-researcher bind-sources` with that checkout,' \
+  '`bma-researcher materialize-request --mode ordinary --output' \
+  '`recorded_at` and' \
+  '`currentness.cutoff` both null' \
+  'Run `bma-researcher prepare` once with the materialized `--request` file, exact' \
+  '`--source-binding`, explicit `--admitted-research-repo`' \
+  'Prepare performs no refresh;' \
+  'Do not use `--source-cutoff` for an ordinary request.' \
   '`answer_question`' \
   '`analyze_decision`' \
   '`compare_options`' \
@@ -101,6 +109,8 @@ for required in \
   '`Add files and more`, require the visible `Upload from computer` action,' \
   'pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`' \
   '`Runtime.evaluate` with `userGesture: true`.' \
+  '`bma-researcher egress-possible' \
+  'Only then call `setFiles` once' \
   '`setFiles` once with the absolute exact prepared-file path.' \
   'fixed 59-byte' \
   '`submission_instruction` in the composer' \
@@ -121,6 +131,7 @@ for required in \
   '"undeclared_composer_text_absent": true,' \
   '"truncation_marker_absent": true' \
   'X/Grok retains the separate bounded `exact_inline_text` route' \
+  'immediately before the one composer fill' \
   '"representation": "exact_inline_text",' \
   '"trusted_file_input_activation_used": false,' \
   '"supported_native_file_chooser_used": false,' \
@@ -150,10 +161,15 @@ for required in \
   'stop with no capture. That state alone does not authorize the bounded' \
   '`workflow.response_completion_marker`' \
   'source-native records false/null after' \
-  'Preflight-v3 has neither field.' \
+  'Preflight receipts have neither field.' \
   'V5 identity evidence records portable booleans and a fresh random attempt alias;' \
-  'initial native-upload transport/preflight additionally carries the exact prepared' \
+  'initial native-upload transport additionally carries the exact prepared' \
   'hash/byte bindings, bounded attachment-basename inventory and small count, and' \
+  'Current preflight v7 adds' \
+  'Upload/fill failure or interruption remains `egress_possible`' \
+  'event neither consumes nor restores an attempt' \
+  'creates no browser-disclosure event, browser observation, preflight, or send.' \
+  'For browser routes, immediately before send, run current v7' \
   'route-allowlisted, non-identity `response_completion_marker` enum below;' \
   'it carries no handles, hashes, UI text, or stable identifiers.' \
   'The exact `RESPONSE_COMPLETION_MARKERS` allowlist' \
@@ -265,6 +281,8 @@ transport_skill_valid() {
     '`Add files and more`, require the visible `Upload from computer` action,' \
     'pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`' \
     '`Runtime.evaluate` with `userGesture: true`.' \
+    '`bma-researcher egress-possible' \
+    'Only then call `setFiles` once' \
     '`setFiles` once with the absolute exact prepared-file path.' \
     '`submission_instruction` in the composer' \
     'does not expose a dependable attachment byte-size readback' \
@@ -304,6 +322,7 @@ for mutation_target in \
   'truncation_marker_absent' \
   'tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})' \
   'Runtime.evaluate' \
+  'egress-possible' \
   'submission_instruction' \
   'transport-probe' \
   'a second send'
@@ -351,16 +370,44 @@ V5_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
 V5_OBSERVATION_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
   'The initial ChatGPT `bma_researcher_route_observation.v5` transport object uses' | cut -d: -f1)"
 PREFLIGHT_TRANSPORT_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
-  'observation, run v5 preflight immediately before the one initiation.' | cut -d: -f1)"
+  'representation-specific observation, run v7 preflight immediately before the' | cut -d: -f1)"
+SOURCE_BIND_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'Run `bma-researcher bind-sources`' | cut -d: -f1)"
+REQUEST_MATERIALIZE_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  '`bma-researcher materialize-request --mode ordinary --output' | cut -d: -f1)"
+PREPARE_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'Run `bma-researcher prepare` once with' | cut -d: -f1)"
+EGRESS_UPLOAD_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  're-hash the prepared file, then immediately run `bma-researcher egress-possible' | cut -d: -f1)"
+SETFILES_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'success. Only then call `setFiles` once' | cut -d: -f1)"
+EGRESS_INLINE_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'before the one composer fill that can disclose' | cut -d: -f1)"
+INLINE_FILL_LINE="$(git -C "$ROOT" show ":$SKILL_PATH" | grep -nF -m1 \
+  'Then the whole prepared file must match' | cut -d: -f1)"
+ADAPTER_PATH=".agents/skills/using-bma-researcher/references/chatgpt-browser-transport.md"
+ADAPTER_EGRESS_LINE="$(git -C "$ROOT" show ":$ADAPTER_PATH" | grep -nF -m1 \
+  'bma-researcher egress-possible --run-dir' | cut -d: -f1)"
+ADAPTER_SETFILES_LINE="$(git -C "$ROOT" show ":$ADAPTER_PATH" | grep -nF -m1 \
+  'Call `setFiles` once' | cut -d: -f1)"
 if [ -n "$V5_SCHEMA_LINE" ] && [ -n "$V5_UPLOAD_LINE" ] && \
   [ -n "$V5_OBSERVATION_LINE" ] && \
-  [ -n "$PREFLIGHT_TRANSPORT_LINE" ] && \
+  [ -n "$PREFLIGHT_TRANSPORT_LINE" ] && [ -n "$SOURCE_BIND_LINE" ] && \
+  [ -n "$REQUEST_MATERIALIZE_LINE" ] && [ -n "$PREPARE_LINE" ] && \
+  [ -n "$EGRESS_UPLOAD_LINE" ] && [ -n "$SETFILES_LINE" ] && \
+  [ -n "$EGRESS_INLINE_LINE" ] && [ -n "$INLINE_FILL_LINE" ] && \
+  [ -n "$ADAPTER_EGRESS_LINE" ] && [ -n "$ADAPTER_SETFILES_LINE" ] && \
+  [ "$SOURCE_BIND_LINE" -lt "$REQUEST_MATERIALIZE_LINE" ] && \
+  [ "$REQUEST_MATERIALIZE_LINE" -lt "$PREPARE_LINE" ] && \
   [ "$V5_SCHEMA_LINE" -lt "$V5_UPLOAD_LINE" ] && \
   [ "$V5_UPLOAD_LINE" -lt "$V5_OBSERVATION_LINE" ] && \
-  [ "$V5_OBSERVATION_LINE" -lt "$PREFLIGHT_TRANSPORT_LINE" ]; then
-  pass "v5 ChatGPT upload and preflight operations are mutually ordered"
+  [ "$V5_OBSERVATION_LINE" -lt "$PREFLIGHT_TRANSPORT_LINE" ] && \
+  [ "$EGRESS_UPLOAD_LINE" -lt "$SETFILES_LINE" ] && \
+  [ "$EGRESS_INLINE_LINE" -lt "$INLINE_FILL_LINE" ] && \
+  [ "$ADAPTER_EGRESS_LINE" -lt "$ADAPTER_SETFILES_LINE" ]; then
+  pass "source binding, request materialization, upload disclosure, and preflight are ordered"
 else
-  fail "v5 ChatGPT upload and preflight operations are mutually ordered"
+  fail "source binding, request materialization, upload disclosure, and preflight are ordered"
 fi
 
 for transport_contract in \
@@ -373,6 +420,11 @@ for transport_contract in \
   'v3 route requirements have no `provider_input_bytes`.' \
   'It cannot authorize a current preflight or send.' \
   '`bma_researcher_route_requirements.v5` requires the prepared hash and byte' \
+  'the host invokes `bma-researcher egress-possible`' \
+  'Current preflight is v7 and requires the conservative event to predate' \
+  'event is possible-disclosure evidence, not completed' \
+  'This applies only to browser routes;' \
+  'source-native acquisition creates no event, browser observation, preflight,' \
   'ChatGPT always declares `native_file_upload`; X/Grok alone retains' \
   'opens `Add files and more`, requires visible `Upload' \
   'pre-arms the `filechooser` wait' \
@@ -405,10 +457,12 @@ for transport_example in \
   'the v3 route-requirements object has no `provider_input_bytes`.' \
   'Do not create a composer observation, run preflight, upload, or send from a v3 artifact.' \
   '## Current v5 ChatGPT native-file transport' \
+  '`bma-researcher egress-possible --run-dir <private-run>`' \
   '`prepare` emits `bma_researcher_route_requirements.v5`' \
   'pre-arm `waitForEvent("filechooser")`' \
   'Never bulk-insert the prepared file into ChatGPT' \
   '## Current v5 X/Grok exact-inline transport' \
+  'If either disclosure call is interrupted, retain `egress_possible`' \
   '## Questionless transport certification' \
   '`send_authorized: false`' \
   'stop before send. Do not compact, rebuild, retry, or switch route.'
@@ -513,7 +567,7 @@ if grep -Fq -- \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
   '`response_specific_native_markdown_export_ready` or `chatgpt_pro_generation_transition_stable`;' \
   <<< "$CONTRACT_TEXT" && grep -Fq -- \
-  'Preflight-v3 rejects both fields.' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'Preflight receipts reject both fields.' <<< "$CONTRACT_TEXT" && grep -Fq -- \
   'producer-declared same-attempt evidence, not attestation or proof of UI stability or semantic completeness.' \
   <<< "$CONTRACT_TEXT"; then
   pass "researcher contract carries the capture-v4/v5 terminal-response gate and claim ceiling"

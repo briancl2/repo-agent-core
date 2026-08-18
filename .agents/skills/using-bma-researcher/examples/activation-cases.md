@@ -6,15 +6,29 @@ Input: “What changed in the primary evidence for this decision, and should I
 act?”
 
 Record the sentence exactly, set `trigger` to `operator_question`, choose the
-job family from the decision need, and prepare once. Do not append source hints
-from prior work.
+job family from the decision need, refresh and bind source-owner objects, then
+securely materialize the ordinary request just in time and prepare once. Do not
+append source hints from prior work.
 
 ## Agent-detected need
 
 During an authorized implementation, the agent finds that an upstream behavior
 is both consequential and currently uncertain. It records the exact need,
-timestamp, `agent_detected_need`, authority, and job family before searching or
-freezing context. It does not convert a test idea into a synthetic research need.
+`agent_detected_need`, authority, and job family before searching or freezing
+context. After source binding, `materialize-request --mode ordinary` derives the
+timestamp immediately before the sole prepare. It does not convert a test idea
+into a synthetic research need.
+
+## Ordinary installed-source preparation
+
+Refresh or verify Field Theory and YouTube under their existing owner contracts.
+Use a fresh clean Research Brain checkout at the episode-recorded full commit.
+Run `bma-researcher bind-sources`, then securely create the request file with
+`bma-researcher materialize-request --mode ordinary`, leaving both ordinary
+timestamp fields null in the input draft. Call `prepare` once with that exact
+binding, request file, and Research Brain path. A stale/missing source or dirty,
+default, mismatched checkout stops before prepare under the current owner
+policy; request time never makes source bytes current.
 
 ## Composite need
 
@@ -50,20 +64,26 @@ composer observation, run preflight, upload, or send from a v3 artifact.
 hash, byte count, trusted activation method, and fixed submission instruction.
 Re-read the immutable file. Open `Add files and more`, require visible `Upload
 from computer`, pre-arm `waitForEvent("filechooser")`, then use the exact trusted
-generic-input activation and call `chooser.setFiles` once with the absolute
-prepared path; the chooser-selection match is true only when that exact path
+generic-input activation, await the chooser, and immediately run
+`bma-researcher egress-possible --run-dir <private-run>`. Require success before
+calling `chooser.setFiles` once with the absolute prepared path; the
+chooser-selection match is true only when that exact path
 and its current hash/bytes match the prepared artifact. Require the exact
 visible filename. Put only `Use the attached
 provider-input.md as the complete request.` in the composer, read it back
-exactly, require enabled Send and no `[Truncated]`, then run v5 preflight.
+exactly, require enabled Send and no `[Truncated]`, then run v7 preflight.
 Never bulk-insert the prepared file into ChatGPT or require a visible size that
 the product does not show.
 
 ## Current v5 X/Grok exact-inline transport
 
-X/Grok may emit `exact_inline_text` under its bounded route maximum. Insert the
-complete prepared bytes once into an empty composer and require exact readback;
-all upload booleans remain false. Do not reinterpret this as a ChatGPT route.
+X/Grok may emit `exact_inline_text` under its bounded route maximum. Immediately
+before the exact composer fill, run `bma-researcher egress-possible --run-dir
+<private-run>` and require success. Insert the complete prepared bytes once into
+an empty composer and require exact readback; all upload booleans remain false.
+Do not reinterpret this as a ChatGPT route. If either disclosure call is
+interrupted, retain `egress_possible`; it neither proves transfer nor changes
+attempt/retry authority.
 
 ## Questionless transport certification
 
