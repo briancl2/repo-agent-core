@@ -35,8 +35,9 @@ links, bookmark identifiers, corpus roots, retrieval queries, expected sources,
 claims, conclusions, hidden labels, held-out hints, or backfill seeds. Do not
 manufacture a question to exercise the route.
 
-Before provider work, record the exact question, UTC timestamp, trigger,
-authority, and one job family in a new owner-private run directory. Use one of:
+Before provider work, record the exact question, trigger, authority, and one
+job family in an owner-private episode directory. The BMA-owned request
+materializer derives the ordinary UTC timestamp just in time. Use one of:
 
 - `answer_question`
 - `analyze_decision`
@@ -49,24 +50,47 @@ Composite work records every applicable family and one primary family. A prior
 admission or dossier may be referenced only by its opaque owner-local handle;
 it never replaces the exact current question.
 
-## Use one immutable run directory
+## Bind sources, materialize the request, then prepare once
 
-Choose an explicit absolute owner-private directory outside Git. Keep every
-request, frozen context, route receipt, native capture, package, and custody
-receipt for the attempt under that directory. Do not use a shared mutable
-current-run path.
+Choose an explicit absolute owner-private mode-0700 episode directory outside
+Git and one new run path beneath it. Do not use a shared mutable current-run
+path.
 
-Run `bma-researcher prepare` once. It validates the request, freezes installed
-context once, freezes trigger/job/state before any provider work, and emits the
-exact provider input plus route requirements. If preparation fails, stop; do
-not reconstruct an input by hand.
+Finish source refresh and exact-object binding before the one authorized
+prepare. Refresh or verify Field Theory and YouTube only through their existing
+source-owner contracts, then observe their exact identities and cutoffs. Use a
+fresh explicit clean Research Brain checkout at the episode-recorded full
+commit, never its mutable default checkout. Stale or unavailable source state
+must stop or proceed only under current owner policy; request time does not make
+source bytes current. Field Theory identity includes its bounded installed code
+closure plus the source-owned data objects used by search/show. Run `bma-researcher bind-sources`
+with that checkout,
+commit, Field Theory CLI, and YouTube database, writing the binding under the
+episode directory. This command performs no fetch or network refresh.
 
-For a declared multi-case validation batch, materialize each immutable request
-immediately before that case's one `prepare`; do not timestamp every request at
-batch start and then reject later truthful installed snapshots as newer. Freeze
-paired route controls from one exact snapshot and require their provider-input
-bytes and SHA-256 to match. Case, attempt, and route labels are custody metadata,
-not provider relevance input.
+Build the complete ordinary v3 draft with `recorded_at` and
+`currentness.cutoff` both null, then pipe those bounded JSON bytes to
+`bma-researcher materialize-request --mode ordinary --output
+<episode-private>/request.json`. The BMA-owned private materializer derives one
+current UTC value for both fields and securely publishes the existing canonical
+request-file envelope. Replay/test-fixture values remain explicit under
+`--mode test-fixture`; they cannot enter ordinary preparation.
+
+Run `bma-researcher prepare` once with the materialized `--request` file, exact
+`--source-binding`, explicit `--admitted-research-repo`, and the new `--run-dir`.
+Prepare performs no refresh; it validates the request, revalidates and freezes
+the prebound installed objects once with before/after identity checks, freezes
+trigger/job/state before any provider work, and emits the exact provider input
+plus route requirements. Do not use `--source-cutoff` for an ordinary request.
+If source binding or preparation fails, stop before provider work; do not
+reconstruct an input by hand or call prepare a second time.
+
+For a declared multi-case validation batch, bind that case's exact sources,
+then materialize its immutable request immediately before that case's one
+`prepare`; do not timestamp every request at batch start or claim that request
+time makes source objects current. Freeze paired route controls from one exact
+binding and require their provider-input bytes and SHA-256 to match. Case,
+attempt, and route labels are custody metadata, not provider relevance input.
 
 ## Select one route
 
@@ -128,8 +152,10 @@ multiple inline attempts. Follow
 `Add files and more`, require the visible `Upload from computer` action,
 pre-arm `tab.playwright.waitForEvent("filechooser", {timeoutMs: 10000})`, and
 perform one trusted activation of the exact generic file input through the
-tab's CDP `Runtime.evaluate` with `userGesture: true`. Await the chooser and call
-`setFiles` once with the absolute exact prepared-file path. After exactly one
+tab's CDP `Runtime.evaluate` with `userGesture: true`. Await the chooser,
+re-hash the prepared file, then immediately run `bma-researcher egress-possible
+--run-dir <private-run>` and require success. Only then call `setFiles` once
+with the absolute exact prepared-file path. After exactly one
 unambiguous attachment is visibly complete, put only the emitted fixed 59-byte
 `submission_instruction` in the composer, require exact readback and enabled
 Send. ChatGPT may add a positive-integer duplicate suffix such as
@@ -167,9 +193,11 @@ displays its generated positive-integer duplicate suffix, such as
 count `1`, and the bounded exact-or-suffix matcher. An unrelated label or any
 second attachment fails even if the boolean was set true.
 
-X/Grok retains the separate bounded `exact_inline_text` route: the whole
-prepared file must match the empty-composer readback exactly, and all upload
-booleans remain false. Its exact v5 transport object is:
+X/Grok retains the separate bounded `exact_inline_text` route: immediately
+before the one composer fill that can disclose the whole prepared file, run
+`bma-researcher egress-possible --run-dir <private-run>` and require success.
+Then the whole prepared file must match the empty-composer readback exactly,
+and all upload booleans remain false. Its exact v5 transport object is:
 
 ```json
 {
@@ -189,14 +217,26 @@ booleans remain false. Its exact v5 transport object is:
 }
 ```
 
-`source_native_exact_bytes` remains a separate terminal
-acquisition path. After populating the exact representation-specific
-observation, run v5 preflight immediately before the one initiation. A
+`source_native_exact_bytes` remains a separate terminal acquisition path and
+creates no browser-disclosure event, browser observation, preflight, or send.
+Bind the exact source-native acquisition directly in capture/package under its
+false/null completion contract. For browser routes, after populating the exact
+representation-specific observation, run v7 preflight immediately before the
+one initiation; the immutable event must precede that observation. A
 clarification observation carries no transport object and
 cannot redefine initial transport. Any false or missing required boolean,
 representation drift, upload error, local-file drift, extra composer text, or
 truncation stops before send and does not authorize compaction, retry, a second
 send, or a route, account, provider, or model switch.
+
+Invoke `egress-possible` immediately before every later supported `setFiles` or
+exact-inline fill call involving the prepared bytes. Repetition revalidates the
+same immutable event; it does not create a queue or grant a send, retry, or new
+attempt. The event proves only that disclosure may have begun. Upload/fill
+failure or interruption remains `egress_possible`, never completed transfer or
+false no-disclosure. Positive upload/fill/send evidence may refine later state,
+but the event neither consumes nor restores an attempt and existing owner
+authority continues to control retry.
 
 For no-send diagnosis, `bma-researcher transport-probe --output-dir <new-dir>`
 emits one deterministic, non-sensitive 256 KiB fixture and receipt with
@@ -214,9 +254,10 @@ account, entitlement, and capability. If none qualifies, report inspected count
 and remaining unknowns; do not claim global absence.
 
 V5 identity evidence records portable booleans and a fresh random attempt alias;
-initial native-upload transport/preflight additionally carries the exact prepared
+initial native-upload transport additionally carries the exact prepared
 hash/byte bindings, bounded attachment-basename inventory and small count, and
-transport booleans allowed by the executable runtime.
+transport booleans allowed by the executable runtime. Current preflight v7 adds
+only the owner-private egress-event binding.
 It carries no account handle, cookie, credential, stable identity, DOM, or
 screenshot and no other UI text. Capture-v4/v5 additionally permit the bounded,
 route-allowlisted, non-identity `response_completion_marker` enum below; it
@@ -232,8 +273,9 @@ the exact already-sent conversation and response with fresh user-owned tab and
 page handles. Reverify route, conversation, and response identity. Only the
 explicit capture-v5 connectivity-retry exception above may create one new send.
 
-Immediately before send, run `bma-researcher preflight-check` with the explicit
-same-attempt observation. This checks receipt consistency; it does not make
+For browser routes, immediately before send, run current v7
+`bma-researcher preflight-check` with the explicit same-attempt observation.
+This checks receipt consistency; it does not make
 browser observation and send atomic. Recheck the same tab at capture. Package
 must fail on origin, conversation, host-local identity, entitlement, capability,
 attempt-alias, or required workflow drift.
@@ -269,7 +311,7 @@ connectivity-retry exception. Generic menus, titles, feedback controls,
 answer-like text, and citation counts are insufficient. Capture-v4/v5 require
 `workflow.response_complete` true plus the exact route-bound
 `workflow.response_completion_marker`; source-native records false/null after
-its separate terminal acquisition. Preflight-v3 has neither field. This is
+its separate terminal acquisition. Preflight receipts have neither field. This is
 producer-declared same-attempt evidence, not browser attestation, UI-stability,
 or semantic-completeness proof. The exact `RESPONSE_COMPLETION_MARKERS` allowlist
 is `chatgpt_deep_research -> {deep_research_completed_report}`,

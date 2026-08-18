@@ -20,11 +20,17 @@ its composer. X/Grok retains its separate bounded inline route.
    `document.querySelector('input[type="file"]:not([accept])').click(); true`.
    This performs one trusted activation of the existing input; it must not edit
    DOM, cookies, account state, or page content.
-6. Await the chooser and call `setFiles` once with the absolute path to that
-   exact run's `provider-input.md`. Record
+6. Await the chooser. Re-hash and count that exact run's `provider-input.md`,
+   require route-requirements parity, then immediately invoke
+   `bma-researcher egress-possible --run-dir <private-run>` and require success.
+   This securely creates or revalidates one owner-private conservative event
+   before prepared bytes can reach the browser. A failure stops before
+   `setFiles`.
+7. Call `setFiles` once with the absolute path to that exact
+   `provider-input.md`. Record
    `chooser_selected_prepared_input_match: true` only when the selected path is
    that exact prepared path and its bytes/hash still match route requirements.
-7. Require exactly one completed, unambiguous attachment. ChatGPT may display a
+8. Require exactly one completed, unambiguous attachment. ChatGPT may display a
    positive-integer duplicate suffix such as `provider-input(1).md`; record the
    complete visible attachment-name inventory and count. Require exactly one
    name and count `1`; record the filename match as true for either the exact
@@ -34,8 +40,14 @@ its composer. X/Grok retains its separate bounded inline route.
    complete request.` Require exact readback, no other composer text, no
    `[Truncated]`, and an enabled send control before preflight.
 
-The chooser, attachment, and enabled Send prove browser control only. They do
-not prove provider attention, extraction, semantic use, or a completed send.
+Reinvoke `egress-possible` immediately before any later supported `setFiles`
+call involving those prepared bytes. It revalidates the same event and grants
+no retry or send authority. An upload interruption remains `egress_possible`;
+it is never evidence of completed transfer or of no disclosure.
+
+The chooser, event, attachment, and enabled Send prove only their separate
+bounded properties. They do not prove provider attention, extraction, semantic
+use, or a completed send.
 Do not send a `transport-probe` fixture.
 
 ## Sleep, wake, and connectivity recovery
