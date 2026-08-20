@@ -340,6 +340,47 @@ evidence, preserve it in a `bma_researcher_capture.v5` JSON file and run
 <native-capture.json>` once with that file directly; do not invoke
 `materialize-capture` on the native branch.
 
+For a completed X/Grok response, do not relabel an offline host binding as the
+ChatGPT v2 evidence DOM. Preserve one already frozen single-browser-evaluation
+tuple containing the exact response `innerText`, original `outerHTML`, ordered
+first-seen response-local URL/link traversal, attempt alias, route, completion
+marker, and observation time. Bind that tuple owner-privately with:
+
+```text
+bma-researcher bind-x-browser-capture-evidence \
+  --run-dir <private-run> \
+  --tuple-metadata <owner-private-x-tuple-metadata-and-link-traversal> \
+  --response-text <exact-response-inner-text> \
+  --response-outer-html <exact-original-response-outer-html> \
+  --observed-at <exact-tuple-observation-time> \
+  --output <owner-private-x-capture-evidence>
+```
+
+The tuple metadata contains the ordered response-local links and portable URL
+inventory produced by the same fixed evaluation. The emitted
+`bma_researcher_x_browser_capture_evidence.v1` object binds the exact tuple
+bytes, counts, hashes, attempt, route, completion marker, and chronology. Its
+fixed producer claims state that this is a frozen
+single-browser-evaluation tuple with post-capture host binding, raw artifacts
+owner-private, and no browser attestation, provider-UI-completeness claim, or
+citation-entailment claim. Then invoke:
+
+```text
+bma-researcher materialize-browser-rendered-capture \
+  --run-dir <private-run> \
+  --capture <citation-free-draft> \
+  --x-capture-evidence <owner-private-x-capture-evidence>
+```
+
+The X branch re-derives its portable URL ledger from exact response-local
+anchors, resolves only X-origin-relative links to `https://x.com`, and enforces
+the existing 24-hour chronology guard plus exact timestamp identity. Origin,
+route, alias, completion-marker, text, HTML, URL, traversal, order, omission,
+duplication, or injection drift fails before materialization or package
+publication. `--assistant-dom` remains ineligible for X; the ChatGPT v2
+evidence-DOM invariant is unchanged. Pass only the emitted
+`capture-browser-rendered.json` directly to `package`.
+
 When ChatGPT exposes no response-specific native export and its current
 compound-citation carousel cannot satisfy the legacy all-members-at-once drawer
 model, use `browser_rendered_markdown`. From the exact completed assistant
