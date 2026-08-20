@@ -31,10 +31,14 @@ its composer. X/Grok retains its separate bounded inline route.
    `chooser_selected_prepared_input_match: true` only when the selected path is
    that exact prepared path and its bytes/hash still match route requirements.
 8. Require exactly one completed, unambiguous attachment. ChatGPT may display a
-   positive-integer duplicate suffix such as `provider-input(1).md`; record the
-   complete visible attachment-name inventory and count. Require exactly one
-   name and count `1`; record the filename match as true for either the exact
-   basename or that bounded suffix, and false for any unrelated label. The exact chooser-selected absolute path
+   positive-integer duplicate suffix such as `provider-input(1).md` or its
+   observed UTC-like timestamp suffix such as
+   `provider-input(20260820-125116).md`; record the complete visible
+   attachment-name inventory and count. Require exactly one name and count `1`;
+   record the filename match as true for the exact basename or either bounded
+   suffix, and false for arbitrary parenthesized text or any unrelated label.
+   The timestamp form is exactly eight ASCII digits, one hyphen, and six ASCII
+   digits. The exact chooser-selected absolute path
    and prepared hash/bytes must independently bind the upload. Fill
    the composer once with exactly `Use the attached provider-input.md as the
    complete request.` Require exact readback, no other composer text, no

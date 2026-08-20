@@ -68,8 +68,10 @@ the harness-facing invariants compact and provider neutral.
   current hash/bytes match the prepared artifact. Exactly one unambiguous
   completed attachment must be visible before the fixed submission instruction
   is placed in the composer and read back exactly. A ChatGPT-generated
-  positive-integer duplicate suffix counts as a filename match; unrelated labels
-  fail. The chooser-selected exact path and prepared hash/bytes remain the
+  positive-integer duplicate suffix or the bounded eight-digit, hyphen,
+  six-digit timestamp suffix counts as a filename match; arbitrary
+  parenthesized text and unrelated labels fail. The chooser-selected exact path
+  and prepared hash/bytes remain the
   independent transport identity.
 - V5 deliberately does not require visible attachment byte-size UI. It binds
   the exact local file hash/bytes and path, trusted activation, chooser and

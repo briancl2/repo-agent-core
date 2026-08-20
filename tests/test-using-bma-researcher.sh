@@ -294,7 +294,7 @@ transport_skill_valid() {
     'does not expose a dependable attachment byte-size readback' \
     'ChatGPT `bma_researcher_route_observation.v5` transport object uses exactly the following field set. An exact-label observation is:' \
     '"representation": "native_file_upload", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": true, "supported_native_file_chooser_used": true, "chooser_selected_prepared_input_match": true, "upload_completed": true, "visible_file_name_match": true, "visible_attachment_names": ["provider-input.md"], "visible_attachment_count": 1, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
-    'Preflight independently requires one name, count `1`, and the bounded exact-or-suffix matcher.' \
+    'Preflight independently requires one name, count `1`, and the bounded exact-or-two-suffix matcher.' \
     '"representation": "exact_inline_text", "prepared_input_sha256_match": true, "prepared_input_bytes_match": true, "exact_composer_text_match": true, "trusted_file_input_activation_used": false, "supported_native_file_chooser_used": false, "chooser_selected_prepared_input_match": false, "upload_completed": false, "visible_file_name_match": false, "visible_attachment_names": [], "visible_attachment_count": 0, "undeclared_composer_text_absent": true, "truncation_marker_absent": true' \
     '`bma-researcher transport-probe --output-dir <new-dir>`' \
     '`send_authorized: false`' \
