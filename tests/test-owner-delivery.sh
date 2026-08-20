@@ -36,7 +36,18 @@ for required in \
   'select its largest ready result inside current authority.' \
   'return the causal blocker with its exact next unblock.' \
   'Do not manufacture an' \
-  'Missing authority alone is not a decision.'
+  'Missing authority alone is not a decision.' \
+  'reconstruct one compact current agreement from the newest' \
+  'applicable stable owner policy and mandatory owner-local constraints.' \
+  'Distinguish direct operator instruction from delegated or pasted material,' \
+  'Keep this agreement in the native task context.' \
+  'When a reused term has multiple meanings, bind its meaning for this owner' \
+  'Keep adjacent capabilities and problem domains separate;' \
+  'Immediately before the first owner or external effect, before every materially' \
+  'target, operation, owner surface, or authority boundary is materially distinct.' \
+  'map each named acceptance item to current evidence or mark it' \
+  'finding -> proposal -> owner' \
+  'An earlier rung never proves a later one.'
 do
   if skill_has "$required"; then
     pass "skill carries: $required"
