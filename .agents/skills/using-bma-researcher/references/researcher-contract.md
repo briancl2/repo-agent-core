@@ -23,7 +23,18 @@ the harness-facing invariants compact and provider neutral.
   rather than relevance input.
 - Exact ordinary question is the only relevance input.
 - Trigger is `operator_question` or `agent_detected_need`.
-- Authority and job family are frozen before context or routing.
+- The exact question, trigger, authority, and job family are frozen before any
+  topic-relevant memory or GBrain recall, search, retrieval, source binding, or
+  routing. This ordering applies when the need already exists at task start.
+- An unrelated mandatory task-start recall that precedes a later genuine need
+  remains outer-task context only. Its handles, queries, sources, and
+  conclusions cannot seed the Researcher request, source selection, provider
+  input, route, or acceptance-sequence evidence; post-activation question-only
+  retrieval runs independently.
+- Any topic-relevant recall, search, retrieval, source binding, or route choice
+  before the activation record leaves the report usable but excludes that
+  episode from the three-consecutive-episode unchanged-shipping-identity Researcher
+  acceptance set. Report the useful outcome separately.
 - A composite request lists all applicable job families and one primary family.
 - Prior-admission and dossier references are opaque owner-local handles.
 - Task-required capabilities describe needs, not a preferred provider.
@@ -33,6 +44,30 @@ the harness-facing invariants compact and provider neutral.
 - A `ForegroundError` retains its safe verbatim message, exception class, and
   stable operation stage only in the owner-private failure receipt. Public CLI
   and stderr remain bounded and generic.
+
+## Recurrence accounting
+
+- Until that issue records an exact transfer and the successor records exact
+  receipt, live `briancl2/build-meta-analysis#1424` is the sole current
+  Researcher owner surface. Read its current `Binding acceptance set`, `Exact
+  merged and installed truth`, and count through live GitHub issue readback;
+  cached copies, skill text, runs, reports, and local receipts cannot award or
+  transfer recurrence credit. Recompute the declared runtime value with the
+  maintained runtime installer's `check` result, the skill value with the
+  maintained skill installer's `check` result, and the normative-contract value
+  with #1424's fixed-path `shasum -a 256` recipe. Then require strict doctor to
+  verify installed runtime/skill parity before relying on the count.
+- The unchanged shipping identity is the exact tuple of Researcher
+  product-source closure, installed runtime-bundle, portable-skill, and
+  normative-contract hashes declared current before an episode. Any change to
+  a constituent resets the consecutive set to `0/3` before the next episode;
+  materiality may be recorded separately but cannot waive that reset. An
+  unrelated owner-repository change outside the declared Researcher closure
+  changes neither the identity nor the count.
+- An activation-order violation does not invalidate a useful admitted report.
+  Record that outcome and its evidence, leave the owner-surface count unchanged,
+  and state the exclusion reason. Only an eligible episode may increment the
+  current acceptance set.
 
 ## Route invariants
 

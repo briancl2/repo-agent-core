@@ -28,7 +28,23 @@ Use this skill when either:
 
 - the operator asks an ordinary research question; or
 - the agent encounters a real decision that needs research and records
-  `agent_detected_need` before retrieving context or choosing a route.
+  `agent_detected_need` before any topic-relevant recall, search, retrieval,
+  source binding, or route choice.
+
+When the research need exists at task start, record the exact question,
+trigger, authority, and job family before a topic-relevant task-start memory or
+GBrain recall. When a genuine need arises later after an unrelated mandatory
+task-start recall, keep those recalled outputs as outer-task context only: they
+must not seed the Researcher request, source selection, provider input, route,
+or acceptance-sequence evidence. The post-activation question-only path must
+independently retrieve prior admitted research without recalled handles,
+queries, sources, or conclusions as hints. If any topic-relevant recall,
+search, retrieval, source binding, or route choice preceded the activation
+record, a useful report may still be delivered, but do not count that episode
+toward the three-consecutive-episode unchanged-shipping-identity Researcher acceptance set;
+report the useful outcome separately. The sole current Researcher owner surface
+owns the set, shipping identity, and count; an episode cannot award itself
+credit.
 
 The exact ordinary question is the only relevance input. Never add annotated
 links, bookmark identifiers, corpus roots, retrieval queries, expected sources,

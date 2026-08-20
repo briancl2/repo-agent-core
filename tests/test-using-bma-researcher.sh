@@ -68,7 +68,14 @@ skill_has() {
 
 for required in \
   'The exact ordinary question is the only relevance input.' \
-  '`agent_detected_need` before retrieving context or choosing a route.' \
+  '`agent_detected_need` before any topic-relevant recall, search, retrieval,' \
+  'must not seed the Researcher request, source selection, provider input, route,' \
+  'post-activation question-only path must' \
+  'If any topic-relevant recall,' \
+  'three-consecutive-episode unchanged-shipping-identity Researcher acceptance set;' \
+  'report the useful outcome separately.' \
+  'sole current Researcher owner surface' \
+  'an episode cannot award itself' \
   '`bma-researcher bind-sources` with that checkout,' \
   '`bma-researcher materialize-request --mode ordinary --output' \
   '`recorded_at` and' \
@@ -274,6 +281,49 @@ do
     fail "skill carries: $required"
   fi
 done
+
+if grep -Fq -- \
+  'frozen before any topic-relevant memory or GBrain recall, search, retrieval' \
+  <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'remains outer-task context only.' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'post-activation question-only' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'Any topic-relevant recall, search, retrieval, source binding, or route choice' \
+  <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'three-consecutive-episode unchanged-shipping-identity Researcher' \
+  <<< "$CONTRACT_TEXT" && \
+  grep -Fq -- '## Recurrence accounting' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'live `briancl2/build-meta-analysis#1424` is the sole current' \
+  <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'through live GitHub issue readback;' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  "runtime installer's \`check\` result" <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  "skill installer's \`check\` result" <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  "#1424's fixed-path \`shasum -a 256\` recipe" <<< "$CONTRACT_TEXT" && \
+  grep -Fq -- 'require strict doctor to' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'product-source closure, installed runtime-bundle, portable-skill, and' \
+  <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'a constituent resets the consecutive set to `0/3`' <<< "$CONTRACT_TEXT" && \
+  grep -Fq -- 'cannot waive that reset' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'outside the declared Researcher closure' <<< "$CONTRACT_TEXT" && grep -Fq -- \
+  'leave the owner-surface count unchanged' <<< "$CONTRACT_TEXT"; then
+  pass "portable contract preserves activation-before-recall ordering and quarantine"
+else
+  fail "portable contract preserves activation-before-recall ordering and quarantine"
+fi
+
+if grep -Fq -- \
+  'Record the exact question, set `trigger` to `operator_question`, bind the' \
+  <<< "$EXAMPLE_TEXT" && grep -Fq -- \
+  'freeze all four activation fields before' <<< "$EXAMPLE_TEXT" && grep -Fq -- \
+  'Need discovered after unrelated task-start recall' <<< "$EXAMPLE_TEXT" && \
+  grep -Fq -- 'Keep the earlier recall as outer-task context only.' \
+  <<< "$EXAMPLE_TEXT" && grep -Fq -- \
+  'three-consecutive-episode unchanged-shipping-identity Researcher' \
+  <<< "$EXAMPLE_TEXT" && \
+  grep -Fq -- 'Leave the count on the' <<< "$EXAMPLE_TEXT"; then
+  pass "activation examples cover task-start and late-emerging needs"
+else
+  fail "activation examples cover task-start and late-emerging needs"
+fi
 
 transport_skill_valid() {
   local candidate="$1"
