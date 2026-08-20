@@ -218,6 +218,20 @@ the harness-facing invariants compact and provider neutral.
   staging and rematerialized against the same completed provider response; this
   does not authorize another provider send. Successful emission remains
   terminal for that materialization path.
+- X/Grok uses a separately typed owner-private
+  `bma_researcher_x_browser_capture_evidence.v1` artifact for one already
+  frozen single-browser-evaluation tuple. It binds exact response `innerText`,
+  original `outerHTML`, ordered first-seen response-local link traversal,
+  attempt alias, route, completion marker, observation time, byte counts, and
+  hashes. `bind-x-browser-capture-evidence` emits that object;
+  `materialize-browser-rendered-capture --x-capture-evidence` independently
+  re-derives its X-only URL ledger and retains the 24-hour chronology guard.
+  Origin-relative anchors may resolve only against `https://x.com`; all other
+  origin, route, identity, content, order, omission, duplication, or injection
+  drift fails closed. Its fixed ceiling is producer-declared host binding, not
+  browser attestation, provider-UI completeness, citation entailment, or source
+  authority. X cannot use `--assistant-dom`, and this branch does not alter or
+  bypass the ChatGPT v2 evidence-DOM invariant.
 - Rendered-DOM capture uses one immutable assistant-response DOM plus one
   same-response source-drawer DOM for every compound citation group, staged in
   a separate owner-private directory outside the run. The materializer creates

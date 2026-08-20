@@ -188,6 +188,12 @@ for required in \
   'do not invoke `materialize-capture` on the native branch.' \
   'materialize-browser-rendered-capture' \
   '`capture-browser-rendered.json`' \
+  '`bma_researcher_x_browser_capture_evidence.v1`' \
+  'bma-researcher bind-x-browser-capture-evidence' \
+  '--x-capture-evidence' \
+  '`--assistant-dom` remains ineligible for X' \
+  'existing 24-hour chronology guard plus exact timestamp identity' \
+  'no browser attestation, provider-UI-completeness claim, or' \
   'bma_researcher_browser_rendered_dom_evidence.v2' \
   '`data-bma-citation-traversal-json-base64="<base64 exact route traversal JSON bytes>"`' \
   '`index` is contiguous from 1 through at most 999' \
@@ -555,6 +561,49 @@ do
     fail "browser-rendered validator rejects drift: $mutation_target"
   else
     pass "browser-rendered validator rejects drift: $mutation_target"
+  fi
+done
+
+x_capture_skill_valid() {
+  local candidate="$1"
+  local guard
+  for guard in \
+    'bma_researcher_x_browser_capture_evidence.v1' \
+    'bma-researcher bind-x-browser-capture-evidence' \
+    '--response-text <exact-response-inner-text>' \
+    '--response-outer-html <exact-original-response-outer-html>' \
+    '--tuple-metadata <owner-private-x-tuple-metadata-and-link-traversal>' \
+    '--observed-at <exact-tuple-observation-time>' \
+    '--x-capture-evidence <owner-private-x-capture-evidence>' \
+    'existing 24-hour chronology guard plus exact timestamp identity' \
+    'resolves only X-origin-relative links to `https://x.com`' \
+    '`--assistant-dom` remains ineligible for X' \
+    'evidence-DOM invariant is unchanged' \
+    'no browser attestation, provider-UI-completeness claim, or' \
+    'citation-entailment claim'
+  do
+    grep -Fq -- "$guard" <<< "$candidate" || return 1
+  done
+}
+
+if x_capture_skill_valid "$SKILL_TEXT"; then
+  pass "typed X capture skill contract is complete"
+else
+  fail "typed X capture skill contract is complete"
+fi
+
+for mutation_target in \
+  'bma_researcher_x_browser_capture_evidence.v1' \
+  'bma-researcher bind-x-browser-capture-evidence' \
+  '--x-capture-evidence <owner-private-x-capture-evidence>' \
+  '`--assistant-dom` remains ineligible for X' \
+  'evidence-DOM invariant is unchanged'
+do
+  mutated_x_capture_text="${SKILL_TEXT/"$mutation_target"/__removed_x_capture_guard__}"
+  if x_capture_skill_valid "$mutated_x_capture_text"; then
+    fail "typed X capture validator rejects drift: $mutation_target"
+  else
+    pass "typed X capture validator rejects drift: $mutation_target"
   fi
 done
 
