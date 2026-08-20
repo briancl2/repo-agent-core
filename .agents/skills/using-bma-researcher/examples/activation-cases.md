@@ -5,19 +5,37 @@
 Input: “What changed in the primary evidence for this decision, and should I
 act?”
 
-Record the sentence exactly, set `trigger` to `operator_question`, choose the
-job family from the decision need, refresh and bind source-owner objects, then
-securely materialize the ordinary request just in time and prepare once. Do not
-append source hints from prior work.
+Record the exact question, set `trigger` to `operator_question`, bind the
+applicable owner authority, choose the job family from the decision need, and
+freeze all four activation fields before any topic-relevant task-start memory
+or GBrain recall. Then refresh and bind source-owner objects, securely
+materialize the ordinary request just in time, and prepare once. Do not append
+source hints from prior work.
 
 ## Agent-detected need
 
 During an authorized implementation, the agent finds that an upstream behavior
 is both consequential and currently uncertain. It records the exact need,
-`agent_detected_need`, authority, and job family before searching or freezing
-context. After source binding, `materialize-request --mode ordinary` derives the
-timestamp immediately before the sole prepare. It does not convert a test idea
-into a synthetic research need.
+`agent_detected_need`, authority, and job family before any topic-relevant
+recall, search, retrieval, source binding, or route choice. After source
+binding, `materialize-request --mode ordinary` derives the timestamp
+immediately before the sole prepare. It does not convert a test idea into a
+synthetic research need.
+
+## Need discovered after unrelated task-start recall
+
+A harness performs its mandatory general task-start recall before a later
+implementation seam creates a genuine research need. Keep the earlier recall
+as outer-task context only. Do not pass its handles, queries, sources, or
+conclusions into the Researcher request, selection, provider input, route, or
+acceptance evidence. Record the new activation fields, then let the
+question-only path independently retrieve prior admitted research. If any
+topic-relevant recall, search, retrieval, source binding, or route choice
+already preceded activation, the report can still be useful, but do not count
+the episode toward the three-consecutive-episode unchanged-shipping-identity Researcher
+acceptance set; report the useful outcome separately. Leave the count on the
+sole current Researcher owner surface unchanged; the episode cannot award
+itself credit.
 
 ## Ordinary installed-source preparation
 
