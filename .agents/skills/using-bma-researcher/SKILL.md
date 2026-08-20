@@ -159,8 +159,11 @@ with the absolute exact prepared-file path. After exactly one
 unambiguous attachment is visibly complete, put only the emitted fixed 59-byte
 `submission_instruction` in the composer, require exact readback and enabled
 Send. ChatGPT may add a positive-integer duplicate suffix such as
-`provider-input(1).md` to the display label. The exact basename and that bounded
-suffix both count as a visible filename match; other labels do not. ChatGPT's UI
+`provider-input(1).md` or its observed UTC-like timestamp suffix such as
+`provider-input(20260820-125116).md` to the display label. The exact basename
+and those two bounded forms count as a visible filename match. The timestamp
+form is exactly eight ASCII digits, one hyphen, and six ASCII digits;
+arbitrary parenthesized text and every other label fail. ChatGPT's UI
 does not expose a dependable attachment byte-size readback, so v5 binds the local file
 hash/bytes, exact selected path, chooser completion, fixed composer instruction,
 and absence of undeclared text or `[Truncated]` instead.
@@ -188,9 +191,10 @@ exactly the following field set. An exact-label observation is:
 
 Record the actual visible label in `visible_attachment_names`. When ChatGPT
 displays its generated positive-integer duplicate suffix, such as
-`provider-input(1).md`, the same exact field set still records
+`provider-input(1).md`, or its bounded timestamp suffix, such as
+`provider-input(20260820-125116).md`, the same exact field set still records
 `"visible_file_name_match": true`. Preflight independently requires one name,
-count `1`, and the bounded exact-or-suffix matcher. An unrelated label or any
+count `1`, and the bounded exact-or-two-suffix matcher. An unrelated label or any
 second attachment fails even if the boolean was set true.
 
 X/Grok retains the separate bounded `exact_inline_text` route: immediately
