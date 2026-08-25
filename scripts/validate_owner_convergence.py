@@ -332,6 +332,27 @@ def tree_entries(repo: Path, ref: str) -> dict[str, str]:
     return result
 
 
+def tree_paths(repo: Path, ref: str) -> set[str]:
+    raw = git(
+        repo,
+        "ls-tree",
+        "-r",
+        "-t",
+        "-z",
+        "--name-only",
+        "--full-tree",
+        ref,
+    )
+    try:
+        return {
+            record.decode("utf-8")
+            for record in raw.split(b"\0")
+            if record
+        }
+    except UnicodeDecodeError as exc:
+        raise ConvergenceError(f"non-UTF-8 tree path at {ref}") from exc
+
+
 def validate_evidence(
     repo: Path,
     blobs: dict[str, str],
@@ -528,6 +549,12 @@ def validate_consumers(
         # A terminal retirement has no successor. Its owner contract therefore
         # treats any exact occurrence in the cached consumer snapshot as a
         # retained reference that must be dispositioned before deletion.
+        terminal_tree_paths = sorted(tree_paths(repo, ref).intersection(terminal_patterns))
+        if terminal_tree_paths:
+            raise ConvergenceError(
+                "terminal-retirement path remains present in "
+                f"{label}@{ref}: {len(terminal_tree_paths)} path(s)"
+            )
         terminal_reference_files = grep_ref(repo, ref, terminal_patterns)
         if terminal_reference_files:
             raise ConvergenceError(
