@@ -41,10 +41,16 @@ for required in \
   'applicable stable owner policy and mandatory owner-local constraints.' \
   'Distinguish direct operator instruction from delegated or pasted material,' \
   'Keep this agreement in the native task context.' \
+  'truth is renewable input rather than frozen task-start authority.' \
+  'snapshot across an effect boundary as though it were still current.' \
   'When a reused term has multiple meanings, bind its meaning for this owner' \
   'Keep adjacent capabilities and problem domains separate;' \
-  'Immediately before the first owner or external effect, before every materially' \
-  'target, operation, owner surface, or authority boundary is materially distinct.' \
+  'Immediately before every owner or external effect, and again before the' \
+  'terminal return, refresh current owner' \
+  'review threads and decisions, head/base/merge state, repository evidence, and' \
+  'Update only the changed owner-truth portion' \
+  'If refreshed truth remains compatible with the same' \
+  'the task-start snapshot does not substitute for current truth.' \
   'map each named acceptance item to current evidence or mark it' \
   'finding -> proposal -> owner' \
   'An earlier rung never proves a later one.'
