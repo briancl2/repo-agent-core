@@ -47,6 +47,10 @@ applicable operator instruction or current owner truth.
 Keep this agreement in the native task context. Do not require a new ledger,
 state store, or routine persistence artifact. If a material qualification is
 missing or conflicting, recover it from the attributable source before acting.
+Stable intent and owner policy may remain in the agreement, but mutable owner
+truth is renewable input rather than frozen task-start authority. Never carry a
+task-start issue, pull request, check, review, merge, repository, or writer
+snapshot across an effect boundary as though it were still current.
 
 When a reused term has multiple meanings, bind its meaning for this owner
 outcome. Keep adjacent capabilities and problem domains separate; inspection,
@@ -98,10 +102,21 @@ authority, privacy, recovery, or evidence boundaries.
 
 ## Check intent before effect and terminal
 
-Immediately before the first owner or external effect, before every materially
-distinct effect, and again before the terminal return, compare the proposed
-effect or delivered result with the compact current agreement. A changed
-target, operation, owner surface, or authority boundary is materially distinct.
+Immediately before every owner or external effect, and again before the
+terminal return, refresh current owner
+truth and then compare the proposed effect or delivered result with the compact
+current agreement. Re-read the applicable live issue, pull request, checks,
+review threads and decisions, head/base/merge state, repository evidence, and
+writer/collision evidence needed for that exact effect.
+
+Keep the refresh proportional to the effect; do not turn it into unrelated
+history recovery or a fleet census. Update only the changed owner-truth portion
+of the compact agreement. If refreshed truth remains compatible with the same
+target, authority, and sole writer, continue. If it exposes a competing writer,
+authority conflict, changed target, failed gate, or unsupported terminal claim,
+reconcile or stop at that boundary before acting. If required live evidence is
+unavailable, name the exact gap and withhold only the effect or claim that
+depends on it; the task-start snapshot does not substitute for current truth.
 
 - Repair an in-scope mismatch or re-ground the work before continuing.
 - Ask one question only when a consequential unresolved choice or material
