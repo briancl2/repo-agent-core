@@ -490,6 +490,7 @@ def grep_ref(repo: Path, ref: str, patterns: tuple[str, ...]) -> int:
 def validate_consumers(
     active: list[ActiveExport],
     deleted_paths: list[str],
+    terminal_retirements: list[str],
     values: list[str],
 ) -> dict[str, int]:
     declared_checks = sum(
@@ -516,6 +517,7 @@ def validate_consumers(
     caller_checks = 0
     removed_reference_files = 0
     deleted_patterns = tuple(deleted_paths)
+    terminal_patterns = tuple(terminal_retirements)
     for label, repo, ref in parsed:
         tree = tree_entries(repo, ref)
         for export in active:
@@ -523,6 +525,15 @@ def validate_consumers(
                 validate_evidence(repo, tree, item, f"{label}@{ref}", export.pattern)
                 caller_checks += 1
         removed_reference_files += grep_ref(repo, ref, deleted_patterns)
+        # A terminal retirement has no successor. Its owner contract therefore
+        # treats any exact occurrence in the cached consumer snapshot as a
+        # retained reference that must be dispositioned before deletion.
+        terminal_reference_files = grep_ref(repo, ref, terminal_patterns)
+        if terminal_reference_files:
+            raise ConvergenceError(
+                "terminal-retirement path remains referenced by "
+                f"{label}@{ref}: {terminal_reference_files} file(s)"
+            )
     if caller_checks != declared_checks:
         raise ConvergenceError(
             f"caller evidence count mismatch: declared {declared_checks}, checked {caller_checks}"
@@ -608,7 +619,12 @@ def main() -> int:
             "unchanged_schema_blobs": 0,
             "unchanged_floor_export_blobs": 0,
         }
-    consumers = validate_consumers(active, deleted_paths, args.consumer)
+    consumers = validate_consumers(
+        active,
+        deleted_paths,
+        terminal_retirements,
+        args.consumer,
+    )
     result = {
         "verdict": "PASS",
         "inventory": INVENTORY_PATH,
