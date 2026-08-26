@@ -741,7 +741,7 @@ reporting_guidance() {
 
       if (paragraph_open && indentation <= 3 &&
           content ~ /^(=+|-+)[[:space:]]*$/) {
-        if (!setext_candidate_in_list) {
+        if (!setext_candidate_in_container) {
           if (setext_candidate_output_start) {
             for (candidate_output_index = setext_candidate_output_start;
                  candidate_output_index <= setext_candidate_output_end;
@@ -763,7 +763,7 @@ reporting_guidance() {
         }
         paragraph_open = 0
         setext_candidate = ""
-        setext_candidate_in_list = 0
+        setext_candidate_in_container = 0
         setext_candidate_output_start = 0
         setext_candidate_output_end = 0
         next
@@ -786,7 +786,7 @@ reporting_guidance() {
         in_reporting = 0
         paragraph_open = 0
         setext_candidate = ""
-        setext_candidate_in_list = 0
+        setext_candidate_in_container = 0
         setext_candidate_output_start = 0
         setext_candidate_output_end = 0
         next
@@ -813,7 +813,7 @@ reporting_guidance() {
         in_reporting = (heading == "Reporting and continuation")
         paragraph_open = 0
         setext_candidate = ""
-        setext_candidate_in_list = 0
+        setext_candidate_in_container = 0
         setext_candidate_output_start = 0
         setext_candidate_output_end = 0
         next
@@ -840,13 +840,13 @@ reporting_guidance() {
           setext_candidate = setext_candidate " " content
         } else {
           setext_candidate = content
-          setext_candidate_in_list = list_depth > 0
+          setext_candidate_in_container = (list_depth > 0 || content ~ /^>[[:space:]]?/)
           setext_candidate_output_start = 0
           setext_candidate_output_end = 0
         }
       } else if (blank) {
         setext_candidate = ""
-        setext_candidate_in_list = 0
+        setext_candidate_in_container = 0
         setext_candidate_output_start = 0
         setext_candidate_output_end = 0
       }
@@ -1383,6 +1383,28 @@ if printf '%s\n' \
   fail "soft-wrapped Setext sibling headings are fully excluded"
 else
   pass "soft-wrapped Setext sibling headings are fully excluded"
+fi
+
+if printf '%s\n' \
+  '## Reporting and continuation' \
+  '> Quoted context.' \
+  '---' \
+  'Publish a heartbeat after every step.' \
+  '## Native commands' \
+  | legacy_reporting_default_present; then
+  pass "block-quote paragraphs do not turn thematic breaks into section boundaries"
+else
+  fail "block-quote paragraphs do not turn thematic breaks into section boundaries"
+fi
+
+if printf '%s\n' \
+  '> Reporting and continuation' \
+  '---' \
+  'Publish a heartbeat after every step.' \
+  | legacy_reporting_default_present; then
+  fail "block-quote paragraphs do not create reporting sections"
+else
+  pass "block-quote paragraphs do not create reporting sections"
 fi
 
 if printf '%s\n' \
