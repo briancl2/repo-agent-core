@@ -655,10 +655,18 @@ reporting_guidance() {
         paragraph_open = 0
       }
 
+      if (in_html && html_container_indent && !blank &&
+          indentation < html_container_indent) {
+        in_html = 0
+        html_container_indent = 0
+        paragraph_open = 0
+      }
+
       if (in_html) {
         if (in_reporting) emit($0)
         if (html_block_ended(in_html, $0)) {
           in_html = 0
+          html_container_indent = 0
           paragraph_open = 0
         }
         next
@@ -710,10 +718,12 @@ reporting_guidance() {
       }
       if (html_type) {
         in_html = html_type
+        html_container_indent = list_depth ? list_content_indents[list_depth] : 0
         paragraph_open = 0
         if (in_reporting) emit($0)
         if (html_block_ended(in_html, $0)) {
           in_html = 0
+          html_container_indent = 0
         }
         next
       }
@@ -1445,6 +1455,18 @@ if printf '%s\n' \
   pass "list-container exits terminate nested fenced blocks"
 else
   fail "list-container exits terminate nested fenced blocks"
+fi
+
+if printf '%s\n' \
+  '- List context.' \
+  '  <script>' \
+  '  quoted code' \
+  '## Reporting and continuation' \
+  'Publish a heartbeat after every step.' \
+  | legacy_reporting_default_present; then
+  pass "list-container exits terminate nested HTML blocks"
+else
+  fail "list-container exits terminate nested HTML blocks"
 fi
 
 if printf '%s\n' \
