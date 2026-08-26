@@ -57,7 +57,7 @@ class ActiveExport:
 
 def git(repo: Path, *args: str, ok_no_match: bool = False) -> bytes:
     proc = subprocess.run(
-        ["git", "-C", str(repo), *args],
+        ["git", "--no-replace-objects", "-C", str(repo), *args],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=False,

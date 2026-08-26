@@ -309,6 +309,17 @@ then
 else
   fail "active caller historical-exemption rejection names the exact consumer ref"
 fi
+git -C "$TMP_ROOT/advisor" replace "$TERMINAL_ADVISOR_REF" "$ADVISOR_REF"
+expect_fail \
+  "replacement refs cannot mask a live terminal-retirement reference" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+git -C "$TMP_ROOT/advisor" replace -d "$TERMINAL_ADVISOR_REF" >/dev/null
 
 git -C "$TMP_ROOT/advisor" restore --source="$ADVISOR_REF" -- evidence.txt
 mkdir -p "$TMP_ROOT/advisor/compat"
