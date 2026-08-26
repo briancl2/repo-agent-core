@@ -46,6 +46,11 @@ The guard reads the core Git index and cached blobs. Consumer checks use exact
 Git object revisions. Working-tree-only edits therefore cannot hide a staged
 failure.
 
+Terminal-retirement references fail closed across each complete consumer
+snapshot. A known historical-only match may be classified per invocation with
+`--historical-consumer-path <label>=<exact-path>`; the exact blob must exist at
+that consumer ref and contain a terminal-retirement reference.
+
 ## Active and compatibility surfaces
 
 [`docs/live-capability-inventory.md`](docs/live-capability-inventory.md) is the

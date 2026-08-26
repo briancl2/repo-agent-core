@@ -243,6 +243,33 @@ else
   pass "installed discovery exposes no private names"
 fi
 
+printf '%s\n' 'compat/retired.md is retained historical evidence' \
+  > "$TMP_ROOT/advisor/history.md"
+git -C "$TMP_ROOT/advisor" add history.md
+git -C "$TMP_ROOT/advisor" commit -qm "retain historical terminal retirement evidence"
+HISTORICAL_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "unclassified historical terminal mention remains fail closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$HISTORICAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+expect_pass \
+  "explicit historical-only terminal retirement evidence remains allowed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$HISTORICAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF" \
+    --historical-consumer-path "advisor=history.md"
+git -C "$TMP_ROOT/advisor" rm -q history.md
+git -C "$TMP_ROOT/advisor" commit -qm "remove historical fixture"
+
 printf '%s\n' 'compat/retired.md' >> "$TMP_ROOT/advisor/evidence.txt"
 git -C "$TMP_ROOT/advisor" add evidence.txt
 git -C "$TMP_ROOT/advisor" commit -qm "retain terminal retirement reference"
@@ -263,6 +290,24 @@ then
   pass "terminal-retirement rejection names the exact consumer ref"
 else
   fail "terminal-retirement rejection names the exact consumer ref"
+fi
+expect_fail \
+  "active caller evidence cannot be exempted as historical" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF" \
+    --historical-consumer-path "advisor=evidence.txt"
+if grep -Fq \
+  'declared historical consumer path is active caller evidence in advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "active caller historical-exemption rejection names the exact consumer ref"
+else
+  fail "active caller historical-exemption rejection names the exact consumer ref"
 fi
 
 git -C "$TMP_ROOT/advisor" restore --source="$ADVISOR_REF" -- evidence.txt
