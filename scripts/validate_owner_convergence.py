@@ -57,7 +57,7 @@ class ActiveExport:
 
 def git(repo: Path, *args: str, ok_no_match: bool = False) -> bytes:
     proc = subprocess.run(
-        ["git", "-C", str(repo), *args],
+        ["git", "--no-replace-objects", "-C", str(repo), *args],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         check=False,
@@ -332,6 +332,27 @@ def tree_entries(repo: Path, ref: str) -> dict[str, str]:
     return result
 
 
+def tree_paths(repo: Path, ref: str) -> set[str]:
+    raw = git(
+        repo,
+        "ls-tree",
+        "-r",
+        "-t",
+        "-z",
+        "--name-only",
+        "--full-tree",
+        ref,
+    )
+    try:
+        return {
+            record.decode("utf-8")
+            for record in raw.split(b"\0")
+            if record
+        }
+    except UnicodeDecodeError as exc:
+        raise ConvergenceError(f"non-UTF-8 tree path at {ref}") from exc
+
+
 def validate_evidence(
     repo: Path,
     blobs: dict[str, str],
@@ -487,10 +508,57 @@ def grep_ref(repo: Path, ref: str, patterns: tuple[str, ...]) -> int:
     return len([record for record in raw.split(b"\0") if record])
 
 
+def grep_terminal_refs(
+    repo: Path,
+    ref: str,
+    patterns: tuple[str, ...],
+) -> tuple[str, ...]:
+    if not patterns:
+        return ()
+    args = ["grep", "-z", "-a", "-l", "-F"]
+    for pattern in patterns:
+        args.extend(("-e", pattern))
+    args.extend((ref, "--"))
+    raw = git(repo, *args, ok_no_match=True)
+    prefix = f"{ref}:".encode("utf-8")
+    try:
+        paths: list[str] = []
+        for record in raw.split(b"\0"):
+            if not record:
+                continue
+            if not record.startswith(prefix):
+                raise ConvergenceError(
+                    f"malformed terminal-reference result at {ref}"
+                )
+            paths.append(record[len(prefix):].decode("utf-8"))
+        return tuple(paths)
+    except UnicodeDecodeError as exc:
+        raise ConvergenceError(
+            f"non-UTF-8 terminal-reference path at {ref}"
+        ) from exc
+
+
+def parse_historical_consumer_path(value: str) -> tuple[str, str]:
+    if "=" not in value:
+        raise ConvergenceError(
+            "historical consumer path must use label=exact/repository/path"
+        )
+    label, path = value.split("=", 1)
+    if label not in CALLER_LABELS:
+        raise ConvergenceError(f"unknown historical consumer label: {label}")
+    if not path or path.startswith("/") or "\0" in path:
+        raise ConvergenceError(
+            f"historical consumer path must be one exact relative Git path: {value}"
+        )
+    return label, path
+
+
 def validate_consumers(
     active: list[ActiveExport],
     deleted_paths: list[str],
+    terminal_retirements: list[str],
     values: list[str],
+    historical_values: list[str],
 ) -> dict[str, int]:
     declared_checks = sum(
         len(export.evidence[label])
@@ -498,11 +566,16 @@ def validate_consumers(
         for label in CALLER_LABELS
     )
     if not values:
+        if historical_values:
+            raise ConvergenceError(
+                "historical consumer paths require exact consumer snapshots"
+            )
         return {
             "consumer_count": 0,
             "declared_caller_checks": declared_checks,
             "caller_checks": 0,
             "removed_reference_files": 0,
+            "historical_terminal_reference_files": 0,
         }
     parsed = [parse_consumer(value) for value in values]
     labels = [label for label, _, _ in parsed]
@@ -513,16 +586,70 @@ def validate_consumers(
             f"exact caller oracle requires {sorted(CALLER_LABELS)}, got {sorted(labels)}"
         )
 
+    historical_paths: dict[str, set[str]] = {label: set() for label in CALLER_LABELS}
+    for value in historical_values:
+        label, path = parse_historical_consumer_path(value)
+        if path in historical_paths[label]:
+            raise ConvergenceError(
+                f"duplicate historical consumer path: {label}={path}"
+            )
+        historical_paths[label].add(path)
+
     caller_checks = 0
     removed_reference_files = 0
+    historical_terminal_reference_files = 0
     deleted_patterns = tuple(deleted_paths)
+    terminal_patterns = tuple(terminal_retirements)
     for label, repo, ref in parsed:
         tree = tree_entries(repo, ref)
+        active_caller_paths = {
+            item.path
+            for export in active
+            for item in export.evidence[label]
+        }
         for export in active:
             for item in export.evidence[label]:
                 validate_evidence(repo, tree, item, f"{label}@{ref}", export.pattern)
                 caller_checks += 1
         removed_reference_files += grep_ref(repo, ref, deleted_patterns)
+        # The exact retired path itself is a retained consumer artifact. A
+        # textual match is a live reference unless the invocation explicitly
+        # classifies that exact existing matching blob as historical evidence.
+        terminal_tree_paths = sorted(tree_paths(repo, ref).intersection(terminal_patterns))
+        if terminal_tree_paths:
+            raise ConvergenceError(
+                "terminal-retirement path remains present in "
+                f"{label}@{ref}: {len(terminal_tree_paths)} path(s)"
+            )
+        terminal_reference_paths = set(
+            grep_terminal_refs(repo, ref, terminal_patterns)
+        )
+        declared_historical = historical_paths[label]
+        active_historical = sorted(declared_historical.intersection(active_caller_paths))
+        if active_historical:
+            raise ConvergenceError(
+                "declared historical consumer path is active caller evidence in "
+                f"{label}@{ref}: {active_historical[0]}"
+            )
+        missing_historical = sorted(declared_historical - set(tree))
+        if missing_historical:
+            raise ConvergenceError(
+                "declared historical consumer path is absent from "
+                f"{label}@{ref}: {missing_historical[0]}"
+            )
+        stale_historical = sorted(declared_historical - terminal_reference_paths)
+        if stale_historical:
+            raise ConvergenceError(
+                "declared historical consumer path has no terminal reference in "
+                f"{label}@{ref}: {stale_historical[0]}"
+            )
+        live_terminal_references = terminal_reference_paths - declared_historical
+        if live_terminal_references:
+            raise ConvergenceError(
+                "terminal-retirement path remains referenced by "
+                f"{label}@{ref}: {len(live_terminal_references)} file(s)"
+            )
+        historical_terminal_reference_files += len(declared_historical)
     if caller_checks != declared_checks:
         raise ConvergenceError(
             f"caller evidence count mismatch: declared {declared_checks}, checked {caller_checks}"
@@ -532,6 +659,7 @@ def validate_consumers(
         "declared_caller_checks": declared_checks,
         "caller_checks": caller_checks,
         "removed_reference_files": removed_reference_files,
+        "historical_terminal_reference_files": historical_terminal_reference_files,
     }
 
 
@@ -567,6 +695,7 @@ def main() -> int:
     parser.add_argument("--base-ref")
     parser.add_argument("--require-deletions", action="store_true")
     parser.add_argument("--consumer", action="append", default=[])
+    parser.add_argument("--historical-consumer-path", action="append", default=[])
     parser.add_argument("--installed-root")
     args = parser.parse_args()
 
@@ -608,7 +737,13 @@ def main() -> int:
             "unchanged_schema_blobs": 0,
             "unchanged_floor_export_blobs": 0,
         }
-    consumers = validate_consumers(active, deleted_paths, args.consumer)
+    consumers = validate_consumers(
+        active,
+        deleted_paths,
+        terminal_retirements,
+        args.consumer,
+        args.historical_consumer_path,
+    )
     result = {
         "verdict": "PASS",
         "inventory": INVENTORY_PATH,

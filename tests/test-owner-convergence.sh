@@ -243,6 +243,180 @@ else
   pass "installed discovery exposes no private names"
 fi
 
+printf '%s\n' 'compat/retired.md is retained historical evidence' \
+  > "$TMP_ROOT/advisor/history.md"
+git -C "$TMP_ROOT/advisor" add history.md
+git -C "$TMP_ROOT/advisor" commit -qm "retain historical terminal retirement evidence"
+HISTORICAL_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "unclassified historical terminal mention remains fail closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$HISTORICAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+expect_pass \
+  "explicit historical-only terminal retirement evidence remains allowed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$HISTORICAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF" \
+    --historical-consumer-path "advisor=history.md"
+git -C "$TMP_ROOT/advisor" rm -q history.md
+git -C "$TMP_ROOT/advisor" commit -qm "remove historical fixture"
+
+printf '%s\n' 'compat/retired.md' >> "$TMP_ROOT/advisor/evidence.txt"
+git -C "$TMP_ROOT/advisor" add evidence.txt
+git -C "$TMP_ROOT/advisor" commit -qm "retain terminal retirement reference"
+TERMINAL_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "exact terminal retirement with a live consumer reference fails closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+if grep -Fq \
+  'terminal-retirement path remains referenced by advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "terminal-retirement rejection names the exact consumer ref"
+else
+  fail "terminal-retirement rejection names the exact consumer ref"
+fi
+expect_fail \
+  "active caller evidence cannot be exempted as historical" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF" \
+    --historical-consumer-path "advisor=evidence.txt"
+if grep -Fq \
+  'declared historical consumer path is active caller evidence in advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "active caller historical-exemption rejection names the exact consumer ref"
+else
+  fail "active caller historical-exemption rejection names the exact consumer ref"
+fi
+git -C "$TMP_ROOT/advisor" replace "$TERMINAL_ADVISOR_REF" "$ADVISOR_REF"
+expect_fail \
+  "replacement refs cannot mask a live terminal-retirement reference" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+git -C "$TMP_ROOT/advisor" replace -d "$TERMINAL_ADVISOR_REF" >/dev/null
+
+git -C "$TMP_ROOT/advisor" restore --source="$ADVISOR_REF" -- evidence.txt
+mkdir -p "$TMP_ROOT/advisor/compat"
+printf '%s\n' 'retired contract bytes without a self-reference' \
+  > "$TMP_ROOT/advisor/compat/retired.md"
+git -C "$TMP_ROOT/advisor" add evidence.txt compat/retired.md
+git -C "$TMP_ROOT/advisor" commit -qm "retain terminal retirement path"
+TERMINAL_PATH_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "exact terminal retirement still vendored by a consumer fails closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_PATH_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+if grep -Fq \
+  'terminal-retirement path remains present in advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "terminal-retirement path rejection names the exact consumer ref"
+else
+  fail "terminal-retirement path rejection names the exact consumer ref"
+fi
+
+git -C "$TMP_ROOT/advisor" rm -q compat/retired.md
+git -C "$TMP_ROOT/advisor" update-index --add --cacheinfo \
+  160000 "$ADVISOR_REF" compat/retired.md
+git -C "$TMP_ROOT/advisor" commit -qm "retain terminal retirement gitlink"
+TERMINAL_GITLINK_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "exact terminal retirement retained as a consumer gitlink fails closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_GITLINK_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+if grep -Fq \
+  'terminal-retirement path remains present in advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "terminal-retirement gitlink rejection names the exact consumer ref"
+else
+  fail "terminal-retirement gitlink rejection names the exact consumer ref"
+fi
+
+git -C "$TMP_ROOT/advisor" rm -q compat/retired.md
+mkdir -p "$TMP_ROOT/advisor/compat/retired.md"
+printf '%s\n' 'retired path retained as a tree' \
+  > "$TMP_ROOT/advisor/compat/retired.md/child.txt"
+git -C "$TMP_ROOT/advisor" add compat/retired.md/child.txt
+git -C "$TMP_ROOT/advisor" commit -qm "retain terminal retirement tree"
+TERMINAL_TREE_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "exact terminal retirement retained as a consumer tree fails closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_TREE_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+if grep -Fq \
+  'terminal-retirement path remains present in advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "terminal-retirement tree rejection names the exact consumer ref"
+else
+  fail "terminal-retirement tree rejection names the exact consumer ref"
+fi
+
+git -C "$TMP_ROOT/advisor" rm -qr compat/retired.md
+printf '\0%s\0' 'compat/retired.md' > "$TMP_ROOT/advisor/binary.manifest"
+git -C "$TMP_ROOT/advisor" add binary.manifest
+git -C "$TMP_ROOT/advisor" commit -qm "retain binary terminal retirement reference"
+TERMINAL_BINARY_ADVISOR_REF="$(git -C "$TMP_ROOT/advisor" rev-parse HEAD)"
+expect_fail \
+  "exact terminal retirement retained in a binary consumer blob fails closed" \
+  python3 "$ROOT/scripts/validate_owner_convergence.py" \
+    --repo "$REPO" \
+    --base-ref "$BASE" \
+    --installed-root "$INSTALLED" \
+    --consumer "auditor=$TMP_ROOT/auditor@$AUDITOR_REF" \
+    --consumer "advisor=$TMP_ROOT/advisor@$TERMINAL_BINARY_ADVISOR_REF" \
+    --consumer "optimizer=$TMP_ROOT/optimizer@$OPTIMIZER_REF"
+if grep -Fq \
+  'terminal-retirement path remains referenced by advisor@' \
+  "$TMP_ROOT/stderr"
+then
+  pass "binary terminal-retirement rejection names the exact consumer ref"
+else
+  fail "binary terminal-retirement rejection names the exact consumer ref"
+fi
+
 sed 's#`compat/retired.md` | `retired-without-successor`#`compat/*.md` | `retired-without-successor`#' \
   "$TMP_ROOT/good-inventory.md" > "$REPO/docs/live-capability-inventory.md"
 git -C "$REPO" add docs/live-capability-inventory.md
