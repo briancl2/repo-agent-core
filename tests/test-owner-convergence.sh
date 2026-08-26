@@ -557,6 +557,7 @@ reporting_guidance() {
       blank = ($0 ~ /^[[:space:]]*$/)
       was_blank = previous_blank
       previous_blank = blank
+      paragraph_was_open = paragraph_open
       while (list_depth && indentation < list_content_indents[list_depth] &&
              underindented_nonlist_block(content, indentation)) {
         delete list_marker_indents[list_depth]
@@ -741,11 +742,18 @@ reporting_guidance() {
       if (paragraph_open && indentation <= 3 &&
           content ~ /^(=+|-+)[[:space:]]*$/) {
         if (!setext_candidate_in_list) {
-          if (setext_candidate_output_index) {
-            delete output[setext_candidate_output_index]
+          if (setext_candidate_output_start) {
+            for (candidate_output_index = setext_candidate_output_start;
+                 candidate_output_index <= setext_candidate_output_end;
+                 candidate_output_index++) {
+              delete output[candidate_output_index]
+            }
           }
-          setext_candidate_output_index = 0
+          setext_candidate_output_start = 0
+          setext_candidate_output_end = 0
           setext_heading = setext_candidate
+          gsub(/[[:space:]]+/, " ", setext_heading)
+          sub(/^[[:space:]]*/, "", setext_heading)
           sub(/[[:space:]]*$/, "", setext_heading)
           if (content ~ /^-+/) {
             in_reporting = (setext_heading == "Reporting and continuation")
@@ -756,7 +764,8 @@ reporting_guidance() {
         paragraph_open = 0
         setext_candidate = ""
         setext_candidate_in_list = 0
-        setext_candidate_output_index = 0
+        setext_candidate_output_start = 0
+        setext_candidate_output_end = 0
         next
       }
 
@@ -778,7 +787,8 @@ reporting_guidance() {
         paragraph_open = 0
         setext_candidate = ""
         setext_candidate_in_list = 0
-        setext_candidate_output_index = 0
+        setext_candidate_output_start = 0
+        setext_candidate_output_end = 0
         next
       }
 
@@ -804,7 +814,8 @@ reporting_guidance() {
         paragraph_open = 0
         setext_candidate = ""
         setext_candidate_in_list = 0
-        setext_candidate_output_index = 0
+        setext_candidate_output_start = 0
+        setext_candidate_output_end = 0
         next
       }
       reference_status = 0
@@ -825,17 +836,27 @@ reporting_guidance() {
         paragraph_open = 1
       }
       if (paragraph_open && !blank) {
-        setext_candidate = content
-        setext_candidate_in_list = list_depth > 0
+        if (paragraph_was_open && setext_candidate != "") {
+          setext_candidate = setext_candidate " " content
+        } else {
+          setext_candidate = content
+          setext_candidate_in_list = list_depth > 0
+          setext_candidate_output_start = 0
+          setext_candidate_output_end = 0
+        }
       } else if (blank) {
         setext_candidate = ""
         setext_candidate_in_list = 0
-        setext_candidate_output_index = 0
+        setext_candidate_output_start = 0
+        setext_candidate_output_end = 0
       }
       if (in_reporting) {
         emit($0)
         if (paragraph_open && !blank) {
-          setext_candidate_output_index = output_count
+          if (!setext_candidate_output_start) {
+            setext_candidate_output_start = output_count
+          }
+          setext_candidate_output_end = output_count
         }
       }
     }
@@ -1338,6 +1359,30 @@ if printf '%s\n' \
   pass "Setext reporting headings enter reporting guidance"
 else
   fail "Setext reporting headings enter reporting guidance"
+fi
+
+if printf '%s\n' \
+  'Reporting and' \
+  'continuation' \
+  '------------' \
+  'Publish a heartbeat after every step.' \
+  '## Native commands' \
+  | legacy_reporting_default_present; then
+  pass "soft-wrapped Setext reporting headings enter reporting guidance"
+else
+  fail "soft-wrapped Setext reporting headings enter reporting guidance"
+fi
+
+if printf '%s\n' \
+  '## Reporting and continuation' \
+  'Compatibility /tmp' \
+  'paths' \
+  '-----' \
+  'Native fixtures remain owner-local.' \
+  | legacy_reporting_default_present; then
+  fail "soft-wrapped Setext sibling headings are fully excluded"
+else
+  pass "soft-wrapped Setext sibling headings are fully excluded"
 fi
 
 if printf '%s\n' \
