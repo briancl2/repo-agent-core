@@ -508,6 +508,17 @@ def grep_ref(repo: Path, ref: str, patterns: tuple[str, ...]) -> int:
     return len([record for record in raw.split(b"\0") if record])
 
 
+def grep_terminal_ref(repo: Path, ref: str, patterns: tuple[str, ...]) -> int:
+    if not patterns:
+        return 0
+    args = ["grep", "-z", "-a", "-l", "-F"]
+    for pattern in patterns:
+        args.extend(("-e", pattern))
+    args.extend((ref, "--"))
+    raw = git(repo, *args, ok_no_match=True)
+    return len([record for record in raw.split(b"\0") if record])
+
+
 def validate_consumers(
     active: list[ActiveExport],
     deleted_paths: list[str],
@@ -555,7 +566,7 @@ def validate_consumers(
                 "terminal-retirement path remains present in "
                 f"{label}@{ref}: {len(terminal_tree_paths)} path(s)"
             )
-        terminal_reference_files = grep_ref(repo, ref, terminal_patterns)
+        terminal_reference_files = grep_terminal_ref(repo, ref, terminal_patterns)
         if terminal_reference_files:
             raise ConvergenceError(
                 "terminal-retirement path remains referenced by "
