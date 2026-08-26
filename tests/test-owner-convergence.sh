@@ -836,7 +836,9 @@ reporting_guidance() {
         paragraph_open = 1
       }
       if (paragraph_open && !blank) {
-        if (paragraph_was_open && setext_candidate != "") {
+        container_paragraph_starts = ((current_list_indent && current_list_opens_paragraph) || content ~ /^>[[:space:]]?/)
+        if (paragraph_was_open && setext_candidate != "" &&
+            !container_paragraph_starts) {
           setext_candidate = setext_candidate " " content
         } else {
           setext_candidate = content
@@ -1395,6 +1397,32 @@ if printf '%s\n' \
   pass "block-quote paragraphs do not turn thematic breaks into section boundaries"
 else
   fail "block-quote paragraphs do not turn thematic breaks into section boundaries"
+fi
+
+if printf '%s\n' \
+  '## Reporting and continuation' \
+  'Ordinary paragraph.' \
+  '> Quoted context.' \
+  '---' \
+  'Publish a heartbeat after every step.' \
+  '## Native commands' \
+  | legacy_reporting_default_present; then
+  pass "block quotes reset interrupted Setext candidates"
+else
+  fail "block quotes reset interrupted Setext candidates"
+fi
+
+if printf '%s\n' \
+  '## Reporting and continuation' \
+  'Ordinary paragraph.' \
+  '- List context.' \
+  '---' \
+  'Publish a heartbeat after every step.' \
+  '## Native commands' \
+  | legacy_reporting_default_present; then
+  pass "list items reset interrupted Setext candidates"
+else
+  fail "list items reset interrupted Setext candidates"
 fi
 
 if printf '%s\n' \
