@@ -648,6 +648,13 @@ reporting_guidance() {
         }
       }
 
+      if (in_fence && fence_container_indent && !blank &&
+          indentation < fence_container_indent) {
+        in_fence = 0
+        fence_container_indent = 0
+        paragraph_open = 0
+      }
+
       if (in_html) {
         if (in_reporting) emit($0)
         if (html_block_ended(in_html, $0)) {
@@ -665,6 +672,7 @@ reporting_guidance() {
              (fence_marker == "~" && closing ~ /^~+$/))) {
           if (length(closing) >= fence_length) {
             in_fence = 0
+            fence_container_indent = 0
             paragraph_open = 0
           }
         }
@@ -679,6 +687,7 @@ reporting_guidance() {
           in_fence = 1
           fence_marker = "`"
           fence_length = RLENGTH
+          fence_container_indent = list_depth ? list_content_indents[list_depth] : 0
           paragraph_open = 0
           if (in_reporting) emit($0)
           next
@@ -689,6 +698,7 @@ reporting_guidance() {
         in_fence = 1
         fence_marker = "~"
         fence_length = RLENGTH
+        fence_container_indent = list_depth ? list_content_indents[list_depth] : 0
         paragraph_open = 0
         if (in_reporting) emit($0)
         next
@@ -1423,6 +1433,18 @@ if printf '%s\n' \
   pass "list items reset interrupted Setext candidates"
 else
   fail "list items reset interrupted Setext candidates"
+fi
+
+if printf '%s\n' \
+  '- List context.' \
+  '  ```' \
+  '  quoted code' \
+  '## Reporting and continuation' \
+  'Publish a heartbeat after every step.' \
+  | legacy_reporting_default_present; then
+  pass "list-container exits terminate nested fenced blocks"
+else
+  fail "list-container exits terminate nested fenced blocks"
 fi
 
 if printf '%s\n' \
