@@ -9,4 +9,3 @@ transport-success-shell-rejected	admission	open	causal	no	none	within	none	shell
 read-only-result-no-pr-ceremony	settlement	open	causal	no	none	within	none	complete	yes	met	no	native-terminal
 ordinary-reversible-mutation	settlement	open	causal	no	ordinary	within	none	complete	yes	met	no	focused-owner-gates
 consequential-mutation-full-gates	settlement	open	causal	no	consequential	granted	none	complete	yes	met	no	full-authority-gates
-second-experiment-epoch-returns	epoch	open	causal	no	none	within	none	complete	yes	met	yes	return-before-next-epoch

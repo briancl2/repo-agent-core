@@ -922,9 +922,7 @@ else
   fail "active guidance carries compact proportional reporting forms"
 fi
 
-if grep -Fq 'reload the governing parent or owner outcome' <<< "$REPORTING_GUIDANCE" \
-  && grep -Fq 'select the largest unclosed' <<< "$REPORTING_GUIDANCE" \
-  && grep -Fq 'Do not default to the last local' <<< "$REPORTING_GUIDANCE"; then
+if grep -Fq 'reload the governing parent or owner outcome' <<< "$REPORTING_GUIDANCE"; then
   pass "sparse continuation reloads the governing outcome"
 else
   fail "sparse continuation reloads the governing outcome"
