@@ -29,8 +29,8 @@ for required in \
   'Transport success, green tests, a schema, plan, trace, reaction,' \
   'A complete native report remains admitted when a separate packaging or timing' \
   '| Read-only or no mutation |' \
-  '| Ordinary reversible owner mutation |' \
-  '| Consequential, private, destructive, or external mutation |' \
+  '| Ordinary code, configuration or policy change |' \
+  '| Consequential effect in any work type |' \
   'do not create heartbeat comments' \
   'return the causal blocker with its exact next unblock.' \
   'Do not manufacture an' \
