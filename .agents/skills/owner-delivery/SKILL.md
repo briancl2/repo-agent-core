@@ -105,8 +105,26 @@ artifact that does not answer the owner need.
 | Effect tier | Required settlement |
 |---|---|
 | Read-only or no mutation | Return the native result and a truthful terminal. Do not require an issue, branch, pull request, review, or merge unless current owner policy explicitly requires one. |
-| Ordinary reversible owner mutation | Use the owner surface, one branch and pull request, focused tests, the mapped check, one applicable exact-head review, authorized merge, and owner/main readback. |
-| Consequential, private, destructive, or external mutation | Require exact object-and-effect authority, privacy and recovery boundaries, proportionate validation, every applicable exact-head review/check, authorized mutation, and terminal readback. |
+| Ordinary code, configuration or policy change | Use the owner surface, one branch and pull request, focused tests, the mapped check, one applicable exact-head review, authorized merge, and owner/main readback. |
+| Ordinary data, document or curated-knowledge update | Use the designated owner write or capture path, validate the content and its provenance, preserve private/dirty work, and verify the exact persisted result. Do not add a code-review or PR lifecycle solely because the owner stores content in Git. Preserve explicit owner-required gates and publication authority. |
+| Consequential effect in any work type | Require exact object-and-effect authority, privacy and recovery boundaries, proportionate validation, every applicable exact-head review/check, authorized mutation, and terminal readback. |
+
+Classify by effect, not extension or storage location. Consequential effects
+include new private-data disclosure, changes to access, irreversible deletion,
+trades and external commitments. Existing private storage alone does not add
+code-review gates to an authorized content update. Instructions, schemas,
+executable templates, configuration, helper code and access/publication policy
+remain code or policy changes even when written in Markdown or JSON. Mixed
+changes use the stronger applicable route. Content validation checks source
+support, correctness, privacy and the requested output; it is not source-code
+review under another name.
+
+A review transport, timeout or formatting failure is not a code finding and
+is not a completed required review. Preserve the exact reviewed head and any
+usable returned findings, repair only the failed route when authorized, and
+continue independent work. Do not manufacture code changes or rerun passing
+checks to address a review-tool failure. Substantive findings keep their normal
+owner disposition; advisory suggestions do not set program priority.
 
 Owner-local policy may strengthen the applicable tier. It must not weaken
 authority, privacy, recovery, or evidence boundaries.
