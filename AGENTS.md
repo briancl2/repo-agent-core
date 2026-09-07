@@ -49,9 +49,9 @@ writer, current issue/PR/check/review/merge/readback truth, and claim ceilings;
 wording never substitutes for delivery.
 
 For a sparse `continue` instruction or a pasted or followed recommendation,
-reload the governing parent or owner outcome, then select the largest unclosed
-outcome inside the current authority boundary. Do not default to the last local
-recommendation.
+reload the governing parent or owner outcome, then select the next ready
+action that advances it according to operator priorities and current authority.
+A larger component or the last local recommendation does not set that priority.
 
 ## Native commands
 

@@ -3,7 +3,7 @@ name: owner-delivery
 description: >
   Carry one owner outcome from current authority to a truthful terminal result
   with compact re-entry, intent and drift checks, route-local blockers,
-  proportional settlement, semantic admission, and one task per outcome epoch.
+  proportional settlement, semantic admission, and program completion.
   Use after a route hold, for sparse continuation or handoff, when deciding
   delivery gates, or before admitting a claimed outcome.
 license: MIT
@@ -52,6 +52,15 @@ truth is renewable input rather than frozen task-start authority. Never carry a
 task-start issue, pull request, check, review, merge, repository, or writer
 snapshot across an effect boundary as though it were still current.
 
+Preserve the relationships between the governing outcome, current priority,
+foundational requirements, accepted commitments, optional suggestions, parked
+work and corrections. An added foundation is not a replacement priority.
+Distinguish the operator's instruction from the agent's interpretation. On
+recovery or a material change, refresh the applicable source-backed correction
+and current owner facts before selecting the next action. Read the relevant
+correction identified by the current owner context; do not load all historical
+learning by default or give a retained note authority over newer instructions.
+
 When a reused term has multiple meanings, bind its meaning for this owner
 outcome. Keep adjacent capabilities and problem domains separate; inspection,
 evidence custody, research, orchestration, learning, and mutation do not inherit
@@ -75,8 +84,10 @@ does not hold the owner outcome merely because it was the last attempted path.
 - Do not ask for ceremonial confirmation of a settled boundary.
 
 After a terminal child result is consumed, reload the governing outcome and
-select its largest ready result inside current authority. Do not default to the
-last local recommendation.
+select the next ready action that advances it, following operator priorities
+and current authority. A child's suggestion, an easier or larger component, or
+optional review advice does not set program priority. Recover or re-home a
+technical route when needed without changing the outcome.
 
 ## Admit the semantic object
 
@@ -130,11 +141,15 @@ depends on it; the task-start snapshot does not substitute for current truth.
 
 ## Bound the task and events
 
-One task carries one owner outcome epoch. Return its result before starting a
-distinct experiment epoch, benchmark family, retry premise, or owner outcome.
-A retry inside the same outcome requires one explicit material change to the
-route, input, configuration, or failure hypothesis and current authority for
-that change; otherwise return the blocker.
+A program-owning task carries the governing outcome. A delegated task carries
+its assigned result and returns it to the program owner. Completing a component
+does not complete the governing program. Report component milestones in
+commentary and continue ready authorized work inside that outcome.
+
+A distinct outcome or experiment requires its applicable authority. A retry
+needs a material change in route, input, configuration or failure hypothesis
+and current authority; otherwise return the causal blocker. These boundaries
+prevent unapproved expansion; they do not require a stop after every component.
 
 Wait through a tool-side terminal event when available. Otherwise use the
 longest communication-safe process wait. Publish only material changes and the
@@ -142,6 +157,15 @@ terminal outcome; do not create heartbeat comments or repeatedly resample an
 unchanged process through short model-mediated polls.
 
 ## Terminal
+
+A final response ends the active turn. Instructions, memory and a stated next
+action do not schedule another turn. If an explicitly authorized native Goal
+covers the unfinished outcome, keep it active until its whole acceptance is
+evidenced. Its native dispatcher controls continuation; active status alone is
+not an observed resumed turn. Report completion, a concrete stopping dependency
+or the supported continuation state. This skill does not create a Goal, schedule
+or new task. A parent consumes a child result and returns to the governing
+priority before selecting more work.
 
 Return `Outcome / Residual / Next`. A coordinator adds one `Zoom-out` line.
 Keep child evidence distinct from parent consumption and program completion.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Deterministic route, admission, settlement, and epoch fixtures.
+# Text-presence checks and legacy decision fixtures; not agent behavior tests.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -31,9 +31,7 @@ for required in \
   '| Read-only or no mutation |' \
   '| Ordinary reversible owner mutation |' \
   '| Consequential, private, destructive, or external mutation |' \
-  'One task carries one owner outcome epoch.' \
   'do not create heartbeat comments' \
-  'select its largest ready result inside current authority.' \
   'return the causal blocker with its exact next unblock.' \
   'Do not manufacture an' \
   'Missing authority alone is not a decision.' \
@@ -104,13 +102,6 @@ do
         consequential) decision="full-authority-gates" ;;
         *) decision="invalid-effect" ;;
       esac
-      ;;
-    epoch)
-      if [ "$second_epoch" = "yes" ]; then
-        decision="return-before-next-epoch"
-      else
-        decision="continue-outcome"
-      fi
       ;;
     *) decision="invalid-stage" ;;
   esac
