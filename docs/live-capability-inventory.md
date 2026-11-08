@@ -13,6 +13,7 @@ non-overlapping, and every row must have verified owner evidence.
 | Path | Class | Owner evidence | Auditor evidence | Advisor evidence | Optimizer evidence |
 |---|---|---|---|---|---|
 | `CONSTITUTION.md` | shared semantic floor | `AGENTS.md::CONSTITUTION.md` | - | - | - |
+| `.gitignore` | active owner hygiene | `README.md::.gitignore` | - | - | - |
 | `AGENTS.md` | compact bootloader | `README.md::AGENTS.md` | - | - | - |
 | `README.md` | package entrypoint | `AGENTS.md::repo-agent-core` | - | - | - |
 | `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |
@@ -59,12 +60,12 @@ non-overlapping, and every row must have verified owner evidence.
 
 ## Compatibility-only retained paths
 
-Every retained path must keep its rollback-base blob identity. A compatibility
+Every compatibility-only retained path must keep its rollback-base blob identity. A compatibility
 deletion fails closed unless its exact path appears in the terminal-retirement
 table below; wildcard retirement, additions under compatibility patterns, and
-retained-byte changes always fail. `.gitignore` is intentionally included in
-this byte-preserved hygiene bucket; a later ignore-rule edit needs its own owner
-change and base comparison.
+retained-byte changes always fail. Active owner-hygiene `.gitignore` changes
+use the ordinary owner route and focused ignore-behavior checks; its presence
+is required by the active inventory, without freezing its bytes.
 
 Four legacy Goal/runtime surfaces remain byte-preserved because current Auditor,
 Advisor, and BMA code or tests still call them:
@@ -78,7 +79,6 @@ Removal waits for later owner-local caller migrations.
 
 | Pattern | Classification |
 |---|---|
-| `.gitignore` | owner hygiene and generated-artifact exclusion |
 | `docs/*-contract.md` | compatibility/history-only contract evidence |
 | `docs/repo-agent-fleet-consistency-floor-receipt.md` | compatibility/history-only receipt |
 | `templates/*` | compatibility/history-only templates |
