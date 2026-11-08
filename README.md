@@ -59,6 +59,11 @@ existing paths while exact consumers still cite or consume them. They are not
 active owner policy, and this repository does not add a replacement registry,
 redirect stack, plan family, or control plane.
 
+`.gitignore` is active owner hygiene: it excludes local work, Python caches and
+environments, and OS/editor noise. Ordinary owner-reviewed edits may change its
+bytes; the inventory still requires its presence, and focused checks protect
+ignore behavior. It is not a compatibility-only consumer export.
+
 Shared scripts are copied into consumers rather than linked at runtime. Each
 consumer remains independently runnable and owns its own issue, pull request,
 checks, review, merge, and readback.

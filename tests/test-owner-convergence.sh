@@ -25,7 +25,8 @@ printf '%s\n' \
   'docs/live-capability-inventory.md' \
   'schemas/*.schema.json' \
   > "$REPO/AGENTS.md"
-printf '%s\n' '# Package' 'AGENTS.md' > "$REPO/README.md"
+printf '%s\n' '# Package' 'AGENTS.md' '.gitignore' > "$REPO/README.md"
+printf '%s\n' '# Owner hygiene' 'scratch/' > "$REPO/.gitignore"
 printf '%s\n' 'ACTIVE_TOKEN' > "$REPO/active.txt"
 printf '%s\n' 'compatibility bytes' > "$REPO/compat/keep.md"
 printf '%s\n' 'retired compatibility bytes' > "$REPO/compat/retired.md"
@@ -53,6 +54,7 @@ printf '%s\n' \
   '| Path | Class | Owner evidence | Auditor evidence | Advisor evidence | Optimizer evidence |' \
   '|---|---|---|---|---|---|' \
   '| `CONSTITUTION.md` | floor | `AGENTS.md::Package owner route.` | - | - | - |' \
+  '| `.gitignore` | active owner hygiene | `README.md::.gitignore` | - | - | - |' \
   '| `AGENTS.md` | bootloader | `README.md::AGENTS.md` | - | - | - |' \
   '| `README.md` | entrypoint | `AGENTS.md::Package owner route.` | - | - | - |' \
   '| `docs/live-capability-inventory.md` | owner-manifest | `AGENTS.md::docs/live-capability-inventory.md` | - | - | - |' \
@@ -922,12 +924,9 @@ else
   fail "active guidance carries compact proportional reporting forms"
 fi
 
-if grep -Fq 'reload the governing parent or owner outcome' <<< "$REPORTING_GUIDANCE"; then
-  pass "sparse continuation reloads the governing outcome"
-else
-  fail "sparse continuation reloads the governing outcome"
-fi
-
+# Sparse continuation is owner instruction, not a literal machine protocol.
+# Its former positive phrase assertion also accepted "do not reload ...".
+# Owner-delivery behavior tests and legacy-default section checks remain below.
 if printf '%s\n' "$CACHED_AGENTS" | legacy_reporting_default_present; then
   fail "legacy compatibility fields are absent from active reporting guidance"
 else
@@ -1535,6 +1534,41 @@ VALIDATE=(
 
 expect_pass "cached index, declared compatibility retirement, schema identity, and three consumers pass" "${VALIDATE[@]}"
 cp "$TMP_ROOT/stdout" "$TMP_ROOT/positive.json"
+printf '%s\n' '# A harmless owner comment.' >> "$REPO/.gitignore"
+git -C "$REPO" add .gitignore
+expect_pass "comment-only owner hygiene does not freeze ignore bytes" "${VALIDATE[@]}"
+printf '%s\n' 'cache/' >> "$REPO/.gitignore"
+git -C "$REPO" add .gitignore
+expect_pass "ordinary ignore-rule addition uses the active owner route" "${VALIDATE[@]}"
+if git -C "$REPO" check-ignore --no-index -q scratch/probe.txt \
+  && git -C "$REPO" check-ignore --no-index -q cache/probe.txt \
+  && ! git -C "$REPO" check-ignore --no-index -q public-source.py; then
+  pass "owner ignore-rule edit preserves exclusion behavior"
+else
+  fail "owner ignore-rule edit preserves exclusion behavior"
+fi
+git -C "$REPO" restore --source="$BASE" --staged --worktree .gitignore
+git -C "$REPO" rm -q .gitignore
+expect_fail "deleting active owner hygiene still fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree .gitignore
+
+# Exercise the actual cached Core rules, without using or changing its worktree.
+mkdir "$TMP_ROOT/core-ignore"
+git -C "$TMP_ROOT/core-ignore" init -q
+git -C "$ROOT" show :.gitignore > "$TMP_ROOT/core-ignore/.gitignore"
+for path in work/probe __pycache__/probe.pyc .pytest_cache/probe .venv/probe venv/probe .DS_Store Thumbs.db probe.swp probe.swo; do
+  if git -C "$TMP_ROOT/core-ignore" check-ignore --no-index -q "$path"; then
+    pass "cached Core ignores $path"
+  else
+    fail "cached Core ignores $path"
+  fi
+done
+if git -C "$TMP_ROOT/core-ignore" check-ignore --no-index -q public-source.py; then
+  fail "cached Core keeps ordinary source visible"
+else
+  pass "cached Core keeps ordinary source visible"
+fi
+
 for expected in \
   '"consumer_count": 3' \
   '"caller_checks": 6' \
@@ -1766,6 +1800,16 @@ git -C "$REPO" restore --source="$BASE" --staged --worktree active.txt
 
 git -C "$REPO" rm -q compat/keep.md
 expect_fail "one deleted retained compatibility contract fails closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree compat/keep.md
+
+printf '%s\n' 'changed shared floor bytes' >> "$REPO/CONSTITUTION.md"
+git -C "$REPO" add CONSTITUTION.md
+expect_fail "changed Constitution bytes still fail closed" "${VALIDATE[@]}"
+git -C "$REPO" restore --source="$BASE" --staged --worktree CONSTITUTION.md
+
+printf '%s\n' 'changed retained contract bytes' >> "$REPO/compat/keep.md"
+git -C "$REPO" add compat/keep.md
+expect_fail "changed retained compatibility bytes still fail closed" "${VALIDATE[@]}"
 git -C "$REPO" restore --source="$BASE" --staged --worktree compat/keep.md
 
 printf '%s\n' '{"type":"string"}' > "$REPO/schemas/FIXTURE.schema.json"
